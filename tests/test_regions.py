@@ -14,8 +14,11 @@ def test_country_levels_are_national_plus_two_subnational():
     assert R.LEVEL_TITLES[2] == "delegation"
 
 
-def test_scope_keys_include_all_plus_both_desert_variants():
-    assert R.scope_keys("TUN") == ["all", "narrow", "wide"]
+def test_scope_keys_are_all_plus_hand_picked_plus_derived():
+    # Tunisia's derived `dark` duplicates its hand-picked `narrow` exactly, so
+    # it is dropped rather than doubling every downstream series.
+    assert R.scope_keys("TUN") == ["all", "narrow", "wide", "dark_wide"]
+    assert R.scope_keys("DZA") == ["all", "dark", "dark_wide"]
 
 
 def test_all_scope_excludes_nothing():
@@ -37,7 +40,7 @@ def test_wide_scope_is_a_superset_of_narrow():
 
 
 def test_unknown_scope_is_rejected_with_the_known_ones_listed():
-    with pytest.raises(ValueError, match="known: all, narrow, wide"):
+    with pytest.raises(ValueError, match="known: all, narrow, wide, dark_wide"):
         R.excluded_gid1("TUN", "sahara")
 
 
@@ -86,3 +89,83 @@ def test_parent_gid1_errors_without_the_column():
     frame = gpd.GeoDataFrame({"X": [1]}, geometry=[Point(0, 0)], crs="EPSG:8857")
     with pytest.raises(ValueError, match="GID_1"):
         R.parent_gid1(frame, 2)
+
+
+# --------------------------------------------------------------------------- #
+# multi-country support
+# --------------------------------------------------------------------------- #
+def test_maghreb_is_the_arab_maghreb_union():
+    assert set(R.MAGHREB) == {"MAR", "DZA", "TUN", "LBY", "MRT"}
+
+
+@pytest.mark.parametrize(
+    "iso3,level,expected",
+    [
+        ("TUN", 1, "governorate"),
+        ("TUN", 2, "delegation"),
+        ("DZA", 1, "wilaya"),
+        ("MRT", 2, "department"),
+        ("LBY", 1, "district"),
+        ("FRA", 1, "admin-1 unit"),  # unmapped country falls back
+        ("LBY", 2, "admin-2 unit"),  # level Libya does not have
+    ],
+)
+def test_level_title_is_country_aware(iso3, level, expected):
+    # "governorate" on an Algerian wilaya would be a wrong word on 93 maps.
+    assert R.level_title(iso3, level) == expected
+
+
+def test_libya_has_no_admin_2_in_gadm():
+    assert R.available_levels("LBY") == (0, 1)
+    assert not R.has_level("LBY", 2)
+    assert R.has_level("DZA", 2)
+
+
+def test_resolve_levels_drops_what_gadm_lacks():
+    assert R.resolve_levels("LBY", (0, 1, 2)) == ((0, 1), (2,))
+    assert R.resolve_levels("DZA", (0, 1, 2)) == ((0, 1, 2), ())
+
+
+def test_resolve_levels_raises_when_nothing_survives():
+    with pytest.raises(ValueError, match="GADM provides"):
+        R.resolve_levels("LBY", (2,))
+
+
+def test_every_maghreb_country_has_a_usable_scope_set():
+    for iso3 in R.MAGHREB:
+        keys = R.scope_keys(iso3)
+        assert keys[0] == "all"
+        assert len(keys) >= 2, iso3
+
+
+def test_derived_scopes_are_marked_as_derived():
+    # A reader must be able to tell "we judged this Saharan" from "the light
+    # data put it below the break".
+    assert R.DESERT_SCOPES["DZA"]["dark"].derived is True
+    assert R.DESERT_SCOPES["TUN"]["narrow"].derived is False
+
+
+def test_the_low_light_rule_reproduces_tunisias_hand_picked_trio():
+    """The validity check for the derived rule, asserted rather than left in prose."""
+    assert (
+        R.DERIVED_SCOPES["TUN"]["dark"].gid1 == R.TUNISIA_DESERT_SCOPES["narrow"].gid1
+    )
+
+
+def test_the_derived_wide_scope_is_not_tunisias_hand_picked_wide():
+    # It takes Siliana where the geographic definition takes Gafsa; the module
+    # says so, and a future edit that quietly "fixes" this should fail here.
+    derived = R.DERIVED_SCOPES["TUN"]["dark_wide"].gid1
+    assert derived != R.TUNISIA_DESERT_SCOPES["wide"].gid1
+    assert "TUN.19_1" in derived  # Siliana
+    assert "TUN.6_1" not in derived  # Gafsa
+
+
+def test_derived_scopes_nest_and_name_real_units():
+    for iso3, scopes in R.DERIVED_SCOPES.items():
+        if "dark" in scopes and "dark_wide" in scopes:
+            assert scopes["dark"].gid1 < scopes["dark_wide"].gid1, iso3
+        for scope in scopes.values():
+            assert scope.gid1, iso3
+            assert all(gid.startswith(iso3 + ".") for gid in scope.gid1), iso3
+            assert scope.rationale.strip(), iso3

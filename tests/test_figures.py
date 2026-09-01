@@ -35,22 +35,23 @@ def test_every_set_files_under_a_known_group():
     assert {s.group for s in F.FIGURE_SETS} <= set(F.GROUP_ORDER)
 
 
-def test_only_summary_figures_keep_native_pixels():
+def test_only_charts_and_panels_keep_native_pixels():
     # The per-year series is what the size cap exists for; if a browsing set
     # ever turns full_res the gallery quietly grows by hundreds of megabytes.
     for figure_set in F.FIGURE_SETS:
-        assert figure_set.full_res == (figure_set.group == F.GROUP_SUMMARY)
+        summary = "charts" in figure_set.dest or "panels" in figure_set.dest
+        assert figure_set.full_res == summary, figure_set.key
 
 
 def test_default_palette_runs_map_to_unsuffixed_directories():
     # The renderer wrote "png" and "absolute" for its default palette; the
     # gallery has to name those inferno and ylorrd explicitly.
-    assert F.set_by_key("tun-raster-inferno-adm1").source.startswith("regions/TUN/png/")
-    assert F.set_by_key("panel-choropleth-ylorrd").source == (
+    assert F.set_by_key("TUN-raster-inferno-adm1").source.startswith("regions/TUN/png/")
+    assert F.set_by_key("TUN-panel-choropleth-ylorrd").source == (
         "regions/TUN/choropleth/panel/*.png"
     )
-    assert "-magma" in F.set_by_key("tun-raster-magma-adm1").source
-    assert "-cividis" in F.set_by_key("tun-choropleth-cividis-adm1-absolute").source
+    assert "-magma" in F.set_by_key("TUN-raster-magma-adm1").source
+    assert "-cividis" in F.set_by_key("TUN-choropleth-cividis-adm1-absolute").source
 
 
 def test_unknown_key_raises():
@@ -61,7 +62,7 @@ def test_unknown_key_raises():
 def test_palette_appears_in_the_destination_path():
     # Three raster runs write the same filenames; only the directory tells them
     # apart, so a missing palette level would silently overwrite.
-    dests = {F.set_by_key(f"tun-raster-{p}-adm2").dest for p, _ in F.RASTER_PALETTES}
+    dests = {F.set_by_key(f"TUN-raster-{p}-adm2").dest for p, _ in F.RASTER_PALETTES}
     assert len(dests) == len(F.RASTER_PALETTES)
 
 
@@ -129,9 +130,9 @@ def test_plan_maps_sources_into_the_gallery(source, tmp_path):
     assert len(planned) == 3
     dests = {p.dest.relative_to(tmp_path / "figures").as_posix() for p in planned}
     assert dests == {
-        "tunisia/raster/inferno/adm1/LACC_1992_TUN_adm1.png",
-        "tunisia/raster/inferno/adm1/LACC_1993_TUN_adm1.png",
-        "panels/raster/inferno/TUN_adm1_1992-1993.png",
+        "TUN/raster/inferno/adm1/LACC_1992_TUN_adm1.png",
+        "TUN/raster/inferno/adm1/LACC_1993_TUN_adm1.png",
+        "TUN/panels/raster/inferno/TUN_adm1_1992-1993.png",
     }
 
 
@@ -173,8 +174,8 @@ def test_build_reports_progress_per_file(source, tmp_path):
 
 def test_build_groups_by_set(source, tmp_path):
     result = F.build(source, tmp_path / "figures")
-    assert len(result.by_set["tun-raster-inferno-adm1"]) == 2
-    assert len(result.by_set["panel-raster-inferno"]) == 1
+    assert len(result.by_set["TUN-raster-inferno-adm1"]) == 2
+    assert len(result.by_set["TUN-panel-raster-inferno"]) == 1
     assert result.total_bytes > 0
 
 
@@ -187,7 +188,7 @@ def test_index_lists_only_sets_that_produced_files(source, tmp_path):
     text = index.read_text(encoding="utf-8")
 
     assert index.name == "README.md"
-    assert "tunisia/raster/inferno/adm1/LACC_1992_TUN_adm1.png" in text
+    assert "TUN/raster/inferno/adm1/LACC_1992_TUN_adm1.png" in text
     # Nothing was rendered for these, so they must not appear as dead links.
     assert "global/adm0" not in text
     assert "cividis" not in text
@@ -215,7 +216,7 @@ def test_index_carries_the_licence_warning(source, tmp_path):
 def test_index_labels_year_series_by_year(source, tmp_path):
     dest = tmp_path / "figures"
     text = F.write_index(F.build(source, dest), dest).read_text(encoding="utf-8")
-    assert "[1992](tunisia/raster/inferno/adm1/LACC_1992_TUN_adm1.png)" in text
+    assert "[1992](TUN/raster/inferno/adm1/LACC_1992_TUN_adm1.png)" in text
 
 
 def test_year_of_falls_back_to_the_stem():
@@ -234,3 +235,41 @@ def test_human_bytes():
     assert F._human_bytes(0) == "0 B"
     assert F._human_bytes(2048) == "2.0 KB"
     assert F._human_bytes(49 * 1024 * 1024) == "49.0 MB"
+
+
+# --------------------------------------------------------------------------- #
+# multi-country
+# --------------------------------------------------------------------------- #
+def test_every_maghreb_country_has_a_gallery_section():
+    groups = {s.group for s in F.FIGURE_SETS}
+    for iso3 in F.COUNTRIES:
+        assert F.country_group(iso3) in groups, iso3
+
+
+def test_libya_gets_no_admin_2_directories():
+    # GADM 4.1 has no ADM_2 for Libya, so an adm2 set would be a dead glob that
+    # silently publishes nothing.
+    assert not [
+        s for s in F.FIGURE_SETS if s.key.startswith("LBY") and "adm2" in s.dest
+    ]
+    assert [s for s in F.FIGURE_SETS if s.key.startswith("DZA") and "adm2" in s.dest]
+
+
+def test_every_country_destination_is_namespaced_by_iso3():
+    for figure_set in F.FIGURE_SETS:
+        if figure_set.group == F.GROUP_GLOBAL:
+            continue
+        iso3 = figure_set.key.split("-")[0]
+        assert figure_set.dest.startswith(f"{iso3}/"), figure_set.key
+        assert f"/{iso3}/" in figure_set.source, figure_set.key
+
+
+def test_group_order_lists_summary_first_and_global_last():
+    assert F.GROUP_ORDER[0] == F.GROUP_SUMMARY
+    assert F.GROUP_ORDER[-1] == F.GROUP_GLOBAL
+
+
+def test_charts_of_every_country_are_summary_figures():
+    charts = [s for s in F.FIGURE_SETS if s.dest.endswith("/charts")]
+    assert len(charts) == len(F.COUNTRIES)
+    assert all(s.group == F.GROUP_SUMMARY for s in charts)

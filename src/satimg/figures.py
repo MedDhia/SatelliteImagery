@@ -26,6 +26,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Dict, Iterable, List, Optional, Sequence, Tuple
 
+from . import regions as R
+
 DEFAULT_SOURCE = Path("data")
 DEFAULT_DEST = Path("figures")
 
@@ -34,13 +36,32 @@ WEB_MAX_PX = 1200
 #: Adaptive palette size for the re-encode.
 PALETTE_COLORS = 256
 
-#: Index headings, in the order the gallery presents them: what a reader should
-#: look at first comes first.
+#: Index headings. Summary first - the charts are what a reader should meet
+#: before 600 map frames - then one section per country, then the world.
 GROUP_SUMMARY = "Summary figures"
-GROUP_TUN_RASTER = "Tunisia — raster maps"
-GROUP_TUN_CHOROPLETH = "Tunisia — choropleths"
 GROUP_GLOBAL = "Global overlays"
-GROUP_ORDER = (GROUP_SUMMARY, GROUP_TUN_RASTER, GROUP_TUN_CHOROPLETH, GROUP_GLOBAL)
+
+
+#: Countries with a full country workflow, in the order the gallery lists them.
+COUNTRIES = R.MAGHREB
+COUNTRY_NAMES = {
+    "MAR": "Morocco",
+    "DZA": "Algeria",
+    "TUN": "Tunisia",
+    "LBY": "Libya",
+    "MRT": "Mauritania",
+}
+
+
+def country_group(iso3: str) -> str:
+    return f"{COUNTRY_NAMES.get(iso3, iso3)} ({iso3})"
+
+
+GROUP_ORDER = (
+    GROUP_SUMMARY,
+    *(country_group(iso3) for iso3 in COUNTRIES),
+    GROUP_GLOBAL,
+)
 
 #: Raster palettes, and the output directory each renderer run wrote to. The
 #: default run has no suffix on disk; the gallery names it explicitly so a
@@ -53,7 +74,6 @@ RASTER_PALETTES = (
 #: Choropleth palettes, and the suffix each run appended to its scale directory.
 CHOROPLETH_PALETTES = (("ylorrd", ""), ("cividis", "-cividis"))
 
-LEVEL_LABELS = {0: "national outline", 1: "governorates", 2: "delegations"}
 SCALE_LABELS = {
     "absolute": "absolute (shared scale across years)",
     "relative": "relative to the national mean of the same year",
@@ -81,20 +101,22 @@ class FigureSet:
         return sorted(Path(source_root).glob(self.source))
 
 
-def _build_sets() -> Tuple[FigureSet, ...]:
-    """Enumerate the gallery. Built in loops so a new palette is one tuple entry."""
-    sets: List[FigureSet] = [
+def _country_sets(iso3: str) -> List[FigureSet]:
+    """Every gallery directory for one country."""
+    group = country_group(iso3)
+    name = COUNTRY_NAMES.get(iso3, iso3)
+    levels = R.available_levels(iso3)
+    sets = [
         FigureSet(
-            key="charts",
+            key=f"{iso3}-charts",
             group=GROUP_SUMMARY,
-            title="Inequality series and Theil decomposition",
-            source="regions/TUN/inequality/*.png",
-            dest="charts",
+            title=f"{name}: inequality series and Theil decomposition",
+            source=f"regions/{iso3}/inequality/*.png",
+            dest=f"{iso3}/charts",
             full_res=True,
             caption=(
-                "Gini/Theil T/Theil L over 1992–2022, and the additive "
-                "between/within split of Theil over the nested "
-                "pixel → delegation → governorate hierarchy."
+                "Gini, Theil T and Theil L over 1992–2022, and the additive "
+                "between/within split of Theil."
             ),
         )
     ]
@@ -102,11 +124,11 @@ def _build_sets() -> Tuple[FigureSet, ...]:
     for palette, _ in RASTER_PALETTES:
         sets.append(
             FigureSet(
-                key=f"panel-raster-{palette}",
-                group=GROUP_SUMMARY,
-                title=f"Tunisia raster panels ({palette})",
-                source=f"regions/TUN/panel{_suffix(palette, 'inferno')}/*.png",
-                dest=f"panels/raster/{palette}",
+                key=f"{iso3}-panel-raster-{palette}",
+                group=group,
+                title=f"Raster panels ({palette})",
+                source=(f"regions/{iso3}/panel{_suffix(palette, 'inferno')}/*.png"),
+                dest=f"{iso3}/panels/raster/{palette}",
                 full_res=True,
                 caption="All 31 years of one admin level in a single small-multiple.",
             )
@@ -114,48 +136,64 @@ def _build_sets() -> Tuple[FigureSet, ...]:
     for palette, _ in CHOROPLETH_PALETTES:
         sets.append(
             FigureSet(
-                key=f"panel-choropleth-{palette}",
-                group=GROUP_SUMMARY,
-                title=f"Tunisia choropleth panels ({palette})",
+                key=f"{iso3}-panel-choropleth-{palette}",
+                group=group,
+                title=f"Choropleth panels ({palette})",
                 source=(
-                    f"regions/TUN/choropleth/panel{_suffix(palette, 'ylorrd')}/*.png"
+                    f"regions/{iso3}/choropleth/panel{_suffix(palette, 'ylorrd')}/*.png"
                 ),
-                dest=f"panels/choropleth/{palette}",
+                dest=f"{iso3}/panels/choropleth/{palette}",
                 full_res=True,
                 caption="Units filled by their own light level, all 31 years at once.",
             )
         )
 
     for palette, src_dir in RASTER_PALETTES:
-        for level in (0, 1, 2):
+        for level in levels:
             sets.append(
                 FigureSet(
-                    key=f"tun-raster-{palette}-adm{level}",
-                    group=GROUP_TUN_RASTER,
-                    title=f"adm{level} · {LEVEL_LABELS[level]} · {palette}",
-                    source=f"regions/TUN/{src_dir}/adm{level}/*.png",
-                    dest=f"tunisia/raster/{palette}/adm{level}",
-                    caption=("Clipped LRCC-DVNL imagery with GADM boundaries over it."),
+                    key=f"{iso3}-raster-{palette}-adm{level}",
+                    group=group,
+                    title=(f"adm{level} · {R.level_title(iso3, level)} · {palette}"),
+                    source=f"regions/{iso3}/{src_dir}/adm{level}/*.png",
+                    dest=f"{iso3}/raster/{palette}/adm{level}",
+                    caption="Clipped LRCC-DVNL imagery with GADM boundaries over it.",
                 )
             )
 
     for palette, suffix in CHOROPLETH_PALETTES:
-        for level in (1, 2):
+        for level in (lv for lv in levels if lv >= 1):
             for scale in ("absolute", "relative"):
                 sets.append(
                     FigureSet(
-                        key=f"tun-choropleth-{palette}-adm{level}-{scale}",
-                        group=GROUP_TUN_CHOROPLETH,
+                        key=f"{iso3}-choropleth-{palette}-adm{level}-{scale}",
+                        group=group,
                         title=(
-                            f"adm{level} · {LEVEL_LABELS[level]} · {scale} · {palette}"
+                            f"adm{level} · {R.level_title(iso3, level)} · "
+                            f"{scale} · {palette}"
                         ),
                         source=(
-                            f"regions/TUN/choropleth/adm{level}/{scale}{suffix}/*.png"
+                            f"regions/{iso3}/choropleth/adm{level}/"
+                            f"{scale}{suffix}/*.png"
                         ),
-                        dest=f"tunisia/choropleth/{palette}/adm{level}/{scale}",
+                        dest=f"{iso3}/choropleth/{palette}/adm{level}/{scale}",
                         caption=SCALE_LABELS[scale],
                     )
                 )
+    return sets
+
+
+def _build_sets() -> Tuple[FigureSet, ...]:
+    """Enumerate the gallery: every country, then the world.
+
+    Built in loops so a new country is one entry in :data:`COUNTRIES` and a new
+    palette is one entry in the palette tuples. Levels come from
+    :func:`satimg.regions.available_levels`, so Libya simply produces no
+    admin-2 directories rather than a set of dead globs.
+    """
+    sets: List[FigureSet] = []
+    for iso3 in COUNTRIES:
+        sets.extend(_country_sets(iso3))
 
     for level in (0, 1):
         sets.append(
@@ -181,11 +219,11 @@ FIGURE_SETS: Tuple[FigureSet, ...] = _build_sets()
 #: about what each one is meant to show.
 HERO = (
     (
-        "charts/TUN_inequality_series.png",
+        "TUN/charts/TUN_inequality_series.png",
         "Tunisia, three inequality measures, four levels of aggregation, 1992–2022.",
     ),
     (
-        "charts/TUN_theil_decomposition.png",
+        "TUN/charts/TUN_theil_decomposition.png",
         (
             "Where the inequality sits: Theil T halves, yet the share of it "
             "that is *between* governorates rises — convergence happened "
@@ -193,7 +231,7 @@ HERO = (
         ),
     ),
     (
-        "panels/choropleth/ylorrd/TUN_adm1_relative_1992-2022.png",
+        "TUN/panels/choropleth/ylorrd/TUN_adm1_relative_1992-2022.png",
         (
             "Governorates coloured by their own light density relative to the "
             "national mean of the same year — 31 years at once."

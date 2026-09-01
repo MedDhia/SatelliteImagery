@@ -427,7 +427,14 @@ def cmd_extract(args) -> int:
     from .raster import clip_raster
 
     iso3 = args.country.upper()
-    levels = [R.check_level_for_country(int(v)) for v in str(args.levels).split(",")]
+    requested = [R.check_level_for_country(int(v)) for v in str(args.levels).split(",")]
+    levels, dropped = R.resolve_levels(iso3, requested)
+    if dropped:
+        print(
+            f"note: GADM 4.1 has no admin-{','.join(str(d) for d in dropped)} "
+            f"layer for {iso3}; continuing at {list(levels)}",
+            file=sys.stderr,
+        )
     rasters = _region_rasters(args)
     dest = Path(args.dest) / iso3
 
@@ -441,7 +448,8 @@ def cmd_extract(args) -> int:
             "segments": line_segments(layer),
         }
         print(
-            f"{iso3} adm{level} ({R.LEVEL_TITLES[level]}): {layer.feature_count} units",
+            f"{iso3} adm{level} ({R.level_title(iso3, level)}): "
+            f"{layer.feature_count} units",
             file=sys.stderr,
         )
 
@@ -492,7 +500,7 @@ def cmd_extract(args) -> int:
                 style=replace(
                     style,
                     title=f"{iso3} nighttime lights {year}",
-                    boundary_note=f"{R.LEVEL_TITLES[level]} boundaries",
+                    boundary_note=f"{R.level_title(iso3, level)} boundaries",
                 ),
                 segments=prepared[level]["segments"],
                 data=data,
@@ -513,7 +521,7 @@ def cmd_extract(args) -> int:
                 style=style,
                 title=(
                     f"{iso3} nighttime lights {span} · "
-                    f"{R.LEVEL_TITLES[level]} boundaries"
+                    f"{R.level_title(iso3, level)} boundaries"
                     + (f" · {cmap}" if variant else "")
                 ),
             )
@@ -624,7 +632,14 @@ def cmd_inequality(args) -> int:
             print("\nTheil T decomposition, scope 'all' (share of total):")
             dec_rows = []
             for zeros in ("zeros_included", "lit_only"):
-                for grouping in ("governorate", "delegation"):
+                # The grouping labels are the country's own words for its
+                # admin levels, so they cannot be hardcoded to Tunisia's.
+                groupings = [
+                    R.level_title(iso3, lv)
+                    for lv in R.available_levels(iso3)
+                    if lv >= 1
+                ]
+                for grouping in groupings:
                     sel = {
                         r["year"]: r
                         for r in decomposition
@@ -666,13 +681,20 @@ def cmd_choropleth(args) -> int:
     )
 
     iso3 = args.country.upper()
-    levels = [int(v) for v in str(args.levels).split(",") if v.strip()]
-    for level in levels:
+    requested = [int(v) for v in str(args.levels).split(",") if v.strip()]
+    for level in requested:
         if level == 0:
             raise SystemExit(
                 "a choropleth of one unit conveys nothing; use --levels 1,2"
             )
         R.check_level_for_country(level)
+    levels, dropped = R.resolve_levels(iso3, requested)
+    if dropped:
+        print(
+            f"note: GADM 4.1 has no admin-{','.join(str(d) for d in dropped)} "
+            f"layer for {iso3}; continuing at {list(levels)}",
+            file=sys.stderr,
+        )
     scales = [s.strip() for s in str(args.scale).split(",") if s.strip()]
     unknown = set(scales) - {ABSOLUTE, RELATIVE}
     if unknown:
@@ -695,7 +717,7 @@ def cmd_choropleth(args) -> int:
             rasters[0][1], units, id_field=id_field, name_field=name_field
         )
         table = Z.zonal_table(rasters, grid)
-        label = R.LEVEL_TITLES[level]
+        label = R.level_title(iso3, level)
         print(
             f"{iso3} adm{level} ({label}): {grid.count} units, {len(table)} rows",
             file=sys.stderr,
