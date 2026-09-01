@@ -89,6 +89,9 @@ def gini_series(
     rasters = list(rasters)
     if not rasters:
         raise ValueError("no rasters given")
+    # Drop levels GADM does not have for this country (Libya has no ADM_2)
+    # rather than failing on an empty layer part-way through.
+    levels, _ = R.resolve_levels(iso3, levels)
     grids = build_grids(iso3, rasters[0][1], root=root, levels=levels)
     scopes = R.scope_keys(iso3)
 
@@ -132,7 +135,7 @@ def gini_series(
                     {
                         "year": year,
                         "level": f"adm{level}",
-                        "level_label": R.LEVEL_TITLES[level],
+                        "level_label": R.level_title(iso3, level),
                         "scope": scope,
                         "zeros": "",
                         "n": len(kept),
@@ -202,17 +205,31 @@ def decomposition_series(
     if not rasters:
         raise ValueError("no rasters given")
 
-    grids = build_grids(iso3, rasters[0][1], root=root, levels=(1, 2))
-    adm1, adm2 = grids[1], grids[2]
-    ids1, ids2 = adm1["grid"].ids, adm2["grid"].ids
+    # Libya has no ADM_2 in GADM 4.1, so the nested three-way split is simply
+    # unavailable there. Reporting the two-way pixel -> admin-1 split is the
+    # honest outcome; inventing a second tier would not be.
+    levels, _ = R.resolve_levels(iso3, (1, 2))
+    nested = 2 in levels
+    grids = build_grids(iso3, rasters[0][1], root=root, levels=levels)
+    adm1 = grids[1]
+    ids1 = adm1["grid"].ids
 
-    # Governorate id implied by each delegation, so the hierarchy nests exactly.
-    gov_index = {gid: i + 1 for i, gid in enumerate(adm1["grid"].gids)}
-    parents = R.parent_gid1(adm2["units"], 2)
-    deleg_to_gov = np.zeros(adm2["grid"].count + 1, dtype=np.int64)
-    for i, parent in enumerate(parents):
-        deleg_to_gov[i + 1] = gov_index.get(parent, 0)
-    nested_gov_ids = deleg_to_gov[ids2]
+    outer_label = R.level_title(iso3, 1)
+    inner_label = R.level_title(iso3, 2) if nested else None
+
+    if nested:
+        adm2 = grids[2]
+        ids2 = adm2["grid"].ids
+        # Admin-1 id implied by each admin-2 unit, so the hierarchy nests
+        # exactly rather than by coincidence of two rasterisations.
+        outer_index = {gid: i + 1 for i, gid in enumerate(adm1["grid"].gids)}
+        parents = R.parent_gid1(adm2["units"], 2)
+        inner_to_outer = np.zeros(adm2["grid"].count + 1, dtype=np.int64)
+        for i, parent in enumerate(parents):
+            inner_to_outer[i + 1] = outer_index.get(parent, 0)
+        nested_outer_ids = inner_to_outer[ids2]
+    else:
+        nested_outer_ids = ids1
 
     scopes = R.scope_keys(iso3)
     pixel_masks = {}
@@ -223,10 +240,11 @@ def decomposition_series(
             mask &= ~np.isin(ids1, list(drop))
         pixel_masks[scope] = mask
 
-    groupings = (
-        ("governorate", nested_gov_ids, adm1["grid"].count, adm1["grid"].names),
-        ("delegation", ids2, adm2["grid"].count, adm2["grid"].names),
-    )
+    groupings = [
+        (outer_label, nested_outer_ids, adm1["grid"].count, adm1["grid"].names),
+    ]
+    if nested:
+        groupings.append((inner_label, ids2, adm2["grid"].count, adm2["grid"].names))
 
     summary: List[dict] = []
     group_rows: List[dict] = []
@@ -289,7 +307,9 @@ def decomposition_series(
                                     }
                                 )
 
-                    gov, deleg = parts["governorate"], parts["delegation"]
+                    if not nested:
+                        continue
+                    outer, inner = parts[outer_label], parts[inner_label]
                     summary.append(
                         {
                             "year": year,
@@ -297,29 +317,29 @@ def decomposition_series(
                             "zeros": zeros,
                             "measure": measure,
                             "grouping": "nested",
-                            "total": deleg.total,
-                            "between": gov.between,
-                            "within": deleg.within,
+                            "total": inner.total,
+                            "between": outer.between,
+                            "within": inner.within,
                             "between_share": (
-                                gov.between / deleg.total
-                                if deleg.total
+                                outer.between / inner.total
+                                if inner.total
                                 else float("nan")
                             ),
                             "within_share": (
-                                deleg.within / deleg.total
-                                if deleg.total
+                                inner.within / inner.total
+                                if inner.total
                                 else float("nan")
                             ),
-                            "between_deleg_within_gov": deleg.between - gov.between,
+                            "between_deleg_within_gov": inner.between - outer.between,
                             "residual": abs(
-                                deleg.total
+                                inner.total
                                 - (
-                                    gov.between
-                                    + (deleg.between - gov.between)
-                                    + deleg.within
+                                    outer.between
+                                    + (inner.between - outer.between)
+                                    + inner.within
                                 )
                             ),
-                            "n_groups": len(deleg.groups),
+                            "n_groups": len(inner.groups),
                         }
                     )
     summary.sort(

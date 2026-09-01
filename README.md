@@ -48,10 +48,16 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 | `TUN_adm1_zonal.csv` | 744 | 24 governorates × 31 years |
 | `TUN_adm2_zonal.csv` | 8 308 | 268 delegations × 31 years |
 
-The 8.2 GB these were computed from is **not** committed — `data/` holds only a
-`.gitkeep` — so the findings can be checked without downloading the LRCC-DVNL
-deposit and the GADM world layer first. `satimg results build --check` fails if
-the committed tables drift from a fresh run.
+Plus the **31 clipped Tunisia GeoTIFFs** the whole analysis is computed from
+(`results/TUN/raster/`, 2.5 MB) — 368 × 856 px at 1 km, `EPSG:8857`, masked to
+the national boundary rather than cropped to a bounding box. With those, the
+findings can be *recomputed*, not just re-read.
+
+The 8.2 GB behind all of it is **not** committed — `data/` holds only a
+`.gitkeep` — so none of this needs the LRCC-DVNL deposit or the GADM world
+layer first. `satimg results build --check` fails if the committed outputs
+drift from a fresh run, and the build refuses to publish a raster whose dtype
+disagrees with the documented era or a table column it cannot explain.
 
 ## What "imported" means here
 
@@ -79,7 +85,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (7.9 MB) |
+| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (10.5 MB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -179,32 +185,45 @@ so unlike the source files they need no CRS repair.
 The overlay products inherit that restriction — fine for academic publication,
 not for redistribution. See [`docs/overlays.md`](docs/overlays.md).
 
-## Country analysis: Tunisia
+## Country analysis: the Maghreb
 
-Extract one country at three admin levels and compute nighttime-light Gini
-series from it:
+Extract a country at three admin levels and compute nighttime-light inequality
+series from it. All five Arab Maghreb Union members are done: **Morocco,
+Algeria, Tunisia, Libya and Mauritania**.
 
 ```bash
-satimg lrcc-dvnl extract --country TUN --levels 0,1,2   # clipped maps + panels
-satimg lrcc-dvnl inequality --country TUN               # Gini + Theil + decomposition
+satimg lrcc-dvnl extract --country DZA --levels 0,1,2   # clipped maps + panels
+satimg lrcc-dvnl inequality --country DZA               # Gini + Theil + decomposition
 ```
 
 Colour the units themselves instead of overlaying boundaries:
 
 ```bash
-satimg lrcc-dvnl choropleth --country TUN --levels 1,2   # 124 maps + 4 panels
+satimg lrcc-dvnl choropleth --country DZA --levels 1,2   # 124 maps + 4 panels
 ```
 
 `absolute` maps mean DN on a scale shared across years (growth); `relative`
 divides by the national mean of the same year (standing) — the latter being the
 quantity the Theil between-group component is built from.
 
-Produces 12 series over 1992–2022 — pixel (with and without unlit pixels),
-governorate and delegation, each for the whole country and for two
-desert-exclusion variants — reporting **Gini, Theil T and Theil L**, plus the
+Each country produces series over 1992–2022 — pixel (with and without unlit
+pixels) plus both subnational levels, for the whole country and for the
+low-light exclusion variants — reporting **Gini, Theil T and Theil L**, plus the
 additive **between/within decomposition** of Theil over the nested
-pixel → delegation → governorate hierarchy. See
-[`docs/tunisia.md`](docs/tunisia.md) for method, results and caveats.
+pixel → admin-2 → admin-1 hierarchy.
+
+The exclusion scopes are **derived from the light**, not hand-picked: cut each
+country's admin-1 units at the largest discontinuity in their lit share. On
+Tunisia that reproduces the three hand-picked Saharan governorates exactly,
+which is the check that the rule finds real geography — but it is a break in
+*light*, not a definition of desert, and
+[`docs/maghreb.md`](docs/maghreb.md) records where the two part company.
+
+⚠️ **GADM 4.1 has no admin-2 layer for Libya**, so its analysis stops at
+admin-1 and has no nested three-way split. Nothing downstream invents one.
+
+See [`docs/maghreb.md`](docs/maghreb.md) for the cross-country method and
+[`docs/tunisia.md`](docs/tunisia.md) for the original single-country detail.
 
 ## Before you use this dataset
 
@@ -227,7 +246,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 273 offline tests, no network
+pytest                 # 295 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 
