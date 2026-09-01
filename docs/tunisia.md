@@ -284,12 +284,16 @@ totals reproduce the independently computed pixel Theil T exactly.
 
 ## Caveats
 
-1. **The falling Gini is partly imposed, not observed.** LRCC-DVNL's continuity
-   calibration permits values only to rise or stay flat, never to fall. Lit area
-   can therefore only grow, which mechanically pushes the zeros-included Gini
-   down. Treat the *direction* of these series as partly an artifact of the
-   source and the *cross-sectional* comparisons (adm2 vs adm1, desert vs not) as
-   the more defensible readings.
+1. **The falling Gini is partly imposed, not observed.** In LRCC-DVNL a lit
+   pixel's DN never steps down while it stays lit — every decrease is a pixel
+   going out entirely (see [`lrcc-dvnl.md`](lrcc-dvnl.md#caveats-before-you-analyse)).
+   Outside a catastrophe, lit area therefore grows almost monotonically, which
+   mechanically pushes the zeros-included Gini down. Treat the *direction* of
+   these series as partly an artifact of the source and the *cross-sectional*
+   comparisons (adm2 vs adm1, desert vs not) as the more defensible readings.
+
+   Tunisia has no such catastrophe in the window, so its series is effectively
+   monotone; Syria's is not, and falls 54% between 2010 and 2016.
 2. **2014 is a candidate discontinuity.** The DMSP→VIIRS handover falls there,
    and the source dtype changes to `float32` at the same year. The chart marks
    it. A 2013→2014 step is visible in the lit-only series; do not read it as

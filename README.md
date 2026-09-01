@@ -182,11 +182,11 @@ so unlike the source files they need no CRS repair.
 The overlay products inherit that restriction — fine for academic publication,
 not for redistribution. See [`docs/overlays.md`](docs/overlays.md).
 
-## Country analysis: the Maghreb
+## Country analysis: the Arab world
 
 Extract a country at three admin levels and compute nighttime-light inequality
-series from it. All five Arab Maghreb Union members are done: **Morocco,
-Algeria, Tunisia, Libya and Mauritania**.
+series from it. **All 22 Arab League members** are done, from Algeria's
+2.3 million land pixels to Bahrain's 717.
 
 ```bash
 satimg lrcc-dvnl extract --country DZA --levels 0,1,2   # clipped maps + panels
@@ -214,21 +214,28 @@ country's admin-1 units at the largest discontinuity in their lit share. On
 Tunisia that reproduces the three hand-picked Saharan governorates exactly,
 which is the check that the rule finds real geography — but it is a break in
 *light*, not a definition of desert, and
-[`docs/maghreb.md`](docs/maghreb.md) records where the two part company.
+[`docs/arab-world.md`](docs/arab-world.md) records where the two part company
+— in Syria and Iraq it selects war damage, not desert.
 
-⚠️ **GADM 4.1 has no admin-2 layer for Libya**, so its analysis stops at
-admin-1 and has no nested three-way split. Nothing downstream invents one.
+⚠️ **GADM 4.1 has no admin-2 layer for Libya, Bahrain, Comoros, Kuwait or
+Qatar**, so those analyses stop at admin-1 and have no nested three-way split.
+Nothing downstream invents one.
 
-See [`docs/maghreb.md`](docs/maghreb.md) for the cross-country method and
+See [`docs/arab-world.md`](docs/arab-world.md) for the cross-country method and
 [`docs/tunisia.md`](docs/tunisia.md) for the original single-country detail.
 
 ## Before you use this dataset
 
 Read [`docs/lrcc-dvnl.md`](docs/lrcc-dvnl.md). The one caveat to know up front:
-the continuity calibration **allows values to rise or stay flat, never to
-fall**, so genuine declines — urban shrinkage, conflict, disaster, energy
-shortage — are suppressed by construction. This series cannot be used to study
-dimming, and it biases trend estimates upward.
+**a lit pixel's DN never steps down while it stays lit — every decrease in this
+series is a pixel going out entirely.** Measured across five countries and all
+30 year-steps, the number of decreasing pixel-years exactly equals the number
+of lit → unlit transitions, every time.
+
+So catastrophic loss *is* visible — Syria's national sum of lights falls 54%
+between 2010 and 2016 — but *gradual* dimming is not: a city that halves its
+brightness while staying lit looks flat. Trend estimates are biased upward for
+slow decline.
 
 A second trap, found by checking all 31 files rather than one: **the series is
 not dtype-homogeneous.** 1992 is `int8`, 1993–2013 `int16`, and 2014–2022

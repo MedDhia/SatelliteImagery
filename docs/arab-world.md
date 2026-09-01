@@ -7,11 +7,13 @@ between/within decomposition of Theil.
 This supersedes the earlier Maghreb-only write-up. Tunisia, done first and in
 most detail, keeps its own page: [`tunisia.md`](tunisia.md).
 
-> **Read [`lrcc-dvnl.md`](lrcc-dvnl.md) before quoting any number here.** The
-> source series forbids year-on-year decreases by construction, so a falling
-> Gini is partly imposed rather than observed, and 2014 is a sensor handover.
-> Both matter more in this region than most: several of these countries went
-> through wars in the period, and **this dataset cannot show light going out.**
+> **Read [`lrcc-dvnl.md`](lrcc-dvnl.md) before quoting any number here.** In
+> this series a lit pixel's DN never steps down while it stays lit: every
+> decrease is a pixel going out entirely. Gradual dimming is invisible;
+> extinction is not. That distinction matters more in this region than
+> anywhere — several of these countries went through wars in the window, and
+> the series registers those as pixels extinguished rather than dimmed. 2014
+> is also a sensor handover.
 
 ---
 
