@@ -22,6 +22,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
+from . import regions as R
 from .datasets.lrcc_dvnl import CRS_EPSG, NODATA, dtype_for_year
 
 DEFAULT_SOURCE = Path("data/regions")
@@ -48,172 +49,213 @@ class ResultTable:
 
 
 #: Shared column glosses. Kept in one place because the same words mean the
-#: same thing in every table, and a data dictionary that contradicts itself is
-#: worse than none.
-_SCOPE = (
-    "unit set: `all`, `narrow` (excl. Tataouine/Kébili/Tozeur) or `wide` "
-    "(excl. those plus Médenine/Gabès/Gafsa)"
-)
+#: same thing in every table and every country, and a data dictionary that
+#: contradicts itself is worse than none.
+COUNTRY_NAMES = {
+    "MAR": "Morocco",
+    "DZA": "Algeria",
+    "TUN": "Tunisia",
+    "LBY": "Libya",
+    "MRT": "Mauritania",
+}
+
+_YEAR = "calendar year, 1992–2022"
 _ZEROS = (
     "pixel zero treatment: `zeros_included` (all land pixels) or `lit_only` "
     "(DN > 0). Blank for subnational rows, where the unit is the observation"
 )
-_YEAR = "calendar year, 1992–2022"
 
-TABLES: Tuple[ResultTable, ...] = (
-    ResultTable(
-        key="inequality-series",
-        source="TUN/inequality/TUN_inequality_series.csv",
-        dest="TUN/TUN_inequality_series.csv",
-        title="Inequality series",
-        description=(
-            "The headline result: 12 series × 31 years. Pixel-level rows are "
-            "the distribution of DN over land pixels; subnational rows are the "
-            "distribution of **light density** (SOL/km²) over units, "
-            "unweighted, so a governorate does not score high for being large."
-        ),
-        columns=(
-            ("year", _YEAR),
-            ("level", "`pixel`, `adm1` (governorate) or `adm2` (delegation)"),
-            ("level_label", "human-readable form of `level`"),
-            ("scope", _SCOPE),
-            ("zeros", _ZEROS),
-            ("n", "observations behind the index: pixels, or units"),
-            ("gini", "Gini coefficient; `nan` if the distribution is all-zero"),
-            ("theil_t", "Theil T = GE(1); maximum is ln(n)"),
+
+def _scope_gloss(iso3: str) -> str:
+    """The scope column, spelled out with this country's own scope keys."""
+    parts = []
+    for key in R.scope_keys(iso3):
+        if key == R.SCOPE_ALL:
+            parts.append("`all` (every unit)")
+            continue
+        scope = R.desert_scopes(iso3)[key]
+        kind = "derived" if scope.derived else "hand-picked"
+        parts.append(f"`{key}` ({kind}: {scope.label})")
+    return "unit set — " + ", ".join(parts)
+
+
+def _series_columns(iso3: str):
+    level_words = ", ".join(
+        f"`adm{lv}` ({R.level_title(iso3, lv)})"
+        for lv in R.available_levels(iso3)
+        if lv >= 1
+    )
+    return (
+        ("year", _YEAR),
+        ("level", f"`pixel`, {level_words}"),
+        ("level_label", "human-readable form of `level`"),
+        ("scope", _scope_gloss(iso3)),
+        ("zeros", _ZEROS),
+        ("n", "observations behind the index: pixels, or units"),
+        ("gini", "Gini coefficient; `nan` if the distribution is all-zero"),
+        ("theil_t", "Theil T = GE(1); maximum is ln(n)"),
+        (
+            "theil_l",
             (
-                "theil_l",
-                (
-                    "Theil L = GE(0); `nan` whenever any value is 0, since "
-                    "ln(μ/x) diverges — which is why the zeros-included pixel "
-                    "rows are undefined rather than large"
-                ),
-            ),
-            ("sum_of_lights", "total DN over the scope, for reference"),
-            ("lit_share", "fraction of land pixels with DN > 0; pixel rows only"),
-        ),
-    ),
-    ResultTable(
-        key="theil-decomposition",
-        source="TUN/inequality/TUN_theil_decomposition.csv",
-        dest="TUN/TUN_theil_decomposition.csv",
-        title="Theil decomposition",
-        description=(
-            "Additive between/within splits of pixel-level Theil, for two "
-            "groupings of the same pixels plus the nested three-way split they "
-            "permit. `residual` is the identity check: it is ≤ 5.3e-14 on every "
-            "defined row, so the split is exact rather than approximate."
-        ),
-        columns=(
-            ("year", _YEAR),
-            ("scope", _SCOPE),
-            ("zeros", _ZEROS),
-            ("measure", "`theil_t` or `theil_l`"),
-            (
-                "grouping",
-                (
-                    "`governorate`, `delegation`, or `nested` — the three-way "
-                    "pixel → delegation → governorate split"
-                ),
-            ),
-            ("total", "the index over all pixels in scope"),
-            ("between", "between-group component"),
-            ("within", "within-group component"),
-            ("between_share", "`between` ÷ `total`"),
-            ("within_share", "`within` ÷ `total`"),
-            (
-                "between_deleg_within_gov",
-                (
-                    "the middle term of the nested split: variation between "
-                    "delegations of the same governorate. `nan` otherwise"
-                ),
-            ),
-            ("residual", "|total − (between + within)|; a correctness check"),
-            ("n_groups", "groups with at least one pixel in scope"),
-        ),
-    ),
-    ResultTable(
-        key="theil-by-unit",
-        source="TUN/inequality/TUN_theil_by_unit.csv",
-        dest="TUN/TUN_theil_by_unit.csv",
-        title="Per-unit Theil contributions",
-        description=(
-            "What each governorate and delegation contributes to the total, "
-            "for Theil T. This is the table that answers *which* unit drives a "
-            "movement in the headline series."
-        ),
-        columns=(
-            ("year", _YEAR),
-            ("scope", _SCOPE),
-            ("zeros", _ZEROS),
-            ("grouping", "`governorate` or `delegation`"),
-            ("unit", "unit name"),
-            ("pixels", "land pixels in the unit, within scope"),
-            ("mean_dn", "mean DN over those pixels"),
-            ("population_share", "the unit's share of pixels"),
-            ("value_share", "the unit's share of total light"),
-            ("theil_t", "Theil T computed within the unit alone"),
-            (
-                "within_contribution",
-                (
-                    "the unit's term in the within component: `value_share` × "
-                    "its own `theil_t`. These sum to `within` in the "
-                    "decomposition"
-                ),
+                "Theil L = GE(0); `nan` whenever any value is 0, since ln(μ/x) "
+                "diverges — which is why the zeros-included pixel rows are "
+                "undefined rather than large"
             ),
         ),
-    ),
-    ResultTable(
-        key="zonal-adm1",
-        source="TUN/zonal/TUN_adm1_zonal.csv",
-        dest="TUN/TUN_adm1_zonal.csv",
-        title="Governorate zonal table",
-        description=(
-            "24 governorates × 31 years — the aggregation every subnational "
-            "number is built from. Each land pixel belongs to exactly one unit, "
-            "so `sum_of_lights` totals to the national figure for every year."
-        ),
-        columns=(
-            ("year", _YEAR),
-            ("gid", "GADM `GID_1` code — stable across GADM releases, unlike names"),
-            ("name", "GADM `NAME_1`"),
-            ("pixels", "land pixels assigned to the unit"),
-            ("area_km2", "unit area from the GADM geometry, in EPSG:8857"),
-            ("sum_of_lights", "Σ DN over the unit's pixels"),
-            ("mean_dn", "`sum_of_lights` ÷ `pixels`"),
+        ("sum_of_lights", "total DN over the scope, for reference"),
+        ("lit_share", "fraction of land pixels with DN > 0; pixel rows only"),
+    )
+
+
+def _decomposition_columns(iso3: str):
+    inner = R.level_title(iso3, 2) if R.has_level(iso3, 2) else None
+    outer = R.level_title(iso3, 1)
+    grouping = f"`{outer}`" + (
+        f", `{inner}`, or `nested` — the three-way pixel → {inner} → {outer} split"
+        if inner
+        else " only; GADM has no admin-2 layer for this country, so there is no "
+        "`nested` row"
+    )
+    return (
+        ("year", _YEAR),
+        ("scope", _scope_gloss(iso3)),
+        ("zeros", _ZEROS),
+        ("measure", "`theil_t` or `theil_l`"),
+        ("grouping", grouping),
+        ("total", "the index over all pixels in scope"),
+        ("between", "between-group component"),
+        ("within", "within-group component"),
+        ("between_share", "`between` ÷ `total`"),
+        ("within_share", "`within` ÷ `total`"),
+        (
+            "between_deleg_within_gov",
             (
-                "density_sol_per_km2",
-                (
-                    "`sum_of_lights` ÷ `area_km2` — the quantity the "
-                    "subnational Gini and Theil are computed over"
-                ),
+                "the middle term of the nested split: variation between "
+                "admin-2 units of the same admin-1 unit. `nan` otherwise"
             ),
         ),
-    ),
-    ResultTable(
-        key="zonal-adm2",
-        source="TUN/zonal/TUN_adm2_zonal.csv",
-        dest="TUN/TUN_adm2_zonal.csv",
-        title="Delegation zonal table",
-        description=(
-            "268 delegations × 31 years, same columns as the governorate table. "
-            "**Check `pixels` before trusting a density**: 11 delegations have "
-            "fewer than 5 pixels and the smallest is a single 0.83 km² pixel, so "
-            "their densities are extremely noisy. They are kept rather than "
-            "dropped so the choice is yours and visible."
+        ("residual", "|total − (between + within)|; a correctness check"),
+        ("n_groups", "groups with at least one pixel in scope"),
+    )
+
+
+def _by_unit_columns(iso3: str):
+    levels = [R.level_title(iso3, lv) for lv in R.available_levels(iso3) if lv >= 1]
+    return (
+        ("year", _YEAR),
+        ("scope", _scope_gloss(iso3)),
+        ("zeros", _ZEROS),
+        ("grouping", " or ".join(f"`{w}`" for w in levels)),
+        ("unit", "unit name"),
+        ("pixels", "land pixels in the unit, within scope"),
+        ("mean_dn", "mean DN over those pixels"),
+        ("population_share", "the unit's share of pixels"),
+        ("value_share", "the unit's share of total light"),
+        ("theil_t", "Theil T computed within the unit alone"),
+        (
+            "within_contribution",
+            (
+                "the unit's term in the within component: `value_share` × its "
+                "own `theil_t`. These sum to `within` in the decomposition"
+            ),
         ),
-        columns=(
-            ("year", _YEAR),
-            ("gid", "GADM `GID_2` code"),
-            ("name", "GADM `NAME_2`"),
-            ("pixels", "land pixels assigned to the unit"),
-            ("area_km2", "unit area from the GADM geometry, in EPSG:8857"),
-            ("sum_of_lights", "Σ DN over the unit's pixels"),
-            ("mean_dn", "`sum_of_lights` ÷ `pixels`"),
-            ("density_sol_per_km2", "`sum_of_lights` ÷ `area_km2`"),
+    )
+
+
+def _zonal_columns(level: int):
+    return (
+        ("year", _YEAR),
+        (
+            "gid",
+            f"GADM `GID_{level}` code — stable across releases, unlike names",
         ),
-    ),
-)
+        ("name", f"GADM `NAME_{level}`"),
+        ("pixels", "land pixels assigned to the unit"),
+        ("area_km2", "unit area from the GADM geometry, in EPSG:8857"),
+        ("sum_of_lights", "Σ DN over the unit's pixels"),
+        ("mean_dn", "`sum_of_lights` ÷ `pixels`"),
+        (
+            "density_sol_per_km2",
+            (
+                "`sum_of_lights` ÷ `area_km2` — the quantity the subnational "
+                "Gini and Theil are computed over"
+            ),
+        ),
+    )
+
+
+def _country_tables(iso3: str):
+    """The analysis tables for one country."""
+    name = COUNTRY_NAMES.get(iso3, iso3)
+    tables = [
+        ResultTable(
+            key=f"{iso3}-inequality-series",
+            source=f"{iso3}/inequality/{iso3}_inequality_series.csv",
+            dest=f"{iso3}/{iso3}_inequality_series.csv",
+            title=f"{name}: inequality series",
+            description=(
+                "The headline result. Pixel-level rows are the distribution of "
+                "DN over land pixels; subnational rows are the distribution of "
+                "**light density** (SOL/km²) over units, unweighted, so a large "
+                "unit does not score high merely for being large."
+            ),
+            columns=_series_columns(iso3),
+        ),
+        ResultTable(
+            key=f"{iso3}-theil-decomposition",
+            source=f"{iso3}/inequality/{iso3}_theil_decomposition.csv",
+            dest=f"{iso3}/{iso3}_theil_decomposition.csv",
+            title=f"{name}: Theil decomposition",
+            description=(
+                "Additive between/within splits of pixel-level Theil. "
+                "`residual` is the identity check: it stays at machine "
+                "precision on every defined row, so the split is exact rather "
+                "than approximate."
+            ),
+            columns=_decomposition_columns(iso3),
+        ),
+        ResultTable(
+            key=f"{iso3}-theil-by-unit",
+            source=f"{iso3}/inequality/{iso3}_theil_by_unit.csv",
+            dest=f"{iso3}/{iso3}_theil_by_unit.csv",
+            title=f"{name}: per-unit Theil contributions",
+            description=(
+                "What each unit contributes to the total, for Theil T. The "
+                "table that answers *which* unit drives a movement in the "
+                "headline series."
+            ),
+            columns=_by_unit_columns(iso3),
+        ),
+    ]
+    for level in (lv for lv in R.available_levels(iso3) if lv >= 1):
+        word = R.level_title(iso3, level)
+        note = (
+            " **Check `pixels` before trusting a density**: the smallest units "
+            "cover only a pixel or two, so their densities are extremely noisy. "
+            "They are kept rather than dropped silently, so the choice is yours "
+            "and visible."
+            if level == 2
+            else ""
+        )
+        tables.append(
+            ResultTable(
+                key=f"{iso3}-zonal-adm{level}",
+                source=f"{iso3}/zonal/{iso3}_adm{level}_zonal.csv",
+                dest=f"{iso3}/{iso3}_adm{level}_zonal.csv",
+                title=f"{name}: {word} zonal table",
+                description=(
+                    f"Per-{word} aggregation, the basis of every subnational "
+                    "number above. Each land pixel belongs to exactly one unit, "
+                    "so `sum_of_lights` totals to the national figure for every "
+                    "year." + note
+                ),
+                columns=_zonal_columns(level),
+            )
+        )
+    return tables
+
+
+TABLES = tuple(t for iso3 in R.MAGHREB for t in _country_tables(iso3))
 
 
 @dataclass(frozen=True)
@@ -231,18 +273,19 @@ class RasterSet:
         return sorted(Path(root).glob(self.source))
 
 
-RASTER_SETS: Tuple[RasterSet, ...] = (
-    RasterSet(
-        key="tun-clipped",
-        source="TUN/raster/*.tif",
-        dest="TUN/raster",
-        title="Tunisia clipped rasters",
+def _country_rasters(iso3: str) -> RasterSet:
+    name = COUNTRY_NAMES.get(iso3, iso3)
+    return RasterSet(
+        key=f"{iso3}-clipped",
+        source=f"{iso3}/raster/*.tif",
+        dest=f"{iso3}/raster",
+        title=f"{name}: clipped rasters",
         description=(
-            "The 31 annual LRCC-DVNL grids cut to Tunisia — 368 × 856 px at "
-            "1 km, `EPSG:8857`, nodata 127, LZW. Pixels outside the GADM "
-            "national boundary are masked, not merely cropped, so Algerian and "
-            "Libyan light does not leak into a bounding box. Every number in "
-            "the tables above is computed from exactly these files."
+            f"The 31 annual LRCC-DVNL grids cut to {name} at 1 km, "
+            "`EPSG:8857`, nodata 127, LZW. Pixels outside the GADM national "
+            "boundary are masked, not merely cropped, so a neighbour's light "
+            "does not leak into a bounding box. Every number in this country's "
+            "tables is computed from exactly these files."
         ),
         notes=(
             (
@@ -253,19 +296,21 @@ RASTER_SETS: Tuple[RasterSet, ...] = (
                 "the half of the series where lit area grows fastest."
             ),
             (
-                "**Three geotransforms, not one.** 1992–2007, 2008–2011 and "
-                "2012–2022 differ by up to 3.9e-4 m (0.39 mm), inherited from "
-                "the published rasters. Same pixel grid for every practical "
-                "purpose, but an exact-equality check on the transform will "
-                "reject the stack; compare with a tolerance."
+                "**Geotransforms are not identical across years.** They differ "
+                "by fractions of a millimetre, inherited from the published "
+                "rasters. Same pixel grid for every practical purpose, but an "
+                "exact-equality check on the transform will reject the stack; "
+                "compare with a tolerance."
             ),
             (
                 "These carry a real `EPSG:8857`, unlike the published files, "
                 "whose `LOCAL_CS` declaration needs `satimg raster fix-crs`."
             ),
         ),
-    ),
-)
+    )
+
+
+RASTER_SETS: Tuple[RasterSet, ...] = tuple(_country_rasters(iso3) for iso3 in R.MAGHREB)
 
 
 def raster_set_by_key(key: str) -> RasterSet:
@@ -515,8 +560,8 @@ _PREAMBLE = """\
 # Results
 
 The numbers behind every figure in [`figures/`](../figures/), and the rasters
-they were computed from — {tables} tables ({rows} rows) and {rasters} GeoTIFFs,
-{size} in all.
+they were computed from — {tables} tables ({rows} rows) and {rasters} GeoTIFFs
+across {countries} countries, {size} in all.
 
 *This file is generated by `satimg results build`; edit
 [`src/satimg/results.py`](../src/satimg/results.py), not this page.*
@@ -527,11 +572,16 @@ checked, re-analysed or disputed — and, with the clipped rasters here,
 GADM world layer first. Regenerate them with:
 
 ```bash
-satimg lrcc-dvnl extract    --country TUN --levels 0,1,2
-satimg lrcc-dvnl inequality --country TUN
+for ISO in MAR DZA TUN LBY MRT; do
+  satimg lrcc-dvnl extract    --country "$ISO" --levels 0,1,2
+  satimg lrcc-dvnl inequality --country "$ISO"
+done
 satimg results build            # copy into results/
 satimg results build --check    # or just report drift, writing nothing
 ```
+
+GADM 4.1 has no ADM_2 layer for **Libya**, so its analysis stops at admin-1 and
+has no nested three-way Theil split. That gap is real, not an omission.
 
 ## Read this before quoting a number
 
@@ -545,7 +595,8 @@ satimg results build --check    # or just report drift, writing nothing
 4. **`theil_l` is `nan` wherever any value is zero**, which is most
    zeros-included pixel rows. That is the measure being undefined, not a bug.
 
-Full method and the remaining caveats: [`../docs/tunisia.md`](../docs/tunisia.md).
+Full method and the remaining caveats:
+[`../docs/maghreb.md`](../docs/maghreb.md).
 
 ## Terms
 
@@ -584,6 +635,7 @@ def write_index(
             tables=len(published),
             rows=f"{result.total_rows:,}",
             rasters=result.raster_count,
+            countries=len({t.dest.split("/")[0] for t in published}),
             size=_human_bytes(result.total_bytes),
         )
     ]
@@ -632,7 +684,8 @@ def write_index(
         lines.append("| Year | dtype | Size | File |")
         lines.append("|---|---|---:|---|")
         for item in stats:
-            name = f"LACC_{item.year}_TUN.tif" if item.year else "?"
+            iso3 = raster_set.dest.split("/")[0]
+            name = f"LACC_{item.year}_{iso3}.tif" if item.year else "?"
             link = f"{raster_set.dest}/{name}"
             lines.append(
                 f"| {item.year or '—'} | `{item.dtype or '—'}` | "

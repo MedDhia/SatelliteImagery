@@ -10,9 +10,9 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 608 figures in `figures/`](figures/)** — global overlays, the
-Tunisia map series in three palettes, the choropleths in two, the
-small-multiple panels and the inequality charts.
+**[→ Browse all 2 568 figures in `figures/`](figures/)** — global overlays, and
+for each of the five Maghreb countries the map series in three palettes, the
+choropleths in two, the small-multiple panels and the inequality charts.
 
 [![Nighttime lights 2022 with subnational boundaries](figures/global/adm1/LACC_2022_adm1.png)](figures/global/adm1/LACC_2022_adm1.png)
 
@@ -21,10 +21,10 @@ of it that lies *between* governorates **rises**. Convergence happened inside
 regions, not between them, which is the opposite of what the falling Gini alone
 would suggest:
 
-[![Nested Theil decomposition](figures/charts/TUN_theil_decomposition.png)](figures/charts/TUN_theil_decomposition.png)
+[![Nested Theil decomposition](figures/TUN/charts/TUN_theil_decomposition.png)](figures/TUN/charts/TUN_theil_decomposition.png)
 
-The renderers write full-resolution output under gitignored `data/` (439 MB);
-`figures/` is the same 608 images re-encoded for the web (47 MB) and is
+The renderers write full-resolution output under gitignored `data/` (1.5 GB);
+`figures/` is the same 2 568 images re-encoded for the web (167 MB) and is
 regenerated, index and all, by one command:
 
 ```bash
@@ -37,27 +37,24 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 5 tables,
-60 230 rows, 7.9 MB, with a generated data dictionary for every column.
+**[→ The numbers behind the figures, in `results/`](results/)** — 24 tables,
+431 320 rows and 155 clipped GeoTIFFs across five countries, with a generated
+data dictionary for every column.
 
-| Table | Rows | What it answers |
-|---|---:|---|
-| `TUN_inequality_series.csv` | 372 | Gini, Theil T and Theil L, 12 series × 31 years |
-| `TUN_theil_decomposition.csv` | 1 116 | between/within splits, and the nested three-way split |
-| `TUN_theil_by_unit.csv` | 49 690 | which governorate or delegation drives a movement |
-| `TUN_adm1_zonal.csv` | 744 | 24 governorates × 31 years |
-| `TUN_adm2_zonal.csv` | 8 308 | 268 delegations × 31 years |
+Per country: the inequality series (Gini, Theil T, Theil L), the Theil
+decomposition, per-unit contributions, zonal tables at each admin level, and
+the 31 annual rasters everything is computed from — masked to the national
+boundary, `EPSG:8857`, source dtype preserved.
 
-Plus the **31 clipped Tunisia GeoTIFFs** the whole analysis is computed from
-(`results/TUN/raster/`, 2.5 MB) — 368 × 856 px at 1 km, `EPSG:8857`, masked to
-the national boundary rather than cropped to a bounding box. With those, the
-findings can be *recomputed*, not just re-read.
+Reading a country's rasters and summing non-nodata pixels reproduces its
+committed tables for all 31 years; that check runs against `results/` alone and
+passes for all five.
 
-The 8.2 GB behind all of it is **not** committed — `data/` holds only a
-`.gitkeep` — so none of this needs the LRCC-DVNL deposit or the GADM world
-layer first. `satimg results build --check` fails if the committed outputs
-drift from a fresh run, and the build refuses to publish a raster whose dtype
-disagrees with the documented era or a table column it cannot explain.
+The 8.3 GB behind it is **not** committed — `data/` holds only a `.gitkeep` —
+so none of this needs the LRCC-DVNL deposit or the GADM world layer first.
+`satimg results build --check` fails if the committed outputs drift from a
+fresh run, and the build refuses to publish a raster whose dtype disagrees with
+the documented era or a table column it cannot explain.
 
 ## What "imported" means here
 
@@ -77,7 +74,7 @@ a byte-identical local copy:
 
 ### `data/` is empty in a clone, on purpose
 
-It holds only a `.gitkeep`. A full local run fills it with **8.2 GB** that this
+It holds only a `.gitkeep`. A full local run fills it with **9.7 GB** that this
 repository deliberately does not carry:
 
 | Path | Size | Why it is not committed |
@@ -85,7 +82,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (10.5 MB, rasters included) |
+| `data/regions/*` | 1.5 GB | five countries; published instead as [`figures/`](figures/) (167 MB) and [`results/`](results/) (91 MB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
