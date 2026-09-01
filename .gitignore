@@ -1,0 +1,28 @@
+# Downloaded satellite imagery / rasters are never committed (~1.8 GiB for the
+# full LRCC-DVNL deposit). Reproduce them with: satimg lrcc-dvnl download
+# Note: "data/*" rather than "data/", so the .gitkeep below can be re-included.
+data/*
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.eggs/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
