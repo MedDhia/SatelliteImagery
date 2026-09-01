@@ -95,10 +95,18 @@ Georeferenced and **non-destructive**:
 * **Band 1** — the published NTL DN, copied through byte-for-byte. A test
   asserts `band1 == source` and that no value under the boundary was touched.
 * **Band 2** — the boundary mask, `1` on a boundary pixel and `0` elsewhere
-  (~0.33% of the grid for adm0).
+  (1 753 401 px for adm0, 2 935 042 px for adm1 — 0.33% / 0.56% of the grid).
 
-Both bands are `int8`, nodata 127, LZW-compressed and tiled. The mask costs
-about 1 MB per year on top of the source, because a sparse mask compresses well.
+Band 1 keeps **whatever dtype the source year used** — `int8` for 1992, `int16`
+for 1993–2013, `float32` for 2014–2022. Writing a single fixed dtype would
+truncate the fractional DN of the VIIRS era, which is exactly the bug the first
+implementation had. Nodata is 127, LZW-compressed and tiled, with predictor 2
+for the integer years and 3 for the float ones.
+
+All 124 outputs were checked after generation: every GeoTIFF matches its source
+in dtype, grid and band-1 values; every mask is strictly 0/1 with a per-level
+pixel count identical across all 31 years (confirming the single rasterization
+is correctly reused); no PNG is malformed.
 
 These carry a **real `EPSG:8857`**, not the `LOCAL_CS` defect of the published
 files — so the overlay products are usable in QGIS/GDAL without the separate
