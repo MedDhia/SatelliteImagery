@@ -50,6 +50,23 @@ NTL_RAMP: Tuple[str, ...] = (
     "#fdeaa8",
 )
 
+#: Default colormap for country extracts.
+#:
+#: A deliberate departure from the project's single-hue sequential rule, made
+#: on measured legibility rather than taste: rendered side by side on Tunisia
+#: 2022, a single hue (amber or the house blue) saturates the whole northern
+#: corridor into one flat mass, so DN 20 and DN 45 are indistinguishable.
+#: "inferno" is perceptually uniform and monotonic in lightness - equal DN
+#: steps look equally different - which is the property a single hue cannot
+#: supply over this dynamic range. It is not a rainbow in the prohibited sense
+#: (those are non-monotonic in lightness, e.g. jet); it is also colourblind-safe
+#: and the remote-sensing convention for nighttime lights.
+#:
+#: The global overlay sets keep the single-hue amber ramp, so the two products
+#: stay visually distinguishable: whole-world figures are amber, country
+#: extracts are inferno.
+REGION_CMAP = "inferno"
+
 #: Rendered colour for nodata (DN 127), kept distinct from a true dark DN 0.
 NODATA_COLOR = "#17171d"
 

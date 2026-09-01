@@ -445,10 +445,20 @@ def cmd_extract(args) -> int:
     outline = R.load_units(R.country_layer(iso3, 0, root=args.boundaries_root))
     window = Z.window_for(rasters[0][1], outline.total_bounds)
     mask_geoms = None if args.no_mask else list(outline.geometry)
+    from .overlay import REGION_CMAP
+
+    cmap = None if args.cmap == "none" else (args.cmap or REGION_CMAP)
+    # Keep palettes side by side rather than overwriting: a non-default colormap
+    # writes to suffixed directories, so several renderings of the same year can
+    # be compared without regenerating anything. The clipped rasters are
+    # palette-independent and are never duplicated.
+    variant = "" if cmap == REGION_CMAP else f"-{cmap or 'amber'}"
+
     style = OverlayStyle(
         gamma=args.gamma,
         output_width_px=args.width,
         dpi=args.dpi,
+        cmap=cmap,
         extent_note=f"{iso3} extract",
     )
 
@@ -462,7 +472,12 @@ def cmd_extract(args) -> int:
         data, extent = _read_region_array(clipped)
         for level in levels:
             frames[level].append((year, data, extent))
-            png = dest / "png" / f"adm{level}" / f"LACC_{year}_{iso3}_adm{level}.png"
+            png = (
+                dest
+                / f"png{variant}"
+                / f"adm{level}"
+                / f"LACC_{year}_{iso3}_adm{level}.png"
+            )
             if png.exists() and not args.overwrite:
                 continue
             render_png(
@@ -485,7 +500,7 @@ def cmd_extract(args) -> int:
     if not args.no_panel:
         span = f"{rasters[0][0]}-{rasters[-1][0]}"
         for level in levels:
-            panel = dest / "panel" / f"{iso3}_adm{level}_{span}.png"
+            panel = dest / f"panel{variant}" / f"{iso3}_adm{level}_{span}.png"
             render_panel(
                 frames[level],
                 panel,
@@ -495,6 +510,7 @@ def cmd_extract(args) -> int:
                 title=(
                     f"{iso3} nighttime lights {span} · "
                     f"{R.LEVEL_TITLES[level]} boundaries"
+                    + (f" · {cmap}" if variant else "")
                 ),
             )
             written += 1
@@ -521,10 +537,10 @@ def _read_region_array(path):
     return read_downsampled(path, native_width)
 
 
-def cmd_gini(args) -> int:
-    """Zonal tables and Gini series for a country."""
+def cmd_inequality(args) -> int:
+    """Zonal tables, Gini/Theil series and the Theil decomposition."""
     from . import regions as R
-    from .analysis import gini_series, write_csv
+    from .analysis import decomposition_series, gini_series, write_csv
 
     iso3 = args.country.upper()
     rasters = _region_rasters(args)
@@ -537,19 +553,44 @@ def cmd_gini(args) -> int:
         min_pixels=args.min_pixels,
     )
 
-    series_csv = write_csv(rows, dest / "gini" / f"{iso3}_gini_series.csv")
+    series_csv = write_csv(rows, dest / "inequality" / f"{iso3}_inequality_series.csv")
     print(f"wrote  {series_csv}  ({len(rows)} rows)")
     for level, table in sorted(tables.items()):
         path = write_csv(table, dest / "zonal" / f"{iso3}_adm{level}_zonal.csv")
         print(f"wrote  {path}  ({len(table)} rows)")
 
-    if not args.no_chart:
-        from .charts import plot_gini_series
+    decomposition, group_rows = ([], [])
+    if not args.no_decomposition:
+        decomposition, group_rows = decomposition_series(
+            iso3, rasters, root=args.boundaries_root
+        )
+        path = write_csv(
+            decomposition, dest / "inequality" / f"{iso3}_theil_decomposition.csv"
+        )
+        print(f"wrote  {path}  ({len(decomposition)} rows)")
+        path = write_csv(group_rows, dest / "inequality" / f"{iso3}_theil_by_unit.csv")
+        print(f"wrote  {path}  ({len(group_rows)} rows)")
 
-        chart = plot_gini_series(
-            rows, dest / "gini" / f"{iso3}_gini_series.png", iso3=iso3
+        worst = max(
+            (r["residual"] for r in decomposition if r["residual"] == r["residual"]),
+            default=0.0,
+        )
+        print(f"       decomposition identity residual <= {worst:.1e}")
+
+    if not args.no_chart:
+        from .charts import plot_decomposition, plot_inequality_series
+
+        chart = plot_inequality_series(
+            rows, dest / "inequality" / f"{iso3}_inequality_series.png", iso3=iso3
         )
         print(f"wrote  {chart}")
+        if decomposition:
+            chart = plot_decomposition(
+                decomposition,
+                dest / "inequality" / f"{iso3}_theil_decomposition.png",
+                iso3=iso3,
+            )
+            print(f"wrote  {chart}")
 
     if not args.quiet:
         first, last = rasters[0][0], rasters[-1][0]
@@ -575,8 +616,141 @@ def cmd_gini(args) -> int:
             )
         headers = ["LEVEL", "SCOPE", str(first), str(last), "CHANGE"]
         print(format_table(table_rows, headers))
+        if decomposition:
+            print("\nTheil T decomposition, scope 'all' (share of total):")
+            dec_rows = []
+            for zeros in ("zeros_included", "lit_only"):
+                for grouping in ("governorate", "delegation"):
+                    sel = {
+                        r["year"]: r
+                        for r in decomposition
+                        if r["measure"] == "theil_t"
+                        and r["grouping"] == grouping
+                        and r["scope"] == "all"
+                        and r["zeros"] == zeros
+                    }
+                    if not sel or sel[first]["total"] != sel[first]["total"]:
+                        continue
+                    dec_rows.append(
+                        [
+                            zeros,
+                            f"between-{grouping}",
+                            f"{sel[first]['between_share']:.3f}",
+                            f"{sel[last]['between_share']:.3f}",
+                        ]
+                    )
+            dec_headers = ["PIXELS", "COMPONENT", str(first), str(last)]
+            print(format_table(dec_rows, dec_headers))
+
         for key, scope in R.desert_scopes(iso3).items():
             print(f"\n  scope '{key}' excludes {scope.label}: {scope.rationale}")
+    return 0
+
+
+def cmd_choropleth(args) -> int:
+    """Fill admin units by their NTL level, rather than overlaying boundaries."""
+    from . import regions as R
+    from . import zonal as Z
+    from .choropleth import (
+        ABSOLUTE,
+        DEFAULT_CMAP,
+        RELATIVE,
+        render_choropleth,
+        render_choropleth_panel,
+        resolve_cmap,
+        unit_values,
+    )
+
+    iso3 = args.country.upper()
+    levels = [int(v) for v in str(args.levels).split(",") if v.strip()]
+    for level in levels:
+        if level == 0:
+            raise SystemExit(
+                "a choropleth of one unit conveys nothing; use --levels 1,2"
+            )
+        R.check_level_for_country(level)
+    scales = [s.strip() for s in str(args.scale).split(",") if s.strip()]
+    unknown = set(scales) - {ABSOLUTE, RELATIVE}
+    if unknown:
+        raise SystemExit(f"unknown --scale value(s): {', '.join(sorted(unknown))}")
+
+    # Fail before any rendering if the palette name is wrong, rather than after
+    # the first few dozen files.
+    resolve_cmap(args.cmap, 8)
+    variant = "" if (args.cmap or DEFAULT_CMAP) == DEFAULT_CMAP else f"-{args.cmap}"
+
+    rasters = _region_rasters(args)
+    dest = Path(args.dest) / iso3 / "choropleth"
+    written = 0
+
+    for level in levels:
+        layer = R.country_layer(iso3, level, root=args.boundaries_root)
+        units = R.load_units(layer)
+        id_field, name_field = R.id_fields(level)
+        grid = Z.build_zone_grid(
+            rasters[0][1], units, id_field=id_field, name_field=name_field
+        )
+        table = Z.zonal_table(rasters, grid)
+        label = R.LEVEL_TITLES[level]
+        print(
+            f"{iso3} adm{level} ({label}): {grid.count} units, {len(table)} rows",
+            file=sys.stderr,
+        )
+
+        for scale in scales:
+            by_year = {}
+            for year, _ in rasters:
+                values, national = unit_values(
+                    table, year, scale=scale, field=args.field
+                )
+                by_year[year] = values
+                out = (
+                    dest
+                    / f"adm{level}"
+                    / f"{scale}{variant}"
+                    / f"LACC_{year}_{iso3}_adm{level}_{scale}.png"
+                )
+                if out.exists() and not args.overwrite:
+                    continue
+                render_choropleth(
+                    units,
+                    values,
+                    out,
+                    id_field=id_field,
+                    scale=scale,
+                    year=year,
+                    level_label=label,
+                    iso3=iso3,
+                    national_mean=national,
+                    cmap_name=args.cmap,
+                    dpi=args.dpi,
+                )
+                written += 1
+
+            if not args.no_panel:
+                span = f"{rasters[0][0]}-{rasters[-1][0]}"
+                panel = (
+                    dest / f"panel{variant}" / f"{iso3}_adm{level}_{scale}_{span}.png"
+                )
+                render_choropleth_panel(
+                    units,
+                    by_year,
+                    panel,
+                    id_field=id_field,
+                    scale=scale,
+                    level_label=label,
+                    iso3=iso3,
+                    cmap_name=args.cmap,
+                    dpi=args.dpi,
+                )
+                written += 1
+                print(f"wrote  {panel}")
+
+    print(f"\n{written} file(s) written under {dest}")
+    print(
+        "Boundaries are GADM 4.1: non-commercial use, redistribution not permitted.",
+        file=sys.stderr,
+    )
     return 0
 
 
@@ -867,6 +1041,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     extract.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
     extract.add_argument(
+        "--cmap",
+        help=(
+            "matplotlib colormap (default: inferno, perceptually uniform; "
+            "pass 'none' for the single-hue amber ramp used by the global sets)"
+        ),
+    )
+    extract.add_argument(
         "--no-panel", action="store_true", help="skip the small-multiple panels"
     )
     extract.add_argument(
@@ -880,13 +1061,17 @@ def build_parser() -> argparse.ArgumentParser:
     extract.set_defaults(func=cmd_extract)
 
     ginip = sub.add_parser(
-        "gini",
-        help="zonal tables and nighttime-light Gini series for a country",
+        "inequality",
+        aliases=["gini"],
+        help="zonal tables, Gini/Theil series and Theil decomposition",
         description=(
-            "Compute Gini series at pixel, admin-1 and admin-2 level, each for "
-            "the whole country and for the desert-exclusion variants. Pixel "
-            "series are reported both including and excluding unlit pixels; "
-            "subnational series use light density (SOL/km2), unweighted."
+            "Compute Gini, Theil T and Theil L at pixel, admin-1 and admin-2 "
+            "level, each for the whole country and for the desert-exclusion "
+            "variants. Pixel series are reported both including and excluding "
+            "unlit pixels; subnational series use light density (SOL/km2), "
+            "unweighted. Theil is additively decomposed into between- and "
+            "within-group parts over governorates, delegations, and the nested "
+            "hierarchy of the two."
         ),
     )
     add_selection(ginip, default_product=lrcc_dvnl.DATASET_ID)
@@ -906,9 +1091,70 @@ def build_parser() -> argparse.ArgumentParser:
         default=0,
         help="drop subnational units below this pixel count (sensitivity run)",
     )
-    ginip.add_argument("--no-chart", action="store_true", help="skip the chart")
+    ginip.add_argument(
+        "--no-decomposition",
+        action="store_true",
+        help="skip the Theil between/within decomposition",
+    )
+    ginip.add_argument("--no-chart", action="store_true", help="skip the charts")
     ginip.add_argument("--quiet", action="store_true", help="no summary table")
-    ginip.set_defaults(func=cmd_gini)
+    ginip.set_defaults(func=cmd_inequality)
+
+    chor = sub.add_parser(
+        "choropleth",
+        help="fill admin units by their NTL level (instead of overlaying boundaries)",
+        description=(
+            "Choropleth maps: each administrative unit is filled by its own "
+            "nighttime-light aggregate, so units are compared with each other "
+            "rather than shown against the raster. Two framings: 'absolute' is "
+            "mean DN on a scale shared by every year, so growth is visible; "
+            "'relative' divides by the national mean of the same year, which "
+            "removes growth and shows each unit's standing - the quantity the "
+            "Theil between-group component is built from."
+        ),
+    )
+    add_selection(chor, default_product=lrcc_dvnl.DATASET_ID)
+    chor.add_argument("--country", default="TUN", help="ISO3 code (default: TUN)")
+    chor.add_argument(
+        "--levels", default="1,2", help="admin levels: 1, 2 (default: 1,2)"
+    )
+    chor.add_argument(
+        "--scale",
+        default=f"{'absolute'},{'relative'}",
+        help="absolute, relative, or both (default: both)",
+    )
+    chor.add_argument(
+        "--field",
+        default="mean_dn",
+        choices=["mean_dn", "density_sol_per_km2", "sum_of_lights"],
+        help="per-unit quantity to map (default: mean_dn)",
+    )
+    chor.add_argument(
+        "--source", default=DEFAULT_DEST, help="where the downloaded rasters live"
+    )
+    chor.add_argument(
+        "--dest", default=DEFAULT_REGION_DEST, help="output root for region products"
+    )
+    chor.add_argument(
+        "--boundaries-root", default=BOUNDARIES_ROOT, help="GADM data and cache root"
+    )
+    chor.add_argument(
+        "--cmap",
+        help=(
+            "palette: 'ylorrd' (default, white->yellow->orange->red), "
+            "'house_blue', or any matplotlib colormap such as cividis, "
+            "inferno or magma. A non-default palette writes to suffixed "
+            "directories so sets coexist."
+        ),
+    )
+    chor.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
+    chor.add_argument(
+        "--no-panel", action="store_true", help="skip the small-multiple panels"
+    )
+    chor.add_argument(
+        "--overwrite", action="store_true", help="re-render existing outputs"
+    )
+    chor.set_defaults(func=cmd_choropleth)
 
     bounds = commands.add_parser(
         "boundaries",

@@ -26,7 +26,14 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 from . import regions as R
 from . import zonal as Z
-from .inequality import gini
+from .inequality import (
+    THEIL_L,
+    THEIL_T,
+    decompose_theil_by_ids,
+    gini,
+    theil_l,
+    theil_t,
+)
 
 PIXEL_LEVEL = "pixel"
 ZEROS_INCLUDED = "zeros_included"
@@ -130,6 +137,8 @@ def gini_series(
                         "zeros": "",
                         "n": len(kept),
                         "gini": gini(density) if density else float("nan"),
+                        "theil_t": theil_t(density) if density else float("nan"),
+                        "theil_l": theil_l(density) if density else float("nan"),
                         "sum_of_lights": total,
                         "lit_share": float("nan"),
                     }
@@ -158,6 +167,8 @@ def gini_series(
                         "zeros": zeros,
                         "n": int(sample.size),
                         "gini": gini(sample),
+                        "theil_t": theil_t(sample),
+                        "theil_l": theil_l(sample),
                         "sum_of_lights": float(v.sum()),
                         "lit_share": lit_share,
                     }
@@ -165,6 +176,156 @@ def gini_series(
 
     rows.sort(key=lambda r: (r["level"], r["scope"], r["zeros"], r["year"]))
     return rows, tables
+
+
+def decomposition_series(
+    iso3: str,
+    rasters: Iterable[Tuple[int, Path]],
+    *,
+    root: str | Path = R.DEFAULT_ROOT,
+) -> Tuple[List[dict], List[dict]]:
+    """Between/within decomposition of pixel-level Theil, per year and scope.
+
+    Two groupings of the same pixels - governorates and delegations - plus the
+    nested three-way split they permit. Delegations nest exactly inside
+    governorates here (verified: the two zone rasters agree on all 154,885
+    Tunisian pixels), and the governorate label is derived from each
+    delegation's ``GID_1`` so the nesting is exact by construction rather than
+    by coincidence of two independent rasterisations.
+
+    Returns ``(summary_rows, group_rows)``: the additive split, and each unit's
+    own index and within-contribution.
+    """
+    import numpy as np
+
+    rasters = list(rasters)
+    if not rasters:
+        raise ValueError("no rasters given")
+
+    grids = build_grids(iso3, rasters[0][1], root=root, levels=(1, 2))
+    adm1, adm2 = grids[1], grids[2]
+    ids1, ids2 = adm1["grid"].ids, adm2["grid"].ids
+
+    # Governorate id implied by each delegation, so the hierarchy nests exactly.
+    gov_index = {gid: i + 1 for i, gid in enumerate(adm1["grid"].gids)}
+    parents = R.parent_gid1(adm2["units"], 2)
+    deleg_to_gov = np.zeros(adm2["grid"].count + 1, dtype=np.int64)
+    for i, parent in enumerate(parents):
+        deleg_to_gov[i + 1] = gov_index.get(parent, 0)
+    nested_gov_ids = deleg_to_gov[ids2]
+
+    scopes = R.scope_keys(iso3)
+    pixel_masks = {}
+    for scope in scopes:
+        drop = _excluded_zone_indices(adm1["units"], 1, iso3, scope)
+        mask = ids1 > 0
+        if drop:
+            mask &= ~np.isin(ids1, list(drop))
+        pixel_masks[scope] = mask
+
+    groupings = (
+        ("governorate", nested_gov_ids, adm1["grid"].count, adm1["grid"].names),
+        ("delegation", ids2, adm2["grid"].count, adm2["grid"].names),
+    )
+
+    summary: List[dict] = []
+    group_rows: List[dict] = []
+
+    for year, path in rasters:
+        values, signature = Z.read_window(path, adm1["grid"].window)
+        if not Z.grids_compatible(signature, adm1["grid"].signature):
+            raise ValueError(f"{path} is on a different grid than the zone raster")
+        clean = np.nan_to_num(values, nan=0.0)
+
+        for scope in scopes:
+            base = pixel_masks[scope] & ~np.isnan(values)
+            # Theil L needs strictly positive values, and 55-86% of Tunisian
+            # pixels are unlit, so the zeros-included L is genuinely undefined.
+            # The lit-only pass is where L becomes usable.
+            for zeros, keep in (
+                (ZEROS_INCLUDED, base),
+                (ZEROS_EXCLUDED, base & (values > 0)),
+            ):
+                for measure in (THEIL_T, THEIL_L):
+                    parts = {}
+                    for label, ids, count, names in groupings:
+                        scoped_ids = np.where(keep, ids, 0)
+                        decomposition = decompose_theil_by_ids(
+                            clean, scoped_ids, count, measure, keys=names
+                        )
+                        parts[label] = decomposition
+                        summary.append(
+                            {
+                                "year": year,
+                                "scope": scope,
+                                "zeros": zeros,
+                                "measure": measure,
+                                "grouping": label,
+                                "total": decomposition.total,
+                                "between": decomposition.between,
+                                "within": decomposition.within,
+                                "between_share": decomposition.between_share,
+                                "within_share": decomposition.within_share,
+                                "between_deleg_within_gov": float("nan"),
+                                "residual": decomposition.residual(),
+                                "n_groups": len(decomposition.groups),
+                            }
+                        )
+                        if measure == THEIL_T:
+                            for part in decomposition.groups:
+                                group_rows.append(
+                                    {
+                                        "year": year,
+                                        "scope": scope,
+                                        "zeros": zeros,
+                                        "grouping": label,
+                                        "unit": part.key,
+                                        "pixels": part.n,
+                                        "mean_dn": part.mean,
+                                        "population_share": part.population_share,
+                                        "value_share": part.value_share,
+                                        "theil_t": part.index,
+                                        "within_contribution": part.within_contribution,
+                                    }
+                                )
+
+                    gov, deleg = parts["governorate"], parts["delegation"]
+                    summary.append(
+                        {
+                            "year": year,
+                            "scope": scope,
+                            "zeros": zeros,
+                            "measure": measure,
+                            "grouping": "nested",
+                            "total": deleg.total,
+                            "between": gov.between,
+                            "within": deleg.within,
+                            "between_share": (
+                                gov.between / deleg.total
+                                if deleg.total
+                                else float("nan")
+                            ),
+                            "within_share": (
+                                deleg.within / deleg.total
+                                if deleg.total
+                                else float("nan")
+                            ),
+                            "between_deleg_within_gov": deleg.between - gov.between,
+                            "residual": abs(
+                                deleg.total
+                                - (
+                                    gov.between
+                                    + (deleg.between - gov.between)
+                                    + deleg.within
+                                )
+                            ),
+                            "n_groups": len(deleg.groups),
+                        }
+                    )
+    summary.sort(
+        key=lambda r: (r["measure"], r["grouping"], r["zeros"], r["scope"], r["year"])
+    )
+    return summary, group_rows
 
 
 def write_csv(

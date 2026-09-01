@@ -77,7 +77,7 @@ Defaults, and why:
 
 | Choice | Default | Reason |
 |---|---|---|
-| Colour | single-hue amber ramp, dark→light | Magnitude is a sequential encoding, so it takes one hue with monotone lightness. Anchored dark because the surface is dark. `--cmap inferno` if you prefer the remote-sensing convention. |
+| Colour | single-hue amber ramp, dark→light | Magnitude is a sequential encoding, so it takes one hue with monotone lightness. Anchored dark because the surface is dark. Country extracts instead default to `inferno` — at country scale a single hue cannot resolve the dynamic range (see [`tunisia.md`](tunisia.md#colour)); `--cmap` overrides either way. |
 | Stretch | `--gamma 0.45` | 88% of valid pixels are DN 0 and lit pixels average ~15. Linear DN renders a nearly black map. The stretch is **printed on the colorbar**, because it changes what the reader perceives. |
 | Downsampling | `--resampling max` | At ~9 km/px a global render averages cities into nothing. `max` keeps isolated settlements visible. Also disclosed on the figure. |
 | Width | `--width 4000` | ~1 780 px tall at the grid's 2.25:1 aspect. |
