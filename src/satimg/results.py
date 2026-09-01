@@ -591,7 +591,8 @@ checked, re-analysed or disputed — and, with the clipped rasters here,
 GADM world layer first. Regenerate them with:
 
 ```bash
-for ISO in MAR DZA TUN LBY MRT; do
+ISOS=$(python -c "from satimg.regions import ARAB_LEAGUE as A; print(*A)")
+for ISO in $ISOS; do
   satimg lrcc-dvnl extract    --country "$ISO" --levels 0,1,2
   satimg lrcc-dvnl inequality --country "$ISO"
 done
@@ -599,14 +600,16 @@ satimg results build            # copy into results/
 satimg results build --check    # or just report drift, writing nothing
 ```
 
-GADM 4.1 has no ADM_2 layer for **Libya**, so its analysis stops at admin-1 and
-has no nested three-way Theil split. That gap is real, not an omission.
+GADM 4.1 has no ADM_2 layer for **Libya, Bahrain, Comoros, Kuwait or Qatar**,
+so those analyses stop at admin-1 and have no nested three-way Theil split.
+That gap is real, not an omission.
 
 ## Read this before quoting a number
 
-1. **LRCC-DVNL forbids year-on-year decreases by construction.** A falling Gini
-   is therefore partly imposed by the calibration, not purely observed, and
-   genuine dimming is invisible in this series.
+1. **A lit pixel never dims here — it goes out.** Every decrease in this series
+   is a lit → unlit transition, so gradual dimming is invisible and a falling
+   Gini is partly imposed. Catastrophic loss, though, is real signal: Syria's
+   national sum of lights falls 54% between 2010 and 2016.
 2. **2014 is a sensor handover** (DMSP → VIIRS) and a dtype change. Treat any
    2013 → 2014 step as a candidate artefact.
 3. **DN is a relative index, not radiance.** A Gini of DN is not a Gini of
@@ -615,7 +618,7 @@ has no nested three-way Theil split. That gap is real, not an omission.
    zeros-included pixel rows. That is the measure being undefined, not a bug.
 
 Full method and the remaining caveats:
-[`../docs/maghreb.md`](../docs/maghreb.md).
+[`../docs/arab-world.md`](../docs/arab-world.md).
 
 ## Terms
 

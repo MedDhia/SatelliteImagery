@@ -121,6 +121,87 @@ with `all` only. That is the guard working, not a gap.
 
 ---
 
+## What the 22 countries show
+
+Theil T over all land pixels, scope `all`, decomposed against each country's
+admin-1 units. **Bold** marks a value that rose.
+
+| Country | admin-1 unit | Theil T 1992 | 2022 | between share 1992 | 2022 |
+|---|---|---:|---:|---:|---:|
+| Somalia | region | 8.503 | 5.674 | 0.420 | 0.205 |
+| Mauritania | region | 7.998 | 6.031 | 0.468 | 0.444 |
+| Sudan | state | 5.850 | 4.117 | 0.345 | 0.281 |
+| Djibouti | region | 5.195 | 3.761 | 0.577 | 0.471 |
+| Yemen | governorate | 3.810 | 2.761 | 0.297 | 0.133 |
+| Libya | district | 3.627 | 3.440 | 0.327 | **0.341** |
+| Algeria | province | 3.570 | 2.713 | 0.337 | **0.416** |
+| Morocco | region | 3.492 | 1.618 | 0.156 | **0.205** |
+| Comoros † | autonomous island | 3.264 | 2.272 | 0.043 | 0.019 |
+| Oman | region | 3.001 | 1.794 | 0.170 | **0.205** |
+| Egypt | governorate | 2.983 | 2.396 | 0.490 | **0.492** |
+| Saudi Arabia | province | 2.963 | 1.926 | 0.080 | **0.132** |
+| Jordan | province | 2.475 | 1.646 | 0.408 | 0.371 |
+| Tunisia | governorate | 2.439 | 1.231 | 0.292 | **0.341** |
+| Iraq | province | 2.326 | 1.284 | 0.283 | **0.343** |
+| Syria | governorate | 1.808 | **1.904** | 0.218 | 0.167 |
+| UAE | emirate | 1.425 | 0.827 | 0.142 | **0.144** |
+| Kuwait | province | 0.923 | 0.439 | 0.329 | 0.196 |
+| Qatar | municipality | 0.794 | 0.314 | 0.162 | 0.121 |
+| Lebanon | governorate | 0.665 | 0.327 | 0.407 | 0.313 |
+| Palestine † | district | 0.334 | 0.157 | 0.024 | 0.019 |
+| Bahrain † | governorate | 0.193 | 0.054 | 0.247 | 0.056 |
+
+† Bahrain (4 units), Comoros (3) and Palestine (2) are too small for a
+subnational decomposition to carry much meaning. They are listed for
+completeness, not for interpretation.
+
+### Total inequality falls almost everywhere — Syria excepted
+
+Theil T falls in **21 of 22**. The single exception is **Syria**, where it rises
+1.808 → 1.904. That is the war: the series records the conflict as pixels going
+out, and light that survives is more concentrated than what preceded it. Syria
+is also the only country whose national sum of lights ends the period below
+where it started.
+
+### The Maghreb pattern does **not** generalize
+
+Working with the Maghreb five, four of them showed total inequality falling
+while the share *between* admin-1 units rose — light spreading within regions
+faster than between them. That looked like a regional finding.
+
+Across all 22 it is not. The between-share rises in only **9 of 22**:
+
+* **Rises** — Algeria, Iraq, Tunisia, Libya, Morocco, Oman, Saudi Arabia,
+  Egypt, UAE.
+* **Falls** — Somalia, Djibouti, Yemen, Sudan, Mauritania, Kuwait, Lebanon,
+  Jordan, Qatar, Syria, Bahrain, Comoros, Palestine.
+
+The split is not random. The risers are mostly large states with a bright core
+and a vast dark interior, where growth concentrated in places already lit. The
+fallers are dominated by the poorest countries in the region — Somalia,
+Djibouti, Yemen, Sudan, Mauritania — where light arrived in regions that had
+almost none, which is exactly what makes a between-group share fall.
+
+So the honest summary is narrower than the Maghreb result suggested: **falling
+total inequality is near-universal here; whether it is driven by convergence
+between regions or within them depends on the country, and splits roughly along
+income and settlement geography.**
+
+### Two more things the numbers say
+
+**Egypt is the most between-concentrated country in the region** (between share
+0.490 → 0.492, both years the highest of the 22). Almost all Egyptian light is
+in the Nile valley and Delta, and 30 years did not change that.
+
+**Saudi Arabia's between-share nearly doubles** (0.080 → 0.132) off the lowest
+base of the large countries. Its light started unusually evenly spread across
+provinces and became less so.
+
+Per-country series, decompositions and per-unit contributions are in
+[`../results/`](../results/), with a generated data dictionary for every column.
+
+---
+
 ## Reproducing
 
 ```bash

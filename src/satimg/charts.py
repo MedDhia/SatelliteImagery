@@ -140,8 +140,9 @@ def plot_inequality_series(
     fig.text(
         0.008,
         0.012,
-        "The source series forbids year-on-year decreases by construction, so a "
-        f"falling Gini is partly imposed, not purely observed.  Source dtype — {eras}.",
+        "In this series a lit pixel never dims - it goes out. Gradual decline is "
+        "invisible, so a falling Gini is partly imposed; a collapse is real.  "
+        f"Source dtype — {eras}.",
         color=INK_MUTED,
         fontsize=7,
         ha="left",

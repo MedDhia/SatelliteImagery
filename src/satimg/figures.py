@@ -443,10 +443,11 @@ a figure lifted out of this folder stays self-describing.
 _CAVEAT = """\
 ## Two caveats these figures cannot show you
 
-1. **LRCC-DVNL forbids year-on-year decreases by construction.** Lit area can
-   only grow across this series, so brightening between two frames is partly
-   imposed by the calibration rather than observed. Genuine dimming — urban
-   shrinkage, conflict, blackout — is invisible here.
+1. **A lit pixel never dims here — it goes out.** Every decrease in this series
+   is a lit → unlit transition; no pixel steps from DN 40 to DN 20. So gradual
+   dimming is invisible and brightening between two frames is partly imposed,
+   but catastrophic loss is real signal: Syria's national sum of lights falls
+   54% between 2010 and 2016.
 2. **2014 is a sensor handover** (DMSP → VIIRS), and the storage dtype changes
    with it. Treat any 2013 → 2014 step as a candidate artefact. The charts mark
    the break with a dashed line.
