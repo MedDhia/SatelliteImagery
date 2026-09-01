@@ -29,12 +29,32 @@ SCOPE_LABELS = {
     "wide": "excl. six southern",
 }
 
-FACETS = [
+#: (level, zero treatment) pairs. The subnational titles are built per country
+#: at draw time: "Delegation" is Tunisia's word, and stamping it on a Syrian or
+#: Algerian chart is the same error as labelling Algeria's communes "daira".
+FACET_SPEC = [
     ("pixel", "zeros_included", "Pixel (1 km), all land pixels"),
     ("pixel", "lit_only", "Pixel (1 km), lit pixels only"),
-    ("adm1", "", "Governorate, light density"),
-    ("adm2", "", "Delegation, light density"),
+    ("adm1", "", None),
+    ("adm2", "", None),
 ]
+
+
+def facets(iso3: str):
+    """Facet definitions with this country's own words for its admin levels."""
+    from . import regions as R
+
+    out = []
+    for level, zeros, title in FACET_SPEC:
+        if title is not None:
+            out.append((level, zeros, title))
+            continue
+        depth = int(level[-1])
+        if not R.has_level(iso3, depth):
+            continue
+        word = R.level_title(iso3, depth)
+        out.append((level, zeros, f"{word.capitalize()}, light density"))
+    return out
 
 
 def plot_inequality_series(
@@ -59,10 +79,14 @@ def plot_inequality_series(
     for series in grouped.values():
         series.sort(key=lambda r: r["year"])
 
+    panels = facets(iso3)
     fig, axes = plt.subplots(2, 2, figsize=(11.5, 7.4), dpi=200, facecolor=SURFACE)
     axes = axes.ravel()
+    # A country with no admin-2 layer gets three facets, not a blank fourth.
+    for ax in axes[len(panels) :]:
+        ax.set_axis_off()
 
-    for ax, (level, zeros, title) in zip(axes, FACETS):
+    for ax, (level, zeros, title) in zip(axes, panels):
         ax.set_facecolor(SURFACE)
         for scope, color in SCOPE_COLORS.items():
             series = grouped.get((level, zeros, scope))
@@ -164,11 +188,27 @@ plot_gini_series = plot_inequality_series
 #: Ordinal ramp: the three nested components are stages of one hierarchy, so
 #: they take one hue at increasing lightness rather than three identities.
 NESTED_COLORS = ("#1a4b8c", "#3a86d6", "#a8cbf0")
-NESTED_LABELS = (
-    "between governorates",
-    "between delegations, within governorate",
-    "within delegations",
-)
+
+
+class NoNestedHierarchy(Exception):
+    """Raised when a country has no admin-2 layer to nest inside admin-1.
+
+    Drawing the chart anyway produces two empty axes captioned "theil_t
+    undefined with unlit pixels" - a true-sounding statement about the wrong
+    thing. The honest output is no file, and a caller that says why.
+    """
+
+
+def nested_labels(iso3: str):
+    """Component labels in the country's own admin vocabulary."""
+    from . import regions as R
+
+    outer, inner = R.level_title(iso3, 1), R.level_title(iso3, 2)
+    return (
+        f"between {outer}s",
+        f"between {inner}s, within {outer}",
+        f"within {inner}s",
+    )
 
 
 def plot_decomposition(
@@ -187,6 +227,14 @@ def plot_decomposition(
     shares so the composition is readable even as the total halves; the total
     itself is drawn on a companion axis.
     """
+    from . import regions as R
+
+    if not R.has_level(iso3, 2):
+        raise NoNestedHierarchy(
+            f"GADM 4.1 has no admin-2 layer for {iso3}, so there is no nested "
+            "hierarchy to decompose"
+        )
+
     import matplotlib
 
     matplotlib.use("Agg")
@@ -252,7 +300,7 @@ def plot_decomposition(
             years,
             *parts,
             colors=NESTED_COLORS,
-            labels=NESTED_LABELS,
+            labels=nested_labels(iso3),
             edgecolor=SURFACE,
             linewidth=0.6,
         )
@@ -297,9 +345,10 @@ def plot_decomposition(
     fig.text(
         0.008,
         0.945,
-        "Pixels nested in delegations nested in governorates · the three parts "
-        "sum exactly to the total (Theil is additively decomposable) · dashed "
-        "line marks the DMSP→VIIRS handover",
+        f"Pixels nested in {R.level_title(iso3, 2)}s nested in "
+        f"{R.level_title(iso3, 1)}s · the three parts sum exactly to the total "
+        "(Theil is additively decomposable) · dashed line marks the DMSP→VIIRS "
+        "handover",
         color=INK_MUTED,
         fontsize=8,
         ha="left",
