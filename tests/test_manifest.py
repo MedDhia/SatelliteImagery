@@ -65,6 +65,28 @@ def test_dataset_level_provenance_is_recorded(manifest):
     assert dataset["grid"]["nodata"] == lrcc_dvnl.NODATA
 
 
+def test_dtype_eras_cover_every_year_without_gaps():
+    """The dtype switch is a real property of the deposit; pin it."""
+    years = [lrcc_dvnl.dtype_for_year(y) for y in range(1992, 2023)]
+    assert len(years) == 31
+    assert lrcc_dvnl.dtype_for_year(1992) == "int8"
+    assert lrcc_dvnl.dtype_for_year(1993) == "int16"
+    assert lrcc_dvnl.dtype_for_year(2013) == "int16"
+    # The switch to fractional DN lands on the DMSP -> VIIRS boundary.
+    assert lrcc_dvnl.dtype_for_year(2014) == "float32"
+    assert lrcc_dvnl.dtype_for_year(2022) == "float32"
+
+
+def test_dtype_for_year_rejects_years_outside_the_series():
+    with pytest.raises(ValueError):
+        lrcc_dvnl.dtype_for_year(2023)
+
+
+def test_manifest_records_the_dtype_eras(manifest):
+    eras = manifest.dataset["grid"]["dtype_eras"]
+    assert [e["dtype"] for e in eras] == ["int8", "int16", "float32"]
+
+
 def test_select_filters_by_product_and_year(manifest):
     chosen = manifest.select(product=lrcc_dvnl.DATASET_ID, years=[1992, 2022])
     assert [f.year for f in chosen] == [1992, 2022]

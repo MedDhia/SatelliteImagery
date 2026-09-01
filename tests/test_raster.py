@@ -174,6 +174,53 @@ def test_summarize_is_window_size_independent(broken_raster):
     assert a.as_dict() == b.as_dict()
 
 
+def test_summarize_handles_fractional_dn_from_the_viirs_era(tmp_path):
+    """2014-2022 are float32; the summary must not truncate them to integers."""
+    array = np.zeros((8, 8), dtype=np.float32)
+    array[0, 0] = np.float32(1.5)
+    array[0, 1] = np.float32(2.25)
+    array[1, 0] = np.float32(62.75)
+    array[7, :] = NODATA
+
+    transform = rasterio.transform.from_origin(-17_243_957.96, 7_982_831.54, 1000, 1000)
+    path = tmp_path / "float.tif"
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        width=8,
+        height=8,
+        count=1,
+        dtype="float32",
+        nodata=NODATA,
+        transform=transform,
+        crs=rasterio.crs.CRS.from_epsg(CRS_EPSG),
+    ) as dst:
+        dst.write(array, 1)
+
+    stats = raster.summarize(path)
+
+    assert stats.dtype == "float32"
+    assert stats.histogram_is_binned is True
+    assert stats.nodata_pixels == 8
+    assert stats.valid_pixels == 56
+    assert stats.lit_pixels == 3
+    assert stats.sum_of_lights == pytest.approx(1.5 + 2.25 + 62.75)
+    assert stats.min_dn == pytest.approx(0.0)
+    assert stats.max_dn == pytest.approx(62.75)
+    # Fractional values bin by floor, and that is flagged rather than implied.
+    assert stats.histogram[1] == 1
+    assert stats.histogram[2] == 1
+    assert stats.histogram[62] == 1
+
+
+def test_summarize_reports_integer_dtypes_exactly(broken_raster):
+    stats = raster.summarize(broken_raster)
+    assert stats.dtype == "int8"
+    assert stats.histogram_is_binned is False
+    assert isinstance(stats.sum_of_lights, int)
+
+
 def test_summarize_handles_an_all_nodata_raster(tmp_path):
     array = np.full((32, 32), NODATA, dtype=np.int8)
     path = _write(tmp_path / "empty.tif", array, LOCAL_CS_WKT)

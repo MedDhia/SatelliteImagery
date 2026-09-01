@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 from .checksums import md5_file
-from .datasets.lrcc_dvnl import CRS_EPSG, DN_MAX, NODATA
+from .datasets.lrcc_dvnl import CRS_EPSG, DN_MAX, DN_MIN, NODATA
 from .provenance import write_repair_record
 
 #: Rows read at a time when scanning a full raster (int8, full width).
@@ -195,12 +195,16 @@ class RasterStats:
     lit_pixels: int
     zero_pixels: int
     out_of_range_pixels: int
-    min_dn: Optional[int]
-    max_dn: Optional[int]
-    sum_of_lights: int
+    min_dn: Optional[float]
+    max_dn: Optional[float]
+    sum_of_lights: float
     mean_dn_valid: Optional[float]
     mean_dn_lit: Optional[float]
     histogram: Dict[int, int] = field(default_factory=dict)
+    #: Source dtype - the series mixes int8, int16 and float32 across years.
+    dtype: str = ""
+    #: True when the source held fractional DN, so histogram keys are floors.
+    histogram_is_binned: bool = False
 
     @property
     def lit_fraction(self) -> Optional[float]:
@@ -233,33 +237,54 @@ def summarize(
     path = Path(path)
     with rasterio.open(path) as src:
         fill = nodata if nodata is not None else src.nodata
-        fill = NODATA if fill is None else int(fill)
+        fill = NODATA if fill is None else float(fill)
+        dtype = src.dtypes[0]
+        # 1992 is int8, 1993-2013 int16, 2014-2022 float32 with fractional DN.
+        # Integer years can be counted exactly; float years cannot, so their
+        # histogram bins by floor and the summary statistics are accumulated.
+        is_float = dtype.startswith("float")
 
-        # int8/uint8 values shifted into [0, 255] so bincount covers negatives.
-        counts = np.zeros(256, dtype=np.int64)
+        counts = np.zeros(int(max_dn) + 2, dtype=np.int64)
+        nodata_pixels = 0
+        valid_pixels = 0
+        out_of_range = 0
+        sum_of_lights = 0.0
+        observed_min = None
+        observed_max = None
+
         for row_start in range(0, src.height, window_height):
             rows = min(window_height, src.height - row_start)
             block = src.read(1, window=Window(0, row_start, src.width, rows)).astype(
-                np.int16
+                np.float64
             )
-            counts += np.bincount((block + 128).ravel(), minlength=256)[:256].astype(
-                np.int64
+            is_fill = block == fill
+            nodata_pixels += int(is_fill.sum())
+
+            valid = (~is_fill) & (block >= DN_MIN) & (block <= max_dn)
+            values = block[valid]
+            valid_pixels += int(values.size)
+            out_of_range += (
+                int(rows) * int(src.width) - int(is_fill.sum()) - values.size
             )
+
+            if values.size:
+                sum_of_lights += float(values.sum())
+                low, high = float(values.min()), float(values.max())
+                observed_min = low if observed_min is None else min(observed_min, low)
+                observed_max = high if observed_max is None else max(observed_max, high)
+                bins = np.floor(values).astype(np.int64)
+                counts += np.bincount(bins, minlength=counts.size)[: counts.size]
+
         total = int(src.height) * int(src.width)
 
-    values = np.arange(-128, 128, dtype=np.int64)
-    nodata_pixels = int(counts[fill + 128]) if -128 <= fill <= 127 else 0
-
-    valid_mask = (values != fill) & (values >= 0) & (values <= max_dn)
-    valid_counts = counts * valid_mask
-    valid_pixels = int(valid_counts.sum())
-    sum_of_lights = int((values * valid_counts).sum())
-    zero_pixels = int(counts[0 + 128]) if fill != 0 else 0
+    zero_pixels = int(counts[0]) if fill != 0 else 0
     lit_pixels = valid_pixels - zero_pixels
-    out_of_range = total - valid_pixels - nodata_pixels
+    histogram = {int(dn): int(n) for dn, n in enumerate(counts) if n}
 
-    present = values[(counts > 0) & valid_mask]
-    histogram = {int(dn): int(counts[dn + 128]) for dn in present}
+    def _round(value):
+        if value is None:
+            return None
+        return value if is_float else int(value)
 
     return RasterStats(
         path=str(path),
@@ -269,10 +294,12 @@ def summarize(
         lit_pixels=lit_pixels,
         zero_pixels=zero_pixels,
         out_of_range_pixels=int(out_of_range),
-        min_dn=int(present.min()) if present.size else None,
-        max_dn=int(present.max()) if present.size else None,
-        sum_of_lights=sum_of_lights,
+        min_dn=_round(observed_min),
+        max_dn=_round(observed_max),
+        sum_of_lights=sum_of_lights if is_float else int(sum_of_lights),
         mean_dn_valid=(sum_of_lights / valid_pixels) if valid_pixels else None,
         mean_dn_lit=(sum_of_lights / lit_pixels) if lit_pixels else None,
         histogram=histogram,
+        dtype=dtype,
+        histogram_is_binned=is_float,
     )

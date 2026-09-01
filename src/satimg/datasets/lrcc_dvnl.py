@@ -38,7 +38,25 @@ RESOLUTION_M = 1000
 NODATA = 127
 DN_MIN = 0
 DN_MAX = 63
-DTYPE = "int8"
+
+#: Storage dtype by era. The series is NOT homogeneous - the switch lands on the
+#: DMSP->VIIRS boundary, and 2014 onward carries fractional DN. Code that
+#: assumes one dtype silently truncates the VIIRS years.
+DTYPE_ERAS = (
+    (1992, 1992, "int8"),
+    (1993, 2013, "int16"),
+    (2014, 2022, "float32"),
+)
+DTYPE = "mixed: int8 (1992), int16 (1993-2013), float32 (2014-2022)"
+
+
+def dtype_for_year(year: int) -> str:
+    """Storage dtype of a given year's raster."""
+    for first, last, dtype in DTYPE_ERAS:
+        if first <= year <= last:
+            return dtype
+    raise ValueError(f"year {year} is outside {FIRST_YEAR}-{LAST_YEAR}")
+
 
 #: Shared grid of the annual GeoTIFFs (verified against LACC_1992.tif).
 GRID_WIDTH = 34488

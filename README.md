@@ -89,6 +89,34 @@ summarizes in seconds without loading all 528 M pixels at once.
 pre-repair digest in a `<file>.satimg.json` sidecar, so `verify` still
 recognises a repaired raster (`REPAIRED`) while real corruption still fails.
 
+## Boundary overlays
+
+Superposing administrative boundaries produces **two additional sets** beside
+the original imagery — country (GADM adm0, 263 units) and subnational
+(GADM adm1, 3 662 units) — each as viewable PNG maps *and* georeferenced
+two-band GeoTIFFs.
+
+```bash
+pip install -e ".[overlay]"
+satimg boundaries fetch                # GADM 4.1 world GeoPackage (2.5 GiB)
+satimg boundaries prepare --level 0,1  # reproject + simplify, cached
+satimg lrcc-dvnl overlay               # both levels, both formats, all 31 years
+```
+
+```
+data/overlays/lrcc-dvnl/
+├── adm0/{png,tif}/LACC_<year>_adm0.{png,tif}
+└── adm1/{png,tif}/LACC_<year>_adm1.{png,tif}
+```
+
+The GeoTIFFs are **non-destructive**: band 1 is the published DN copied through
+byte-for-byte, band 2 is the boundary mask. They also carry a real `EPSG:8857`,
+so unlike the source files they need no CRS repair.
+
+⚠️ **The boundaries are GADM, which is non-commercial and non-redistributable.**
+The overlay products inherit that restriction — fine for academic publication,
+not for redistribution. See [`docs/overlays.md`](docs/overlays.md).
+
 ## Before you use this dataset
 
 Read [`docs/lrcc-dvnl.md`](docs/lrcc-dvnl.md). The one caveat to know up front:
@@ -97,6 +125,12 @@ fall**, so genuine declines — urban shrinkage, conflict, disaster, energy
 shortage — are suppressed by construction. This series cannot be used to study
 dimming, and it biases trend estimates upward.
 
+A second trap, found by checking all 31 files rather than one: **the series is
+not dtype-homogeneous.** 1992 is `int8`, 1993–2013 `int16`, and 2014–2022
+`float32` carrying *fractional* DN. Code that assumes a single dtype silently
+truncates the VIIRS-era years — a systematic downward bias in exactly the half
+of the series where lit area grows fastest.
+
 Note also that the Dataverse deposit is labelled **CC0 1.0** while the paper
 states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
@@ -104,7 +138,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 75 offline tests, no network
+pytest                 # 101 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 

@@ -37,7 +37,25 @@
       "resolution_m": 1000,
       "width": 34488,
       "height": 15315,
-      "dtype": "int8",
+      "dtype": "mixed: int8 (1992), int16 (1993-2013), float32 (2014-2022)",
+      "dtype_eras": [
+        {
+          "first_year": 1992,
+          "last_year": 1992,
+          "dtype": "int8"
+        },
+        {
+          "first_year": 1993,
+          "last_year": 2013,
+          "dtype": "int16"
+        },
+        {
+          "first_year": 2014,
+          "last_year": 2022,
+          "dtype": "float32"
+        }
+      ],
+      "latitude_extent": "75N to 65S",
       "nodata": 127,
       "valid_dn_range": [
         0,

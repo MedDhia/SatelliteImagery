@@ -22,6 +22,8 @@ from .raster import RasterDependencyError
 from .util import format_table, human_bytes, parse_year_spec
 
 DEFAULT_DEST = Path("data/raw/lrcc-dvnl")
+DEFAULT_OVERLAY_DEST = Path("data/overlays/lrcc-dvnl")
+BOUNDARIES_ROOT = Path("data/boundaries")
 
 
 # --------------------------------------------------------------------------- #
@@ -264,6 +266,179 @@ def cmd_cite(args) -> int:
     return 0
 
 
+def cmd_overlay(args) -> int:
+    """Produce boundary-overlaid sets: one per admin level, per output format."""
+    from . import boundaries as B
+    from .overlay import (
+        OverlayStyle,
+        grid_signature,
+        line_segments,
+        rasterize_boundaries,
+        read_downsampled,
+        render_png,
+        write_boundary_geotiff,
+    )
+
+    levels = [B.check_level(int(v)) for v in str(args.admin).split(",") if v.strip()]
+    formats = [f.strip() for f in str(args.format).split(",") if f.strip()]
+    unknown = set(formats) - {"png", "tif"}
+    if unknown:
+        raise SystemExit(f"unknown --format value(s): {', '.join(sorted(unknown))}")
+
+    files = _selected_files(args)
+    source_root = Path(args.source)
+    dest_root = Path(args.dest)
+
+    available = []
+    for data_file in files:
+        candidate = source_root / data_file.name
+        if not candidate.exists():
+            candidate = data_file.local_path(source_root)
+        if candidate.exists():
+            available.append((data_file, candidate))
+        else:
+            print(
+                f"skip {data_file.name}: not downloaded under {source_root}",
+                file=sys.stderr,
+            )
+    if not available:
+        raise SystemExit(
+            f"no source rasters found under {source_root}; "
+            "run 'satimg lrcc-dvnl download' first"
+        )
+
+    style = OverlayStyle(
+        width_px=args.width,
+        gamma=args.gamma,
+        resampling=args.resampling,
+        cmap=args.cmap,
+        dpi=args.dpi,
+    )
+
+    # Prepare each level once; reproject + simplify is the slow part.
+    prepared = {}
+    for level in levels:
+        layer = B.prepare_level(args.boundaries_root, level=level)
+        prepared[level] = {
+            "layer": layer,
+            "segments": line_segments(layer) if "png" in formats else None,
+            "mask": None,
+            "grid": None,
+        }
+        print(
+            f"boundaries adm{level}: {layer.feature_count} units "
+            f"({layer.label}) from GADM {B.GADM_VERSION}",
+            file=sys.stderr,
+        )
+
+    written = 0
+    for data_file, raster in available:
+        stem = Path(data_file.name).stem
+        needs_png = "png" in formats
+        decimated = None
+
+        for level in levels:
+            state = prepared[level]
+            layer = state["layer"]
+
+            if needs_png:
+                png_out = dest_root / f"adm{level}" / "png" / f"{stem}_adm{level}.png"
+                if png_out.exists() and not args.overwrite:
+                    print(f"exists {png_out}")
+                else:
+                    if decimated is None:
+                        decimated = read_downsampled(
+                            raster, style.width_px, style.resampling
+                        )
+                    render_png(
+                        None,
+                        png_out,
+                        layer=layer,
+                        year=data_file.year,
+                        style=style,
+                        segments=state["segments"],
+                        data=decimated[0],
+                        extent=decimated[1],
+                    )
+                    written += 1
+                    print(f"wrote  {png_out}")
+
+            if "tif" in formats:
+                tif_out = dest_root / f"adm{level}" / "tif" / f"{stem}_adm{level}.tif"
+                if tif_out.exists() and not args.overwrite:
+                    print(f"exists {tif_out}")
+                    continue
+                signature = grid_signature(raster)
+                # Every year shares one grid, so the mask is rasterized once and
+                # reused; recompute only if a raster turns up on a different grid.
+                if state["mask"] is None or state["grid"] != signature:
+                    state["mask"] = rasterize_boundaries(raster, layer)
+                    state["grid"] = signature
+                write_boundary_geotiff(raster, tif_out, layer, mask=state["mask"])
+                written += 1
+                print(f"wrote  {tif_out}")
+
+    print(f"\n{written} file(s) written under {dest_root}")
+    if any(prepared):
+        print(
+            "Boundaries are GADM 4.1: non-commercial use, redistribution not "
+            "permitted. Overlay products inherit that restriction.",
+            file=sys.stderr,
+        )
+    return 0
+
+
+# --------------------------------------------------------------------------- #
+# boundaries subcommands
+# --------------------------------------------------------------------------- #
+def cmd_boundaries_fetch(args) -> int:
+    from . import boundaries as B
+
+    print(B.GADM_LICENSE_NOTICE, file=sys.stderr)
+    progress = _Progress("gadm", enabled=not args.quiet)
+    target = B.fetch_gadm(args.root, keep_archive=args.keep_archive, progress=progress)
+    progress.done()
+    print(f"GADM ready: {target} ({human_bytes(target.stat().st_size)})")
+    print(f"License notice: {B.license_path(args.root)}")
+    return 0
+
+
+def cmd_boundaries_prepare(args) -> int:
+    from . import boundaries as B
+
+    for value in str(args.level).split(","):
+        level = B.check_level(int(value))
+        layer = B.prepare_level(args.root, level=level, force=args.force)
+        print(
+            f"adm{level} ({layer.label}): {layer.feature_count} units, "
+            f"EPSG:{layer.epsg}, simplified {layer.tolerance_m:g} m -> {layer.path}"
+        )
+    return 0
+
+
+def cmd_boundaries_info(args) -> int:
+    from . import boundaries as B
+
+    source = B.gpkg_path(args.root)
+    print(f"GADM {B.GADM_VERSION}")
+    print(f"  source     {source} {'(present)' if source.exists() else '(MISSING)'}")
+    print("  license    non-commercial; redistribution not permitted")
+    rows = []
+    for level, label in B.LEVEL_LABELS.items():
+        cache = B.cache_path(args.root, level=level)
+        rows.append(
+            [
+                f"adm{level}",
+                label,
+                B.LEVEL_LAYERS[level],
+                "cached" if cache.exists() else "-",
+            ]
+        )
+    print()
+    print(format_table(rows, ["LEVEL", "LABEL", "LAYER", "PREPARED"]))
+    return 0
+
+
 # --------------------------------------------------------------------------- #
 # raster subcommands
 # --------------------------------------------------------------------------- #
@@ -326,8 +501,14 @@ def cmd_raster_stats(args) -> int:
         lit_fraction = stats.lit_fraction
         lit_text = f"{lit_fraction:.4%}" if lit_fraction is not None else "n/a"
         print(f"  lit pixels DN>0  {stats.lit_pixels:,} ({lit_text} of valid)")
-        print(f"  DN range         {stats.min_dn} - {stats.max_dn}")
-        print(f"  sum of lights    {stats.sum_of_lights:,}")
+        print(f"  dtype            {stats.dtype}")
+        if stats.min_dn is None:
+            print("  DN range         n/a (no valid pixels)")
+        elif stats.histogram_is_binned:
+            print(f"  DN range         {stats.min_dn:.4g} - {stats.max_dn:.4g}")
+        else:
+            print(f"  DN range         {stats.min_dn} - {stats.max_dn}")
+        print(f"  sum of lights    {stats.sum_of_lights:,.0f}")
         if stats.mean_dn_lit is not None:
             print(f"  mean DN (lit)    {stats.mean_dn_lit:.3f}")
         if stats.out_of_range_pixels:
@@ -405,6 +586,100 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=["text", "bibtex"], default="text", help="citation format"
     )
     cite.set_defaults(func=cmd_cite)
+
+    overlay = sub.add_parser(
+        "overlay",
+        help="superpose administrative boundaries, producing one set per level",
+        description=(
+            "Produce boundary-overlaid sets from downloaded rasters: PNG map "
+            "renders and/or 2-band GeoTIFFs whose second band is a boundary "
+            "mask. Boundaries come from GADM (non-commercial use only)."
+        ),
+    )
+    add_selection(overlay, default_product=lrcc_dvnl.DATASET_ID)
+    overlay.add_argument(
+        "--admin",
+        default="0,1",
+        help="admin level(s) to overlay: 0=country, 1=subnational (default: 0,1)",
+    )
+    overlay.add_argument(
+        "--format",
+        default="png,tif",
+        help="output kinds: png, tif, or both (default: png,tif)",
+    )
+    overlay.add_argument(
+        "--source",
+        default=DEFAULT_DEST,
+        help=f"where the downloaded rasters live (default: {DEFAULT_DEST})",
+    )
+    overlay.add_argument(
+        "--dest", default=DEFAULT_OVERLAY_DEST, help="output root for the overlay sets"
+    )
+    overlay.add_argument(
+        "--boundaries-root",
+        default=BOUNDARIES_ROOT,
+        help=f"where GADM data and caches live (default: {BOUNDARIES_ROOT})",
+    )
+    overlay.add_argument(
+        "--width", type=int, default=4000, help="PNG width in pixels (default: 4000)"
+    )
+    overlay.add_argument(
+        "--gamma",
+        type=float,
+        default=0.45,
+        help="display stretch for the PNG colour ramp (default: 0.45)",
+    )
+    overlay.add_argument(
+        "--resampling",
+        choices=["max", "average", "nearest"],
+        default="max",
+        help="PNG downsampling rule (default: max, keeps small settlements)",
+    )
+    overlay.add_argument(
+        "--cmap", help="matplotlib colormap name instead of the single-hue ramp"
+    )
+    overlay.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
+    overlay.add_argument(
+        "--overwrite", action="store_true", help="re-render outputs that already exist"
+    )
+    overlay.set_defaults(func=cmd_overlay)
+
+    bounds = commands.add_parser(
+        "boundaries",
+        help="fetch and prepare administrative boundaries (GADM)",
+        description=(
+            "GADM administrative boundaries. GADM is free for academic and "
+            "other non-commercial use; redistribution and commercial use "
+            "require permission, so nothing is committed to this repository."
+        ),
+    )
+    bounds_sub = bounds.add_subparsers(dest="subcommand", metavar="<subcommand>")
+
+    fetch = bounds_sub.add_parser(
+        "fetch", help="download and extract the GADM world GeoPackage (2.5 GiB)"
+    )
+    fetch.add_argument("--root", default=BOUNDARIES_ROOT, help="boundary data root")
+    fetch.add_argument(
+        "--keep-archive", action="store_true", help="keep the .zip after extracting"
+    )
+    fetch.add_argument("--quiet", action="store_true", help="no progress bar")
+    fetch.set_defaults(func=cmd_boundaries_fetch)
+
+    prepare = bounds_sub.add_parser(
+        "prepare", help="reproject and simplify one or more admin levels"
+    )
+    prepare.add_argument(
+        "--level", default="0,1", help="admin level(s), comma separated (default: 0,1)"
+    )
+    prepare.add_argument("--root", default=BOUNDARIES_ROOT, help="boundary data root")
+    prepare.add_argument(
+        "--force", action="store_true", help="rebuild even if a cache exists"
+    )
+    prepare.set_defaults(func=cmd_boundaries_prepare)
+
+    binfo = bounds_sub.add_parser("info", help="show GADM status and prepared caches")
+    binfo.add_argument("--root", default=BOUNDARIES_ROOT, help="boundary data root")
+    binfo.set_defaults(func=cmd_boundaries_info)
 
     raster = commands.add_parser(
         "raster", help="inspect and repair downloaded rasters (needs the raster extra)"

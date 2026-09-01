@@ -78,15 +78,47 @@ Verified by opening `LACC_1992.tif`:
 | Format | GeoTIFF, LZW-compressed, tiled 128×128 |
 | Grid | 34 488 × 15 315 px (528 183 720 px), single band |
 | Resolution | 1000 m |
-| Data type | `int8` |
+| Data type | **mixed across years** — see below |
 | Valid values | DN 0–63 (DMSP-like scale) |
 | NoData | **127** |
 | CRS (nominal) | EPSG:8857 — WGS 84 / Equal Earth Greenwich |
 | Bounds (m) | −17 243 958, −7 332 168 → 17 244 042, 7 982 832 |
+| Latitude extent | **75°N to 65°S** — not pole to pole |
 | Per-year size | 16–55 MiB on disk |
+
+The grid is **not global in latitude**. Inverse-projecting the vertical bounds
+gives 75.00°N and 65.01°S, so Antarctica and the high Arctic (northern
+Greenland, Svalbard, much of the Canadian Arctic) are outside the data
+altogether. Anything that overlays or joins against global boundaries has to
+clip to this extent, or it will imply coverage that does not exist.
 
 Values are **relative digital numbers, not radiances.** DN 0–63 is the DMSP
 convention; there is no conversion to nW·cm⁻²·sr⁻¹ implied.
+
+### The series is not dtype-homogeneous
+
+Checked across all 31 files:
+
+| Years | dtype | Values |
+|---|---|---|
+| 1992 | `int8` | integer DN |
+| 1993–2013 | `int16` | integer DN |
+| 2014–2022 | `float32` | **fractional** DN (47 280 distinct values in 2022) |
+
+The grid, nodata (127) and 0–63 range are identical throughout — only the
+storage type and value granularity change, and the switch lands exactly on the
+DMSP→VIIRS boundary.
+
+This bites in practice. Anything that assumes a single dtype across the series —
+reading into a preallocated `int8` array, stacking years with `np.stack`,
+writing a derived product with a hardcoded profile — will **silently truncate
+2014–2022**, turning DN 1.95 into 1 and shaving a systematic bias into exactly
+the half of the series where lit area is growing fastest. `satimg` reads each
+year's dtype from the file and preserves it; a test pins all three cases.
+
+For the same reason, an exact-value histogram is only meaningful for the integer
+years. `satimg raster stats` bins the float years by floor and reports
+`histogram_is_binned: true` rather than implying exact counts.
 
 ### The CRS defect
 
@@ -194,6 +226,13 @@ python scripts/refresh_manifest.py --check
   doi     = {10.1038/s41597-025-05246-8}
 }
 ```
+
+## Boundary overlays
+
+Country and subnational overlay sets are documented separately in
+[`overlays.md`](overlays.md). Note that they are **GADM-encumbered** — the
+boundary source is non-commercial and non-redistributable, a stricter condition
+than anything attaching to the imagery itself.
 
 ## Related long-term NTL series
 

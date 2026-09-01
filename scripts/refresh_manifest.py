@@ -173,6 +173,11 @@ def build_manifest() -> Dict[str, Any]:
                 "width": lrcc_dvnl.GRID_WIDTH,
                 "height": lrcc_dvnl.GRID_HEIGHT,
                 "dtype": lrcc_dvnl.DTYPE,
+                "dtype_eras": [
+                    {"first_year": first, "last_year": last, "dtype": dtype}
+                    for first, last, dtype in lrcc_dvnl.DTYPE_ERAS
+                ],
+                "latitude_extent": "75N to 65S",
                 "nodata": lrcc_dvnl.NODATA,
                 "valid_dn_range": [lrcc_dvnl.DN_MIN, lrcc_dvnl.DN_MAX],
             },
