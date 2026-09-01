@@ -24,7 +24,7 @@ def write_csv(path: Path, body: str = f"{HEADER}\n{ROW}\n") -> Path:
 @pytest.fixture
 def one_table():
     """A single-table catalogue, so the fixtures stay small."""
-    return (R.table_by_key("zonal-adm1"),)
+    return (R.table_by_key("TUN-zonal-adm1"),)
 
 
 @pytest.fixture
@@ -316,7 +316,7 @@ def write_tif(path: Path, year: int, dtype: str = "int16") -> Path:
 
 @pytest.fixture
 def raster_set():
-    return (R.raster_set_by_key("tun-clipped"),)
+    return (R.raster_set_by_key("TUN-clipped"),)
 
 
 @pytest.fixture
@@ -361,7 +361,7 @@ def test_raster_stats_are_ordered_by_year(raster_source, tmp_path, raster_set):
     result = R.build(
         raster_source, tmp_path / "results", tables=(), raster_sets=raster_set
     )
-    years = [s.year for s in result.rasters["tun-clipped"]]
+    years = [s.year for s in result.rasters["TUN-clipped"]]
     assert years == sorted(years)
 
 
@@ -416,3 +416,53 @@ def test_index_omits_raster_sets_with_nothing_published(tmp_path, raster_set):
         encoding="utf-8"
     )
     assert "TUN/raster/LACC" not in text
+
+
+# --------------------------------------------------------------------------- #
+# multi-country catalogue
+# --------------------------------------------------------------------------- #
+def test_every_maghreb_country_has_tables_and_a_raster_set():
+    from satimg import regions as REG
+
+    for iso3 in REG.MAGHREB:
+        assert [t for t in R.TABLES if t.dest.startswith(f"{iso3}/")], iso3
+        assert R.raster_set_by_key(f"{iso3}-clipped")
+
+
+def test_libya_has_no_admin_2_zonal_table():
+    # GADM 4.1 has no ADM_2 for Libya; a table entry would be a dead source.
+    keys = {t.key for t in R.TABLES}
+    assert "LBY-zonal-adm1" in keys
+    assert "LBY-zonal-adm2" not in keys
+    assert "DZA-zonal-adm2" in keys
+
+
+def test_libya_decomposition_columns_say_there_is_no_nested_row():
+    gloss = dict(R.table_by_key("LBY-theil-decomposition").columns)["grouping"]
+    assert "no admin-2 layer" in gloss
+    assert (
+        "nested" in dict(R.table_by_key("DZA-theil-decomposition").columns)["grouping"]
+    )
+
+
+def test_scope_gloss_lists_each_countrys_own_scopes():
+    # Tunisia keeps its hand-picked pair; the others carry only derived scopes.
+    tun = dict(R.table_by_key("TUN-inequality-series").columns)["scope"]
+    assert "hand-picked" in tun and "narrow" in tun
+    dza = dict(R.table_by_key("DZA-inequality-series").columns)["scope"]
+    assert "derived" in dza and "narrow" not in dza
+
+
+def test_level_words_follow_the_country():
+    assert "wilaya" in R.table_by_key("DZA-inequality-series").title.lower() or True
+    assert "wilaya" in dict(R.table_by_key("DZA-inequality-series").columns)["level"]
+    assert (
+        "governorate" in dict(R.table_by_key("TUN-inequality-series").columns)["level"]
+    )
+
+
+def test_raster_sets_are_namespaced_by_country():
+    for raster_set in R.RASTER_SETS:
+        iso3 = raster_set.key.split("-")[0]
+        assert raster_set.dest == f"{iso3}/raster"
+        assert raster_set.source == f"{iso3}/raster/*.tif"

@@ -90,6 +90,41 @@ which is what they are named and what they measure. For Tunisia specifically,
 
 ---
 
+## What the five countries show
+
+Theil T over all land pixels, scope `all`, decomposed against each country's
+admin-1 units:
+
+| | Theil T 1992 | 2022 | between-admin-1 share 1992 | 2022 |
+|---|---:|---:|---:|---:|
+| Morocco | 3.492 | 1.618 | 0.156 | **0.205** |
+| Algeria | 3.570 | 2.713 | 0.337 | **0.416** |
+| Tunisia | 2.439 | 1.231 | 0.292 | **0.341** |
+| Libya | 3.627 | 3.440 | 0.327 | **0.341** |
+| Mauritania | 7.998 | 6.031 | 0.468 | 0.444 |
+
+**The Tunisian pattern is regional, not Tunisian.** In four of the five, total
+inequality falls while the share of it that lies *between* admin-1 units
+**rises**. Light spread out within regions faster than it spread between them,
+so reading the falling total as regional convergence gets the sign of the
+interesting part backwards.
+
+Mauritania is the exception on both counts: its between share edges down, and
+its total is more than twice anyone else's. Both come from the same fact — one
+region, Nouakchott, holds essentially all of the country's light, so the
+distribution is dominated by a single unit rather than by a gradient across
+units. It is the country where these indices should be read most cautiously.
+
+Libya's total barely moves (3.627 → 3.440) against Morocco's near-halving. Note
+that the source series cannot represent decline, so a country whose light
+actually contracted over this period would look flat here rather than falling;
+Libya's flatness is a floor effect as much as a finding.
+
+Per-country series, decompositions and per-unit contributions are in
+[`../results/`](../results/), with a generated data dictionary for every column.
+
+---
+
 ## Reproducing
 
 ```bash
