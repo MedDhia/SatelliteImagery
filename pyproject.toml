@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "satimg"
+version = "0.1.0"
+description = "Reproducible importers for global satellite imagery datasets, starting with LRCC-DVNL nighttime lights (1992-2022)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+
+# The import pipeline (download + checksum verification) is deliberately
+# dependency-free so it runs on a bare Python install.
+dependencies = []
+
+[project.optional-dependencies]
+# Only needed for the raster inspection / CRS repair subcommands.
+raster = ["rasterio>=1.3", "numpy>=1.21"]
+# Boundary overlays: vector IO/reprojection plus the PNG renderer.
+overlay = [
+    "rasterio>=1.3",
+    "numpy>=1.21",
+    "geopandas>=1.0",
+    "shapely>=2.0",
+    "pyproj>=3.4",
+    "pyogrio>=0.7",
+    "matplotlib>=3.6",
+]
+dev = [
+    "pytest>=7",
+    "rasterio>=1.3",
+    "numpy>=1.21",
+    "geopandas>=1.0",
+    "shapely>=2.0",
+    "pyproj>=3.4",
+    "pyogrio>=0.7",
+    "matplotlib>=3.6",
+]
+
+[project.scripts]
+satimg = "satimg.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+satimg = ["datasets/data/*.json"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+# typing.Optional/Dict are kept deliberately: requires-python is 3.9, so the
+# pyupgrade (UP) rules are not selected.
+select = ["E", "F", "W", "I", "B", "ISC", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+# Map labels use real typography (·, –, γ) on purpose; these strings are drawn
+# for readers, not parsed.
+"src/satimg/overlay.py" = ["RUF001"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["network: tests that hit the live Harvard Dataverse API"]
+addopts = "-m 'not network'"

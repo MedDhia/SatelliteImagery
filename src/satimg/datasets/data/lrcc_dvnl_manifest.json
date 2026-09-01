@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "id": "lrcc-dvnl",
+    "title": "Global nighttime light dataset from 1992 to 2022 with focus on low-light areas（updated）",
+    "doi": "10.7910/DVN/15IKI5",
+    "landing_page": "https://doi.org/10.7910/DVN/15IKI5",
+    "repository": "Harvard Dataverse",
+    "dataverse_version": "2.0",
+    "release_time": "2025-04-25T13:49:02Z",
+    "license": {
+      "name": "CC0 1.0",
+      "uri": "http://creativecommons.org/publicdomain/zero/1.0",
+      "spdx_id": "CC0-1.0"
+    },
+    "authors": [
+      {
+        "name": "Tang, hui",
+        "affiliation": "Central South University of Forestry and Technology",
+        "orcid": "0009-0005-6169-9323"
+      },
+      {
+        "name": "Zhong, yongde",
+        "affiliation": "National Forestry and Grassland Administration State Forestry Administration Engineering Research Centerfor Forest tourism",
+        "orcid": null
+      },
+      {
+        "name": "Xia, hongling",
+        "affiliation": "Department of Architecture, Hunan Urban Construction College",
+        "orcid": null
+      }
+    ],
+    "paper_doi": "10.1038/s41597-025-05246-8",
+    "grid": {
+      "crs_epsg": 8857,
+      "crs_name": "WGS 84 / Equal Earth Greenwich",
+      "resolution_m": 1000,
+      "width": 34488,
+      "height": 15315,
+      "dtype": "mixed: int8 (1992), int16 (1993-2013), float32 (2014-2022)",
+      "dtype_eras": [
+        {
+          "first_year": 1992,
+          "last_year": 1992,
+          "dtype": "int8"
+        },
+        {
+          "first_year": 1993,
+          "last_year": 2013,
+          "dtype": "int16"
+        },
+        {
+          "first_year": 2014,
+          "last_year": 2022,
+          "dtype": "float32"
+        }
+      ],
+      "latitude_extent": "75N to 65S",
+      "nodata": 127,
+      "valid_dn_range": [
+        0,
+        63
+      ]
+    }
+  },
+  "products": {
+    "lrcc-dvnl": {
+      "title": "LRCC-DVNL annual nighttime lights (1992-2022)",
+      "description": "Headline product: DMSP-like annual NTL composites, continuity- and trend-calibrated across the DMSP/OLS and VIIRS eras. One GeoTIFF per year, DN 0-63, nodata 127.",
+      "file_format": "GeoTIFF",
+      "filename_pattern": "LACC_{year}.tif",
+      "years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ]
+    },
+    "c-dvnl": {
+      "title": "Calibrated DVNL (C-DVNL, 2013-2022)",
+      "description": "Intermediate product: the repaired (2013) and extended (2020-2022) calibrated DVNL composites, before continuity calibration. 7z-compressed GeoTIFFs.",
+      "file_format": "GeoTIFF (7z archive)",
+      "filename_pattern": "C_DVNL {year}.tif.7z",
+      "years": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ]
+    },
+    "crf": {
+      "title": "LRCC-DVNL multidimensional Cloud Raster Format (1992-2022)",
+      "description": "The whole 1992-2022 series as a single Esri CRF multidimensional raster (~673 MiB compressed). Convenient in ArcGIS Pro; the annual GeoTIFFs are the portable option.",
+      "file_format": "Esri CRF (7z archive)",
+      "filename_pattern": "LRCC_DVNL_1992_2022.crf.7z",
+      "years": null
+    }
+  },
+  "files": [
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2013.tif.7z",
+      "year": 2013,
+      "dataverse_file_id": 10410808,
+      "size_bytes": 26768763,
+      "md5": "cce96261c1798b36f408f7f9a26ad604",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2014.tif.7z",
+      "year": 2014,
+      "dataverse_file_id": 10410826,
+      "size_bytes": 26067636,
+      "md5": "03d4564f4ef47a7c4e54bd7279b0635b",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2015.tif.7z",
+      "year": 2015,
+      "dataverse_file_id": 10410813,
+      "size_bytes": 25819822,
+      "md5": "e1ff918ff4b67e9fbd3ba8a541db863f",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2016.tif.7z",
+      "year": 2016,
+      "dataverse_file_id": 10410832,
+      "size_bytes": 25404213,
+      "md5": "906953f2e412746162a2d288211a3a43",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2017.tif.7z",
+      "year": 2017,
+      "dataverse_file_id": 10410827,
+      "size_bytes": 29151548,
+      "md5": "5265ebb0e56f018f886fde33c8ebaaa0",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2018.tif.7z",
+      "year": 2018,
+      "dataverse_file_id": 10410820,
+      "size_bytes": 29102887,
+      "md5": "4545bcef7cfd9bb7effc6fa49bb9c02e",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2019.tif.7z",
+      "year": 2019,
+      "dataverse_file_id": 10410837,
+      "size_bytes": 29547374,
+      "md5": "a6ca950541325f6fd25cb19e4a3d1d9c",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2020.tif.7z",
+      "year": 2020,
+      "dataverse_file_id": 10410806,
+      "size_bytes": 31362001,
+      "md5": "50ff302450ed7c6013a94d71afd4c89f",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2021.tif.7z",
+      "year": 2021,
+      "dataverse_file_id": 10410829,
+      "size_bytes": 33016742,
+      "md5": "6d703cef33dc1ac3ea407a8f1e7d0c49",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "c-dvnl",
+      "name": "C_DVNL 2022.tif.7z",
+      "year": 2022,
+      "dataverse_file_id": 10410842,
+      "size_bytes": 32798217,
+      "md5": "81e356a0a66f732ce0c37287681d6e1d",
+      "content_type": "application/x-compressed",
+      "directory_label": "Calibrated DVNL files"
+    },
+    {
+      "product": "crf",
+      "name": "LRCC_DVNL_1992_2022.crf.7z",
+      "year": null,
+      "dataverse_file_id": 11115639,
+      "size_bytes": 672846689,
+      "md5": "9593470e8c65f090a88eb154aac59641",
+      "content_type": "application/x-compressed",
+      "directory_label": "Cloud Raster File"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1992.tif",
+      "year": 1992,
+      "dataverse_file_id": 11115653,
+      "size_bytes": 16594900,
+      "md5": "aa067b4071e0dbb5c992270db541c91f",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1993.tif",
+      "year": 1993,
+      "dataverse_file_id": 11115661,
+      "size_bytes": 23087540,
+      "md5": "5164774d6c9397feacea242e0612d9a4",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1994.tif",
+      "year": 1994,
+      "dataverse_file_id": 11115676,
+      "size_bytes": 23522042,
+      "md5": "b260b3eaf1ef73f1bec38c29d3e4a97a",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1995.tif",
+      "year": 1995,
+      "dataverse_file_id": 11115655,
+      "size_bytes": 23748684,
+      "md5": "a48fe16014cf9cf553bb75413b9b687a",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1996.tif",
+      "year": 1996,
+      "dataverse_file_id": 11115672,
+      "size_bytes": 23834368,
+      "md5": "68905a9b57ec434dcc123d951866e07c",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1997.tif",
+      "year": 1997,
+      "dataverse_file_id": 11115658,
+      "size_bytes": 24518074,
+      "md5": "a5366767b02c53a5c4f1b9fbb9169567",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1998.tif",
+      "year": 1998,
+      "dataverse_file_id": 11115669,
+      "size_bytes": 24936058,
+      "md5": "a0f9b5b2de6e5b191001a09f4fe63cea",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_1999.tif",
+      "year": 1999,
+      "dataverse_file_id": 11115668,
+      "size_bytes": 25353632,
+      "md5": "6327ff8a29a04351478e641f75e519ae",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2000.tif",
+      "year": 2000,
+      "dataverse_file_id": 11115646,
+      "size_bytes": 25831976,
+      "md5": "1db330a4d4a86ce05f84fd11cef52e1e",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2001.tif",
+      "year": 2001,
+      "dataverse_file_id": 11115647,
+      "size_bytes": 25728614,
+      "md5": "59ad48c8b3b6a2105cd994d6e701b497",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2002.tif",
+      "year": 2002,
+      "dataverse_file_id": 11115671,
+      "size_bytes": 25690054,
+      "md5": "b522630e2154a131074b8624c983c00f",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2003.tif",
+      "year": 2003,
+      "dataverse_file_id": 11115659,
+      "size_bytes": 25959444,
+      "md5": "0837537616a7369cf8db02a7234ae09a",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2004.tif",
+      "year": 2004,
+      "dataverse_file_id": 11115649,
+      "size_bytes": 26581918,
+      "md5": "d8060e6198aad51c1cddf55590cd8c4c",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2005.tif",
+      "year": 2005,
+      "dataverse_file_id": 11115657,
+      "size_bytes": 26426592,
+      "md5": "fc6285ab9fcf46fcf717ebd157ee58af",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2006.tif",
+      "year": 2006,
+      "dataverse_file_id": 11115662,
+      "size_bytes": 26350482,
+      "md5": "ed5a366eaf6b2ad925a10cdea8fbe0de",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2007.tif",
+      "year": 2007,
+      "dataverse_file_id": 11115666,
+      "size_bytes": 26145556,
+      "md5": "1f453ba79ffe6a060228968c291b0123",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2008.tif",
+      "year": 2008,
+      "dataverse_file_id": 11115665,
+      "size_bytes": 24889670,
+      "md5": "5b94d7120a6a7e7fdde26416b6135718",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2009.tif",
+      "year": 2009,
+      "dataverse_file_id": 11115664,
+      "size_bytes": 25409122,
+      "md5": "0a2c512936e2becb080886f1c4c421d5",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2010.tif",
+      "year": 2010,
+      "dataverse_file_id": 11115651,
+      "size_bytes": 26425250,
+      "md5": "f0fca652adbfe094b40cc466e53ead34",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2011.tif",
+      "year": 2011,
+      "dataverse_file_id": 11115656,
+      "size_bytes": 25720366,
+      "md5": "7eee5a889d1a97dbb1b92a220c9ad7bc",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2012.tif",
+      "year": 2012,
+      "dataverse_file_id": 11115660,
+      "size_bytes": 25880648,
+      "md5": "080523da6ca7104252c8e5e05f018a40",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2013.tif",
+      "year": 2013,
+      "dataverse_file_id": 11115667,
+      "size_bytes": 27106380,
+      "md5": "63f1bdd77c7da7ddcbd83e7c7772cfd0",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2014.tif",
+      "year": 2014,
+      "dataverse_file_id": 11115675,
+      "size_bytes": 41255391,
+      "md5": "513881819818b1aeeb85b8db285c981d",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2015.tif",
+      "year": 2015,
+      "dataverse_file_id": 11115673,
+      "size_bytes": 42602007,
+      "md5": "87e03851e757890773f8b0f13b2eaf91",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2016.tif",
+      "year": 2016,
+      "dataverse_file_id": 11115670,
+      "size_bytes": 43905845,
+      "md5": "f1a33e37cdc6d5922466a9482f1bacc6",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2017.tif",
+      "year": 2017,
+      "dataverse_file_id": 11115674,
+      "size_bytes": 48214761,
+      "md5": "56d4c54c38d59c19e94661fa58a35be1",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2018.tif",
+      "year": 2018,
+      "dataverse_file_id": 11115654,
+      "size_bytes": 49023539,
+      "md5": "54965085a0cb2e50d97a58266e744d87",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2019.tif",
+      "year": 2019,
+      "dataverse_file_id": 11115652,
+      "size_bytes": 49918319,
+      "md5": "12eddd40bc564da9f9dc7c94c27d7822",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2020.tif",
+      "year": 2020,
+      "dataverse_file_id": 11115663,
+      "size_bytes": 52425290,
+      "md5": "38c1c5cc9941f5c0c68c0a5c948bb8ca",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2021.tif",
+      "year": 2021,
+      "dataverse_file_id": 11115648,
+      "size_bytes": 53511450,
+      "md5": "9ec419cb54a3c2463fadfab19e8ddf78",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    },
+    {
+      "product": "lrcc-dvnl",
+      "name": "LACC_2022.tif",
+      "year": 2022,
+      "dataverse_file_id": 11115650,
+      "size_bytes": 54852154,
+      "md5": "f346b4c1f88f9bba66e1e7f29ba842e8",
+      "content_type": "image/tiff",
+      "directory_label": "LRCC-DVNL data"
+    }
+  ]
+}
