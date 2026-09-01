@@ -817,7 +817,7 @@ def cmd_results_build(args) -> int:
     result = results.build(source, dest, check=args.check)
 
     if result.missing:
-        names = ", ".join(t.dest for t in result.missing)
+        names = ", ".join(item.dest for item in result.missing)
         print(f"error: no source and nothing published for: {names}", file=sys.stderr)
         print(
             "run `satimg lrcc-dvnl inequality --country TUN` first",
@@ -850,13 +850,22 @@ def cmd_results_build(args) -> int:
             print("update TABLES in satimg/results.py", file=sys.stderr)
             return 1
 
+    # A raster stored at the wrong width is the bug this project shipped once
+    # already; committing it would bake a truncated series into the repository.
+    for raster_set in results.RASTER_SETS:
+        problems = results.raster_problems(result.rasters.get(raster_set.key, []))
+        for problem in problems:
+            print(f"error: {raster_set.dest}: {problem}", file=sys.stderr)
+        if problems:
+            return 1
+
     if args.check:
         if result.copied:
             for path in result.copied:
                 print(f"STALE  {path}")
-            print(f"\n{len(result.copied)} table(s) differ from {source}")
+            print(f"\n{len(result.copied)} file(s) differ from {source}")
             return 1
-        print(f"{len(result.unchanged)} table(s) up to date")
+        print(f"{len(result.unchanged)} file(s) up to date")
         return 0
 
     index = results.write_index(result, dest)
@@ -864,7 +873,8 @@ def cmd_results_build(args) -> int:
         print(f"wrote  {path}")
     print(
         f"\n{len(result.copied)} copied, {len(result.unchanged)} unchanged - "
-        f"{result.total_rows:,} rows, {human_bytes(result.total_bytes)} under {dest}"
+        f"{result.total_rows:,} rows and {result.raster_count} raster(s), "
+        f"{human_bytes(result.total_bytes)} under {dest}"
     )
     print(f"index  {index}")
     print(

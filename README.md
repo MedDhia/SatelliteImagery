@@ -48,10 +48,16 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 | `TUN_adm1_zonal.csv` | 744 | 24 governorates × 31 years |
 | `TUN_adm2_zonal.csv` | 8 308 | 268 delegations × 31 years |
 
-The 8.2 GB these were computed from is **not** committed — `data/` holds only a
-`.gitkeep` — so the findings can be checked without downloading the LRCC-DVNL
-deposit and the GADM world layer first. `satimg results build --check` fails if
-the committed tables drift from a fresh run.
+Plus the **31 clipped Tunisia GeoTIFFs** the whole analysis is computed from
+(`results/TUN/raster/`, 2.5 MB) — 368 × 856 px at 1 km, `EPSG:8857`, masked to
+the national boundary rather than cropped to a bounding box. With those, the
+findings can be *recomputed*, not just re-read.
+
+The 8.2 GB behind all of it is **not** committed — `data/` holds only a
+`.gitkeep` — so none of this needs the LRCC-DVNL deposit or the GADM world
+layer first. `satimg results build --check` fails if the committed outputs
+drift from a fresh run, and the build refuses to publish a raster whose dtype
+disagrees with the documented era or a table column it cannot explain.
 
 ## What "imported" means here
 
@@ -79,7 +85,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (7.9 MB) |
+| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (10.5 MB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -227,7 +233,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 273 offline tests, no network
+pytest                 # 295 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 

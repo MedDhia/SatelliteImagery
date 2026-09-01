@@ -1,8 +1,10 @@
-"""Publish the analysis tables into the committed ``results/`` directory.
+"""Publish the analysis outputs into the committed ``results/`` directory.
 
-The figures show the findings; these are the findings. Five CSVs, 8.3 MB, all
-plain text and diffable — a re-run that changes a number shows up in review
-rather than silently repainting a picture.
+The figures show the findings; these are the findings. Five CSVs, all plain
+text and diffable — a re-run that changes a number shows up in review rather
+than silently repainting a picture — plus the 31 clipped Tunisia GeoTIFFs the
+whole analysis is computed from, which at 2.6 MB are small enough to carry and
+are the one artefact that lets someone recompute rather than merely re-read.
 
 They are copied rather than regenerated because the analysis needs the rasters
 and the GADM layers (8.2 GB, both gitignored); the point of committing them is
@@ -18,7 +20,9 @@ import hashlib
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
+
+from .datasets.lrcc_dvnl import CRS_EPSG, NODATA, dtype_for_year
 
 DEFAULT_SOURCE = Path("data/regions")
 DEFAULT_DEST = Path("results")
@@ -212,6 +216,73 @@ TABLES: Tuple[ResultTable, ...] = (
 )
 
 
+@dataclass(frozen=True)
+class RasterSet:
+    """A directory of published rasters, and what a reader needs to know."""
+
+    key: str
+    source: str  # glob, relative to the source root
+    dest: str  # directory, relative to the results root
+    title: str
+    description: str
+    notes: Tuple[str, ...] = ()
+
+    def sources(self, root: str | Path) -> List[Path]:
+        return sorted(Path(root).glob(self.source))
+
+
+RASTER_SETS: Tuple[RasterSet, ...] = (
+    RasterSet(
+        key="tun-clipped",
+        source="TUN/raster/*.tif",
+        dest="TUN/raster",
+        title="Tunisia clipped rasters",
+        description=(
+            "The 31 annual LRCC-DVNL grids cut to Tunisia — 368 × 856 px at "
+            "1 km, `EPSG:8857`, nodata 127, LZW. Pixels outside the GADM "
+            "national boundary are masked, not merely cropped, so Algerian and "
+            "Libyan light does not leak into a bounding box. Every number in "
+            "the tables above is computed from exactly these files."
+        ),
+        notes=(
+            (
+                "**The series is not dtype-homogeneous.** 1992 is `int8`, "
+                "1993–2013 `int16`, and 2014–2022 `float32` carrying "
+                "*fractional* DN. Reading the stack with one fixed dtype "
+                "silently truncates the VIIRS era — a downward bias in exactly "
+                "the half of the series where lit area grows fastest."
+            ),
+            (
+                "**Three geotransforms, not one.** 1992–2007, 2008–2011 and "
+                "2012–2022 differ by up to 3.9e-4 m (0.39 mm), inherited from "
+                "the published rasters. Same pixel grid for every practical "
+                "purpose, but an exact-equality check on the transform will "
+                "reject the stack; compare with a tolerance."
+            ),
+            (
+                "These carry a real `EPSG:8857`, unlike the published files, "
+                "whose `LOCAL_CS` declaration needs `satimg raster fix-crs`."
+            ),
+        ),
+    ),
+)
+
+
+def raster_set_by_key(key: str) -> RasterSet:
+    for raster_set in RASTER_SETS:
+        if raster_set.key == key:
+            return raster_set
+    raise KeyError(f"unknown raster set {key!r}")
+
+
+def year_of(path: str | Path) -> Optional[int]:
+    """Year encoded in a published filename, e.g. ``LACC_1992_TUN.tif``."""
+    for chunk in Path(path).stem.split("_"):
+        if len(chunk) == 4 and chunk.isdigit():
+            return int(chunk)
+    return None
+
+
 def table_by_key(key: str) -> ResultTable:
     for table in TABLES:
         if table.key == key:
@@ -264,6 +335,79 @@ def missing_columns(table: ResultTable, header: Sequence[str]) -> List[str]:
     return [name for name, _ in table.columns if name not in present]
 
 
+@dataclass(frozen=True)
+class RasterStats:
+    """Measured facts about a published raster.
+
+    The georeferencing fields are ``None`` when rasterio is not installed: the
+    digest and the size still work on a bare clone, so ``--check`` keeps
+    functioning without the raster extra.
+    """
+
+    size_bytes: int
+    sha256: str
+    year: Optional[int] = None
+    dtype: Optional[str] = None
+    width: Optional[int] = None
+    height: Optional[int] = None
+    epsg: Optional[int] = None
+    nodata: Optional[float] = None
+
+
+def inspect_raster(path: str | Path) -> RasterStats:
+    """Size, digest and — when rasterio is available — the raster profile."""
+    path = Path(path)
+    base = dict(size_bytes=path.stat().st_size, sha256=digest(path), year=year_of(path))
+    try:
+        import rasterio
+    except ImportError:
+        return RasterStats(**base)
+    with rasterio.open(path) as src:
+        return RasterStats(
+            **base,
+            dtype=src.dtypes[0],
+            width=src.width,
+            height=src.height,
+            epsg=src.crs.to_epsg() if src.crs else None,
+            nodata=src.nodata,
+        )
+
+
+def raster_problems(stats: Sequence[RasterStats]) -> List[str]:
+    """Reasons these rasters should not be published as one coherent set.
+
+    The dtype rule is the one that matters: a year stored at the wrong width is
+    the bug this project already shipped once, and committing it would bake a
+    silently truncated series into the repository.
+    """
+    problems: List[str] = []
+    if not stats:
+        return problems
+
+    for item in stats:
+        if item.year is None:
+            problems.append(f"{item.sha256[:12]}: no year in the filename")
+            continue
+        if item.dtype is None:
+            continue  # rasterio absent; nothing to check against
+        expected = dtype_for_year(item.year)
+        if item.dtype != expected:
+            problems.append(
+                f"{item.year}: dtype {item.dtype}, documented era says {expected}"
+            )
+        if item.epsg != CRS_EPSG:
+            problems.append(f"{item.year}: EPSG {item.epsg}, expected {CRS_EPSG}")
+        if item.nodata != NODATA:
+            problems.append(f"{item.year}: nodata {item.nodata}, expected {NODATA}")
+
+    # One country, one window: a differing size means two different clips got
+    # mixed into one directory.
+    shapes = {(s.width, s.height) for s in stats if s.width is not None}
+    if len(shapes) > 1:
+        problems.append(f"mixed raster sizes: {sorted(shapes)}")
+    return problems
+
+
 # --------------------------------------------------------------------------- #
 # publishing
 # --------------------------------------------------------------------------- #
@@ -271,16 +415,40 @@ def missing_columns(table: ResultTable, header: Sequence[str]) -> List[str]:
 class PublishResult:
     copied: List[Path] = field(default_factory=list)
     unchanged: List[Path] = field(default_factory=list)
-    missing: List[ResultTable] = field(default_factory=list)
+    missing: List[object] = field(default_factory=list)
     stats: Dict[str, TableStats] = field(default_factory=dict)
+    #: Per raster set, its files' stats ordered by year.
+    rasters: Dict[str, List[RasterStats]] = field(default_factory=dict)
+
+    @property
+    def table_bytes(self) -> int:
+        return sum(s.size_bytes for s in self.stats.values())
+
+    @property
+    def raster_bytes(self) -> int:
+        return sum(r.size_bytes for group in self.rasters.values() for r in group)
 
     @property
     def total_bytes(self) -> int:
-        return sum(s.size_bytes for s in self.stats.values())
+        return self.table_bytes + self.raster_bytes
+
+    @property
+    def raster_count(self) -> int:
+        return sum(len(group) for group in self.rasters.values())
 
     @property
     def total_rows(self) -> int:
         return sum(s.rows for s in self.stats.values())
+
+
+def _publish_one(src: Path, dest: Path, result: PublishResult, check: bool) -> bool:
+    """Copy ``src`` to ``dest`` unless identical. Returns True if it differed."""
+    same = dest.exists() and digest(dest) == digest(src)
+    if not same and not check:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest)
+    (result.unchanged if same else result.copied).append(dest)
+    return not same
 
 
 def build(
@@ -288,6 +456,7 @@ def build(
     dest_root: str | Path = DEFAULT_DEST,
     *,
     tables: Sequence[ResultTable] = TABLES,
+    raster_sets: Sequence[RasterSet] = RASTER_SETS,
     check: bool = False,
 ) -> PublishResult:
     """Copy the analysis tables into ``results/``.
@@ -309,12 +478,33 @@ def build(
                 result.missing.append(table)
             continue
 
-        same = dest.exists() and digest(dest) == digest(src)
-        if not same and not check:
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(src, dest)
-        (result.unchanged if same else result.copied).append(dest)
+        _publish_one(src, dest, result, check)
         result.stats[table.key] = inspect(dest if dest.exists() else src)
+
+    for raster_set in raster_sets:
+        sources = raster_set.sources(source_root)
+        dest_dir = Path(dest_root) / raster_set.dest
+        if not sources:
+            # Same reasoning as the tables: on a clone the source is absent but
+            # the published copies are what we should describe.
+            published = sorted(dest_dir.glob("*.tif"))
+            if published:
+                result.unchanged.extend(published)
+                result.rasters[raster_set.key] = [
+                    inspect_raster(path) for path in published
+                ]
+            else:
+                result.missing.append(raster_set)
+            continue
+
+        stats = []
+        for src in sources:
+            dest = dest_dir / src.name
+            _publish_one(src, dest, result, check)
+            stats.append(inspect_raster(dest if dest.exists() else src))
+        result.rasters[raster_set.key] = sorted(
+            stats, key=lambda s: (s.year is None, s.year)
+        )
     return result
 
 
@@ -324,15 +514,17 @@ def build(
 _PREAMBLE = """\
 # Results
 
-The numbers behind every figure in [`figures/`](../figures/) — {tables} tables,
-{rows} rows, {size}.
+The numbers behind every figure in [`figures/`](../figures/), and the rasters
+they were computed from — {tables} tables ({rows} rows) and {rasters} GeoTIFFs,
+{size} in all.
 
 *This file is generated by `satimg results build`; edit
 [`src/satimg/results.py`](../src/satimg/results.py), not this page.*
 
-These are committed while the 8.2 GB they were computed from is not, so the
-findings can be checked, re-analysed or disputed without downloading the
-LRCC-DVNL deposit and the GADM world layer first. Regenerate them with:
+These are committed while the 8.2 GB behind them is not, so the findings can be
+checked, re-analysed or disputed — and, with the clipped rasters here,
+**recomputed from scratch** — without downloading the LRCC-DVNL deposit and the
+GADM world layer first. Regenerate them with:
 
 ```bash
 satimg lrcc-dvnl extract    --country TUN --levels 0,1,2
@@ -357,11 +549,13 @@ Full method and the remaining caveats: [`../docs/tunisia.md`](../docs/tunisia.md
 
 ## Terms
 
-Derived from GADM 4.1 boundaries (unit codes, names and areas) and LRCC-DVNL
-imagery. Like the figures, **these tables are not covered by the repository's
-MIT licence** — GADM is non-commercial with no redistribution. No GADM geometry
-is included; the `gid`/`name`/`area_km2` columns are the attributes needed to
-interpret a row at all. See [`../figures/NOTICE.md`](../figures/NOTICE.md).
+Derived from GADM 4.1 boundaries (unit codes, names, areas, and the national
+outline the rasters are masked to) and LRCC-DVNL imagery. Like the figures,
+**nothing here is covered by the repository's MIT licence** — GADM is
+non-commercial with no redistribution. No GADM geometry is included as
+geometry; the `gid`/`name`/`area_km2` columns are the attributes needed to
+interpret a row at all, and the rasters carry the boundary only as a 1 km
+nodata footprint. See [`../figures/NOTICE.md`](../figures/NOTICE.md).
 
 """
 
@@ -380,6 +574,7 @@ def write_index(
     dest_root: str | Path = DEFAULT_DEST,
     *,
     tables: Sequence[ResultTable] = TABLES,
+    raster_sets: Sequence[RasterSet] = RASTER_SETS,
 ) -> Path:
     """Write the data dictionary that documents every published column."""
     dest_root = Path(dest_root)
@@ -388,6 +583,7 @@ def write_index(
         _PREAMBLE.format(
             tables=len(published),
             rows=f"{result.total_rows:,}",
+            rasters=result.raster_count,
             size=_human_bytes(result.total_bytes),
         )
     ]
@@ -417,6 +613,32 @@ def write_index(
             lines.append(f"| `{name}` | {gloss.get(name, '—')} |")
         lines.append("")
         lines.append(f"`sha256:{stats.sha256}`\n")
+
+    for raster_set in raster_sets:
+        stats = result.rasters.get(raster_set.key)
+        if not stats:
+            continue
+        lines.append(f"## {raster_set.title}\n")
+        total = sum(s.size_bytes for s in stats)
+        lines.append(
+            f"`{raster_set.dest}/` — {len(stats)} files, {_human_bytes(total)}\n"
+        )
+        lines.append(f"{raster_set.description}\n")
+        for note in raster_set.notes:
+            lines.append(f"* {note}")
+        if raster_set.notes:
+            lines.append("")
+
+        lines.append("| Year | dtype | Size | File |")
+        lines.append("|---|---|---:|---|")
+        for item in stats:
+            name = f"LACC_{item.year}_TUN.tif" if item.year else "?"
+            link = f"{raster_set.dest}/{name}"
+            lines.append(
+                f"| {item.year or '—'} | `{item.dtype or '—'}` | "
+                f"{_human_bytes(item.size_bytes)} | [`{name}`]({link}) |"
+            )
+        lines.append("")
 
     out = dest_root / INDEX_NAME
     out.parent.mkdir(parents=True, exist_ok=True)
