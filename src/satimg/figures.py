@@ -43,13 +43,30 @@ GROUP_GLOBAL = "Global overlays"
 
 
 #: Countries with a full country workflow, in the order the gallery lists them.
-COUNTRIES = R.MAGHREB
+COUNTRIES = R.ARAB_LEAGUE
 COUNTRY_NAMES = {
     "MAR": "Morocco",
     "DZA": "Algeria",
     "TUN": "Tunisia",
     "LBY": "Libya",
     "MRT": "Mauritania",
+    "EGY": "Egypt",
+    "SDN": "Sudan",
+    "SAU": "Saudi Arabia",
+    "YEM": "Yemen",
+    "OMN": "Oman",
+    "ARE": "United Arab Emirates",
+    "QAT": "Qatar",
+    "BHR": "Bahrain",
+    "KWT": "Kuwait",
+    "IRQ": "Iraq",
+    "SYR": "Syria",
+    "LBN": "Lebanon",
+    "JOR": "Jordan",
+    "PSE": "Palestine",
+    "SOM": "Somalia",
+    "DJI": "Djibouti",
+    "COM": "Comoros",
 }
 
 

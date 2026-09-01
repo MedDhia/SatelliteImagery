@@ -57,6 +57,23 @@ COUNTRY_NAMES = {
     "TUN": "Tunisia",
     "LBY": "Libya",
     "MRT": "Mauritania",
+    "EGY": "Egypt",
+    "SDN": "Sudan",
+    "SAU": "Saudi Arabia",
+    "YEM": "Yemen",
+    "OMN": "Oman",
+    "ARE": "United Arab Emirates",
+    "QAT": "Qatar",
+    "BHR": "Bahrain",
+    "KWT": "Kuwait",
+    "IRQ": "Iraq",
+    "SYR": "Syria",
+    "LBN": "Lebanon",
+    "JOR": "Jordan",
+    "PSE": "Palestine",
+    "SOM": "Somalia",
+    "DJI": "Djibouti",
+    "COM": "Comoros",
 }
 
 _YEAR = "calendar year, 1992–2022"
@@ -255,7 +272,7 @@ def _country_tables(iso3: str):
     return tables
 
 
-TABLES = tuple(t for iso3 in R.MAGHREB for t in _country_tables(iso3))
+TABLES = tuple(t for iso3 in R.ARAB_LEAGUE for t in _country_tables(iso3))
 
 
 @dataclass(frozen=True)
@@ -310,7 +327,9 @@ def _country_rasters(iso3: str) -> RasterSet:
     )
 
 
-RASTER_SETS: Tuple[RasterSet, ...] = tuple(_country_rasters(iso3) for iso3 in R.MAGHREB)
+RASTER_SETS: Tuple[RasterSet, ...] = tuple(
+    _country_rasters(iso3) for iso3 in R.ARAB_LEAGUE
+)
 
 
 def raster_set_by_key(key: str) -> RasterSet:

@@ -41,14 +41,37 @@ LEVEL_TITLES: Dict[int, str] = {
     2: "delegation",
 }
 
-#: What each country actually calls its admin levels. Using "governorate" for
-#: an Algerian wilaya or a Mauritanian région would put a wrong word on 93 maps.
+#: What each country actually calls its admin levels, taken from GADM's own
+#: ``ENGTYPE_1``/``ENGTYPE_2`` fields (modal value per country) rather than
+#: guessed. Guessing got Algeria wrong: its ADM_2 units are *communes*, not
+#: daïras - GADM labels 1 345 of 1 504 that way - and the wrong word was
+#: rendered onto every Algerian admin-2 map before this was checked.
+#:
+#: Where GADM records no type (Djibouti's ADM_2 is literally "NA") the generic
+#: fallback applies rather than a plausible-sounding invention.
 COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
-    "TUN": {0: "national", 1: "governorate", 2: "delegation"},
-    "MAR": {0: "national", 1: "region", 2: "province"},
-    "DZA": {0: "national", 1: "wilaya", 2: "daira"},
+    "ARE": {0: "national", 1: "emirate", 2: "district"},
+    "BHR": {0: "national", 1: "governorate"},
+    "COM": {0: "national", 1: "autonomous island"},
+    "DJI": {0: "national", 1: "region"},
+    "DZA": {0: "national", 1: "province", 2: "commune"},
+    "EGY": {0: "national", 1: "governorate", 2: "subdivision"},
+    "IRQ": {0: "national", 1: "province", 2: "district"},
+    "JOR": {0: "national", 1: "province", 2: "sub-province"},
+    "KWT": {0: "national", 1: "province"},
+    "LBN": {0: "national", 1: "governorate", 2: "district"},
     "LBY": {0: "national", 1: "district"},
+    "MAR": {0: "national", 1: "region", 2: "province"},
     "MRT": {0: "national", 1: "region", 2: "department"},
+    "OMN": {0: "national", 1: "region", 2: "province"},
+    "PSE": {0: "national", 1: "district", 2: "governorate"},
+    "QAT": {0: "national", 1: "municipality"},
+    "SAU": {0: "national", 1: "province", 2: "governorate"},
+    "SDN": {0: "national", 1: "state", 2: "district"},
+    "SOM": {0: "national", 1: "region", 2: "district"},
+    "SYR": {0: "national", 1: "governorate", 2: "district"},
+    "TUN": {0: "national", 1: "governorate", 2: "delegation"},
+    "YEM": {0: "national", 1: "governorate", 2: "district"},
 }
 
 #: Generic fallback for a country with no entry above.
@@ -58,13 +81,40 @@ GENERIC_LEVEL_TITLES: Dict[int, str] = {
     2: "admin-2 unit",
 }
 
-#: GADM 4.1 has no ADM_2 layer for Libya, so its analysis stops at admin-1 and
-#: the nested three-way Theil split degenerates to the two-way one. Stated here
-#: rather than discovered as an empty layer halfway through a run.
-LEVELS_AVAILABLE: Dict[str, tuple] = {"LBY": (0, 1)}
+#: Countries where GADM 4.1 ships no ADM_2 layer, so the analysis stops at
+#: admin-1 and the nested three-way Theil split degenerates to the two-way one.
+#: Stated here rather than discovered as an empty layer halfway through a run.
+LEVELS_AVAILABLE: Dict[str, tuple] = {
+    iso3: (0, 1) for iso3 in ("LBY", "BHR", "COM", "KWT", "QAT")
+}
 
 #: The Arab Maghreb Union, in the order its members are usually listed.
 MAGHREB = ("MAR", "DZA", "TUN", "LBY", "MRT")
+
+#: The Arab League's 22 members, Maghreb first so the earlier work keeps its
+#: place in every generated index. Palestine appears with GADM's own coding of
+#: the West Bank and Gaza; that is the boundary set in use, not a position on
+#: its status.
+ARAB_LEAGUE = (
+    *MAGHREB,
+    "EGY",
+    "SDN",
+    "SAU",
+    "YEM",
+    "OMN",
+    "ARE",
+    "QAT",
+    "BHR",
+    "KWT",
+    "IRQ",
+    "SYR",
+    "LBN",
+    "JOR",
+    "PSE",
+    "SOM",
+    "DJI",
+    "COM",
+)
 
 
 def level_title(iso3: str, level: int) -> str:
@@ -133,6 +183,17 @@ TUNISIA_DESERT_SCOPES: Dict[str, DesertScope] = {
 #:
 #: Read the rationales. The rule cuts at a break in observed light, and the
 #: name of each scope says so - it does not claim the excluded units are desert.
+#: Across the Arab League that distinction stops being pedantic:
+#:
+#: * Syria and Iraq - the rule selects the most war-destroyed governorates.
+#:   Aleppo is Syria's largest city; Ninawa is Mosul. Their darkness is damage.
+#: * Somalia - it selects southern riverine farmland, where the darkness is
+#:   poverty and conflict rather than aridity.
+#: * Saudi Arabia - it excludes Ash-Sharqiyah, the oil and industrial heartland,
+#:   because lit *share* punishes a province that is mostly Rub al Khali.
+#:
+#: Eight countries get no derived scope at all, because fewer than eight
+#: admin-1 units would remain: ARE, QAT, BHR, KWT, LBN, PSE, DJI and COM.
 LOW_LIGHT_REFERENCE_YEAR = 2022
 
 DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
@@ -276,6 +337,192 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
                 "Mauritania has 13 regions and Nouakchott alone holds 79% lit "
                 "against a national median of 0.9%, so no further cut can leave "
                 "enough units to measure"
+            ),
+            derived=True,
+        ),
+    },
+    "EGY": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 1",
+            gid1=frozenset({"EGY.14_1"}),
+            rationale=(
+                "Al Wadi al Jadid (New Valley) below a x2.46 break at 2.4% lit "
+                "- the Western Desert governorate"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 2",
+            gid1=frozenset({"EGY.14_1", "EGY.2_1"}),
+            rationale=(
+                "adds Al Bahr al Ahmar (Red Sea) below a x1.88 break at 5.9% "
+                "lit. Both are genuinely desert"
+            ),
+            derived=True,
+        ),
+    },
+    "SDN": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 1",
+            gid1=frozenset({"SDN.8_1"}),
+            rationale=("North Darfur below a x2.65 break at 0.2% lit"),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 2",
+            gid1=frozenset({"SDN.8_1", "SDN.4_1"}),
+            rationale=(
+                "adds Central Darfur below a x1.67 break at 0.4% lit. Darfur's "
+                "darkness is conflict and displacement as much as aridity"
+            ),
+            derived=True,
+        ),
+    },
+    "SAU": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 5",
+            gid1=frozenset({"SAU.12_1", "SAU.3_1", "SAU.8_1", "SAU.4_1", "SAU.13_1"}),
+            rationale=(
+                "Najran, Al Hudud ash Shamaliyah, Ash-Sharqiyah, Al Jawf, Tabuk "
+                "below a x1.91 break at 14.2% lit, with the eight-unit guard "
+                "binding. Read with care: Ash-Sharqiyah is the Eastern "
+                "Province, Saudi Arabia's oil and industrial heartland - it "
+                "scores low because it is enormous and mostly Rub al Khali, not "
+                "because it is unlit"
+            ),
+            derived=True,
+        ),
+    },
+    "YEM": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 3",
+            gid1=frozenset({"YEM.6_1", "YEM.17_1", "YEM.7_1"}),
+            rationale=(
+                "Al Jawf, Raymah, Al Mahrah below a x3.58 break at 2.1% lit. "
+                "Raymah is a small mountainous governorate, not desert - "
+                "poverty and conflict, not aridity"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 5",
+            gid1=frozenset({"YEM.6_1", "YEM.17_1", "YEM.7_1", "YEM.12_1", "YEM.2_1"}),
+            rationale=("adds Hadramawt and Abyan below a x1.31 break at 8.9% lit"),
+            derived=True,
+        ),
+    },
+    "OMN": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 2",
+            gid1=frozenset({"OMN.9_1", "OMN.6_1"}),
+            rationale=(
+                "Dhofar and Al Wusta below a x1.71 break at 15.9% lit - the Rub "
+                "al Khali margin and the empty central coast"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 3",
+            gid1=frozenset({"OMN.9_1", "OMN.6_1", "OMN.7_1"}),
+            rationale=("adds Ash Sharqiyah North below a x1.43 break at 27.2% lit"),
+            derived=True,
+        ),
+    },
+    "IRQ": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 3",
+            gid1=frozenset({"IRQ.5_1", "IRQ.3_1", "IRQ.1_1"}),
+            rationale=(
+                "An-Najaf, Al-Muthannia, Al-Anbar below a x4.90 break at 10.5% "
+                "lit - all desert-dominated, and the sharpest break of the 22"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 4",
+            gid1=frozenset({"IRQ.5_1", "IRQ.3_1", "IRQ.1_1", "IRQ.16_1"}),
+            rationale=(
+                "adds Ninawa below a x1.24 break at 51.6% lit. NOT a desert: "
+                "Ninawa is Mosul, and its low light is war damage"
+            ),
+            derived=True,
+        ),
+    },
+    "SYR": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 3",
+            gid1=frozenset({"SYR.9_1", "SYR.7_1", "SYR.3_1"}),
+            rationale=(
+                "Hims, Dayr Az Zawr, Ar Raqqah below a x1.63 break at 15.9% "
+                "lit. These are desert governorates AND the most war-destroyed; "
+                "the two causes cannot be separated in this measure"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 4",
+            gid1=frozenset({"SYR.9_1", "SYR.7_1", "SYR.3_1", "SYR.2_1"}),
+            rationale=(
+                "adds Aleppo below a x1.11 break at 25.9% lit. Unambiguously "
+                "conflict, not aridity - Aleppo is Syria's largest city"
+            ),
+            derived=True,
+        ),
+    },
+    "JOR": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 2",
+            gid1=frozenset({"JOR.8_1", "JOR.10_1"}),
+            rationale=(
+                "Ma`an and Mafraq below a x3.36 break at 11.9% lit - the "
+                "eastern and southern desert"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 3",
+            gid1=frozenset({"JOR.8_1", "JOR.10_1", "JOR.3_1"}),
+            rationale=(
+                "adds Aqaba below a x1.16 break at 40.0% lit; Aqaba is a port "
+                "city in a mostly desert governorate"
+            ),
+            derived=True,
+        ),
+    },
+    "SOM": {
+        "dark": DesertScope(
+            key="dark",
+            label="darkest 3",
+            gid1=frozenset({"SOM.2_1", "SOM.9_1", "SOM.7_1"}),
+            rationale=(
+                "Bakool, Jubbada Dhexe, Gedo below a x1.84 break at 0.1% lit. "
+                "NOT desert: these are southern riverine and agricultural "
+                "regions, and their darkness is poverty and conflict"
+            ),
+            derived=True,
+        ),
+        "dark_wide": DesertScope(
+            key="dark_wide",
+            label="darkest 4",
+            gid1=frozenset({"SOM.2_1", "SOM.9_1", "SOM.7_1", "SOM.10_1"}),
+            rationale=(
+                "adds Jubbada Hoose below a x1.32 break at 0.2% lit; same "
+                "reading applies"
             ),
             derived=True,
         ),
