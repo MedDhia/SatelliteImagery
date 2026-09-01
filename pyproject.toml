@@ -65,6 +65,8 @@ select = ["E", "F", "W", "I", "B", "ISC", "RUF"]
 # for readers, not parsed.
 "src/satimg/overlay.py" = ["RUF001"]
 "src/satimg/charts.py" = ["RUF001"]
+"src/satimg/choropleth.py" = ["RUF001"]
+"tests/test_choropleth.py" = ["RUF001"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

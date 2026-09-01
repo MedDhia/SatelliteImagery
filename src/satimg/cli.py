@@ -647,6 +647,102 @@ def cmd_inequality(args) -> int:
     return 0
 
 
+def cmd_choropleth(args) -> int:
+    """Fill admin units by their NTL level, rather than overlaying boundaries."""
+    from . import regions as R
+    from . import zonal as Z
+    from .choropleth import (
+        ABSOLUTE,
+        RELATIVE,
+        render_choropleth,
+        render_choropleth_panel,
+        unit_values,
+    )
+
+    iso3 = args.country.upper()
+    levels = [int(v) for v in str(args.levels).split(",") if v.strip()]
+    for level in levels:
+        if level == 0:
+            raise SystemExit(
+                "a choropleth of one unit conveys nothing; use --levels 1,2"
+            )
+        R.check_level_for_country(level)
+    scales = [s.strip() for s in str(args.scale).split(",") if s.strip()]
+    unknown = set(scales) - {ABSOLUTE, RELATIVE}
+    if unknown:
+        raise SystemExit(f"unknown --scale value(s): {', '.join(sorted(unknown))}")
+
+    rasters = _region_rasters(args)
+    dest = Path(args.dest) / iso3 / "choropleth"
+    written = 0
+
+    for level in levels:
+        layer = R.country_layer(iso3, level, root=args.boundaries_root)
+        units = R.load_units(layer)
+        id_field, name_field = R.id_fields(level)
+        grid = Z.build_zone_grid(
+            rasters[0][1], units, id_field=id_field, name_field=name_field
+        )
+        table = Z.zonal_table(rasters, grid)
+        label = R.LEVEL_TITLES[level]
+        print(
+            f"{iso3} adm{level} ({label}): {grid.count} units, {len(table)} rows",
+            file=sys.stderr,
+        )
+
+        for scale in scales:
+            by_year = {}
+            for year, _ in rasters:
+                values, national = unit_values(
+                    table, year, scale=scale, field=args.field
+                )
+                by_year[year] = values
+                out = (
+                    dest
+                    / f"adm{level}"
+                    / scale
+                    / f"LACC_{year}_{iso3}_adm{level}_{scale}.png"
+                )
+                if out.exists() and not args.overwrite:
+                    continue
+                render_choropleth(
+                    units,
+                    values,
+                    out,
+                    id_field=id_field,
+                    scale=scale,
+                    year=year,
+                    level_label=label,
+                    iso3=iso3,
+                    national_mean=national,
+                    dpi=args.dpi,
+                )
+                written += 1
+
+            if not args.no_panel:
+                span = f"{rasters[0][0]}-{rasters[-1][0]}"
+                panel = dest / "panel" / f"{iso3}_adm{level}_{scale}_{span}.png"
+                render_choropleth_panel(
+                    units,
+                    by_year,
+                    panel,
+                    id_field=id_field,
+                    scale=scale,
+                    level_label=label,
+                    iso3=iso3,
+                    dpi=args.dpi,
+                )
+                written += 1
+                print(f"wrote  {panel}")
+
+    print(f"\n{written} file(s) written under {dest}")
+    print(
+        "Boundaries are GADM 4.1: non-commercial use, redistribution not permitted.",
+        file=sys.stderr,
+    )
+    return 0
+
+
 # --------------------------------------------------------------------------- #
 # boundaries subcommands
 # --------------------------------------------------------------------------- #
@@ -992,6 +1088,53 @@ def build_parser() -> argparse.ArgumentParser:
     ginip.add_argument("--no-chart", action="store_true", help="skip the charts")
     ginip.add_argument("--quiet", action="store_true", help="no summary table")
     ginip.set_defaults(func=cmd_inequality)
+
+    chor = sub.add_parser(
+        "choropleth",
+        help="fill admin units by their NTL level (instead of overlaying boundaries)",
+        description=(
+            "Choropleth maps: each administrative unit is filled by its own "
+            "nighttime-light aggregate, so units are compared with each other "
+            "rather than shown against the raster. Two framings: 'absolute' is "
+            "mean DN on a scale shared by every year, so growth is visible; "
+            "'relative' divides by the national mean of the same year, which "
+            "removes growth and shows each unit's standing - the quantity the "
+            "Theil between-group component is built from."
+        ),
+    )
+    add_selection(chor, default_product=lrcc_dvnl.DATASET_ID)
+    chor.add_argument("--country", default="TUN", help="ISO3 code (default: TUN)")
+    chor.add_argument(
+        "--levels", default="1,2", help="admin levels: 1, 2 (default: 1,2)"
+    )
+    chor.add_argument(
+        "--scale",
+        default=f"{'absolute'},{'relative'}",
+        help="absolute, relative, or both (default: both)",
+    )
+    chor.add_argument(
+        "--field",
+        default="mean_dn",
+        choices=["mean_dn", "density_sol_per_km2", "sum_of_lights"],
+        help="per-unit quantity to map (default: mean_dn)",
+    )
+    chor.add_argument(
+        "--source", default=DEFAULT_DEST, help="where the downloaded rasters live"
+    )
+    chor.add_argument(
+        "--dest", default=DEFAULT_REGION_DEST, help="output root for region products"
+    )
+    chor.add_argument(
+        "--boundaries-root", default=BOUNDARIES_ROOT, help="GADM data and cache root"
+    )
+    chor.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
+    chor.add_argument(
+        "--no-panel", action="store_true", help="skip the small-multiple panels"
+    )
+    chor.add_argument(
+        "--overwrite", action="store_true", help="re-render existing outputs"
+    )
+    chor.set_defaults(func=cmd_choropleth)
 
     bounds = commands.add_parser(
         "boundaries",

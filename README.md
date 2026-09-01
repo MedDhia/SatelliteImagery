@@ -127,6 +127,16 @@ satimg lrcc-dvnl extract --country TUN --levels 0,1,2   # clipped maps + panels
 satimg lrcc-dvnl inequality --country TUN               # Gini + Theil + decomposition
 ```
 
+Colour the units themselves instead of overlaying boundaries:
+
+```bash
+satimg lrcc-dvnl choropleth --country TUN --levels 1,2   # 124 maps + 4 panels
+```
+
+`absolute` maps mean DN on a scale shared across years (growth); `relative`
+divides by the national mean of the same year (standing) — the latter being the
+quantity the Theil between-group component is built from.
+
 Produces 12 series over 1992–2022 — pixel (with and without unlit pixels),
 governorate and delegation, each for the whole country and for two
 desert-exclusion variants — reporting **Gini, Theil T and Theil L**, plus the

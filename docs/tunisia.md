@@ -153,6 +153,64 @@ Three patterns worth noting, and one warning:
   with a U-shape bottoming around 2011. Light spread out; it did not
   meaningfully even out where it already existed.
 
+## Choropleths: units coloured by their own level
+
+A different question from the overlay maps. Those show the raster with
+boundaries drawn on top, so the reader sees *where* light is. Choropleths fill
+each unit by its own aggregate, so the reader *compares units* — which is what
+the Gini and Theil numbers are computed over. The choropleth is the visual form
+of the same table.
+
+```bash
+satimg lrcc-dvnl choropleth --country TUN --levels 1,2
+```
+
+Two framings, and they answer different questions:
+
+| Scale | Value | What it shows |
+|---|---|---|
+| `absolute` | mean DN per unit, one scale shared by every year | growth — 1992 and 2022 directly comparable |
+| `relative` | mean DN ÷ the national mean **of that year** | standing — growth divided out |
+
+The relative framing is not incidental: `mean_g / mean` is exactly the quantity
+the Theil between-group component is built from, so the relative map is a
+picture of that component. Read beside the decomposition table, it shows the
+same thing twice.
+
+Outputs: 31 years × 2 levels × 2 scales = 124 maps plus 4 small-multiple panels,
+under `data/regions/TUN/choropleth/`.
+
+### Colour
+
+Both framings use one warm sequential ramp — **white → yellow → orange → red**,
+the ColorBrewer YlOrRd steps with a white anchor added at the bottom. Warm-for-
+bright is the intuitive mapping for light, and sharing one ramp across both
+framings keeps the figure set on a single colour language.
+
+This means the relative maps are sequential rather than diverging, even though
+the ratio has a real midpoint at 1.0. That is a deliberate trade — consistency
+across the set over the at-a-glance above/below-average split — and the class
+break at 1.25× still sits either side of the mean, so the crossover stays
+readable from the legend.
+
+One consequence is handled rather than ignored: the lowest class *is* white,
+which is the page colour, so unit edges are drawn in light grey. With white
+edges a unit in the lowest class would have no outline and simply disappear. A
+test asserts the edge colour is not white while the ramp's first step is.
+
+The national mean is light-weighted — total sum of lights over total pixels —
+not the mean of the per-unit means, which would weight a one-pixel delegation
+the same as a 39,000 km² governorate. A test pins that distinction.
+
+### What the panels show
+
+The relative panels make the decomposition legible. The northern interior warms
+from pale toward orange across the series — converging upward on the national
+mean — while the desert south stays pale and slips further below it, and the
+Tunis–Sahel corridor stays dark red throughout. That is the same result the
+Theil numbers give: convergence *within* the populated regions, divergence
+*between* them and the desert.
+
 ## Theil and the between/within decomposition
 
 Gini cannot be split cleanly into group components — its group decomposition
