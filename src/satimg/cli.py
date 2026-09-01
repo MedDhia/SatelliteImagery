@@ -445,10 +445,13 @@ def cmd_extract(args) -> int:
     outline = R.load_units(R.country_layer(iso3, 0, root=args.boundaries_root))
     window = Z.window_for(rasters[0][1], outline.total_bounds)
     mask_geoms = None if args.no_mask else list(outline.geometry)
+    from .overlay import REGION_CMAP
+
     style = OverlayStyle(
         gamma=args.gamma,
         output_width_px=args.width,
         dpi=args.dpi,
+        cmap=None if args.cmap == "none" else (args.cmap or REGION_CMAP),
         extent_note=f"{iso3} extract",
     )
 
@@ -917,6 +920,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--gamma", type=float, default=0.45, help="display stretch (default: 0.45)"
     )
     extract.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
+    extract.add_argument(
+        "--cmap",
+        help=(
+            "matplotlib colormap (default: inferno, perceptually uniform; "
+            "pass 'none' for the single-hue amber ramp used by the global sets)"
+        ),
+    )
     extract.add_argument(
         "--no-panel", action="store_true", help="skip the small-multiple panels"
     )

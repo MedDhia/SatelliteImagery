@@ -46,6 +46,29 @@ burn as the zonal statistics, so the retained pixel set is exactly the one the
 Gini is computed over. Each year keeps its source dtype (`int8` / `int16` /
 `float32`).
 
+## Colour
+
+Country extracts render with **`inferno`**; the global overlay sets keep the
+single-hue amber ramp, so the two products stay visually distinguishable at a
+glance.
+
+This is a deliberate departure from the project's sequential colour rule (one
+hue, light→dark), made on measured legibility rather than taste. Rendered side
+by side on Tunisia 2022, a single hue — amber or the house blue — saturates the
+whole northern corridor into one flat mass: DN 20 and DN 45 are
+indistinguishable, which defeats the purpose of a gradient map. `inferno` is
+perceptually uniform and monotonic in lightness, so equal DN steps look equally
+different; it is colourblind-safe, keeps unlit land genuinely dark, and is the
+remote-sensing convention for nighttime lights. It is not a rainbow in the
+prohibited sense — those (jet, hsv) are non-monotonic in lightness.
+
+Rejected after inspection: `cividis` and `viridis` both render unlit desert as a
+strongly coloured field rather than dark, so absence of light reads as presence
+of something. A linear stretch was also rejected — it leaves most of the country
+invisible, which is why the disclosed γ 0.45 stretch remains.
+
+Override per run with `--cmap` (`--cmap none` restores the amber ramp).
+
 ## Method
 
 ### Twelve series
