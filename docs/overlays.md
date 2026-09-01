@@ -47,14 +47,22 @@ The boundaries are **GADM 4.1**, whose license states:
 
 Consequences, which the tooling enforces or flags rather than assumes:
 
-* The GADM download and everything derived from it lives under `data/`, which is
-  gitignored. **None of it is committed**, and it must not be.
+* **No GADM *data* is committed.** The download, the prepared vector caches, the
+  mask-band GeoTIFFs and the `GID`-keyed zonal tables all live under `data/`,
+  which is gitignored, and they must stay there.
 * `satimg boundaries fetch` writes `LICENSE-GADM.txt` next to the data and
   prints the notice.
 * **The overlay products inherit the restriction.** Maps for academic
   publication are explicitly permitted; redistributing the PNGs or the
   mask-band GeoTIFFs as data, or using them commercially, is not — the boundary
   geometry is embedded in both.
+* **One exception, deliberate and scoped:** the rendered PNGs are committed to
+  [`figures/`](../figures/) so the repository's first page can show its own
+  output. Those are raster illustrations at gallery resolution, each carrying a
+  GADM attribution line in its footer — the "maps in a publication" case GADM
+  permits, not a data release. They are carved out of the repository's MIT
+  licence by [`figures/NOTICE.md`](../figures/NOTICE.md). The mask-band
+  GeoTIFFs, from which geometry *is* recoverable, stay gitignored.
 * This is stricter than the underlying imagery. LRCC-DVNL itself is deposited
   under CC0 1.0 (with the paper claiming CC BY-NC-ND 4.0 — see
   [the datasheet](lrcc-dvnl.md)); the *overlays* are GADM-encumbered regardless.
@@ -114,9 +122,10 @@ files — so the overlay products are usable in QGIS/GDAL without the separate
 
 ```python
 import rasterio
+
 with rasterio.open("data/overlays/lrcc-dvnl/adm0/tif/LACC_2022_adm0.tif") as src:
     ntl, boundary = src.read(1), src.read(2)
-    ntl_without_borders = ntl[boundary == 0]   # nothing was overwritten
+    ntl_without_borders = ntl[boundary == 0]  # nothing was overwritten
 ```
 
 ---

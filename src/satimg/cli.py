@@ -11,7 +11,7 @@ from dataclasses import replace
 from pathlib import Path
 from typing import List, Optional, Sequence
 
-from . import __version__
+from . import __version__, figures
 from .checksums import ChecksumMismatch, md5_file
 from .datasets import lrcc_dvnl
 from .download import download_file
@@ -26,6 +26,8 @@ DEFAULT_DEST = Path("data/raw/lrcc-dvnl")
 DEFAULT_OVERLAY_DEST = Path("data/overlays/lrcc-dvnl")
 DEFAULT_REGION_DEST = Path("data/regions")
 BOUNDARIES_ROOT = Path("data/boundaries")
+FIGURES_SOURCE = Path("data")
+FIGURES_DEST = Path("figures")
 
 
 # --------------------------------------------------------------------------- #
@@ -755,6 +757,56 @@ def cmd_choropleth(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# figures
+# --------------------------------------------------------------------------- #
+def cmd_figures_build(args) -> int:
+    """Copy every rendered figure into the committed gallery."""
+    try:
+        import PIL  # noqa: F401
+    except ImportError:
+        raise SystemExit(
+            'building the gallery needs Pillow: pip install -e ".[figures]"'
+        ) from None
+
+    source, dest = Path(args.source), Path(args.dest)
+    # --max-px 0 means "keep native pixels", so the gallery can be regenerated
+    # at print resolution without editing the module.
+    max_px = None if args.max_px == 0 else args.max_px
+
+    planned = figures.plan(source, dest)
+    if not planned:
+        raise SystemExit(
+            f"no rendered figures found under {source}; "
+            "run the overlay / extract / choropleth / inequality commands first"
+        )
+    print(f"{len(planned)} figure(s) found under {source}", file=sys.stderr)
+
+    seen = {"n": 0}
+
+    def report(item, fresh):
+        seen["n"] += 1
+        if seen["n"] % 50 == 0 or seen["n"] == len(planned):
+            print(f"  {seen['n']}/{len(planned)}", file=sys.stderr)
+
+    result = figures.build(
+        source, dest, overwrite=args.overwrite, max_px=max_px, on_file=report
+    )
+    index = figures.write_index(result, dest, max_px=max_px)
+
+    print(
+        f"\n{len(result.written)} written, {len(result.skipped)} already present "
+        f"({human_bytes(result.total_bytes)} total) under {dest}"
+    )
+    print(f"index  {index}")
+    print(
+        "Figures depict GADM 4.1 boundaries: non-commercial use, redistribution "
+        "not permitted. They are not covered by this repository's MIT licence.",
+        file=sys.stderr,
+    )
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 # boundaries subcommands
 # --------------------------------------------------------------------------- #
 def cmd_boundaries_fetch(args) -> int:
@@ -1192,6 +1244,41 @@ def build_parser() -> argparse.ArgumentParser:
     binfo = bounds_sub.add_parser("info", help="show GADM status and prepared caches")
     binfo.add_argument("--root", default=BOUNDARIES_ROOT, help="boundary data root")
     binfo.set_defaults(func=cmd_boundaries_info)
+
+    figs = commands.add_parser(
+        "figures",
+        help="assemble the committed figure gallery (needs the figures extra)",
+    )
+    figs_sub = figs.add_subparsers(dest="subcommand", metavar="<subcommand>")
+
+    figs_build = figs_sub.add_parser(
+        "build", help="copy rendered figures into figures/ and write its index"
+    )
+    figs_build.add_argument(
+        "--source",
+        type=Path,
+        default=FIGURES_SOURCE,
+        help=f"root of the rendered output (default: {FIGURES_SOURCE})",
+    )
+    figs_build.add_argument(
+        "--dest",
+        type=Path,
+        default=FIGURES_DEST,
+        help=f"gallery root (default: {FIGURES_DEST})",
+    )
+    figs_build.add_argument(
+        "--max-px",
+        type=int,
+        default=figures.WEB_MAX_PX,
+        help=(
+            "cap the longest side of a per-year figure; 0 keeps native pixels "
+            f"(default: {figures.WEB_MAX_PX})"
+        ),
+    )
+    figs_build.add_argument(
+        "--overwrite", action="store_true", help="re-encode figures already present"
+    )
+    figs_build.set_defaults(func=cmd_figures_build)
 
     raster = commands.add_parser(
         "raster", help="inspect and repair downloaded rasters (needs the raster extra)"
