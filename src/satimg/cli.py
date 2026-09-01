@@ -447,11 +447,18 @@ def cmd_extract(args) -> int:
     mask_geoms = None if args.no_mask else list(outline.geometry)
     from .overlay import REGION_CMAP
 
+    cmap = None if args.cmap == "none" else (args.cmap or REGION_CMAP)
+    # Keep palettes side by side rather than overwriting: a non-default colormap
+    # writes to suffixed directories, so several renderings of the same year can
+    # be compared without regenerating anything. The clipped rasters are
+    # palette-independent and are never duplicated.
+    variant = "" if cmap == REGION_CMAP else f"-{cmap or 'amber'}"
+
     style = OverlayStyle(
         gamma=args.gamma,
         output_width_px=args.width,
         dpi=args.dpi,
-        cmap=None if args.cmap == "none" else (args.cmap or REGION_CMAP),
+        cmap=cmap,
         extent_note=f"{iso3} extract",
     )
 
@@ -465,7 +472,12 @@ def cmd_extract(args) -> int:
         data, extent = _read_region_array(clipped)
         for level in levels:
             frames[level].append((year, data, extent))
-            png = dest / "png" / f"adm{level}" / f"LACC_{year}_{iso3}_adm{level}.png"
+            png = (
+                dest
+                / f"png{variant}"
+                / f"adm{level}"
+                / f"LACC_{year}_{iso3}_adm{level}.png"
+            )
             if png.exists() and not args.overwrite:
                 continue
             render_png(
@@ -488,7 +500,7 @@ def cmd_extract(args) -> int:
     if not args.no_panel:
         span = f"{rasters[0][0]}-{rasters[-1][0]}"
         for level in levels:
-            panel = dest / "panel" / f"{iso3}_adm{level}_{span}.png"
+            panel = dest / f"panel{variant}" / f"{iso3}_adm{level}_{span}.png"
             render_panel(
                 frames[level],
                 panel,
@@ -498,6 +510,7 @@ def cmd_extract(args) -> int:
                 title=(
                     f"{iso3} nighttime lights {span} · "
                     f"{R.LEVEL_TITLES[level]} boundaries"
+                    + (f" · {cmap}" if variant else "")
                 ),
             )
             written += 1

@@ -67,7 +67,27 @@ strongly coloured field rather than dark, so absence of light reads as presence
 of something. A linear stretch was also rejected — it leaves most of the country
 invisible, which is why the disclosed γ 0.45 stretch remains.
 
-Override per run with `--cmap` (`--cmap none` restores the amber ramp).
+### Comparing palettes side by side
+
+A non-default `--cmap` writes to suffixed directories rather than overwriting,
+so several renderings of the same years coexist and can be compared without
+regenerating anything. The clipped rasters are palette-independent and are never
+duplicated.
+
+```bash
+satimg lrcc-dvnl extract --country TUN                 # -> png/, panel/        (inferno)
+satimg lrcc-dvnl extract --country TUN --cmap magma    # -> png-magma/, panel-magma/
+satimg lrcc-dvnl extract --country TUN --cmap none     # -> png-amber/, panel-amber/
+```
+
+**inferno vs magma is a stylistic choice, not a legibility one.** Measured over
+the 64 DN steps, both are strictly monotonic in relative luminance and span
+essentially the same range (inferno 0.0001–0.9465, magma 0.0001–0.9454), so
+neither resolves the gradient better than the other. What differs is hue
+character: inferno drives the top end to bright yellow, which gives more glow on
+peaks but merges DN 55–63 into one pale mass; magma runs to pink-white, which is
+calmer and separates the DN 15–40 mid-range into marginally more distinct steps.
+Both are kept so the choice can be made per figure.
 
 ## Method
 
