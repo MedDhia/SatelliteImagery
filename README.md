@@ -8,6 +8,33 @@ regions rather than only in bright urban cores
 ([paper](https://doi.org/10.1038/s41597-025-05246-8) ·
 [data](https://doi.org/10.7910/DVN/15IKI5)).
 
+## Figures
+
+**[→ Browse all 608 figures in `figures/`](figures/)** — global overlays, the
+Tunisia map series in three palettes, the choropleths in two, the
+small-multiple panels and the inequality charts.
+
+[![Nighttime lights 2022 with subnational boundaries](figures/global/adm1/LACC_2022_adm1.png)](figures/global/adm1/LACC_2022_adm1.png)
+
+Tunisia's nighttime-light Theil T halves between 1992 and 2022 — yet the share
+of it that lies *between* governorates **rises**. Convergence happened inside
+regions, not between them, which is the opposite of what the falling Gini alone
+would suggest:
+
+[![Nested Theil decomposition](figures/charts/TUN_theil_decomposition.png)](figures/charts/TUN_theil_decomposition.png)
+
+The renderers write full-resolution output under gitignored `data/` (439 MB);
+`figures/` is the same 608 images re-encoded for the web (47 MB) and is
+regenerated, index and all, by one command:
+
+```bash
+satimg figures build              # --max-px 0 to keep native pixels
+```
+
+⚠️ The figures are **not** covered by this repository's MIT licence — they
+depict GADM boundaries, which are non-commercial and non-redistributable. See
+[`figures/NOTICE.md`](figures/NOTICE.md).
+
 ## What "imported" means here
 
 The rasters are **not** committed — the deposit is ~1.8 GiB, and the annual
@@ -29,6 +56,7 @@ a byte-identical local copy:
 ```bash
 pip install -e .            # import pipeline only, zero dependencies
 pip install -e ".[raster]"  # adds rasterio + numpy for the raster commands
+pip install -e ".[figures]" # adds pillow, for assembling figures/
 ```
 
 ## Use
@@ -165,7 +193,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 101 offline tests, no network
+pytest                 # 254 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 
