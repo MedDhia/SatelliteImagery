@@ -138,13 +138,20 @@ def cache_path(
     level: int = 0,
     epsg: int = CRS_EPSG,
     tolerance_m: float = DEFAULT_TOLERANCE_M,
+    iso3: Optional[str] = None,
 ) -> Path:
-    """Path of the reprojected, simplified cache for one admin level."""
+    """Path of the reprojected, simplified cache for one admin level.
+
+    A country-scoped cache is kept separate from the world one: preparing all
+    47,217 world ADM_2 features to reach one country's 268 would be wasteful,
+    and the two are not interchangeable.
+    """
     check_level(level)
     tolerance = f"{tolerance_m:g}".replace(".", "p")
+    scope = f"_{iso3.upper()}" if iso3 else ""
     return (
         Path(root) / "cache" / f"gadm{GADM_VERSION.replace('.', '')}"
-        f"_adm{level}_epsg{epsg}_simp{tolerance}m.gpkg"
+        f"_adm{level}{scope}_epsg{epsg}_simp{tolerance}m.gpkg"
     )
 
 
@@ -157,6 +164,7 @@ class BoundaryLayer:
     epsg: int
     feature_count: int
     tolerance_m: float
+    iso3: Optional[str] = None
 
     @property
     def label(self) -> str:
@@ -221,12 +229,21 @@ def prepare_level(
     segmentize_deg: float = DEFAULT_SEGMENTIZE_DEG,
     force: bool = False,
     source: Optional[str | Path] = None,
+    iso3: Optional[str] = None,
 ) -> BoundaryLayer:
-    """Reproject and simplify one admin level, caching the result."""
+    """Reproject and simplify one admin level, caching the result.
+
+    ``iso3`` restricts to one country (GADM ``GID_0``). The filter is pushed
+    down into the read, so a country's ADM_2 costs seconds instead of the
+    minutes a world-wide ADM_2 prepare would take.
+    """
     gpd = _require_geopandas()
     check_level(level)
+    iso3 = iso3.upper() if iso3 else None
 
-    cache = Path(cache_path(root, level=level, epsg=epsg, tolerance_m=tolerance_m))
+    cache = Path(
+        cache_path(root, level=level, epsg=epsg, tolerance_m=tolerance_m, iso3=iso3)
+    )
     meta = cache.with_suffix(".json")
 
     if cache.exists() and meta.exists() and not force:
@@ -237,6 +254,7 @@ def prepare_level(
             epsg=epsg,
             feature_count=recorded.get("feature_count", 0),
             tolerance_m=tolerance_m,
+            iso3=iso3,
         )
 
     origin = Path(source) if source is not None else gpkg_path(root)
@@ -246,7 +264,14 @@ def prepare_level(
             "(2.5 GiB download; GADM is non-commercial use only)."
         )
 
-    frame = gpd.read_file(origin, layer=LEVEL_LAYERS[level], engine="pyogrio")
+    read_kwargs = {"layer": LEVEL_LAYERS[level], "engine": "pyogrio"}
+    if iso3:
+        read_kwargs["where"] = f"GID_0 = '{iso3}'"
+    frame = gpd.read_file(origin, **read_kwargs)
+    if iso3 and frame.empty:
+        raise ValueError(
+            f"no GADM {LEVEL_LAYERS[level]} features for country code {iso3!r}"
+        )
 
     # Densify in degrees first: long straight lon/lat spans (Antarctica's polar
     # edge, ruler-straight desert borders) would otherwise become chords once
@@ -259,7 +284,11 @@ def prepare_level(
     if tolerance_m:
         frame["geometry"] = frame.geometry.simplify(tolerance_m, preserve_topology=True)
 
-    keep = [c for c in ("GID_0", "COUNTRY", "GID_1", "NAME_1") if c in frame.columns]
+    keep = [
+        c
+        for c in ("GID_0", "COUNTRY", "GID_1", "NAME_1", "GID_2", "NAME_2")
+        if c in frame.columns
+    ]
     frame = frame[[*keep, "geometry"]]
 
     cache.parent.mkdir(parents=True, exist_ok=True)
@@ -270,6 +299,7 @@ def prepare_level(
                 "source": "GADM",
                 "gadm_version": GADM_VERSION,
                 "level": level,
+                "iso3": iso3,
                 "layer": LEVEL_LAYERS[level],
                 "epsg": epsg,
                 "tolerance_m": tolerance_m,
@@ -288,6 +318,7 @@ def prepare_level(
         epsg=epsg,
         feature_count=len(frame),
         tolerance_m=tolerance_m,
+        iso3=iso3,
     )
 
 

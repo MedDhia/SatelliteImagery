@@ -64,6 +64,7 @@ select = ["E", "F", "W", "I", "B", "ISC", "RUF"]
 # Map labels use real typography (·, –, γ) on purpose; these strings are drawn
 # for readers, not parsed.
 "src/satimg/overlay.py" = ["RUF001"]
+"src/satimg/charts.py" = ["RUF001"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

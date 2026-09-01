@@ -79,6 +79,16 @@ class OverlayStyle:
     line_alpha_adm0: float = 0.75
     line_alpha_adm1: float = 0.55
     cmap: Optional[str] = None  # None -> the single-hue NTL_RAMP
+    #: Rendered figure width. Defaults to one figure pixel per data pixel; set
+    #: it larger for a small country, whose native window (Tunisia: 366 px) is
+    #: far below a usable figure size.
+    output_width_px: Optional[int] = None
+    #: Replaces the global "extent 75N-65S" clause when rendering a sub-area,
+    #: where that note would be false.
+    extent_note: Optional[str] = None
+    #: Overrides the generic level label in the title (e.g. "governorate"
+    #: instead of "subnational" when the map is one country).
+    boundary_note: Optional[str] = None
     dpi: int = 200
     show_colorbar: bool = True
     title: Optional[str] = None
@@ -261,8 +271,10 @@ def render_png(
 
     cmap = _colormap(style).with_extremes(bad=NODATA_COLOR)
 
-    fig_width = width_px / style.dpi
-    fig_height = height_px / style.dpi
+    render_w = style.output_width_px or width_px
+    render_h = max(1, round(render_w * height_px / width_px))
+    fig_width = render_w / style.dpi
+    fig_height = render_h / style.dpi
     # Bands above and below the map, so nothing is written over the data.
     header = 0.42
     footer = 1.30 if style.show_colorbar else 0.80
@@ -305,18 +317,23 @@ def render_png(
     ax.set_ylim(extent[2], extent[3])
     ax.set_axis_off()
 
-    _draw_chrome(fig, image, layer, year, style, total_height, header, data)
+    _draw_chrome(fig, image, layer, year, style, total_height, header, data, extent)
 
     fig.savefig(out_path, dpi=style.dpi, facecolor=FIGURE_BACKGROUND, pad_inches=0)
     plt.close(fig)
     return out_path
 
 
-def _draw_chrome(fig, image, layer, year, style, total_height, header, data) -> None:
+def _draw_chrome(
+    fig, image, layer, year, style, total_height, header, data, extent=None
+) -> None:
     """Title, colorbar and the disclosures needed to read the map honestly."""
-    boundary_note = (
-        f"{LEVEL_LABELS[layer.level]} boundaries" if layer is not None else "no overlay"
-    )
+    if style.boundary_note:
+        boundary_note = style.boundary_note
+    elif layer is not None:
+        boundary_note = f"{LEVEL_LABELS[layer.level]} boundaries"
+    else:
+        boundary_note = "no overlay"
     headline = style.title or (
         f"Nighttime lights {year}" if year is not None else "Nighttime lights"
     )
@@ -334,8 +351,10 @@ def _draw_chrome(fig, image, layer, year, style, total_height, header, data) -> 
 
     scale_km = None
     if data is not None and data.shape[1]:
-        # One rendered pixel covers this many km of ground at 1 km native.
-        scale_km = round(GRID_WIDTH / data.shape[1])
+        # Ground distance per displayed pixel, from the extent itself so this
+        # is right for a country window as well as the whole grid.
+        span_m = (extent[1] - extent[0]) if extent else GRID_WIDTH * 1000.0
+        scale_km = round(span_m / data.shape[1] / 1000.0, 2)
 
     if style.show_colorbar:
         bar_bottom = 0.30 * header / total_height + 0.035
@@ -353,15 +372,18 @@ def _draw_chrome(fig, image, layer, year, style, total_height, header, data) -> 
     notes = [
         "LRCC-DVNL 1992–2022 · Tang et al. 2025 · doi:10.7910/DVN/15IKI5",
         (
-            "WGS 84 / Equal Earth Greenwich (EPSG:8857) · 1 km native "
-            "· extent 75°N–65°S (poles not covered)"
+            "WGS 84 / Equal Earth Greenwich (EPSG:8857) · 1 km native · "
+            + (style.extent_note or "extent 75°N–65°S (poles not covered)")
         ),
     ]
     if scale_km:
-        notes.append(
-            f"displayed at ~{scale_km} km/px, {style.resampling} downsampling "
-            "· DN 0–63, nodata rendered dark"
-        )
+        if scale_km <= 1.001:
+            notes.append("displayed at native 1 km/px · DN 0–63, nodata rendered dark")
+        else:
+            notes.append(
+                f"displayed at ~{scale_km:g} km/px, {style.resampling} "
+                "downsampling · DN 0–63, nodata rendered dark"
+            )
     if layer is not None:
         notes.append(
             f"{layer.attribution} · {layer.feature_count} units, "
@@ -505,3 +527,126 @@ def styles_for_level(level: int, base: Optional[OverlayStyle] = None) -> Overlay
     if level == 0:
         return base
     return replace(base, line_width_adm0=base.line_width_adm1)
+
+
+def render_panel(
+    frames: Sequence[Tuple[int, object, Tuple[float, float, float, float]]],
+    out_path: str | Path,
+    *,
+    layer: Optional[BoundaryLayer] = None,
+    segments: Optional[Sequence] = None,
+    style: Optional[OverlayStyle] = None,
+    columns: int = 8,
+    title: Optional[str] = None,
+    tile_px: int = 380,
+) -> Path:
+    """Small-multiple panel: one tile per year on a shared colour scale.
+
+    ``frames`` is ``(year, array, extent)``. The shared norm is the point -
+    tiles are only comparable across years if they are stretched identically.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.collections import LineCollection
+    from matplotlib.colors import PowerNorm
+
+    style = style or OverlayStyle()
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if not frames:
+        raise ValueError("render_panel needs at least one frame")
+
+    rows = -(-len(frames) // columns)
+    sample = frames[0][1]
+    aspect = sample.shape[0] / sample.shape[1]
+    tile_in = tile_px / style.dpi
+    fig_w = columns * tile_in
+    fig_h = rows * tile_in * aspect + 1.05
+
+    fig = plt.figure(figsize=(fig_w, fig_h), dpi=style.dpi, facecolor=FIGURE_BACKGROUND)
+    cmap = _colormap(style).with_extremes(bad=NODATA_COLOR)
+    norm = PowerNorm(gamma=style.gamma, vmin=DN_MIN, vmax=DN_MAX)
+
+    top = 1.0 - 0.55 / fig_h
+    bottom = 0.42 / fig_h
+    grid_h = top - bottom
+
+    image = None
+    for index, (year, data, extent) in enumerate(frames):
+        r, c = divmod(index, columns)
+        ax = fig.add_axes(
+            (
+                c / columns,
+                top - (r + 1) * grid_h / rows,
+                1.0 / columns,
+                grid_h / rows,
+            )
+        )
+        ax.set_facecolor(FIGURE_BACKGROUND)
+        image = ax.imshow(
+            data,
+            extent=extent,
+            origin="upper",
+            cmap=cmap,
+            norm=norm,
+            interpolation="nearest",
+        )
+        if segments is not None:
+            ax.add_collection(
+                LineCollection(
+                    segments,
+                    colors=BOUNDARY_COLOR,
+                    linewidths=0.12,
+                    alpha=0.5,
+                    capstyle="round",
+                )
+            )
+        ax.set_xlim(extent[0], extent[1])
+        ax.set_ylim(extent[2], extent[3])
+        ax.set_axis_off()
+        ax.text(
+            0.05,
+            0.94,
+            str(year),
+            transform=ax.transAxes,
+            color=TEXT_PRIMARY,
+            fontsize=7,
+            fontweight="bold",
+            va="top",
+            ha="left",
+        )
+
+    if title:
+        fig.text(
+            0.006,
+            1.0 - 0.22 / fig_h,
+            title,
+            color=TEXT_PRIMARY,
+            fontsize=13,
+            fontweight="bold",
+            va="center",
+            ha="left",
+        )
+
+    bar_ax = fig.add_axes((0.012, 0.13 / fig_h, 0.22, 0.10 / fig_h))
+    bar = fig.colorbar(image, cax=bar_ax, orientation="horizontal")
+    bar.set_label(
+        f"DN, relative (γ {style.gamma:g} display stretch), shared across years",
+        color=TEXT_MUTED,
+        fontsize=7,
+    )
+    bar.outline.set_edgecolor(TEXT_MUTED)
+    bar.outline.set_linewidth(0.4)
+    bar_ax.tick_params(colors=TEXT_MUTED, labelsize=6, width=0.4, length=2)
+
+    note = "LRCC-DVNL · doi:10.7910/DVN/15IKI5 · EPSG:8857 · native 1 km"
+    if layer is not None:
+        note += f" · {layer.attribution}"
+    fig.text(0.30, 0.20 / fig_h, note, color=TEXT_MUTED, fontsize=7, va="center")
+
+    fig.savefig(out_path, dpi=style.dpi, facecolor=FIGURE_BACKGROUND, pad_inches=0)
+    plt.close(fig)
+    return out_path
