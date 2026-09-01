@@ -184,6 +184,72 @@ def repair_crs(
     return target
 
 
+def clip_raster(
+    path: str | Path,
+    out_path: str | Path,
+    window,
+    *,
+    epsg: int = CRS_EPSG,
+    mask_geometries=None,
+) -> Path:
+    """Write a windowed copy of a raster, preserving its dtype and values.
+
+    Used to cut a country out of the global grid. The dtype is taken from the
+    source rather than fixed, because the series mixes int8, int16 and float32
+    and a hardcoded profile would truncate the fractional VIIRS-era years. The
+    output carries a real EPSG CRS instead of the published LOCAL_CS.
+
+    ``mask_geometries`` sets everything outside those shapes to nodata, so the
+    result is the country itself rather than its bounding box - otherwise a
+    Tunisia "extract" still carries Algerian and Libyan light. The burn uses
+    ``all_touched=False``, matching :mod:`satimg.zonal`, so the retained pixel
+    set is exactly the one the zonal statistics aggregate over.
+    """
+    rasterio = _require_rasterio()
+    np = _require_numpy()
+    from rasterio.crs import CRS
+    from rasterio.features import rasterize
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with rasterio.open(path) as src:
+        dtype = src.dtypes[0]
+        profile = src.profile.copy()
+        profile.update(
+            width=int(window.width),
+            height=int(window.height),
+            transform=src.window_transform(window),
+            dtype=dtype,
+            compress="lzw",
+            tiled=False,
+            crs=CRS.from_epsg(epsg),
+            predictor=3 if dtype.startswith("float") else 2,
+        )
+        profile.pop("blockxsize", None)
+        profile.pop("blockysize", None)
+        nodata = NODATA if src.nodata is None else src.nodata
+        profile["nodata"] = nodata
+        transform = src.window_transform(window)
+        data = src.read(1, window=window)
+
+    if mask_geometries is not None:
+        keep = rasterize(
+            ((geom, 1) for geom in mask_geometries),
+            out_shape=data.shape,
+            transform=transform,
+            fill=0,
+            all_touched=False,
+            dtype="uint8",
+        ).astype(bool)
+        data = np.where(keep, data, np.asarray(nodata).astype(data.dtype))
+
+    with rasterio.open(out_path, "w", **profile) as dst:
+        dst.write(data, 1)
+        dst.set_band_description(1, f"LRCC-DVNL nighttime light DN (0-63, {dtype})")
+    return out_path
+
+
 @dataclass
 class RasterStats:
     """Nighttime-light summary statistics for one annual raster."""

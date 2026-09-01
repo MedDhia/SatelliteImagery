@@ -117,6 +117,21 @@ so unlike the source files they need no CRS repair.
 The overlay products inherit that restriction — fine for academic publication,
 not for redistribution. See [`docs/overlays.md`](docs/overlays.md).
 
+## Country analysis: Tunisia
+
+Extract one country at three admin levels and compute nighttime-light Gini
+series from it:
+
+```bash
+satimg lrcc-dvnl extract --country TUN --levels 0,1,2   # clipped maps + panels
+satimg lrcc-dvnl gini    --country TUN                  # zonal tables + Gini + chart
+```
+
+Produces 12 Gini series over 1992–2022 — pixel (with and without unlit pixels),
+governorate and delegation, each for the whole country and for two
+desert-exclusion variants. See [`docs/tunisia.md`](docs/tunisia.md) for the
+method, results and caveats.
+
 ## Before you use this dataset
 
 Read [`docs/lrcc-dvnl.md`](docs/lrcc-dvnl.md). The one caveat to know up front:
