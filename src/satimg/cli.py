@@ -521,10 +521,10 @@ def _read_region_array(path):
     return read_downsampled(path, native_width)
 
 
-def cmd_gini(args) -> int:
-    """Zonal tables and Gini series for a country."""
+def cmd_inequality(args) -> int:
+    """Zonal tables, Gini/Theil series and the Theil decomposition."""
     from . import regions as R
-    from .analysis import gini_series, write_csv
+    from .analysis import decomposition_series, gini_series, write_csv
 
     iso3 = args.country.upper()
     rasters = _region_rasters(args)
@@ -537,19 +537,44 @@ def cmd_gini(args) -> int:
         min_pixels=args.min_pixels,
     )
 
-    series_csv = write_csv(rows, dest / "gini" / f"{iso3}_gini_series.csv")
+    series_csv = write_csv(rows, dest / "inequality" / f"{iso3}_inequality_series.csv")
     print(f"wrote  {series_csv}  ({len(rows)} rows)")
     for level, table in sorted(tables.items()):
         path = write_csv(table, dest / "zonal" / f"{iso3}_adm{level}_zonal.csv")
         print(f"wrote  {path}  ({len(table)} rows)")
 
-    if not args.no_chart:
-        from .charts import plot_gini_series
+    decomposition, group_rows = ([], [])
+    if not args.no_decomposition:
+        decomposition, group_rows = decomposition_series(
+            iso3, rasters, root=args.boundaries_root
+        )
+        path = write_csv(
+            decomposition, dest / "inequality" / f"{iso3}_theil_decomposition.csv"
+        )
+        print(f"wrote  {path}  ({len(decomposition)} rows)")
+        path = write_csv(group_rows, dest / "inequality" / f"{iso3}_theil_by_unit.csv")
+        print(f"wrote  {path}  ({len(group_rows)} rows)")
 
-        chart = plot_gini_series(
-            rows, dest / "gini" / f"{iso3}_gini_series.png", iso3=iso3
+        worst = max(
+            (r["residual"] for r in decomposition if r["residual"] == r["residual"]),
+            default=0.0,
+        )
+        print(f"       decomposition identity residual <= {worst:.1e}")
+
+    if not args.no_chart:
+        from .charts import plot_decomposition, plot_inequality_series
+
+        chart = plot_inequality_series(
+            rows, dest / "inequality" / f"{iso3}_inequality_series.png", iso3=iso3
         )
         print(f"wrote  {chart}")
+        if decomposition:
+            chart = plot_decomposition(
+                decomposition,
+                dest / "inequality" / f"{iso3}_theil_decomposition.png",
+                iso3=iso3,
+            )
+            print(f"wrote  {chart}")
 
     if not args.quiet:
         first, last = rasters[0][0], rasters[-1][0]
@@ -575,6 +600,32 @@ def cmd_gini(args) -> int:
             )
         headers = ["LEVEL", "SCOPE", str(first), str(last), "CHANGE"]
         print(format_table(table_rows, headers))
+        if decomposition:
+            print("\nTheil T decomposition, scope 'all' (share of total):")
+            dec_rows = []
+            for zeros in ("zeros_included", "lit_only"):
+                for grouping in ("governorate", "delegation"):
+                    sel = {
+                        r["year"]: r
+                        for r in decomposition
+                        if r["measure"] == "theil_t"
+                        and r["grouping"] == grouping
+                        and r["scope"] == "all"
+                        and r["zeros"] == zeros
+                    }
+                    if not sel or sel[first]["total"] != sel[first]["total"]:
+                        continue
+                    dec_rows.append(
+                        [
+                            zeros,
+                            f"between-{grouping}",
+                            f"{sel[first]['between_share']:.3f}",
+                            f"{sel[last]['between_share']:.3f}",
+                        ]
+                    )
+            dec_headers = ["PIXELS", "COMPONENT", str(first), str(last)]
+            print(format_table(dec_rows, dec_headers))
+
         for key, scope in R.desert_scopes(iso3).items():
             print(f"\n  scope '{key}' excludes {scope.label}: {scope.rationale}")
     return 0
@@ -880,13 +931,17 @@ def build_parser() -> argparse.ArgumentParser:
     extract.set_defaults(func=cmd_extract)
 
     ginip = sub.add_parser(
-        "gini",
-        help="zonal tables and nighttime-light Gini series for a country",
+        "inequality",
+        aliases=["gini"],
+        help="zonal tables, Gini/Theil series and Theil decomposition",
         description=(
-            "Compute Gini series at pixel, admin-1 and admin-2 level, each for "
-            "the whole country and for the desert-exclusion variants. Pixel "
-            "series are reported both including and excluding unlit pixels; "
-            "subnational series use light density (SOL/km2), unweighted."
+            "Compute Gini, Theil T and Theil L at pixel, admin-1 and admin-2 "
+            "level, each for the whole country and for the desert-exclusion "
+            "variants. Pixel series are reported both including and excluding "
+            "unlit pixels; subnational series use light density (SOL/km2), "
+            "unweighted. Theil is additively decomposed into between- and "
+            "within-group parts over governorates, delegations, and the nested "
+            "hierarchy of the two."
         ),
     )
     add_selection(ginip, default_product=lrcc_dvnl.DATASET_ID)
@@ -906,9 +961,14 @@ def build_parser() -> argparse.ArgumentParser:
         default=0,
         help="drop subnational units below this pixel count (sensitivity run)",
     )
-    ginip.add_argument("--no-chart", action="store_true", help="skip the chart")
+    ginip.add_argument(
+        "--no-decomposition",
+        action="store_true",
+        help="skip the Theil between/within decomposition",
+    )
+    ginip.add_argument("--no-chart", action="store_true", help="skip the charts")
     ginip.add_argument("--quiet", action="store_true", help="no summary table")
-    ginip.set_defaults(func=cmd_gini)
+    ginip.set_defaults(func=cmd_inequality)
 
     bounds = commands.add_parser(
         "boundaries",

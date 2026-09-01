@@ -124,13 +124,15 @@ series from it:
 
 ```bash
 satimg lrcc-dvnl extract --country TUN --levels 0,1,2   # clipped maps + panels
-satimg lrcc-dvnl gini    --country TUN                  # zonal tables + Gini + chart
+satimg lrcc-dvnl inequality --country TUN               # Gini + Theil + decomposition
 ```
 
-Produces 12 Gini series over 1992–2022 — pixel (with and without unlit pixels),
+Produces 12 series over 1992–2022 — pixel (with and without unlit pixels),
 governorate and delegation, each for the whole country and for two
-desert-exclusion variants. See [`docs/tunisia.md`](docs/tunisia.md) for the
-method, results and caveats.
+desert-exclusion variants — reporting **Gini, Theil T and Theil L**, plus the
+additive **between/within decomposition** of Theil over the nested
+pixel → delegation → governorate hierarchy. See
+[`docs/tunisia.md`](docs/tunisia.md) for method, results and caveats.
 
 ## Before you use this dataset
 

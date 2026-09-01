@@ -6,10 +6,10 @@ computes nighttime-light Gini series from them.
 ```bash
 pip install -e ".[overlay]"
 satimg lrcc-dvnl extract --country TUN --levels 0,1,2   # maps
-satimg lrcc-dvnl gini    --country TUN                  # tables + Gini + chart
+satimg lrcc-dvnl inequality --country TUN               # tables + Gini/Theil + decomposition
 ```
 
-Runtime: ~60 s for the 127 map files, ~2 s for the whole Gini computation.
+Runtime: ~60 s for the 127 map files, ~6 s for the whole inequality computation.
 
 ## The three levels
 
@@ -32,8 +32,11 @@ data/regions/TUN/
 ├── panel/TUN_adm{0,1,2}_1992-2022.png     3 small-multiple panels
 ├── zonal/TUN_adm1_zonal.csv               744 rows (24 units × 31 years)
 ├── zonal/TUN_adm2_zonal.csv               8,308 rows (268 × 31)
-└── gini/TUN_gini_series.csv               372 rows (12 series × 31 years)
-    gini/TUN_gini_series.png               faceted chart
+├── inequality/TUN_inequality_series.csv       372 rows (12 series × 31 years)
+├── inequality/TUN_theil_decomposition.csv    1,116 rows (year × scope × zeros × measure × grouping)
+├── inequality/TUN_theil_by_unit.csv          49,690 rows (per-unit index and contribution)
+└── inequality/TUN_inequality_series.png      faceted Gini/Theil chart
+    inequality/TUN_theil_decomposition.png    nested decomposition chart
 ```
 
 The clipped GeoTIFFs are **masked to the national outline**, not merely cropped
@@ -58,8 +61,9 @@ Density rather than total SOL, because a Gini of raw totals would score
 Tataouine high merely for being 39,535 km²; unweighted, because each governorate
 is one regional observation.
 
-Gini uses the exact sorted-rank form, cross-checked in the tests against the
-mean-absolute-difference definition. An all-dark distribution returns `nan`, not
+Each series carries **Gini, Theil T and Theil L**. Gini uses the exact
+sorted-rank form, cross-checked in the tests against the mean-absolute-difference
+definition; Theil T is checked against `ln(N)` at its one-holder maximum. An all-dark distribution returns `nan`, not
 `0.0` — no light anywhere means inequality is undefined, and `0.0` would read as
 "perfectly equal" in a results table.
 
@@ -105,6 +109,61 @@ Three patterns worth noting, and one warning:
   Tunisia is lit". Among lit pixels only, Gini is nearly flat (0.510 → 0.500)
   with a U-shape bottoming around 2011. Light spread out; it did not
   meaningfully even out where it already existed.
+
+## Theil and the between/within decomposition
+
+Gini cannot be split cleanly into group components — its group decomposition
+leaves an overlap residual. Theil can, exactly, which is the reason to compute
+it here: pixels nest inside delegations, which nest inside governorates, so
+total inequality divides into three additive parts.
+
+Zeros are the practical dividing line between the two Theil variants:
+
+| | Zeros | Status here |
+|---|---|---|
+| **Theil T** (GE(1)) | `0·ln 0 → 0` in the limit | Defined everywhere, including all-land-pixel series |
+| **Theil L** (GE(0)) | `ln(μ/0)` diverges | **Undefined** for all-land pixels (55–86% unlit); reported as `nan`, not silently computed on a filtered sample |
+
+Theil L is therefore only meaningful on the lit-only pass, and that is exactly
+where it is reported.
+
+### Nested decomposition, scope `all`
+
+`between(delegation) = between(governorate) + between-delegation-within-governorate`,
+because delegations nest exactly inside governorates. Verified rather than
+assumed: the two zone rasters agree on **all 154,885** pixels, and the
+governorate label is derived from each delegation's `GID_1`, so the hierarchy is
+exact by construction.
+
+Theil T, share of total:
+
+| Pixels | Component | 1992 | 2022 |
+|---|---|---|---|
+| all land | between governorates | 0.292 | 0.341 |
+| all land | between delegations, within governorate | 0.187 | 0.135 |
+| all land | within delegations | 0.521 | 0.524 |
+| lit only | between governorates | 0.149 | 0.183 |
+| lit only | between delegations, within governorate | 0.275 | 0.164 |
+| lit only | within delegations | 0.576 | 0.653 |
+
+Totals: Theil T falls 2.439 → 1.231 on all land pixels, but only 0.456 → 0.424
+among lit pixels.
+
+Two readings worth stating:
+
+- **Convergence did not happen between governorates.** Total inequality halved,
+  yet the between-governorate *share* rose (0.292 → 0.341 on all land; 0.149 →
+  0.183 lit-only). What fell was inequality *within* regions, not the gap
+  between them. A regional-policy reading of the falling Gini would be wrong.
+- **Among lit pixels, the middle term collapsed** (0.275 → 0.164): differences
+  between delegations of the same governorate shrank markedly, while
+  within-delegation inequality grew to two-thirds of the total. Light became
+  more evenly distributed across a governorate's delegations, but more unequal
+  inside each one.
+
+The additive identity is checked on every row of the output: the maximum
+residual across the 837 defined rows is 5.3 × 10⁻¹⁴, and the decomposition
+totals reproduce the independently computed pixel Theil T exactly.
 
 ## Caveats
 
