@@ -653,9 +653,11 @@ def cmd_choropleth(args) -> int:
     from . import zonal as Z
     from .choropleth import (
         ABSOLUTE,
+        DEFAULT_CMAP,
         RELATIVE,
         render_choropleth,
         render_choropleth_panel,
+        resolve_cmap,
         unit_values,
     )
 
@@ -671,6 +673,11 @@ def cmd_choropleth(args) -> int:
     unknown = set(scales) - {ABSOLUTE, RELATIVE}
     if unknown:
         raise SystemExit(f"unknown --scale value(s): {', '.join(sorted(unknown))}")
+
+    # Fail before any rendering if the palette name is wrong, rather than after
+    # the first few dozen files.
+    resolve_cmap(args.cmap, 8)
+    variant = "" if (args.cmap or DEFAULT_CMAP) == DEFAULT_CMAP else f"-{args.cmap}"
 
     rasters = _region_rasters(args)
     dest = Path(args.dest) / iso3 / "choropleth"
@@ -700,7 +707,7 @@ def cmd_choropleth(args) -> int:
                 out = (
                     dest
                     / f"adm{level}"
-                    / scale
+                    / f"{scale}{variant}"
                     / f"LACC_{year}_{iso3}_adm{level}_{scale}.png"
                 )
                 if out.exists() and not args.overwrite:
@@ -715,13 +722,16 @@ def cmd_choropleth(args) -> int:
                     level_label=label,
                     iso3=iso3,
                     national_mean=national,
+                    cmap_name=args.cmap,
                     dpi=args.dpi,
                 )
                 written += 1
 
             if not args.no_panel:
                 span = f"{rasters[0][0]}-{rasters[-1][0]}"
-                panel = dest / "panel" / f"{iso3}_adm{level}_{scale}_{span}.png"
+                panel = (
+                    dest / f"panel{variant}" / f"{iso3}_adm{level}_{scale}_{span}.png"
+                )
                 render_choropleth_panel(
                     units,
                     by_year,
@@ -730,6 +740,7 @@ def cmd_choropleth(args) -> int:
                     scale=scale,
                     level_label=label,
                     iso3=iso3,
+                    cmap_name=args.cmap,
                     dpi=args.dpi,
                 )
                 written += 1
@@ -1126,6 +1137,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     chor.add_argument(
         "--boundaries-root", default=BOUNDARIES_ROOT, help="GADM data and cache root"
+    )
+    chor.add_argument(
+        "--cmap",
+        help=(
+            "palette: 'ylorrd' (default, white->yellow->orange->red), "
+            "'house_blue', or any matplotlib colormap such as cividis, "
+            "inferno or magma. A non-default palette writes to suffixed "
+            "directories so sets coexist."
+        ),
     )
     chor.add_argument("--dpi", type=int, default=200, help="PNG dpi (default: 200)")
     chor.add_argument(

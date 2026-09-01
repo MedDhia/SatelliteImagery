@@ -222,3 +222,65 @@ def test_panel_writes_a_png(units, tmp_path):
 def test_panel_requires_at_least_one_year(units, tmp_path):
     with pytest.raises(ValueError, match="at least one year"):
         C.render_choropleth_panel(units, {}, tmp_path / "x.png", id_field="GID_1")
+
+
+# --------------------------------------------------------------------------- #
+# palette selection
+# --------------------------------------------------------------------------- #
+def test_default_cmap_is_the_project_ramp():
+    cmap = C.resolve_cmap(None, 8)
+    assert cmap.name == "white_ylorrd"
+    assert C.resolve_cmap(C.DEFAULT_CMAP, 8).name == "white_ylorrd"
+
+
+def test_house_blue_is_still_reachable_by_name():
+    assert C.resolve_cmap("house_blue", 8).name == "house_blue"
+
+
+@pytest.mark.parametrize("name", ["cividis", "inferno", "magma", "viridis"])
+def test_matplotlib_palettes_are_accepted(name):
+    """Choropleths can share a palette with the raster maps."""
+    cmap = C.resolve_cmap(name, 9)
+    assert cmap.N == 9
+
+
+def test_unknown_palette_is_rejected_with_the_name_quoted():
+    with pytest.raises(ValueError, match="unknown colormap 'nope'"):
+        C.resolve_cmap("nope", 8)
+
+
+def test_resolve_cmap_honours_the_class_count():
+    for classes in (5, 8, 12):
+        assert C.resolve_cmap(None, classes).N == classes
+
+
+def test_norm_and_cmap_threads_the_palette_through():
+    _, cmap, breaks = C._norm_and_cmap(C.RELATIVE, "cividis")
+    assert cmap.N == len(breaks) - 1
+    assert "cividis" in cmap.name
+
+
+def test_render_accepts_an_alternative_palette(units, tmp_path):
+    out = C.render_choropleth(
+        units,
+        {"A": 5.0, "B": 20.0, "C": 0.2},
+        tmp_path / "cividis.png",
+        id_field="GID_1",
+        scale=C.RELATIVE,
+        cmap_name="cividis",
+        dpi=60,
+    )
+    assert out.exists()
+
+
+def test_panel_accepts_an_alternative_palette(units, tmp_path):
+    out = C.render_choropleth_panel(
+        units,
+        {1992: {"A": 1.0, "B": 5.0, "C": 20.0}},
+        tmp_path / "panel_cividis.png",
+        id_field="GID_1",
+        cmap_name="cividis",
+        columns=1,
+        dpi=60,
+    )
+    assert out.exists()

@@ -91,10 +91,37 @@ MISSING_FILL = "#d1d5db"
 ABSOLUTE = "absolute"
 RELATIVE = "relative"
 
+#: Default ramp name. Any matplotlib colormap name also works, so the same
+#: palettes offered for the rasters (inferno, magma, cividis) are available
+#: here; "ylorrd" is the project ramp defined above.
+DEFAULT_CMAP = "ylorrd"
 
-def _norm_and_cmap(scale: str, classes: Optional[int] = None):
+
+def resolve_cmap(name: Optional[str], classes: int):
+    """Discrete colormap for ``classes`` bins from a palette name.
+
+    ``None`` or ``"ylorrd"`` gives the project ramp; anything else is looked up
+    in matplotlib, so a choropleth can share a palette with the raster maps.
+    """
     import matplotlib.pyplot as plt
-    from matplotlib.colors import BoundaryNorm, LinearSegmentedColormap
+    from matplotlib.colors import LinearSegmentedColormap
+
+    if not name or name.lower() in {DEFAULT_CMAP, "white_ylorrd"}:
+        return LinearSegmentedColormap.from_list(
+            "white_ylorrd", list(WHITE_YLORRD), N=classes
+        )
+    if name.lower() == "house_blue":
+        return LinearSegmentedColormap.from_list(
+            "house_blue", list(HOUSE_BLUE), N=classes
+        )
+    try:
+        return plt.get_cmap(name, classes)
+    except ValueError as exc:
+        raise ValueError(f"unknown colormap {name!r}: {exc}") from exc
+
+
+def _norm_and_cmap(scale: str, cmap_name: Optional[str] = None):
+    from matplotlib.colors import BoundaryNorm
 
     if scale == ABSOLUTE:
         breaks = list(DN_BREAKS)
@@ -102,11 +129,7 @@ def _norm_and_cmap(scale: str, classes: Optional[int] = None):
         breaks = list(RATIO_BREAKS)
     else:
         raise ValueError(f"scale must be {ABSOLUTE!r} or {RELATIVE!r}, got {scale!r}")
-    cmap = LinearSegmentedColormap.from_list(
-        "white_ylorrd", list(WHITE_YLORRD), N=len(breaks) - 1
-    )
-    del classes, plt
-    cmap = cmap.copy()
+    cmap = resolve_cmap(cmap_name, len(breaks) - 1).copy()
     cmap.set_bad(MISSING_FILL)
     return BoundaryNorm(breaks, len(breaks) - 1), cmap, breaks
 
@@ -138,6 +161,7 @@ def render_choropleth(
     level_label: str = "",
     iso3: str = "",
     national_mean: Optional[float] = None,
+    cmap_name: Optional[str] = None,
     width_in: float = 6.4,
     dpi: int = 200,
     edge_width: float = 0.3,
@@ -158,7 +182,7 @@ def render_choropleth(
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    norm, cmap, breaks = _norm_and_cmap(scale)
+    norm, cmap, breaks = _norm_and_cmap(scale, cmap_name)
     frame = units.copy()
     frame["_value"] = [values.get(str(gid), np.nan) for gid in frame[id_field]]
     missing = int(frame["_value"].isna().sum())
@@ -297,6 +321,7 @@ def render_choropleth_panel(
     scale: str = ABSOLUTE,
     level_label: str = "",
     iso3: str = "",
+    cmap_name: Optional[str] = None,
     columns: int = 8,
     tile_in: float = 1.55,
     dpi: int = 200,
@@ -318,7 +343,7 @@ def render_choropleth_panel(
     if not values_by_year:
         raise ValueError("render_choropleth_panel needs at least one year")
 
-    norm, cmap, breaks = _norm_and_cmap(scale)
+    norm, cmap, breaks = _norm_and_cmap(scale, cmap_name)
     years = sorted(values_by_year)
     rows = -(-len(years) // columns)
 

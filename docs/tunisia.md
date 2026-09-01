@@ -202,6 +202,22 @@ The national mean is light-weighted — total sum of lights over total pixels �
 not the mean of the per-unit means, which would weight a one-pixel delegation
 the same as a 39,000 km² governorate. A test pins that distinction.
 
+`--cmap` selects a different palette, writing to suffixed directories so sets
+coexist. `ylorrd` (default), `house_blue`, or any matplotlib colormap — so a
+choropleth can share a palette with the raster maps:
+
+```bash
+satimg lrcc-dvnl choropleth --country TUN --cmap cividis   # -> */relative-cividis/
+```
+
+**cividis** is worth knowing about specifically: it is the most
+colour-vision-safe option here, with navy and yellow endpoints that stay
+maximally separable under any CVD type. The trade is its mid-range, a muddy
+grey-olive that makes the band around the national mean less distinct than the
+warm ramp does. Choose it when the audience matters more than mid-range
+resolution. A bad palette name fails before any file is written, not after the
+first few dozen.
+
 ### What the panels show
 
 The relative panels make the decomposition legible. The northern interior warms
