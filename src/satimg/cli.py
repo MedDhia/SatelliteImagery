@@ -11,7 +11,7 @@ from dataclasses import replace
 from pathlib import Path
 from typing import List, Optional, Sequence
 
-from . import __version__, figures
+from . import __version__, figures, results
 from .checksums import ChecksumMismatch, md5_file
 from .datasets import lrcc_dvnl
 from .download import download_file
@@ -28,6 +28,8 @@ DEFAULT_REGION_DEST = Path("data/regions")
 BOUNDARIES_ROOT = Path("data/boundaries")
 FIGURES_SOURCE = Path("data")
 FIGURES_DEST = Path("figures")
+RESULTS_SOURCE = Path("data/regions")
+RESULTS_DEST = Path("results")
 
 
 # --------------------------------------------------------------------------- #
@@ -807,6 +809,73 @@ def cmd_figures_build(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# results
+# --------------------------------------------------------------------------- #
+def cmd_results_build(args) -> int:
+    """Publish the analysis tables into the committed results/ directory."""
+    source, dest = Path(args.source), Path(args.dest)
+    result = results.build(source, dest, check=args.check)
+
+    if result.missing:
+        names = ", ".join(t.dest for t in result.missing)
+        print(f"error: no source and nothing published for: {names}", file=sys.stderr)
+        print(
+            "run `satimg lrcc-dvnl inequality --country TUN` first",
+            file=sys.stderr,
+        )
+        return 1
+
+    for table in results.TABLES:
+        stats = result.stats.get(table.key)
+        if stats is None:
+            continue
+        # A column the catalogue does not explain would ship an undocumented
+        # number, which is the whole failure mode this directory exists to
+        # avoid - so it is an error, not a warning.
+        unknown = results.undocumented_columns(table, stats.header)
+        absent = results.missing_columns(table, stats.header)
+        if unknown or absent:
+            if unknown:
+                print(
+                    f"error: {table.dest} has undocumented column(s): "
+                    f"{', '.join(unknown)}",
+                    file=sys.stderr,
+                )
+            if absent:
+                print(
+                    f"error: {table.dest} is missing documented column(s): "
+                    f"{', '.join(absent)}",
+                    file=sys.stderr,
+                )
+            print("update TABLES in satimg/results.py", file=sys.stderr)
+            return 1
+
+    if args.check:
+        if result.copied:
+            for path in result.copied:
+                print(f"STALE  {path}")
+            print(f"\n{len(result.copied)} table(s) differ from {source}")
+            return 1
+        print(f"{len(result.unchanged)} table(s) up to date")
+        return 0
+
+    index = results.write_index(result, dest)
+    for path in result.copied:
+        print(f"wrote  {path}")
+    print(
+        f"\n{len(result.copied)} copied, {len(result.unchanged)} unchanged - "
+        f"{result.total_rows:,} rows, {human_bytes(result.total_bytes)} under {dest}"
+    )
+    print(f"index  {index}")
+    print(
+        "Tables derive from GADM 4.1 boundaries: non-commercial use, "
+        "redistribution not permitted.",
+        file=sys.stderr,
+    )
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 # boundaries subcommands
 # --------------------------------------------------------------------------- #
 def cmd_boundaries_fetch(args) -> int:
@@ -1279,6 +1348,33 @@ def build_parser() -> argparse.ArgumentParser:
         "--overwrite", action="store_true", help="re-encode figures already present"
     )
     figs_build.set_defaults(func=cmd_figures_build)
+
+    res = commands.add_parser(
+        "results", help="publish the analysis tables into results/"
+    )
+    res_sub = res.add_subparsers(dest="subcommand", metavar="<subcommand>")
+
+    res_build = res_sub.add_parser(
+        "build", help="copy the analysis tables into results/ and write its index"
+    )
+    res_build.add_argument(
+        "--source",
+        type=Path,
+        default=RESULTS_SOURCE,
+        help=f"root of the analysis output (default: {RESULTS_SOURCE})",
+    )
+    res_build.add_argument(
+        "--dest",
+        type=Path,
+        default=RESULTS_DEST,
+        help=f"results root (default: {RESULTS_DEST})",
+    )
+    res_build.add_argument(
+        "--check",
+        action="store_true",
+        help="report drift and exit non-zero, writing nothing",
+    )
+    res_build.set_defaults(func=cmd_results_build)
 
     raster = commands.add_parser(
         "raster", help="inspect and repair downloaded rasters (needs the raster extra)"

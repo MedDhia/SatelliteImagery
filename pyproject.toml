@@ -70,6 +70,7 @@ select = ["E", "F", "W", "I", "B", "ISC", "RUF"]
 "src/satimg/charts.py" = ["RUF001"]
 "src/satimg/choropleth.py" = ["RUF001"]
 "src/satimg/figures.py" = ["RUF001"]
+"src/satimg/results.py" = ["RUF001"]
 "tests/test_choropleth.py" = ["RUF001"]
 
 [tool.pytest.ini_options]

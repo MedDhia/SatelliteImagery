@@ -35,6 +35,24 @@ satimg figures build              # --max-px 0 to keep native pixels
 depict GADM boundaries, which are non-commercial and non-redistributable. See
 [`figures/NOTICE.md`](figures/NOTICE.md).
 
+## Results
+
+**[→ The numbers behind the figures, in `results/`](results/)** — 5 tables,
+60 230 rows, 7.9 MB, with a generated data dictionary for every column.
+
+| Table | Rows | What it answers |
+|---|---:|---|
+| `TUN_inequality_series.csv` | 372 | Gini, Theil T and Theil L, 12 series × 31 years |
+| `TUN_theil_decomposition.csv` | 1 116 | between/within splits, and the nested three-way split |
+| `TUN_theil_by_unit.csv` | 49 690 | which governorate or delegation drives a movement |
+| `TUN_adm1_zonal.csv` | 744 | 24 governorates × 31 years |
+| `TUN_adm2_zonal.csv` | 8 308 | 268 delegations × 31 years |
+
+The 8.2 GB these were computed from is **not** committed — `data/` holds only a
+`.gitkeep` — so the findings can be checked without downloading the LRCC-DVNL
+deposit and the GADM world layer first. `satimg results build --check` fails if
+the committed tables drift from a fresh run.
+
 ## What "imported" means here
 
 The rasters are **not** committed — the deposit is ~1.8 GiB, and the annual
@@ -50,6 +68,22 @@ a byte-identical local copy:
 * **[`docs/lrcc-dvnl.md`](docs/lrcc-dvnl.md)** — the datasheet: provenance,
   grid, units, licensing, and the caveats that decide whether this dataset can
   answer your question.
+
+### `data/` is empty in a clone, on purpose
+
+It holds only a `.gitkeep`. A full local run fills it with **8.2 GB** that this
+repository deliberately does not carry:
+
+| Path | Size | Why it is not committed |
+|---|---:|---|
+| `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
+| `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
+| `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
+| `data/regions/TUN` | 296 MB | published instead as [`figures/`](figures/) (47 MB) and [`results/`](results/) (7.9 MB) |
+
+The commands under [Use](#use) rebuild all of it. What is committed is the
+part you cannot regenerate by yourself: the pinned manifest, the code, the
+figures and the numbers.
 
 ## Install
 
@@ -193,7 +227,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 254 offline tests, no network
+pytest                 # 273 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 

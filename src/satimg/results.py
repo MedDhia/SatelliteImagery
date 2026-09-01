@@ -1,0 +1,424 @@
+"""Publish the analysis tables into the committed ``results/`` directory.
+
+The figures show the findings; these are the findings. Five CSVs, 8.3 MB, all
+plain text and diffable — a re-run that changes a number shows up in review
+rather than silently repainting a picture.
+
+They are copied rather than regenerated because the analysis needs the rasters
+and the GADM layers (8.2 GB, both gitignored); the point of committing them is
+that a reader can check the numbers *without* that. A digest per table records
+what was copied, so a stale ``results/`` is detectable with
+``satimg results build --check``.
+"""
+
+from __future__ import annotations
+
+import csv
+import hashlib
+import shutil
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Dict, List, Sequence, Tuple
+
+DEFAULT_SOURCE = Path("data/regions")
+DEFAULT_DEST = Path("results")
+INDEX_NAME = "README.md"
+
+
+@dataclass(frozen=True)
+class ResultTable:
+    """One analysis table, and what its columns mean."""
+
+    key: str
+    source: str  # relative to the source root
+    dest: str  # relative to the results root
+    title: str
+    description: str
+    columns: Tuple[Tuple[str, str], ...]
+
+    def source_path(self, root: str | Path) -> Path:
+        return Path(root) / self.source
+
+    def dest_path(self, root: str | Path) -> Path:
+        return Path(root) / self.dest
+
+
+#: Shared column glosses. Kept in one place because the same words mean the
+#: same thing in every table, and a data dictionary that contradicts itself is
+#: worse than none.
+_SCOPE = (
+    "unit set: `all`, `narrow` (excl. Tataouine/Kébili/Tozeur) or `wide` "
+    "(excl. those plus Médenine/Gabès/Gafsa)"
+)
+_ZEROS = (
+    "pixel zero treatment: `zeros_included` (all land pixels) or `lit_only` "
+    "(DN > 0). Blank for subnational rows, where the unit is the observation"
+)
+_YEAR = "calendar year, 1992–2022"
+
+TABLES: Tuple[ResultTable, ...] = (
+    ResultTable(
+        key="inequality-series",
+        source="TUN/inequality/TUN_inequality_series.csv",
+        dest="TUN/TUN_inequality_series.csv",
+        title="Inequality series",
+        description=(
+            "The headline result: 12 series × 31 years. Pixel-level rows are "
+            "the distribution of DN over land pixels; subnational rows are the "
+            "distribution of **light density** (SOL/km²) over units, "
+            "unweighted, so a governorate does not score high for being large."
+        ),
+        columns=(
+            ("year", _YEAR),
+            ("level", "`pixel`, `adm1` (governorate) or `adm2` (delegation)"),
+            ("level_label", "human-readable form of `level`"),
+            ("scope", _SCOPE),
+            ("zeros", _ZEROS),
+            ("n", "observations behind the index: pixels, or units"),
+            ("gini", "Gini coefficient; `nan` if the distribution is all-zero"),
+            ("theil_t", "Theil T = GE(1); maximum is ln(n)"),
+            (
+                "theil_l",
+                (
+                    "Theil L = GE(0); `nan` whenever any value is 0, since "
+                    "ln(μ/x) diverges — which is why the zeros-included pixel "
+                    "rows are undefined rather than large"
+                ),
+            ),
+            ("sum_of_lights", "total DN over the scope, for reference"),
+            ("lit_share", "fraction of land pixels with DN > 0; pixel rows only"),
+        ),
+    ),
+    ResultTable(
+        key="theil-decomposition",
+        source="TUN/inequality/TUN_theil_decomposition.csv",
+        dest="TUN/TUN_theil_decomposition.csv",
+        title="Theil decomposition",
+        description=(
+            "Additive between/within splits of pixel-level Theil, for two "
+            "groupings of the same pixels plus the nested three-way split they "
+            "permit. `residual` is the identity check: it is ≤ 5.3e-14 on every "
+            "defined row, so the split is exact rather than approximate."
+        ),
+        columns=(
+            ("year", _YEAR),
+            ("scope", _SCOPE),
+            ("zeros", _ZEROS),
+            ("measure", "`theil_t` or `theil_l`"),
+            (
+                "grouping",
+                (
+                    "`governorate`, `delegation`, or `nested` — the three-way "
+                    "pixel → delegation → governorate split"
+                ),
+            ),
+            ("total", "the index over all pixels in scope"),
+            ("between", "between-group component"),
+            ("within", "within-group component"),
+            ("between_share", "`between` ÷ `total`"),
+            ("within_share", "`within` ÷ `total`"),
+            (
+                "between_deleg_within_gov",
+                (
+                    "the middle term of the nested split: variation between "
+                    "delegations of the same governorate. `nan` otherwise"
+                ),
+            ),
+            ("residual", "|total − (between + within)|; a correctness check"),
+            ("n_groups", "groups with at least one pixel in scope"),
+        ),
+    ),
+    ResultTable(
+        key="theil-by-unit",
+        source="TUN/inequality/TUN_theil_by_unit.csv",
+        dest="TUN/TUN_theil_by_unit.csv",
+        title="Per-unit Theil contributions",
+        description=(
+            "What each governorate and delegation contributes to the total, "
+            "for Theil T. This is the table that answers *which* unit drives a "
+            "movement in the headline series."
+        ),
+        columns=(
+            ("year", _YEAR),
+            ("scope", _SCOPE),
+            ("zeros", _ZEROS),
+            ("grouping", "`governorate` or `delegation`"),
+            ("unit", "unit name"),
+            ("pixels", "land pixels in the unit, within scope"),
+            ("mean_dn", "mean DN over those pixels"),
+            ("population_share", "the unit's share of pixels"),
+            ("value_share", "the unit's share of total light"),
+            ("theil_t", "Theil T computed within the unit alone"),
+            (
+                "within_contribution",
+                (
+                    "the unit's term in the within component: `value_share` × "
+                    "its own `theil_t`. These sum to `within` in the "
+                    "decomposition"
+                ),
+            ),
+        ),
+    ),
+    ResultTable(
+        key="zonal-adm1",
+        source="TUN/zonal/TUN_adm1_zonal.csv",
+        dest="TUN/TUN_adm1_zonal.csv",
+        title="Governorate zonal table",
+        description=(
+            "24 governorates × 31 years — the aggregation every subnational "
+            "number is built from. Each land pixel belongs to exactly one unit, "
+            "so `sum_of_lights` totals to the national figure for every year."
+        ),
+        columns=(
+            ("year", _YEAR),
+            ("gid", "GADM `GID_1` code — stable across GADM releases, unlike names"),
+            ("name", "GADM `NAME_1`"),
+            ("pixels", "land pixels assigned to the unit"),
+            ("area_km2", "unit area from the GADM geometry, in EPSG:8857"),
+            ("sum_of_lights", "Σ DN over the unit's pixels"),
+            ("mean_dn", "`sum_of_lights` ÷ `pixels`"),
+            (
+                "density_sol_per_km2",
+                (
+                    "`sum_of_lights` ÷ `area_km2` — the quantity the "
+                    "subnational Gini and Theil are computed over"
+                ),
+            ),
+        ),
+    ),
+    ResultTable(
+        key="zonal-adm2",
+        source="TUN/zonal/TUN_adm2_zonal.csv",
+        dest="TUN/TUN_adm2_zonal.csv",
+        title="Delegation zonal table",
+        description=(
+            "268 delegations × 31 years, same columns as the governorate table. "
+            "**Check `pixels` before trusting a density**: 11 delegations have "
+            "fewer than 5 pixels and the smallest is a single 0.83 km² pixel, so "
+            "their densities are extremely noisy. They are kept rather than "
+            "dropped so the choice is yours and visible."
+        ),
+        columns=(
+            ("year", _YEAR),
+            ("gid", "GADM `GID_2` code"),
+            ("name", "GADM `NAME_2`"),
+            ("pixels", "land pixels assigned to the unit"),
+            ("area_km2", "unit area from the GADM geometry, in EPSG:8857"),
+            ("sum_of_lights", "Σ DN over the unit's pixels"),
+            ("mean_dn", "`sum_of_lights` ÷ `pixels`"),
+            ("density_sol_per_km2", "`sum_of_lights` ÷ `area_km2`"),
+        ),
+    ),
+)
+
+
+def table_by_key(key: str) -> ResultTable:
+    for table in TABLES:
+        if table.key == key:
+            return table
+    raise KeyError(f"unknown result table {key!r}")
+
+
+# --------------------------------------------------------------------------- #
+# inspection
+# --------------------------------------------------------------------------- #
+@dataclass(frozen=True)
+class TableStats:
+    """Measured facts about a published table, for the index and the check."""
+
+    rows: int
+    size_bytes: int
+    sha256: str
+    header: Tuple[str, ...]
+
+
+def digest(path: str | Path, chunk: int = 1 << 20) -> str:
+    sha = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for block in iter(lambda: handle.read(chunk), b""):
+            sha.update(block)
+    return sha.hexdigest()
+
+
+def inspect(path: str | Path) -> TableStats:
+    """Row count and header read from the file, never from the catalogue."""
+    path = Path(path)
+    with open(path, newline="", encoding="utf-8") as handle:
+        reader = csv.reader(handle)
+        header = tuple(next(reader, []))
+        rows = sum(1 for _ in reader)
+    return TableStats(
+        rows=rows, size_bytes=path.stat().st_size, sha256=digest(path), header=header
+    )
+
+
+def undocumented_columns(table: ResultTable, header: Sequence[str]) -> List[str]:
+    """Columns present in the file that the catalogue does not explain."""
+    documented = {name for name, _ in table.columns}
+    return [name for name in header if name not in documented]
+
+
+def missing_columns(table: ResultTable, header: Sequence[str]) -> List[str]:
+    """Columns the catalogue documents that the file does not have."""
+    present = set(header)
+    return [name for name, _ in table.columns if name not in present]
+
+
+# --------------------------------------------------------------------------- #
+# publishing
+# --------------------------------------------------------------------------- #
+@dataclass
+class PublishResult:
+    copied: List[Path] = field(default_factory=list)
+    unchanged: List[Path] = field(default_factory=list)
+    missing: List[ResultTable] = field(default_factory=list)
+    stats: Dict[str, TableStats] = field(default_factory=dict)
+
+    @property
+    def total_bytes(self) -> int:
+        return sum(s.size_bytes for s in self.stats.values())
+
+    @property
+    def total_rows(self) -> int:
+        return sum(s.rows for s in self.stats.values())
+
+
+def build(
+    source_root: str | Path = DEFAULT_SOURCE,
+    dest_root: str | Path = DEFAULT_DEST,
+    *,
+    tables: Sequence[ResultTable] = TABLES,
+    check: bool = False,
+) -> PublishResult:
+    """Copy the analysis tables into ``results/``.
+
+    ``check`` inspects without writing, so CI can fail on a stale directory
+    rather than shipping numbers that no longer match the figures beside them.
+    """
+    result = PublishResult()
+    for table in tables:
+        src = table.source_path(source_root)
+        dest = table.dest_path(dest_root)
+        if not src.exists():
+            # A published table with no source is not an error here: the check
+            # run happens on a clone, where data/ is empty by design.
+            if dest.exists():
+                result.stats[table.key] = inspect(dest)
+                result.unchanged.append(dest)
+            else:
+                result.missing.append(table)
+            continue
+
+        same = dest.exists() and digest(dest) == digest(src)
+        if not same and not check:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+        (result.unchanged if same else result.copied).append(dest)
+        result.stats[table.key] = inspect(dest if dest.exists() else src)
+    return result
+
+
+# --------------------------------------------------------------------------- #
+# index
+# --------------------------------------------------------------------------- #
+_PREAMBLE = """\
+# Results
+
+The numbers behind every figure in [`figures/`](../figures/) — {tables} tables,
+{rows} rows, {size}.
+
+*This file is generated by `satimg results build`; edit
+[`src/satimg/results.py`](../src/satimg/results.py), not this page.*
+
+These are committed while the 8.2 GB they were computed from is not, so the
+findings can be checked, re-analysed or disputed without downloading the
+LRCC-DVNL deposit and the GADM world layer first. Regenerate them with:
+
+```bash
+satimg lrcc-dvnl extract    --country TUN --levels 0,1,2
+satimg lrcc-dvnl inequality --country TUN
+satimg results build            # copy into results/
+satimg results build --check    # or just report drift, writing nothing
+```
+
+## Read this before quoting a number
+
+1. **LRCC-DVNL forbids year-on-year decreases by construction.** A falling Gini
+   is therefore partly imposed by the calibration, not purely observed, and
+   genuine dimming is invisible in this series.
+2. **2014 is a sensor handover** (DMSP → VIIRS) and a dtype change. Treat any
+   2013 → 2014 step as a candidate artefact.
+3. **DN is a relative index, not radiance.** A Gini of DN is not a Gini of
+   income or output.
+4. **`theil_l` is `nan` wherever any value is zero**, which is most
+   zeros-included pixel rows. That is the measure being undefined, not a bug.
+
+Full method and the remaining caveats: [`../docs/tunisia.md`](../docs/tunisia.md).
+
+## Terms
+
+Derived from GADM 4.1 boundaries (unit codes, names and areas) and LRCC-DVNL
+imagery. Like the figures, **these tables are not covered by the repository's
+MIT licence** — GADM is non-commercial with no redistribution. No GADM geometry
+is included; the `gid`/`name`/`area_km2` columns are the attributes needed to
+interpret a row at all. See [`../figures/NOTICE.md`](../figures/NOTICE.md).
+
+"""
+
+
+def _human_bytes(total: int) -> str:
+    value = float(total)
+    for unit in ("B", "KB", "MB", "GB"):
+        if value < 1024 or unit == "GB":
+            return f"{value:.0f} {unit}" if unit == "B" else f"{value:.1f} {unit}"
+        value /= 1024
+    return f"{value:.1f} GB"
+
+
+def write_index(
+    result: PublishResult,
+    dest_root: str | Path = DEFAULT_DEST,
+    *,
+    tables: Sequence[ResultTable] = TABLES,
+) -> Path:
+    """Write the data dictionary that documents every published column."""
+    dest_root = Path(dest_root)
+    published = [t for t in tables if t.key in result.stats]
+    lines = [
+        _PREAMBLE.format(
+            tables=len(published),
+            rows=f"{result.total_rows:,}",
+            size=_human_bytes(result.total_bytes),
+        )
+    ]
+
+    lines.append("## Tables\n")
+    lines.append("| Table | Rows | Size |")
+    lines.append("|---|---:|---:|")
+    for table in published:
+        stats = result.stats[table.key]
+        lines.append(
+            f"| [`{table.dest}`]({table.dest}) | {stats.rows:,} | "
+            f"{_human_bytes(stats.size_bytes)} |"
+        )
+    lines.append("")
+
+    for table in published:
+        stats = result.stats[table.key]
+        lines.append(f"## {table.title}\n")
+        lines.append(f"[`{table.dest}`]({table.dest}) — {stats.rows:,} rows\n")
+        lines.append(f"{table.description}\n")
+        lines.append("| Column | Meaning |")
+        lines.append("|---|---|")
+        # Ordered by the file, not the catalogue, so the dictionary reads in the
+        # order a reader actually meets the columns.
+        gloss = dict(table.columns)
+        for name in stats.header:
+            lines.append(f"| `{name}` | {gloss.get(name, '—')} |")
+        lines.append("")
+        lines.append(f"`sha256:{stats.sha256}`\n")
+
+    out = dest_root / INDEX_NAME
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines), encoding="utf-8")
+    return out
