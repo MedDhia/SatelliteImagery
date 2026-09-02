@@ -458,6 +458,32 @@ Full method, results and the remaining caveats:
 """
 
 
+#: Figures that are not conversions of a rendered raster: they are drawn
+#: straight from the committed tables in ``results/`` by their own command, and
+#: so live in the gallery without passing through :func:`build`. Listed here so
+#: the index still finds them instead of silently dropping a whole analysis.
+CROSS_COUNTRY = (
+    (
+        "aridity/arid_vs_lit.png",
+        "Aridity against darkness, all 317 admin-1 units",
+        (
+            "Which regions are dark because they are desert, and which are dark "
+            "for other reasons — drawn as a continuum, because the second set "
+            "has no crisp boundary. Built by `satimg aridity chart`."
+        ),
+    ),
+    (
+        "trends/pace_total_vs_intensive.png",
+        "Pace of change, all 22 countries",
+        (
+            "How fast each country's nighttime-light Theil T is moving, and "
+            "whether the fall is convergence among lit places or light simply "
+            "reaching new ground. Built by `satimg trends`."
+        ),
+    ),
+)
+
+
 def _human_bytes(total: int) -> str:
     value = float(total)
     for unit in ("B", "KB", "MB", "GB"):
@@ -492,11 +518,15 @@ def write_index(
 ) -> Path:
     """Write the gallery index that the repository's first page links to."""
     dest_root = Path(dest_root)
-    total = sum(len(paths) for paths in result.by_set.values())
+    extra = [item for item in CROSS_COUNTRY if (dest_root / item[0]).exists()]
+    total = sum(len(paths) for paths in result.by_set.values()) + len(extra)
+    size = result.total_bytes + sum(
+        (dest_root / rel).stat().st_size for rel, _, _ in extra
+    )
     lines = [
         _PREAMBLE.format(
             count=total,
-            size=_human_bytes(result.total_bytes),
+            size=_human_bytes(size),
             max_px=max_px or WEB_MAX_PX,
         )
     ]
@@ -518,6 +548,13 @@ def write_index(
                 lines.append(f"{figure_set.caption}\n")
             lines.append(f"`{figure_set.dest}/` — {len(paths)} file(s)\n")
             lines.append(f"{_links(paths, dest_root)}\n")
+
+    if extra:
+        lines.append("## Cross-country analysis\n")
+        for rel, title, caption in extra:
+            lines.append(f"### {title}\n")
+            lines.append(f"{caption}\n")
+            lines.append(f"[![{Path(rel).stem}]({rel})]({rel})\n")
 
     lines.append(_CAVEAT)
     out = dest_root / INDEX_NAME

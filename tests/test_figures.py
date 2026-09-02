@@ -273,3 +273,40 @@ def test_charts_of_every_country_are_summary_figures():
     charts = [s for s in F.FIGURE_SETS if s.dest.endswith("/charts")]
     assert len(charts) == len(F.COUNTRIES)
     assert all(s.group == F.GROUP_SUMMARY for s in charts)
+
+
+# --------------------------------------------------------------------------- #
+# cross-country figures
+# --------------------------------------------------------------------------- #
+def test_cross_country_figures_are_not_conversions_of_a_rendered_set():
+    dests = {s.dest for s in F.FIGURE_SETS}
+    for rel, title, caption in F.CROSS_COUNTRY:
+        assert Path(rel).parent.as_posix() not in dests, rel
+        assert title.strip() and caption.strip()
+
+
+def test_the_index_lists_a_cross_country_figure_that_exists(tmp_path):
+    rel = F.CROSS_COUNTRY[0][0]
+    target = tmp_path / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(b"x" * 1024)
+    index = F.write_index(F.BuildResult(), tmp_path).read_text(encoding="utf-8")
+    assert "## Cross-country analysis" in index
+    assert rel in index
+
+
+def test_the_index_omits_a_cross_country_figure_that_was_never_built(tmp_path):
+    # Otherwise the gallery would advertise a dead link for an analysis the
+    # user has not run.
+    index = F.write_index(F.BuildResult(), tmp_path).read_text(encoding="utf-8")
+    assert "## Cross-country analysis" not in index
+    for rel, _, _ in F.CROSS_COUNTRY:
+        assert rel not in index
+
+
+def test_cross_country_figures_count_toward_the_gallery_total(tmp_path):
+    rel = F.CROSS_COUNTRY[0][0]
+    (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+    (tmp_path / rel).write_bytes(b"x" * 1024)
+    index = F.write_index(F.BuildResult(), tmp_path).read_text(encoding="utf-8")
+    assert "1 of them, 1.0 KB" in index

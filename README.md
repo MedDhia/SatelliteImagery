@@ -10,9 +10,10 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 10 949 figures in `figures/`](figures/)** — global overlays, and
+**[→ Browse all 10 951 figures in `figures/`](figures/)** — global overlays, and
 for each of the 22 Arab League countries the map series in three palettes, the
-choropleths in two, the small-multiple panels and the inequality charts.
+choropleths in two, the small-multiple panels and the inequality charts, plus
+the cross-country pace chart.
 
 [![Nighttime lights 2022 with subnational boundaries](figures/global/adm1/LACC_2022_adm1.png)](figures/global/adm1/LACC_2022_adm1.png)
 
@@ -24,7 +25,7 @@ would suggest:
 [![Nested Theil decomposition](figures/TUN/charts/TUN_theil_decomposition.png)](figures/TUN/charts/TUN_theil_decomposition.png)
 
 The renderers write full-resolution output under gitignored `data/`;
-`figures/` is the same 10 949 images re-encoded for the web (677 MB) and is
+`figures/` is the same 10 951 images re-encoded for the web (677 MB) and is
 regenerated, index and all, by one command:
 
 ```bash
@@ -37,9 +38,10 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 127 tables and
+**[→ The numbers behind the figures, in `results/`](results/)** — 129 tables and
 682 clipped GeoTIFFs across 22 countries, with a generated data dictionary for
-every column, plus the per-unit aridity tables.
+every column: the per-country inequality outputs, the per-unit aridity tables,
+and the two cross-country tables.
 
 Per country: the inequality series (Gini, Theil T, Theil L), the Theil
 decomposition, per-unit contributions, zonal tables at each admin level, and
@@ -82,7 +84,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/*` | 4.6 GB | 22 countries; published instead as [`figures/`](figures/) (677 MB) and [`results/`](results/) (187 MB, rasters included) |
+| `data/regions/*` | 4.6 GB | 22 countries; published instead as [`figures/`](figures/) (676 MB) and [`results/`](results/) (186 MB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -231,6 +233,44 @@ documentation did (94% of the units it excludes are majority-arid, against a 73%
 base rate), and the genuinely non-arid dark regions are Darfur and southern
 Somalia.
 
+```bash
+satimg aridity vs-light     # the 317-unit join, from the committed tables
+satimg aridity chart        # the figure below
+```
+
+[![Aridity against darkness](figures/aridity/arid_vs_lit.png)](figures/aridity/arid_vs_lit.png)
+
+Aridity turns out to be a weak predictor of light, and not as a gentle slope:
+median 2022 mean DN is **3.70** where a unit is entirely desert, **3.78** where
+it is partly desert, and **14.09** where it is not desert at all. The two arid
+bands are indistinguishable — the whole relationship is one step. And the
+"dark for human reasons" set has no crisp boundary: 6 units at the 10th
+percentile of darkness, 13 at the 25th, 23 at the median, strictly nested.
+
+### Pace: a falling total is not the same as convergence
+
+Comparing *levels* across countries is partly mechanical — Theil T is bounded by
+ln(N), and land pixels run from Bahrain's 717 to Algeria's 2.3 million
+(Spearman = +0.68). Comparing *pace* is not: N is fixed over time within a
+country, so it cancels out of any fitted rate.
+
+```bash
+satimg trends --country all     # results/trends_by_country.csv + the figure
+```
+
+[![Pace of change across the Arab world](figures/trends/pace_total_vs_intensive.png)](figures/trends/pace_total_vs_intensive.png)
+
+Nine countries' total inequality falls **while inequality among their
+already-lit places rises**. Somalia is the clearest — total −0.96 %/yr, lit-only
+**+1.11 %/yr**, lit area **+7.10 %/yr**: nothing converged, light simply arrived
+somewhere new. Bahrain is the opposite and the reason to measure both — already
+fully lit, so its −4.09 %/yr is real convergence. Reporting only the total files
+these under the same headline.
+
+⚠️ **18 of 22 countries decline faster after 2014** — exactly the DMSP→VIIRS
+handover. That is an instrument signature, so the two eras are fitted separately
+and must not be compared with each other.
+
 See [`docs/arab-world.md`](docs/arab-world.md) for the cross-country method and
 [`docs/tunisia.md`](docs/tunisia.md) for the original single-country detail.
 
@@ -260,7 +300,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 295 offline tests, no network
+pytest                 # 420 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 

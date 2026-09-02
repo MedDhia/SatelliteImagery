@@ -35,14 +35,25 @@ class ResultTable:
     """One analysis table, and what its columns mean."""
 
     key: str
-    source: str  # relative to the source root
+    source: str  # relative to the source root; "" if written straight to dest
     dest: str  # relative to the results root
     title: str
     description: str
     columns: Tuple[Tuple[str, str], ...]
 
-    def source_path(self, root: str | Path) -> Path:
-        return Path(root) / self.source
+    @property
+    def in_place(self) -> bool:
+        """True for a table its own command writes into ``results/`` directly.
+
+        The cross-country tables read the published per-country CSVs, so they
+        have nothing under ``data/`` to be copied from. They are catalogued all
+        the same, because a committed table missing from the data dictionary is
+        a number nobody can check.
+        """
+        return not self.source
+
+    def source_path(self, root: str | Path) -> Optional[Path]:
+        return None if self.in_place else Path(root) / self.source
 
     def dest_path(self, root: str | Path) -> Path:
         return Path(root) / self.dest
@@ -201,6 +212,146 @@ def _zonal_columns(level: int):
     )
 
 
+def _aridity_columns(iso3: str):
+    word = R.level_title(iso3, 1)
+    return (
+        ("iso3", "ISO 3166-1 alpha-3 country code"),
+        ("gid", f"GADM identifier of the {word}"),
+        ("name", f"GADM name of the {word}"),
+        ("area_km2", "unit area on the WGS 84 ellipsoid"),
+        ("pixels_total", "aridity cells falling in the unit"),
+        (
+            "pixels_classified",
+            "cells carrying a real aridity value; the rest are ocean or "
+            "permanent ice, and are excluded from every share below",
+        ),
+        ("pixels_unclassified", "`pixels_total` − `pixels_classified`"),
+        ("hyper_arid_share", "area share with aridity index < 0.03"),
+        ("arid_share", "0.03 ≤ AI < 0.20"),
+        ("semi_arid_share", "0.20 ≤ AI < 0.50"),
+        ("dry_subhumid_share", "0.50 ≤ AI < 0.65"),
+        ("humid_share", "AI ≥ 0.65"),
+        (
+            "desert_share",
+            "`hyper_arid_share` + `arid_share` — the UNEP definition of desert",
+        ),
+        ("dryland_share", "everything below AI 0.65, i.e. 1 − `humid_share`"),
+        ("level", "admin level the row describes; always `adm1` here"),
+    )
+
+
+#: Tables computed *from* the published per-country CSVs rather than from the
+#: rasters, and so written straight into ``results/`` by their own commands.
+CROSS_TABLES = (
+    ResultTable(
+        key="aridity-vs-light",
+        source="",
+        dest="aridity_vs_light.csv",
+        title="Aridity against darkness, every admin-1 unit",
+        description=(
+            "One row per admin-1 unit across all 22 countries, pairing what "
+            "the climate says with what the light says. The table behind "
+            "[`../docs/aridity.md`](../docs/aridity.md), which refutes most of "
+            "what this repository previously asserted about which dark regions "
+            "are desert."
+        ),
+        columns=(
+            ("iso3", "ISO 3166-1 alpha-3 country code"),
+            ("gid", "GADM identifier of the unit"),
+            ("name", "GADM name of the unit"),
+            ("desert_share", "area share that is hyper-arid or arid"),
+            ("dryland_share", "area share below aridity index 0.65"),
+            ("humid_share", "area share at or above 0.65"),
+            ("area_km2", "unit area on the WGS 84 ellipsoid"),
+            ("pixels_classified", "aridity cells carrying a real value"),
+            (
+                "mean_dn_1992",
+                "mean DN over the unit's land pixels in 1992 — the zonal "
+                "tables' `mean_dn`, **not** a density: `density_sol_per_km2` "
+                "elsewhere in `results/` is that, and the two differ by a few "
+                "percent on a 1 km grid",
+            ),
+            ("mean_dn_2022", "the same for 2022; the column darkness is cut on"),
+            ("majority_arid", "`desert_share` > 0.5"),
+            (
+                "light_scopes",
+                "the light-derived exclusion scopes this unit belongs to, if "
+                "any; blank when the light rule never selected it",
+            ),
+            ("in_light_scope", "whether `light_scopes` is non-empty"),
+            (
+                "dark_2022",
+                "whether `mean_dn_2022` is strictly below the cross-country "
+                "median — the cut is a choice, and the set it produces is "
+                "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
+                "the strict `<` is load-bearing",
+            ),
+            (
+                "cell",
+                "which of the four aridity × darkness cells the unit falls in",
+            ),
+        ),
+    ),
+    ResultTable(
+        key="trends-by-country",
+        source="",
+        dest="trends_by_country.csv",
+        title="Pace of inequality change, all 22 countries",
+        description=(
+            "Log-linear rates of change fitted to the published inequality "
+            "series — how fast spatial inequality is moving, and whether the "
+            "movement is convergence among lit places or light reaching new "
+            "ground. Three fit windows per measure, because 18 of 22 countries "
+            "change pace at exactly the 2014 sensor handover and the eras must "
+            "not be compared. See [`../docs/arab-world.md`]"
+            "(../docs/arab-world.md)."
+        ),
+        columns=(
+            ("iso3", "ISO 3166-1 alpha-3 country code"),
+            (
+                "measure",
+                "`total` (Theil T over all land pixels), `intensive` (Theil T "
+                "over lit pixels only), `extensive` (share of land pixels "
+                "lit), `between_share` (share of Theil T lying between "
+                "admin-1 units)",
+            ),
+            ("measure_note", "the same, spelled out"),
+            (
+                "window",
+                "`full` 1992–2022, `dmsp` 1992–2013, `viirs` 2014–2022; the "
+                "two eras are not comparable to each other",
+            ),
+            ("first_year", "first year with a usable value in the window"),
+            ("last_year", "last such year"),
+            ("n_years", "usable observations behind the fit"),
+            (
+                "percent_per_year",
+                "the fitted slope of ln(value) against year, as a percentage",
+            ),
+            (
+                "r_squared",
+                "goodness of the straight-line fit; `nan` for a series with no "
+                "variation at all, which has no slope to explain",
+            ),
+            (
+                "half_life_years",
+                "ln(2) ÷ |rate| — years to halve; `nan` for a series that is "
+                "not falling, because a rising series has no half-life",
+            ),
+            ("direction", "`falling`, `rising`, `flat` or `undefined`"),
+            (
+                "monotone",
+                "whether `r_squared` clears the threshold; `False` means one "
+                "slope does not describe the series and the rate is a "
+                "direction, not a pace",
+            ),
+            ("trajectory", "the country's typology label, assigned by rule"),
+            ("trajectory_reason", "which rule assigned it, in one clause"),
+        ),
+    ),
+)
+
+
 def _country_tables(iso3: str):
     """The analysis tables for one country."""
     name = COUNTRY_NAMES.get(iso3, iso3)
@@ -244,6 +395,22 @@ def _country_tables(iso3: str):
             columns=_by_unit_columns(iso3),
         ),
     ]
+    tables.append(
+        ResultTable(
+            key=f"{iso3}-adm1-aridity",
+            source=f"{iso3}/aridity/{iso3}_adm1_aridity.csv",
+            dest=f"{iso3}/{iso3}_adm1_aridity.csv",
+            title=f"{name}: {R.level_title(iso3, 1)} aridity",
+            description=(
+                "Climate, measured independently of light. Each unit's share "
+                "of the five UNEP aridity classes from the Global Aridity "
+                "Index v3.1, on true cell areas rather than pixel counts. This "
+                "is what the light-derived exclusion scopes are checked "
+                "against in [`../docs/aridity.md`](../docs/aridity.md)."
+            ),
+            columns=_aridity_columns(iso3),
+        )
+    )
     for level in (lv for lv in R.available_levels(iso3) if lv >= 1):
         word = R.level_title(iso3, level)
         note = (
@@ -272,7 +439,9 @@ def _country_tables(iso3: str):
     return tables
 
 
-TABLES = tuple(t for iso3 in R.ARAB_LEAGUE for t in _country_tables(iso3))
+TABLES = (
+    tuple(t for iso3 in R.ARAB_LEAGUE for t in _country_tables(iso3)) + CROSS_TABLES
+)
 
 
 @dataclass(frozen=True)
@@ -532,7 +701,7 @@ def build(
     for table in tables:
         src = table.source_path(source_root)
         dest = table.dest_path(dest_root)
-        if not src.exists():
+        if src is None or not src.exists():
             # A published table with no source is not an error here: the check
             # run happens on a clone, where data/ is empty by design.
             if dest.exists():
@@ -657,7 +826,7 @@ def write_index(
             tables=len(published),
             rows=f"{result.total_rows:,}",
             rasters=result.raster_count,
-            countries=len({t.dest.split("/")[0] for t in published}),
+            countries=len({t.dest.split("/")[0] for t in published if "/" in t.dest}),
             size=_human_bytes(result.total_bytes),
         )
     ]

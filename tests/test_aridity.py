@@ -7,6 +7,7 @@ failure mode that produces a plausible-looking wrong number rather than a crash.
 from __future__ import annotations
 
 import math
+import pathlib
 
 import pytest
 
@@ -246,3 +247,211 @@ def test_build_zone_grid_refuses_a_geographic_crs(tmp_path):
     )
     with pytest.raises(ValueError, match="projected CRS"):
         build_zone_grid(path, frame, id_field="GID_1")
+
+
+# --------------------------------------------------------------------------- #
+# aridity against light
+# --------------------------------------------------------------------------- #
+REPO = pathlib.Path(__file__).resolve().parents[1]
+RESULTS = REPO / "results"
+
+
+def write_country(root, iso3, units, years):
+    """A minimal per-country pair: an aridity table and a zonal table."""
+    import csv as _csv
+
+    folder = root / iso3
+    folder.mkdir(parents=True, exist_ok=True)
+
+    with open(folder / f"{iso3}_adm1_aridity.csv", "w", newline="") as handle:
+        writer = _csv.DictWriter(
+            handle,
+            fieldnames=[
+                "gid",
+                "name",
+                "area_km2",
+                "pixels_classified",
+                "desert_share",
+                "dryland_share",
+                "humid_share",
+            ],
+        )
+        writer.writeheader()
+        for unit in units:
+            writer.writerow(unit)
+
+    with open(folder / f"{iso3}_adm1_zonal.csv", "w", newline="") as handle:
+        writer = _csv.DictWriter(handle, fieldnames=["year", "gid", "mean_dn"])
+        writer.writeheader()
+        for year, by_gid in years.items():
+            for gid, mean_dn in by_gid.items():
+                writer.writerow({"year": year, "gid": gid, "mean_dn": mean_dn})
+
+
+def unit(gid, name, desert):
+    return {
+        "gid": gid,
+        "name": name,
+        "area_km2": 100.0,
+        "pixels_classified": 100,
+        "desert_share": desert,
+        "dryland_share": 1.0,
+        "humid_share": 0.0,
+    }
+
+
+def test_cell_is_exactly_the_two_by_two_of_its_inputs():
+    assert A.cell_of(True, True) == A.CELL_DESERT_DARK
+    assert A.cell_of(True, False) == A.CELL_LIT_DESERT
+    assert A.cell_of(False, True) == A.CELL_ANOMALOUS
+    assert A.cell_of(False, False) == A.CELL_ORDINARY
+
+
+def test_the_darkness_cut_is_a_strict_comparison_against_the_median(tmp_path):
+    """A unit sitting exactly on the median is NOT dark.
+
+    Iraq's Ninawa does exactly this in the real data, so the convention decides
+    a published number and cannot be left to whichever operator a rewrite picks.
+    """
+    units = [unit(f"X.{i}_1", f"u{i}", 0.0) for i in range(5)]
+    write_country(
+        tmp_path,
+        "XXX",
+        units,
+        {
+            1992: {u["gid"]: 1.0 for u in units},
+            2022: {u["gid"]: v for u, v in zip(units, [1.0, 2.0, 3.0, 4.0, 5.0])},
+        },
+    )
+    rows = A.vs_light(tmp_path, ["XXX"])
+    assert A.dark_cut([r["mean_dn_2022"] for r in rows]) == 3.0
+    on_the_cut = next(r for r in rows if r["mean_dn_2022"] == 3.0)
+    assert on_the_cut["dark_2022"] is False
+    assert sum(1 for r in rows if r["dark_2022"]) == 2
+
+
+def test_a_unit_missing_from_the_zonal_side_is_dropped_whole(tmp_path):
+    """Half a row is worse than no row: the join must not emit one."""
+    units = [unit("X.1_1", "kept", 0.0), unit("X.2_1", "orphan", 0.0)]
+    write_country(
+        tmp_path,
+        "XXX",
+        units,
+        {1992: {"X.1_1": 1.0, "X.2_1": 1.0}, 2022: {"X.1_1": 2.0}},
+    )
+    rows = A.vs_light(tmp_path, ["XXX"])
+    assert [r["gid"] for r in rows] == ["X.1_1"]
+
+
+def test_a_unit_missing_one_year_is_dropped_too(tmp_path):
+    units = [unit("X.1_1", "only-2022", 0.0)]
+    write_country(tmp_path, "XXX", units, {1992: {}, 2022: {"X.1_1": 2.0}})
+    assert A.vs_light(tmp_path, ["XXX"]) == []
+
+
+def test_majority_arid_is_strictly_above_half(tmp_path):
+    """Exactly half desert is not a desert unit; the boundary is stated."""
+    units = [unit("X.1_1", "half", 0.5), unit("X.2_1", "just-over", 0.5001)]
+    write_country(
+        tmp_path,
+        "XXX",
+        units,
+        {1992: {u["gid"]: 1.0 for u in units}, 2022: {u["gid"]: 1.0 for u in units}},
+    )
+    rows = {r["gid"]: r for r in A.vs_light(tmp_path, ["XXX"])}
+    assert rows["X.1_1"]["majority_arid"] is False
+    assert rows["X.2_1"]["majority_arid"] is True
+
+
+def test_a_missing_country_is_skipped_rather_than_crashing(tmp_path):
+    assert A.vs_light(tmp_path, ["ZZZ"]) == []
+
+
+def test_mean_dn_columns_are_not_named_density():
+    """`density_sol_per_km2` is a different quantity published in the same tree.
+
+    The columns shipped briefly under `density_*`, which made one word mean two
+    things across two committed tables.
+    """
+    import csv as _csv
+
+    path = RESULTS / A.VS_LIGHT_TABLE
+    if not path.exists():
+        pytest.skip("results/ not present")
+    with open(path, encoding="utf-8") as handle:
+        header = next(_csv.reader(handle))
+    assert "mean_dn_1992" in header and "mean_dn_2022" in header
+    assert not [name for name in header if name.startswith("density")]
+
+
+# --------------------------------------------------------------------------- #
+# against the committed table
+# --------------------------------------------------------------------------- #
+@pytest.fixture(scope="module")
+def published():
+    import csv as _csv
+
+    path = RESULTS / A.VS_LIGHT_TABLE
+    if not path.exists():
+        pytest.skip("results/ not present")
+    with open(path, newline="", encoding="utf-8") as handle:
+        return list(_csv.DictReader(handle))
+
+
+def test_the_committed_table_matches_a_fresh_join(published):
+    """`results/aridity_vs_light.csv` must not drift from the module."""
+    fresh = A.vs_light(RESULTS)
+    if not fresh:
+        pytest.skip("per-country tables not present")
+    assert len(fresh) == len(published)
+    for got, want in zip(fresh, published):
+        for key, value in got.items():
+            if isinstance(value, float):
+                assert value == pytest.approx(float(want[key])), (got["gid"], key)
+            else:
+                assert str(value) == want[key], (got["gid"], key)
+
+
+def test_the_light_scopes_column_reconstructs_from_regions(published):
+    """The join key between the light rule and the climate table."""
+    for row in published:
+        assert A.light_scopes_for(row["iso3"], row["gid"]) == row["light_scopes"]
+
+
+def test_the_anomalous_sets_are_strictly_nested(published):
+    """6 / 13 / 23 - a hard core softening outward, not a churning set."""
+    values = [float(r["mean_dn_2022"]) for r in published]
+    sets = []
+    for quantile in A.DARK_QUANTILES:
+        cut = A.dark_cut(values, quantile)
+        sets.append(
+            {
+                r["gid"]
+                for r in published
+                if r["majority_arid"] == "False" and float(r["mean_dn_2022"]) < cut
+            }
+        )
+    assert [len(s) for s in sets] == [6, 13, 23]
+    assert sets[0] < sets[1] < sets[2]
+
+
+def test_aridity_is_a_step_not_a_slope(published):
+    """The finding the figure is shaped around; a regression guard on it."""
+    import statistics
+
+    def median_for(predicate):
+        return statistics.median(
+            float(r["mean_dn_2022"])
+            for r in published
+            if predicate(float(r["desert_share"]))
+        )
+
+    fully = median_for(lambda s: s == 1.0)
+    partly = median_for(lambda s: 0.0 < s < 1.0)
+    none = median_for(lambda s: s == 0.0)
+    assert fully == pytest.approx(3.70, abs=0.01)
+    assert partly == pytest.approx(3.78, abs=0.01)
+    assert none == pytest.approx(14.09, abs=0.01)
+    # The two arid bands are indistinguishable; the step is at "not arid".
+    assert abs(fully - partly) < 0.2
+    assert none > 3 * partly
