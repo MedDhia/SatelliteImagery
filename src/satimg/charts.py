@@ -357,3 +357,200 @@ def plot_decomposition(
     fig.savefig(out_path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
     return out_path
+
+
+#: The two ends of the dumbbell. Two series, so hue carries identity and a
+#: legend is mandatory; both are slots from the same fixed order as SCOPE_COLORS
+#: and validated as an all-pairs set.
+PACE_COLORS = {
+    "total": "#2a78d6",
+    "intensive": "#eb6834",
+}
+PACE_LABELS = {
+    "total": "all land pixels (total)",
+    "intensive": "lit pixels only (intensive margin)",
+}
+
+PACE_SPANS = {"full": "1992–2022", "dmsp": "1992–2013", "viirs": "2014–2022"}
+
+
+def _pace_rows(rows, measure: str, window: str):
+    return {
+        row["iso3"]: row
+        for row in rows
+        if row["measure"] == measure and row["window"] == window
+    }
+
+
+def _wrapped(text: str, width: int) -> str:
+    import textwrap
+
+    return "\n".join(textwrap.wrap(text, width))
+
+
+def plot_pace_dumbbell(
+    rows,
+    out_path: str | Path,
+    *,
+    window: str = "full",
+) -> Path:
+    """Total vs lit-only pace of Theil T change, one row per country.
+
+    A dumbbell rather than two bar charts: the reader's question is the *gap*
+    between the two ends - how much of a country's falling inequality is
+    convergence among places that already had light, and how much is light
+    simply arriving somewhere new. A gap is read directly off a connector and
+    only inferred from paired bars.
+
+    Emphasis is carried by the label ink, not by a third hue: countries whose
+    lit-only rate is positive - inequality rising among the already-lit - are
+    the finding, and their names are set in primary ink while the rest recede.
+    A hollow marker is the second non-colour channel, and marks a fit whose
+    R-squared is too low for one slope to describe the series.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    from . import figures as F
+    from . import trends as T
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    total = _pace_rows(rows, "total", window)
+    intensive = _pace_rows(rows, "intensive", window)
+
+    items = []
+    for iso3, row in total.items():
+        other = intensive.get(iso3)
+        if other is None:
+            continue
+        a, b = float(row["percent_per_year"]), float(other["percent_per_year"])
+        if a != a or b != b:  # nan: no usable fit on one end
+            continue
+        items.append(
+            {
+                "iso3": iso3,
+                "total": a,
+                "intensive": b,
+                "total_monotone": str(row["monotone"]) == "True",
+                "intensive_monotone": str(other["monotone"]) == "True",
+            }
+        )
+    if not items:
+        raise ValueError(f"no country has both ends fit over the {window} window")
+    items.sort(key=lambda d: d["total"])
+
+    # The title, subtitle and footnote take a fixed slab of inches, so a
+    # short chart still needs a floor or they crowd out the plot.
+    height = max(4.5, 2.4 + 0.34 * len(items))
+    fig, ax = plt.subplots(figsize=(10.5, height), dpi=200, facecolor=SURFACE)
+    ax.set_facecolor(SURFACE)
+
+    ys = list(range(len(items)))
+    for y, item in zip(ys, items):
+        ax.plot(
+            [item["total"], item["intensive"]],
+            [y, y],
+            color=GRID,
+            linewidth=2.0,
+            solid_capstyle="round",
+            zorder=1,
+        )
+        for key in ("total", "intensive"):
+            ax.plot(
+                [item[key]],
+                [y],
+                marker="o",
+                markersize=8,
+                markerfacecolor=(
+                    PACE_COLORS[key] if item[f"{key}_monotone"] else SURFACE
+                ),
+                markeredgecolor=PACE_COLORS[key],
+                markeredgewidth=2.0,
+                linestyle="none",
+                zorder=3,
+                label=PACE_LABELS[key] if y == 0 else None,
+            )
+
+    ax.axvline(0, color=INK_MUTED, linewidth=1.0, zorder=2)
+    ax.set_yticks(ys)
+    ax.set_yticklabels(
+        [F.COUNTRY_NAMES.get(item["iso3"], item["iso3"]) for item in items]
+    )
+    for label, item in zip(ax.get_yticklabels(), items):
+        rising = item["intensive"] > 0
+        label.set_color(INK if rising else INK_MUTED)
+        label.set_fontweight("bold" if rising else "normal")
+    ax.set_ylim(-0.7, len(items) - 0.3)
+
+    ax.set_xlabel("change in Theil T, % per year", color=INK_MUTED, fontsize=9)
+    ax.tick_params(axis="x", colors=INK_MUTED, labelsize=8.5)
+    ax.tick_params(axis="y", length=0, labelsize=9)
+    ax.xaxis.grid(True, color=GRID, linewidth=0.8)
+    ax.set_axisbelow(True)
+    for side in ("top", "right", "left", "bottom"):
+        ax.spines[side].set_visible(False)
+
+    legend = ax.legend(
+        loc="lower right",
+        frameon=False,
+        fontsize=9,
+        numpoints=1,
+        handletextpad=0.4,
+    )
+    for text in legend.get_texts():
+        text.set_color(INK)
+
+    top = 1.0 - 0.30 / height
+    fig.suptitle(
+        "How fast is nighttime-light inequality falling — and is it convergence?",
+        color=INK,
+        fontsize=13.5,
+        fontweight="bold",
+        x=0.008,
+        ha="left",
+        y=top,
+    )
+    fig.text(
+        0.008,
+        top - 0.42 / height,
+        _wrapped(
+            "Log-linear rate of change in Theil T, "
+            f"{PACE_SPANS.get(window, window)}. Left of the line is falling "
+            "inequality. A bold name marks a country whose lit-only end sits "
+            "right of zero: inequality among places that already had light is "
+            "rising there, so whatever fall the total shows is light reaching "
+            "new ground, not places growing closer together.",
+            150,
+        ),
+        color=INK_MUTED,
+        fontsize=8.5,
+        ha="left",
+        va="top",
+        linespacing=1.5,
+    )
+    fig.text(
+        0.008,
+        0.34 / height,
+        _wrapped(
+            "A hollow marker marks a fit with R² below "
+            f"{T.MONOTONE_R2:g} — one slope does not describe that series, so "
+            "read it as a direction, not a pace. A lit pixel in this series "
+            "never dims, it goes out, so a falling total is partly imposed; "
+            "that is exactly why the lit-only end is drawn beside it. Rates "
+            "either side of the 2014 sensor handover are not comparable.",
+            150,
+        ),
+        color=INK_MUTED,
+        fontsize=7.5,
+        ha="left",
+        va="bottom",
+        linespacing=1.5,
+    )
+    fig.tight_layout(rect=(0, 0.80 / height, 1, top - 0.85 / height))
+    fig.savefig(out_path, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+    return out_path

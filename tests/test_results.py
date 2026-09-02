@@ -38,9 +38,35 @@ def source(tmp_path, one_table):
 # the catalogue
 # --------------------------------------------------------------------------- #
 def test_keys_sources_and_destinations_are_unique():
-    for attr in ("key", "source", "dest"):
+    for attr in ("key", "dest"):
         values = [getattr(t, attr) for t in R.TABLES]
         assert len(set(values)) == len(values), attr
+    # Sources are unique too, except for the cross-country tables, which have
+    # none: they are computed from the published CSVs, not copied from data/.
+    sources = [t.source for t in R.TABLES if not t.in_place]
+    assert len(set(sources)) == len(sources)
+
+
+def test_an_in_place_table_has_no_source_to_copy_from():
+    in_place = [t for t in R.TABLES if t.in_place]
+    assert {t.dest for t in in_place} == {
+        "aridity_vs_light.csv",
+        "trends_by_country.csv",
+    }
+    for table in in_place:
+        assert table.source_path("data/regions") is None
+
+
+def test_every_committed_top_level_table_is_catalogued(tmp_path):
+    """A committed CSV outside the catalogue is a number nobody can check."""
+    from pathlib import Path
+
+    published = Path(__file__).resolve().parents[1] / "results"
+    if not published.exists():
+        pytest.skip("results/ not present")
+    on_disk = {p.name for p in published.glob("*.csv")}
+    catalogued = {t.dest for t in R.TABLES if "/" not in t.dest}
+    assert on_disk == catalogued
 
 
 def test_every_table_documents_every_column_it_declares():

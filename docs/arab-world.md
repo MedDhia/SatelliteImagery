@@ -155,6 +155,15 @@ admin-1 units. **Bold** marks a value that rose.
 subnational decomposition to carry much meaning. They are listed for
 completeness, not for interpretation.
 
+> ⚠️ **Read down the columns of this table with care: the levels are partly
+> mechanical.** Theil T is bounded above by ln(N), and N — land pixels — runs
+> from Bahrain's 717 to Algeria's 2 308 015. Across the 22,
+> **Spearman(N, Theil T 1992) = +0.68**; dividing each country's index by its
+> own ln(N) only brings that to +0.53. So a large country scoring higher than a
+> small one here is not, on its own, evidence that it is more unequal. Compare
+> countries by *pace* instead — see [Pace](#pace-how-fast-and-what-kind), where
+> the confound cancels.
+
 ### Total inequality falls almost everywhere — Syria excepted
 
 Theil T falls in **21 of 22**. The single exception is **Syria**, where it rises
@@ -199,6 +208,158 @@ provinces and became less so.
 
 Per-country series, decompositions and per-unit contributions are in
 [`../results/`](../results/), with a generated data dictionary for every column.
+
+---
+
+## Pace: how fast, and what kind
+
+The table above is a snapshot — two years, twenty-two countries. It cannot say
+whether a country is converging quickly or barely moving, and its levels are
+partly an artefact of country size. Rates are free of that particular problem.
+
+**Why pace is comparable where levels are not.** Theil T's ceiling is ln(N),
+and N is the country's land-pixel count — fixed over time, and verified so:
+the pixel count is identical across all 31 years for all 22 countries. So
+whatever constant you normalise the index by, ln(N) included, it drops out of
+the fitted slope exactly. The size confound that contaminates the level table
+does not carry into the rates.
+
+That is not the same as saying pace is unrelated to size. It is:
+**Spearman(N, rate) = +0.45** — larger countries converge more slowly. But that
+is a finding about geography, not an artefact of the index's ceiling.
+
+**How the rate is fitted.** `ln(T_t) = a + b·t`, with `b` reported as % per
+year; proportional rather than absolute because these are ratio-scale indices,
+so a fall from 8.0 to 6.0 and one from 0.8 to 0.6 count as the same pace.
+Non-positive and missing values are dropped rather than clamped — `lit_share`
+reaches 0 and Theil L is `nan` wherever any unit is unlit, and substituting an
+epsilon would invent a rate out of a missing observation. R² is reported beside
+every rate, because a single slope is a lie for a series that changes direction.
+
+### Three margins, because "inequality fell" means two different things
+
+| series | what a fall means |
+|---|---|
+| Theil T, all land pixels | **total** — both margins together |
+| Theil T, lit pixels only | **intensive** — convergence among places that already had light |
+| lit share of land pixels | **extensive** — light reaching ground that had none |
+
+[![Pace of change across the Arab world](../figures/trends/pace_total_vs_intensive.png)](../figures/trends/pace_total_vs_intensive.png)
+
+Full window, 1992–2022, pixel level, scope `all`. Half-life is `ln(2)/|b|` — the
+years it would take the index to halve at this pace, and blank where the series
+is not falling. Sorted by total pace.
+
+| Country | total %/yr | R² | half-life | intensive %/yr | extensive %/yr | between-share %/yr | trajectory |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Bahrain | −4.09 | 0.92 | 17 y | −3.49 | +0.10 | −5.69 | intensive converger |
+| Qatar | −2.46 | 0.93 | 28 y | −1.47 | +0.75 | −0.33 | intensive converger |
+| Morocco | −2.26 | 0.96 | 31 y | −0.50 | +5.30 | +1.08 | mixed |
+| Palestine | −1.94 | 0.92 | 36 y | −1.48 | +0.14 | −2.98 | intensive converger |
+| Lebanon | −1.78 | 0.67 | 39 y | −1.09 | +0.49 | −0.48 | intensive converger |
+| Iraq | −1.71 | 0.84 | 40 y | **+0.56** | +3.32 | +0.57 | extensive spreader |
+| Tunisia | −1.59 | 0.84 | 44 y | −0.42 | +2.51 | +0.20 | mixed |
+| Oman | −1.47 | 0.94 | 47 y | −0.41 | +3.17 | +0.58 | mixed |
+| UAE | −1.46 | 0.89 | 48 y | −1.64 | +0.94 | +0.47 | intensive converger |
+| Saudi Arabia | −1.30 | 0.96 | 53 y | −0.07 | +3.08 | +1.20 | mixed |
+| Jordan | −1.17 | 0.98 | 59 y | −0.24 | +2.24 | −0.26 | mixed |
+| Kuwait | −1.14 | 0.53 | 61 y | −1.50 | +0.17 | −1.94 | intensive converger |
+| Sudan | −1.01 | 0.95 | 69 y | **+0.36** | +5.08 | −1.13 | extensive spreader |
+| Somalia | −0.96 | 0.91 | 72 y | **+1.11** | +7.10 | −2.01 | extensive spreader |
+| Djibouti | −0.93 | 0.90 | 74 y | **+0.20** | +4.20 | +0.13 | extensive spreader |
+| Algeria | −0.72 | 0.86 | 97 y | **+0.07** | +2.27 | +0.79 | extensive spreader |
+| Mauritania | −0.68 | 0.90 | 102 y | **+0.85** | +5.09 | +0.13 | extensive spreader |
+| Yemen ‡ | −0.58 | 0.29 | 119 y | **+0.81** | +2.26 | −2.44 | extensive spreader |
+| Egypt | −0.57 | 0.93 | 121 y | **+0.48** | +1.70 | +0.10 | extensive spreader |
+| Comoros ‡ | −0.46 | 0.13 | 150 y | **+1.97** | +1.67 | −4.61 | extensive spreader |
+| Libya ‡ | +0.01 | 0.00 | — | +0.44 | +0.17 | +0.40 | flat |
+| Syria ‡ | **+1.44** | 0.40 | — | −0.05 | **−2.43** | −0.26 | disrupted |
+
+‡ **R² below 0.5: one slope does not describe these four series.** Read their
+rates as a direction at most. Libya's Theil T simply wanders between 3.42 and
+3.73 for thirty years — its fit is +0.01 %/yr at R² 0.0004, and its endpoints
+happen to land *lower* than they started, which is the one place in this
+analysis where the fitted sign and the 1992→2022 endpoints disagree. They
+disagree because there is no trend to agree with.
+
+### The finding: a falling total is not the same as convergence
+
+Nine countries' total inequality falls **while inequality among their
+already-lit places rises**. Somalia is the clearest: total −0.96 %/yr, lit-only
+**+1.11 %/yr**, lit area **+7.10 %/yr**. Nothing converged there. Light reached
+ground that had none, and among the places that already had it, the gaps grew.
+
+Bahrain is the opposite pole and the reason the comparison is worth making at
+all: total −4.09 %/yr, lit-only −3.49 %/yr, lit area flat at +0.10 %/yr. It has
+nowhere left to spread into, so its decline is the real thing.
+
+Reporting only the total would file these two under the same headline. The
+typology names the difference, assigned by rule from the measured rates rather
+than by hand (thresholds are `satimg.trends.FLAT` and `RISING`, and each row
+carries the clause that classified it):
+
+* **Intensive convergers** (6) — Bahrain, Qatar, Palestine, Lebanon, UAE,
+  Kuwait. Already largely lit; the decline is convergence.
+* **Extensive spreaders** (9) — Somalia, Mauritania, Sudan, Djibouti, Comoros,
+  Yemen, Iraq, Algeria, Egypt. Total falls only because light arrives
+  somewhere new.
+* **Mixed** (5) — Morocco, Tunisia, Oman, Saudi Arabia, Jordan. Both margins
+  contribute.
+* **Flat** (1) — Libya. No movement to explain.
+* **Disrupted** (1) — Syria. The only country whose lit *area* shrinks, and the
+  only one whose inequality rises.
+
+This cuts across the between-share split above rather than reproducing it. Iraq
+and Egypt are extensive spreaders whose between-share *rises*; Somalia and
+Sudan are extensive spreaders whose between-share falls. Where light arrives is
+a separate question from whether it arrives at all.
+
+### The post-2014 acceleration is the instrument, not history
+
+Fitting each era separately: **18 of 22 countries decline faster after 2014**.
+
+| | DMSP 1992–2013 | VIIRS 2014–2022 |
+|---|---:|---:|
+| Iraq | −0.97 | **−4.80** |
+| Palestine | −1.44 | **−4.16** |
+| Qatar | −2.18 | **−4.03** |
+| Morocco | −2.24 | **−3.91** |
+| Tunisia | −1.77 | **−3.02** |
+
+A near-universal jump at exactly the sensor handover is a property of the
+instrument, not of the Arab world. VIIRS resolves low light that DMSP could not
+see at all, so the extensive margin appears to open up the moment the sensor
+changes. **Do not compare a post-2014 rate with a pre-2014 one.** The table
+publishes both windows precisely so nobody has to infer them from the full one.
+
+Three of the four countries that *decelerate* are near-saturated — Bahrain
+(100% of land pixels lit by 2022), Lebanon (89%) and Kuwait (87%) have almost
+no dark ground left for a better sensor to find, which is what a sensor
+explanation predicts. **Sudan is the exception and is stated as one:** at 3.0%
+lit it is among the darkest countries here and it decelerates anyway
+(−1.14 → −1.04 %/yr). One counter-example does not overturn an 18-of-22
+pattern, but it does mean the sensor story is the likely reading, not a proved
+one.
+
+### What the pace numbers cannot fix
+
+* **A falling total is partly imposed.** A lit pixel in this series never dims —
+  it goes out (see [`lrcc-dvnl.md`](lrcc-dvnl.md)). As lit area grows the
+  zeros-included index falls almost by construction, which is exactly why the
+  lit-only rate is published beside it rather than under it.
+* **The eras are not comparable**, as above.
+* **A single slope hides shape.** Four countries are flagged; Syria is the one
+  where it matters most, since its full-window rate (+1.44 %/yr) and both of its
+  era rates (−0.04, −1.97) tell different stories about a series that rose
+  through the war and fell back afterwards.
+* **Levels remain confounded by size** even though pace is not.
+
+Regenerate the table and the figure with:
+
+```bash
+satimg trends --country all          # results/trends_by_country.csv + the figure
+satimg trends --country TUN,MAR --no-figure
+```
 
 ---
 

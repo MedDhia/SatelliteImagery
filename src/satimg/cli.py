@@ -838,6 +838,55 @@ def cmd_figures_build(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# trends
+# --------------------------------------------------------------------------- #
+def cmd_trends(args) -> int:
+    """Fit the pace of change across countries and publish table + figure."""
+    from . import trends
+
+    isos = None if args.country.lower() == "all" else args.country.upper().split(",")
+    path, rows = trends.build(args.results, isos)
+    if not rows:
+        raise SystemExit(
+            f"no inequality series found under {args.results}; "
+            "run `satimg lrcc-dvnl inequality --country <ISO>` first"
+        )
+    countries = sorted({row["iso3"] for row in rows})
+    print(f"table  {path}  ({len(rows)} rows, {len(countries)} countries)")
+
+    full = trends.full_window(rows, "total")
+    groups = {}
+    for iso3 in countries:
+        groups.setdefault(full[iso3]["trajectory"], []).append(iso3)
+    for label in sorted(groups):
+        print(f"  {label:<20} {len(groups[label]):>2}  {' '.join(groups[label])}")
+
+    eras = trends.era_comparison(rows)
+    faster = [iso for iso, dmsp, viirs in eras if viirs < dmsp]
+    print(
+        f"\n{len(faster)} of {len(eras)} countries decline faster after the "
+        f"{trends.BREAK_YEAR} sensor handover — that is an instrument "
+        "signature, not history; the two eras are reported separately and "
+        "must not be compared."
+    )
+
+    if args.no_figure:
+        return 0
+    try:
+        import matplotlib  # noqa: F401
+    except ImportError:
+        raise SystemExit(
+            'drawing the chart needs matplotlib: pip install -e ".[overlay]" '
+            "(or pass --no-figure)"
+        ) from None
+    from . import charts
+
+    out = charts.plot_pace_dumbbell(rows, Path(args.figures) / trends.PACE_FIGURE)
+    print(f"figure {out}")
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 # results
 # --------------------------------------------------------------------------- #
 def cmd_results_build(args) -> int:
@@ -1414,6 +1463,34 @@ def build_parser() -> argparse.ArgumentParser:
         help="report drift and exit non-zero, writing nothing",
     )
     res_build.set_defaults(func=cmd_results_build)
+
+    trend = commands.add_parser(
+        "trends",
+        help="pace of inequality change across countries, from results/",
+    )
+    trend.add_argument(
+        "--country",
+        default="all",
+        help="ISO3 code, a comma-separated list, or 'all' (default: all)",
+    )
+    trend.add_argument(
+        "--results",
+        type=Path,
+        default=RESULTS_DEST,
+        help=f"where the committed tables live (default: {RESULTS_DEST})",
+    )
+    trend.add_argument(
+        "--figures",
+        type=Path,
+        default=FIGURES_DEST,
+        help=f"gallery root for the chart (default: {FIGURES_DEST})",
+    )
+    trend.add_argument(
+        "--no-figure",
+        action="store_true",
+        help="write the table only, skipping the chart (no matplotlib needed)",
+    )
+    trend.set_defaults(func=cmd_trends)
 
     raster = commands.add_parser(
         "raster", help="inspect and repair downloaded rasters (needs the raster extra)"

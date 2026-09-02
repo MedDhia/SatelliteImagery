@@ -74,3 +74,50 @@ def test_decomposition_is_attempted_where_admin_2_exists(tmp_path):
     # only the missing-layer case is refused.
     out = C.plot_decomposition([], tmp_path / "y.png", iso3="TUN")
     assert out.exists()
+
+
+# --------------------------------------------------------------------------- #
+# pace dumbbell
+# --------------------------------------------------------------------------- #
+def pace_rows(**by_country):
+    """Minimal trends rows: {iso3: (total, intensive)} for the full window."""
+    rows = []
+    for iso3, (total, intensive) in by_country.items():
+        for measure, value in (("total", total), ("intensive", intensive)):
+            rows.append(
+                {
+                    "iso3": iso3,
+                    "measure": measure,
+                    "window": "full",
+                    "percent_per_year": value,
+                    "monotone": "True",
+                    "r_squared": 0.9,
+                    "trajectory": "mixed",
+                }
+            )
+    return rows
+
+
+def test_pace_dumbbell_draws_from_trends_rows(tmp_path):
+    out = C.plot_pace_dumbbell(
+        pace_rows(BHR=(-4.09, -3.49), SOM=(-0.96, 1.11)), tmp_path / "pace.png"
+    )
+    assert out.exists() and out.stat().st_size > 0
+
+
+def test_pace_dumbbell_refuses_an_empty_window_rather_than_drawing_nothing():
+    with pytest.raises(ValueError, match="no country"):
+        C.plot_pace_dumbbell(pace_rows(BHR=(-4.09, -3.49)), "x.png", window="viirs")
+
+
+def test_pace_dumbbell_skips_a_country_missing_one_end(tmp_path):
+    rows = pace_rows(BHR=(-4.09, -3.49), SOM=(-0.96, float("nan")))
+    out = C.plot_pace_dumbbell(rows, tmp_path / "pace.png")
+    assert out.exists()
+
+
+def test_the_two_ends_take_different_hues_from_the_fixed_order():
+    # Two series, so hue carries identity; both come from the same validated
+    # order as SCOPE_COLORS rather than being invented here.
+    assert C.PACE_COLORS["total"] != C.PACE_COLORS["intensive"]
+    assert set(C.PACE_COLORS.values()) <= set(C.SCOPE_COLORS.values())

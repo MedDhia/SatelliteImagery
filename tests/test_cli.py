@@ -133,3 +133,78 @@ def test_version_flag():
     with pytest.raises(SystemExit) as excinfo:
         main(["--version"])
     assert excinfo.value.code == 0
+
+
+# --------------------------------------------------------------------------- #
+# trends
+# --------------------------------------------------------------------------- #
+def series_csv(path, iso3, rates):
+    """A minimal inequality series a country's trends row can be fit from."""
+    import math
+
+    header = "year,level,level_label,scope,zeros,n,gini,theil_t,theil_l,"
+    header += "sum_of_lights,lit_share\n"
+    lines = [header]
+    total, intensive, extensive = rates
+    for year in range(1992, 2023):
+        t = math.exp(total / 100 * (year - 1992))
+        i = math.exp(intensive / 100 * (year - 1992))
+        share = 0.2 * math.exp(extensive / 100 * (year - 1992))
+        lines.append(
+            f"{year},pixel,pixel,all,zeros_included,100,0.5,{t},nan,1000,{share}\n"
+        )
+        lines.append(f"{year},pixel,pixel,all,lit_only,50,0.4,{i},nan,1000,1.0\n")
+    path.mkdir(parents=True, exist_ok=True)
+    (path / f"{iso3}_inequality_series.csv").write_text("".join(lines))
+
+
+def test_trends_writes_the_table_and_names_the_trajectories(tmp_path, capsys):
+    series_csv(tmp_path / "SOM", "SOM", (-0.96, +1.11, +7.10))
+    series_csv(tmp_path / "BHR", "BHR", (-4.09, -3.49, +0.10))
+
+    code = main(
+        ["trends", "--country", "SOM,BHR", "--results", str(tmp_path), "--no-figure"]
+    )
+    assert code == 0
+
+    out = capsys.readouterr().out
+    assert "trends_by_country.csv" in out
+    assert "extensive spreader" in out and "SOM" in out
+    assert "intensive converger" in out and "BHR" in out
+    assert (tmp_path / "trends_by_country.csv").exists()
+
+
+def test_trends_says_the_post_2014_acceleration_is_the_instrument(tmp_path, capsys):
+    series_csv(tmp_path / "SOM", "SOM", (-0.96, +1.11, +7.10))
+    main(["trends", "--country", "SOM", "--results", str(tmp_path), "--no-figure"])
+    out = capsys.readouterr().out
+    assert "instrument signature" in out
+    assert "must not be compared" in out
+
+
+def test_trends_refuses_an_empty_results_directory(tmp_path):
+    with pytest.raises(SystemExit) as excinfo:
+        main(["trends", "--country", "all", "--results", str(tmp_path)])
+    assert "inequality" in str(excinfo.value)
+
+
+def test_trends_draws_the_figure_into_the_gallery(tmp_path):
+    pytest.importorskip("matplotlib")
+    from satimg import trends
+
+    series_csv(tmp_path / "SOM", "SOM", (-0.96, +1.11, +7.10))
+    series_csv(tmp_path / "BHR", "BHR", (-4.09, -3.49, +0.10))
+    gallery = tmp_path / "figures"
+    code = main(
+        [
+            "trends",
+            "--country",
+            "SOM,BHR",
+            "--results",
+            str(tmp_path),
+            "--figures",
+            str(gallery),
+        ]
+    )
+    assert code == 0
+    assert (gallery / trends.PACE_FIGURE).exists()
