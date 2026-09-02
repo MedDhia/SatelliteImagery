@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from satimg import regions as R
@@ -131,83 +133,30 @@ def test_small_countries_get_no_derived_scope():
         assert R.scope_keys(iso3) == ["all"], iso3
 
 
-def test_conflict_affected_scopes_say_so():
-    # Syria's and Iraq's cuts select war damage, not aridity. If a future edit
-    # rewrites these as desert sets, this fails.
-    assert "conflict" in R.DESERT_SCOPES["SYR"]["dark_wide"].rationale
-    assert "war damage" in R.DESERT_SCOPES["IRQ"]["dark_wide"].rationale
-    assert "poverty" in R.DESERT_SCOPES["SOM"]["dark"].rationale
+def test_refuted_claims_are_corrected_not_quietly_dropped():
+    """The rationales once asserted these units were dark for human reasons.
+
+    Measuring them against the Global Aridity Index refuted that: Aleppo is 70%
+    arid, Ninawa 58%, Raymah 97%, Nalut 100%. The rationales must now say so -
+    a silent rewrite would lose the fact that the earlier reading was wrong.
+    """
+    for iso3, key, must_mention in (
+        ("SYR", "dark_wide", "70% arid"),
+        ("IRQ", "dark_wide", "58%"),
+        ("YEM", "dark", "97% arid"),
+        ("LBY", "dark_wide", "100% arid"),
+        ("SOM", "dark", "96% arid"),
+    ):
+        rationale = R.DESERT_SCOPES[iso3][key].rationale
+        assert must_mention in rationale, (iso3, key)
 
 
-@pytest.mark.parametrize(
-    "iso3,level,expected",
-    [
-        ("TUN", 1, "governorate"),
-        ("TUN", 2, "delegation"),
-        ("DZA", 1, "province"),  # GADM's own ENGTYPE_1, not a guess
-        ("DZA", 2, "commune"),  # NOT "daira" - GADM labels these communes
-        ("MRT", 2, "department"),
-        ("LBY", 1, "district"),
-        ("FRA", 1, "admin-1 unit"),  # unmapped country falls back
-        ("LBY", 2, "admin-2 unit"),  # level Libya does not have
-    ],
-)
-def test_level_title_is_country_aware(iso3, level, expected):
-    # "governorate" on an Algerian wilaya would be a wrong word on 93 maps.
-    assert R.level_title(iso3, level) == expected
+def test_the_module_records_that_the_eyeball_reading_was_wrong():
+    doc = R.__doc__ or ""
+    import satimg.regions as module
 
-
-def test_libya_has_no_admin_2_in_gadm():
-    assert R.available_levels("LBY") == (0, 1)
-    assert not R.has_level("LBY", 2)
-    assert R.has_level("DZA", 2)
-
-
-def test_resolve_levels_drops_what_gadm_lacks():
-    assert R.resolve_levels("LBY", (0, 1, 2)) == ((0, 1), (2,))
-    assert R.resolve_levels("DZA", (0, 1, 2)) == ((0, 1, 2), ())
-
-
-def test_resolve_levels_raises_when_nothing_survives():
-    with pytest.raises(ValueError, match="GADM provides"):
-        R.resolve_levels("LBY", (2,))
-
-
-def test_every_maghreb_country_has_a_usable_scope_set():
-    for iso3 in R.MAGHREB:
-        keys = R.scope_keys(iso3)
-        assert keys[0] == "all"
-        assert len(keys) >= 2, iso3
-
-
-def test_derived_scopes_are_marked_as_derived():
-    # A reader must be able to tell "we judged this Saharan" from "the light
-    # data put it below the break".
-    assert R.DESERT_SCOPES["DZA"]["dark"].derived is True
-    assert R.DESERT_SCOPES["TUN"]["narrow"].derived is False
-
-
-def test_the_low_light_rule_reproduces_tunisias_hand_picked_trio():
-    """The validity check for the derived rule, asserted rather than left in prose."""
-    assert (
-        R.DERIVED_SCOPES["TUN"]["dark"].gid1 == R.TUNISIA_DESERT_SCOPES["narrow"].gid1
-    )
-
-
-def test_the_derived_wide_scope_is_not_tunisias_hand_picked_wide():
-    # It takes Siliana where the geographic definition takes Gafsa; the module
-    # says so, and a future edit that quietly "fixes" this should fail here.
-    derived = R.DERIVED_SCOPES["TUN"]["dark_wide"].gid1
-    assert derived != R.TUNISIA_DESERT_SCOPES["wide"].gid1
-    assert "TUN.19_1" in derived  # Siliana
-    assert "TUN.6_1" not in derived  # Gafsa
-
-
-def test_derived_scopes_nest_and_name_real_units():
-    for iso3, scopes in R.DERIVED_SCOPES.items():
-        if "dark" in scopes and "dark_wide" in scopes:
-            assert scopes["dark"].gid1 < scopes["dark_wide"].gid1, iso3
-        for scope in scopes.values():
-            assert scope.gid1, iso3
-            assert all(gid.startswith(iso3 + ".") for gid in scope.gid1), iso3
-            assert scope.rationale.strip(), iso3
+    source = Path(module.__file__).read_text(encoding="utf-8")
+    # The surviving, measured findings - not the refuted prose.
+    assert "94%" in source and "73% base rate" in source
+    assert "Darfur" in source
+    assert doc

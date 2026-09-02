@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+COM,COM.3_1,Mwali,217.2576,260,260,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COM,COM.2_1,Njazídja,1025.2298,1224,1224,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COM,COM.1_1,Nzwani,433.0079,518,518,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

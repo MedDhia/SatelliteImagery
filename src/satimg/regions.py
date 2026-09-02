@@ -183,14 +183,22 @@ TUNISIA_DESERT_SCOPES: Dict[str, DesertScope] = {
 #:
 #: Read the rationales. The rule cuts at a break in observed light, and the
 #: name of each scope says so - it does not claim the excluded units are desert.
-#: Across the Arab League that distinction stops being pedantic:
+#: That distinction was first argued here from eyeballing which units looked
+#: like cities, farmland or mountains. Measuring it against the Global Aridity
+#: Index (see :mod:`satimg.aridity` and ``docs/aridity.md``) refuted most of it:
+#: Aleppo is 70% arid, Ninawa 58%, Raymah 97%, Nalut and Al Jabal al Gharbi
+#: 100%. A city, a farm or a mountain in an arid climate is still arid, and
+#: conflating "where people live" with "what the climate is" was the error.
 #:
-#: * Syria and Iraq - the rule selects the most war-destroyed governorates.
-#:   Aleppo is Syria's largest city; Ninawa is Mosul. Their darkness is damage.
-#: * Somalia - it selects southern riverine farmland, where the darkness is
-#:   poverty and conflict rather than aridity.
-#: * Saudi Arabia - it excludes Ash-Sharqiyah, the oil and industrial heartland,
-#:   because lit *share* punishes a province that is mostly Rub al Khali.
+#: What survives, measured across all 317 admin-1 units:
+#:
+#: * The rule tracks climate **better** than the prose implied - 94% of the
+#:   units it excludes are majority-arid, against a 73% base rate (lift 1.29).
+#: * A genuinely non-arid dark set exists, but it is 23 units and it is not
+#:   Aleppo or Mosul: it is Darfur, South Kurdufan, Blue Nile and southern
+#:   Somalia - the poorest and most conflict-affected non-arid regions.
+#: * Saudi Arabia's Ash-Sharqiyah measures 100% arid, so excluding it is
+#:   climatically correct even though it holds the oil and industrial core.
 #:
 #: Eight countries get no derived scope at all, because fewer than eight
 #: admin-1 units would remain: ARE, QAT, BHR, KWT, LBN, PSE, DJI and COM.
@@ -309,9 +317,10 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
                 }
             ),
             rationale=(
-                "nine districts below a x1.69 break at 6.6% lit. Mixed: Murzuq, "
-                "Ghat and Al Jufrah are Sahara, but Al Jabal al Gharbi and "
-                "Nalut are populated Nafusa Mountain districts"
+                "nine districts below a x1.69 break at 6.6% lit. Al Jabal al "
+                "Gharbi and Nalut were flagged here as populated Nafusa "
+                "Mountain districts rather than desert; both measure 100% arid. "
+                "Populated and arid are not alternatives"
             ),
             derived=True,
         ),
@@ -405,8 +414,8 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
             gid1=frozenset({"YEM.6_1", "YEM.17_1", "YEM.7_1"}),
             rationale=(
                 "Al Jawf, Raymah, Al Mahrah below a x3.58 break at 2.1% lit. "
-                "Raymah is a small mountainous governorate, not desert - "
-                "poverty and conflict, not aridity"
+                "Raymah was called 'not desert' here on the grounds that it is "
+                "mountainous; it is 97% arid. Altitude is not humidity"
             ),
             derived=True,
         ),
@@ -453,8 +462,9 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
             label="darkest 4",
             gid1=frozenset({"IRQ.5_1", "IRQ.3_1", "IRQ.1_1", "IRQ.16_1"}),
             rationale=(
-                "adds Ninawa below a x1.24 break at 51.6% lit. NOT a desert: "
-                "Ninawa is Mosul, and its low light is war damage"
+                "adds Ninawa below a x1.24 break at 51.6% lit. Described here "
+                "as 'NOT a desert'; measurement says otherwise - Ninawa is 58% "
+                "arid. Mosul sits in it, but the governorate is majority desert"
             ),
             derived=True,
         ),
@@ -476,8 +486,11 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
             label="darkest 4",
             gid1=frozenset({"SYR.9_1", "SYR.7_1", "SYR.3_1", "SYR.2_1"}),
             rationale=(
-                "adds Aleppo below a x1.11 break at 25.9% lit. Unambiguously "
-                "conflict, not aridity - Aleppo is Syria's largest city"
+                "adds Aleppo below a x1.11 break at 25.9% lit. This was "
+                "described here as 'unambiguously conflict, not aridity'; "
+                "measuring it refuted that - Aleppo governorate is 70% arid by "
+                "UNEP class. The city is a small part of a governorate that "
+                "reaches east into the steppe"
             ),
             derived=True,
         ),
@@ -511,8 +524,9 @@ DERIVED_SCOPES: Dict[str, Dict[str, DesertScope]] = {
             gid1=frozenset({"SOM.2_1", "SOM.9_1", "SOM.7_1"}),
             rationale=(
                 "Bakool, Jubbada Dhexe, Gedo below a x1.84 break at 0.1% lit. "
-                "NOT desert: these are southern riverine and agricultural "
-                "regions, and their darkness is poverty and conflict"
+                "Called 'NOT desert' here; only Jubbada Dhexe is (0% arid). "
+                "Bakool is 96% arid and Gedo 82%. Somalia's genuinely non-arid "
+                "dark regions are Jubbada Dhexe, Bay and Jubbada Hoose"
             ),
             derived=True,
         ),

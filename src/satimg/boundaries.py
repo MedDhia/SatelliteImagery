@@ -220,6 +220,13 @@ def fetch_gadm(
     return target
 
 
+def _is_geographic(epsg: int) -> bool:
+    """True when an EPSG code denotes a lat/lon CRS rather than a projected one."""
+    from pyproj import CRS
+
+    return bool(CRS.from_epsg(epsg).is_geographic)
+
+
 def prepare_level(
     root: str | Path = DEFAULT_ROOT,
     *,
@@ -276,6 +283,17 @@ def prepare_level(
     # Densify in degrees first: long straight lon/lat spans (Antarctica's polar
     # edge, ruler-straight desert borders) would otherwise become chords once
     # projected, cutting visibly across the true boundary.
+    # DEFAULT_TOLERANCE_M is 500 (half a pixel), which is right for EPSG:8857
+    # and catastrophic for a geographic target: simplify() would be handed 500
+    # *degrees* and collapse every polygon - and the wreckage would be cached
+    # under a plausible filename and silently reused forever after.
+    if tolerance_m and _is_geographic(epsg):
+        raise ValueError(
+            f"tolerance_m={tolerance_m} is metres, but EPSG:{epsg} is a "
+            "geographic CRS where simplify() takes degrees. Pass "
+            "tolerance_m=0.0 for a lat/lon target."
+        )
+
     if segmentize_deg:
         frame["geometry"] = frame.geometry.segmentize(segmentize_deg)
 

@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+KWT,KWT.1_1,Al Ahmadi,4639.3786,6176,6176,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+KWT,KWT.2_1,Al Farwaniyah,219.2025,293,293,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+KWT,KWT.3_1,Al Jahrah,12392.2298,16611,16611,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+KWT,KWT.4_1,Al Kuwayt,47.8394,64,64,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+KWT,KWT.5_1,Hawalli,53.0813,71,71,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+KWT,KWT.6_1,Mubarak Al-Kabeer,73.3183,98,98,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1

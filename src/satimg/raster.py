@@ -250,6 +250,81 @@ def clip_raster(
     return out_path
 
 
+def warp_to_grid(
+    src_path: str | Path,
+    reference_path: str | Path,
+    out_path: str | Path,
+    *,
+    src_nodata=None,
+    dst_nodata: int = 0,
+    dtype: str = "uint8",
+    resampling: str = "nearest",
+    description: str = "",
+) -> Path:
+    """Resample a raster onto another raster's exact grid.
+
+    The destination grid comes from ``reference_path`` **verbatim** - its
+    transform, size and CRS objects are passed straight through. Anything else
+    fails: ``calculate_default_transform`` derives its own resolution and origin,
+    and :func:`satimg.zonal.grids_compatible` compares pixel size with exact
+    float equality, so 999.9999999998 is not 1000.0. Rebuilding the transform
+    from ``bounds`` is no safer - that round-trip can perturb the last bit,
+    while the six geotransform doubles read back exactly.
+
+    ``dst_nodata`` is always written explicitly. GDAL's default fill is **0**,
+    and for a classified aridity raster 0 is a class code, so every destination
+    cell the warp never touches - all ocean, all bounding-box margin - would
+    silently become real-looking data.
+
+    Defaults to nearest-neighbour. For sources at a similar resolution to the
+    destination there is no aliasing to suppress and no support for a kernel;
+    ``mode`` degenerates to arbitrary tie-breaking, and averaging *class codes*
+    is arithmetic on an ordinal. Nearest is also a pure selection, so
+    classify-then-warp and warp-then-classify give identical output.
+    """
+    rasterio = _require_rasterio()
+    np = _require_numpy()
+    from rasterio.warp import Resampling, reproject
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    mode = getattr(Resampling, resampling)
+
+    with rasterio.open(reference_path) as ref:
+        profile = ref.profile.copy()
+        dst_transform, dst_crs = ref.transform, ref.crs
+        height, width = ref.height, ref.width
+
+    destination = np.full((height, width), dst_nodata, dtype=dtype)
+    with rasterio.open(src_path) as src:
+        reproject(
+            source=rasterio.band(src, 1),
+            destination=destination,
+            dst_crs=dst_crs,
+            dst_transform=dst_transform,
+            src_nodata=src_nodata,
+            dst_nodata=dst_nodata,
+            init_dest_nodata=True,
+            resampling=mode,
+        )
+
+    profile.update(dtype=dtype, nodata=dst_nodata, count=1, compress="lzw", predictor=2)
+    with rasterio.open(out_path, "w", **profile) as dst:
+        dst.write(destination, 1)
+        if description:
+            dst.set_band_description(1, description)
+
+    # Assert on the file as written, not on what we meant to write.
+    from .zonal import grids_compatible
+
+    with rasterio.open(out_path) as written, rasterio.open(reference_path) as ref:
+        got = (written.width, written.height, written.transform)
+        want = (ref.width, ref.height, ref.transform)
+    if not grids_compatible(got, want):
+        raise RuntimeError(f"warped {out_path} does not match {reference_path}")
+    return out_path
+
+
 @dataclass
 class RasterStats:
     """Nighttime-light summary statistics for one annual raster."""

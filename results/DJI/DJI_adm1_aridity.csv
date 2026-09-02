@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+DJI,DJI.1_2,Ali Sabieh,2328.7512,2776,2776,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+DJI,DJI.6_1,Arta,2155.9817,2572,2572,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+DJI,DJI.2_1,Dikhil,6702.0389,7993,7993,0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+DJI,DJI.3_1,Djiboutii,184.3382,228,220,8,0.0,1.0,0.0,0.0,0.0,1.0,1.0,adm1
+DJI,DJI.4_1,Obock,4341.5912,5195,5195,0,0.22988668891970848,0.770113311080287,0.0,0.0,0.0,0.9999999999999956,0.9999999999999956,adm1
+DJI,DJI.5_1,Tadjoura,6658.2145,7959,7959,0,0.0,0.9933363653808185,0.006663634619181616,0.0,0.0,0.9933363653808185,1.0,adm1
