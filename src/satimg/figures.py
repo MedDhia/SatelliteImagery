@@ -464,6 +464,15 @@ Full method, results and the remaining caveats:
 #: the index still finds them instead of silently dropping a whole analysis.
 CROSS_COUNTRY = (
     (
+        "aridity/arid_vs_lit.png",
+        "Aridity against darkness, all 317 admin-1 units",
+        (
+            "Which regions are dark because they are desert, and which are dark "
+            "for other reasons — drawn as a continuum, because the second set "
+            "has no crisp boundary. Built by `satimg aridity chart`."
+        ),
+    ),
+    (
         "trends/pace_total_vs_intensive.png",
         "Pace of change, all 22 countries",
         (

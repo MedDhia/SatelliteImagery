@@ -8,7 +8,7 @@ the categorical hues stay far apart under colour-vision deficiency.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, List, Sequence
+from typing import Dict, List, Optional, Sequence
 
 from .datasets.lrcc_dvnl import DTYPE_ERAS
 
@@ -551,6 +551,288 @@ def plot_pace_dumbbell(
         linespacing=1.5,
     )
     fig.tight_layout(rect=(0, 0.80 / height, 1, top - 0.85 / height))
+    fig.savefig(out_path, dpi=200, facecolor=SURFACE)
+    plt.close(fig)
+    return out_path
+
+
+# --------------------------------------------------------------------------- #
+# aridity against darkness
+# --------------------------------------------------------------------------- #
+#: Emphasis form: one accent, graded, plus a de-emphasis grey. The three accent
+#: steps are an *ordinal* ramp of the same hue - a unit's step says at which
+#: darkness cut it joins the anomalous set, which is ordered information, not
+#: identity. Validated as an ordinal ramp against this surface.
+ANOMALY_TIERS = ("#104281", "#2a78d6", "#86b6ef")
+
+#: Everything that is not the story. Deliberately achromatic: in an emphasis
+#: chart the context is meant to read as "not a series".
+CONTEXT = "#898781"
+
+#: Rows, most-arid first. Bounds are exact because the variable is: half the
+#: units are wholly desert and a sixth are wholly not.
+ARIDITY_BANDS = (
+    ("fully arid", lambda s: s == 1.0),
+    ("partly arid", lambda s: 0.0 < s < 1.0),
+    ("not arid", lambda s: s == 0.0),
+)
+
+#: Below this the axis is log-scaled; one unit sits at exactly 0 and is drawn
+#: on the floor line rather than dropped or given a broken axis of its own.
+AXIS_FLOOR = 0.0005
+
+
+def _swarm(values, half_width: float, bins: int = 64):
+    """Vertical offsets that spread coincident points without moving them on x.
+
+    A dot-density layout, not jitter: the offset encodes how many units share
+    a neighbourhood, and is symmetric about the row. Honest here only because
+    the vertical axis is a category - on a share axis this would misstate
+    position, which is why the earlier scatter design was abandoned.
+    """
+    import math
+
+    if not values:
+        return []
+    lo = math.log10(max(min(values), AXIS_FLOOR))
+    hi = math.log10(max(max(values), AXIS_FLOOR * 10))
+    span = (hi - lo) or 1.0
+    seen: Dict[int, int] = {}
+    offsets = []
+    for value in values:
+        slot = int((math.log10(max(value, AXIS_FLOOR)) - lo) / span * (bins - 1))
+        rank = seen.get(slot, 0)
+        seen[slot] = rank + 1
+        # 0, +1, -1, +2, -2 ... so a stack grows evenly either side of the row.
+        step = (rank + 1) // 2 * (1 if rank % 2 else -1)
+        offsets.append(step)
+    tallest = max(abs(o) for o in offsets) or 1
+    return [o / tallest * half_width for o in offsets]
+
+
+def plot_aridity_bands(
+    rows,
+    out_path: str | Path,
+    *,
+    cuts=None,
+) -> Path:
+    """Light against climate, as three aridity bands on one log axis.
+
+    Not a scatter, deliberately. ``desert_share`` cannot carry a continuous
+    axis - 156 of 317 units sit at exactly 1.0 and 54 at exactly 0.0 - and,
+    more decisively, the relationship is a **step rather than a slope**: median
+    2022 mean DN is 14.1 where nothing is arid against 3.8 and 3.7 for the two
+    arid bands, which are indistinguishable from each other. A scatter can only
+    encode "weak"; it would draw a monotone drift the data does not contain.
+
+    The anomalous set - non-arid yet dark - has no crisp boundary, so its
+    members are shaded by *which cut they enter at* rather than flagged as
+    members. The sets are strictly nested, and only the six that survive the
+    tightest cut are named.
+    """
+    import statistics
+
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    from . import aridity as A
+
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    rows = [dict(r) for r in rows]
+    if not rows:
+        raise ValueError("no units to draw; run `satimg aridity vs-light` first")
+    for row in rows:
+        row["desert_share"] = float(row["desert_share"])
+        row["mean_dn_2022"] = float(row["mean_dn_2022"])
+        row["majority_arid"] = str(row["majority_arid"]) == "True"
+
+    quantiles = cuts if cuts is not None else A.DARK_QUANTILES
+    values = [r["mean_dn_2022"] for r in rows]
+    cut_at = [A.dark_cut(values, q) for q in quantiles]
+
+    def tier_of(row) -> Optional[int]:
+        """Which cut this unit joins the anomalous set at, if it ever does."""
+        if row["majority_arid"]:
+            return None
+        for index, cut in enumerate(cut_at):
+            if row["mean_dn_2022"] < cut:
+                return index
+        return None
+
+    for row in rows:
+        row["tier"] = tier_of(row)
+
+    fig, ax = plt.subplots(figsize=(11.0, 6.4), dpi=200, facecolor=SURFACE)
+    ax.set_facecolor(SURFACE)
+
+    half = 0.34
+    centres = {}
+    for index, (label, predicate) in enumerate(ARIDITY_BANDS):
+        centre = len(ARIDITY_BANDS) - 1 - index
+        centres[label] = centre
+        band = [r for r in rows if predicate(r["desert_share"])]
+        band.sort(key=lambda r: r["mean_dn_2022"])
+        xs = [max(r["mean_dn_2022"], AXIS_FLOOR) for r in band]
+        offsets = _swarm(xs, half)
+
+        for row, x, dy in zip(band, xs, offsets):
+            tier = row["tier"]
+            ax.plot(
+                [x],
+                [centre + dy],
+                marker="o",
+                markersize=5.5 if tier is None else 6.5,
+                markerfacecolor=CONTEXT if tier is None else ANOMALY_TIERS[tier],
+                markeredgecolor=SURFACE,
+                markeredgewidth=0.6,
+                linestyle="none",
+                alpha=0.75 if tier is None else 1.0,
+                zorder=2 if tier is None else 4,
+            )
+
+        # statistics.median, not the upper-middle element: for an even-sized
+        # band the two differ, and this number is quoted in the docs.
+        median = statistics.median(r["mean_dn_2022"] for r in band)
+        ax.plot(
+            [median, median],
+            [centre - half - 0.10, centre + half + 0.10],
+            color=INK,
+            linewidth=2.0,
+            zorder=5,
+            solid_capstyle="butt",
+        )
+        ax.text(
+            median,
+            centre + half + 0.15,
+            f"median {median:.1f}",
+            color=INK,
+            fontsize=8,
+            ha="center",
+            va="bottom",
+            zorder=6,
+        )
+
+    for cut, quantile in zip(cut_at, quantiles):
+        count = sum(
+            1 for r in rows if not r["majority_arid"] and r["mean_dn_2022"] < cut
+        )
+        ax.axvline(cut, color=INK_MUTED, linewidth=0.9, linestyle=(0, (4, 3)), zorder=1)
+        ax.text(
+            cut,
+            -0.72,
+            f"p{round(quantile * 100)}\n{count} units",
+            color=INK_MUTED,
+            fontsize=7.5,
+            ha="center",
+            va="top",
+        )
+
+    # Only the units that survive the tightest cut are named. Labels hang
+    # below their own band - above it would place them inside the band above,
+    # where they would read as belonging to units they have nothing to do with.
+    bottom = ARIDITY_BANDS[-1][0]
+    by_band: Dict[str, List[dict]] = {}
+    for row in sorted(
+        (r for r in rows if r["tier"] == 0), key=lambda r: r["mean_dn_2022"]
+    ):
+        band = next(label for label, pred in ARIDITY_BANDS if pred(row["desert_share"]))
+        by_band.setdefault(band, []).append(row)
+
+    for band, members in by_band.items():
+        up = band == bottom
+        for order, row in enumerate(members):
+            step = 26 + 12 * (order % 3)
+            ax.annotate(
+                row["name"],
+                xy=(max(row["mean_dn_2022"], AXIS_FLOOR), centres[band]),
+                xytext=(0, step if up else -step),
+                textcoords="offset points",
+                color=ANOMALY_TIERS[0],
+                fontsize=7.5,
+                ha="center",
+                va="bottom" if up else "top",
+                zorder=7,
+                arrowprops={
+                    "arrowstyle": "-",
+                    "color": ANOMALY_TIERS[0],
+                    "linewidth": 0.6,
+                    "shrinkA": 1,
+                    "shrinkB": 3,
+                },
+            )
+
+    ax.set_xscale("log")
+    ax.set_xlim(AXIS_FLOOR * 0.7, 100)
+    ax.set_ylim(-1.15, len(ARIDITY_BANDS) - 0.25)
+    ax.set_yticks([centres[label] for label, _ in ARIDITY_BANDS])
+    ax.set_yticklabels(
+        [
+            f"{label}\nn={sum(1 for r in rows if pred(r['desert_share']))}"
+            for label, pred in ARIDITY_BANDS
+        ]
+    )
+    ax.tick_params(axis="y", length=0, labelsize=9, colors=INK)
+    ax.tick_params(axis="x", colors=INK_MUTED, labelsize=8.5)
+    ax.set_xlabel(
+        "mean DN over the unit's land pixels, 2022 (log scale)",
+        color=INK_MUTED,
+        fontsize=9,
+    )
+    ax.xaxis.grid(True, color=GRID, linewidth=0.8)
+    ax.set_axisbelow(True)
+    for side in ("top", "right", "left", "bottom"):
+        ax.spines[side].set_visible(False)
+
+    fig.suptitle(
+        "Dark because it is desert, or dark for other reasons?",
+        color=INK,
+        fontsize=13.5,
+        fontweight="bold",
+        x=0.008,
+        ha="left",
+        y=0.985,
+    )
+    fig.text(
+        0.008,
+        0.930,
+        _wrapped(
+            "Every admin-1 unit in the 22 Arab League countries, by how much of "
+            "its area is desert. Aridity barely predicts light: the two arid "
+            "bands are indistinguishable from each other, and the whole "
+            "relationship is one step at 'not arid at all'. Shaded units are "
+            "dark despite not being majority-desert — darker shading means they "
+            "stay in that set at a tighter darkness cut.",
+            132,
+        ),
+        color=INK_MUTED,
+        fontsize=8.5,
+        ha="left",
+        va="top",
+        linespacing=1.5,
+    )
+    fig.text(
+        0.008,
+        0.018,
+        _wrapped(
+            "Vertical spread within a band is a dot-density stack showing how "
+            "many units share a neighbourhood; it carries no value. Cuts are "
+            "percentiles of the pooled 2022 distribution, compared strictly "
+            "below, and the sets they define are strictly nested. Somalia's "
+            "Bakool has no lit pixels at all in 2022 and is drawn on the axis "
+            "floor. Mean DN is not a per-km² density.",
+            140,
+        ),
+        color=INK_MUTED,
+        fontsize=7.5,
+        ha="left",
+        va="bottom",
+        linespacing=1.5,
+    )
+    fig.tight_layout(rect=(0, 0.085, 1, 0.87))
     fig.savefig(out_path, dpi=200, facecolor=SURFACE)
     plt.close(fig)
     return out_path

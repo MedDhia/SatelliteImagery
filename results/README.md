@@ -3012,15 +3012,15 @@ One row per admin-1 unit across all 22 countries, pairing what the climate says 
 | `humid_share` | area share at or above 0.65 |
 | `area_km2` | unit area on the WGS 84 ellipsoid |
 | `pixels_classified` | aridity cells carrying a real value |
-| `density_1992` | sum of lights ÷ km² in 1992 |
-| `density_2022` | sum of lights ÷ km² in 2022 |
+| `mean_dn_1992` | mean DN over the unit's land pixels in 1992 — the zonal tables' `mean_dn`, **not** a density: `density_sol_per_km2` elsewhere in `results/` is that, and the two differ by a few percent on a 1 km grid |
+| `mean_dn_2022` | the same for 2022; the column darkness is cut on |
 | `majority_arid` | `desert_share` > 0.5 |
 | `light_scopes` | the light-derived exclusion scopes this unit belongs to, if any; blank when the light rule never selected it |
 | `in_light_scope` | whether `light_scopes` is non-empty |
-| `dark_2022` | whether the unit's 2022 light density is below the cross-country median — the cut is a choice, and the set it produces is sensitive to it |
+| `dark_2022` | whether `mean_dn_2022` is strictly below the cross-country median — the cut is a choice, and the set it produces is sensitive to it; Iraq's Ninawa sits exactly on the median, so the strict `<` is load-bearing |
 | `cell` | which of the four aridity × darkness cells the unit falls in |
 
-`sha256:7491d727350370b54d92006297599bee2ea40e77db165b8cd60aa74600893e98`
+`sha256:a3c3ae712829975c05a3dcd0172b1b6866e1874da1425dac7e17a52cd33d6aac`
 
 ## Pace of inequality change, all 22 countries
 

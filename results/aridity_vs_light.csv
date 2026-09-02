@@ -1,4 +1,4 @@
-iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,density_1992,density_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
 MAR,MAR.1_1,Chaouia - Ouardigha,0.0263,1.0,0.0,16549.5551,23000,1.3871,9.0787,False,,False,False,ordinary
 MAR,MAR.2_1,Doukkala - Abda,0.1831,1.0,0.0,14411.5316,19914,0.9323,7.7076,False,,False,False,ordinary
 MAR,MAR.3_1,Fès - Boulemane,0.646,0.9998,0.0,19318.0074,26979,0.8909,3.4027,True,,False,True,desert_dark

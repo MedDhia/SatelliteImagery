@@ -10,7 +10,7 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 10 950 figures in `figures/`](figures/)** — global overlays, and
+**[→ Browse all 10 951 figures in `figures/`](figures/)** — global overlays, and
 for each of the 22 Arab League countries the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
@@ -25,7 +25,7 @@ would suggest:
 [![Nested Theil decomposition](figures/TUN/charts/TUN_theil_decomposition.png)](figures/TUN/charts/TUN_theil_decomposition.png)
 
 The renderers write full-resolution output under gitignored `data/`;
-`figures/` is the same 10 950 images re-encoded for the web (676 MB) and is
+`figures/` is the same 10 951 images re-encoded for the web (677 MB) and is
 regenerated, index and all, by one command:
 
 ```bash
@@ -233,6 +233,20 @@ documentation did (94% of the units it excludes are majority-arid, against a 73%
 base rate), and the genuinely non-arid dark regions are Darfur and southern
 Somalia.
 
+```bash
+satimg aridity vs-light     # the 317-unit join, from the committed tables
+satimg aridity chart        # the figure below
+```
+
+[![Aridity against darkness](figures/aridity/arid_vs_lit.png)](figures/aridity/arid_vs_lit.png)
+
+Aridity turns out to be a weak predictor of light, and not as a gentle slope:
+median 2022 mean DN is **3.70** where a unit is entirely desert, **3.78** where
+it is partly desert, and **14.09** where it is not desert at all. The two arid
+bands are indistinguishable — the whole relationship is one step. And the
+"dark for human reasons" set has no crisp boundary: 6 units at the 10th
+percentile of darkness, 13 at the 25th, 23 at the median, strictly nested.
+
 ### Pace: a falling total is not the same as convergence
 
 Comparing *levels* across countries is partly mechanical — Theil T is bounded by
@@ -286,7 +300,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 399 offline tests, no network
+pytest                 # 420 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 

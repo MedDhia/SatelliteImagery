@@ -30,6 +30,7 @@ FIGURES_SOURCE = Path("data")
 FIGURES_DEST = Path("figures")
 RESULTS_SOURCE = Path("data/regions")
 RESULTS_DEST = Path("results")
+ARIDITY_ROOT = Path("data/aridity")
 
 
 # --------------------------------------------------------------------------- #
@@ -964,6 +965,145 @@ def cmd_results_build(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# aridity subcommands
+# --------------------------------------------------------------------------- #
+def _aridity_countries(selector: str):
+    """'all' or a comma-separated ISO3 list, as the other country commands take."""
+    from . import regions as R
+
+    if selector.lower() == "all":
+        return list(R.ARAB_LEAGUE)
+    return selector.upper().split(",")
+
+
+def cmd_aridity_fetch(args) -> int:
+    """Download the Global Aridity Index and extract the two layers used."""
+    from . import aridity as A
+
+    progress = _Progress("global-ai", enabled=not args.quiet)
+    ai, et0 = A.fetch(args.root, keep_archive=args.keep_archive, progress=progress)
+    progress.done()
+    for label, path in (("AI ", ai), ("ET0", et0)):
+        print(f"{label} {path} ({human_bytes(path.stat().st_size)})")
+    print(f"License notice: {A.license_path(args.root)}")
+    return 0
+
+
+def cmd_aridity_check(args) -> int:
+    """Assert the extracted layers are the grid this code assumes."""
+    from . import aridity as A
+
+    info = A.check_source(args.root)
+    rows = [[str(key), str(value)] for key, value in info.items()]
+    print(format_table(rows, ["PROPERTY", "VALUE"]))
+    return 0
+
+
+def cmd_aridity_units(args) -> int:
+    """Pass A: per-unit aridity class shares, on true cell areas."""
+    from . import aridity as A
+    from .analysis import write_csv
+
+    isos = _aridity_countries(args.country)
+    for iso3 in isos:
+        rows = A.unit_shares(
+            iso3, root=args.root, boundaries_root=args.boundaries_root, level=args.level
+        )
+        bad = [r for r in rows if not A.shares_sum_to_one(r)]
+        if bad:
+            raise SystemExit(
+                f"{iso3}: {len(bad)} unit(s) whose class shares do not sum to 1; "
+                "refusing to write a table that cannot be interpreted"
+            )
+        out = Path(args.dest) / iso3 / "aridity" / f"{iso3}_adm{args.level}_aridity.csv"
+        write_csv(rows, out)
+        print(f"{iso3}  {len(rows)} unit(s) -> {out}")
+    return 0
+
+
+def cmd_aridity_pixels(args) -> int:
+    """Pass B: classify once globally, then warp onto each country's grid."""
+    from . import aridity as A
+
+    progress = _Progress("classify", enabled=not args.quiet)
+    class_raster = A.build_class_raster(args.root, force=args.force, progress=progress)
+    progress.done()
+    print(f"class raster {class_raster}")
+
+    isos = _aridity_countries(args.country)
+    for iso3 in isos:
+        reference = Path(args.dest) / iso3 / "raster" / f"LACC_2022_{iso3}.tif"
+        if not reference.exists():
+            print(
+                f"  {iso3}: no clipped raster at {reference}; skipped",
+                file=sys.stderr,
+            )
+            continue
+        out = A.country_class_raster(iso3, reference, root=args.root, dest=args.dest)
+        print(f"  {iso3} -> {out}")
+    return 0
+
+
+def cmd_aridity_vs_light(args) -> int:
+    """Join per-unit aridity to per-unit light, across every country."""
+    from . import aridity as A
+
+    path, rows = A.write_vs_light(args.results)
+    if not rows:
+        raise SystemExit(
+            f"no per-country aridity tables under {args.results}; "
+            "run 'satimg aridity units' first"
+        )
+    print(f"table  {path}  ({len(rows)} units)")
+
+    cut = A.dark_cut([r["mean_dn_2022"] for r in rows])
+    counts = {}
+    for row in rows:
+        counts[row["cell"]] = counts.get(row["cell"], 0) + 1
+    print(f"  darkness cut (median mean DN, strict <): {cut:.4f}")
+    for cell in sorted(counts):
+        print(f"  {cell:20} {counts[cell]:>4}")
+
+    scoped = [r for r in rows if r["in_light_scope"]]
+    base = sum(1 for r in rows if r["majority_arid"]) / len(rows)
+    if not scoped:
+        # No lift to report rather than a division by zero: a country set whose
+        # light rule selects nothing is a legitimate run, not a broken one.
+        print(f"\nthe light rule excludes no unit here; base rate {base:.0%}")
+        return 0
+    arid_scoped = sum(1 for r in scoped if r["majority_arid"])
+    print(
+        f"\nthe light rule excludes {len(scoped)} unit(s); {arid_scoped} "
+        f"({arid_scoped / len(scoped):.0%}) are majority-arid, against a "
+        f"{base:.0%} base rate"
+    )
+    return 0
+
+
+def cmd_aridity_chart(args) -> int:
+    """Draw the aridity-against-darkness figure."""
+    from . import aridity as A
+
+    try:
+        import matplotlib  # noqa: F401
+    except ImportError:
+        raise SystemExit(
+            'drawing the chart needs matplotlib: pip install -e ".[overlay]"'
+        ) from None
+    from . import charts
+
+    rows = A.vs_light(args.results)
+    if not rows:
+        raise SystemExit(
+            f"no per-country aridity tables under {args.results}; "
+            "run 'satimg aridity units' first"
+        )
+    out = charts.plot_aridity_bands(rows, Path(args.figures) / A.BANDS_FIGURE)
+    print(f"figure {out}")
+    return 0
+
+
+# --------------------------------------------------------------------------- #
 # boundaries subcommands
 # --------------------------------------------------------------------------- #
 def cmd_boundaries_fetch(args) -> int:
@@ -1463,6 +1603,96 @@ def build_parser() -> argparse.ArgumentParser:
         help="report drift and exit non-zero, writing nothing",
     )
     res_build.set_defaults(func=cmd_results_build)
+
+    arid = commands.add_parser(
+        "aridity",
+        help="Global Aridity Index: fetch, classify, and compare against light",
+    )
+    arid_sub = arid.add_subparsers(dest="subcommand", metavar="<subcommand>")
+
+    def add_root(target):
+        target.add_argument(
+            "--root",
+            type=Path,
+            default=ARIDITY_ROOT,
+            help=f"aridity data root (default: {ARIDITY_ROOT})",
+        )
+
+    a_fetch = arid_sub.add_parser(
+        "fetch", help="download the Global-AI archive and extract AI + ET0"
+    )
+    add_root(a_fetch)
+    a_fetch.add_argument(
+        "--keep-archive", action="store_true", help="keep the 646 MB zip after extract"
+    )
+    a_fetch.add_argument("--quiet", action="store_true", help="no progress output")
+    a_fetch.set_defaults(func=cmd_aridity_fetch)
+
+    a_check = arid_sub.add_parser(
+        "check", help="assert the extracted layers are the expected grid"
+    )
+    add_root(a_check)
+    a_check.set_defaults(func=cmd_aridity_check)
+
+    a_units = arid_sub.add_parser(
+        "units", help="pass A: per-unit class shares, weighted by true cell area"
+    )
+    add_root(a_units)
+    a_units.add_argument(
+        "--country", default="all", help="ISO3, a comma-separated list, or 'all'"
+    )
+    a_units.add_argument(
+        "--level", type=int, default=1, help="admin level (default: 1)"
+    )
+    a_units.add_argument(
+        "--dest", type=Path, default=DEFAULT_REGION_DEST, help="output root"
+    )
+    a_units.add_argument(
+        "--boundaries-root", default=BOUNDARIES_ROOT, help="GADM data and cache root"
+    )
+    a_units.set_defaults(func=cmd_aridity_units)
+
+    a_pixels = arid_sub.add_parser(
+        "pixels", help="pass B: classify globally, then warp onto each country grid"
+    )
+    add_root(a_pixels)
+    a_pixels.add_argument(
+        "--country", default="all", help="ISO3, a comma-separated list, or 'all'"
+    )
+    a_pixels.add_argument(
+        "--dest", type=Path, default=DEFAULT_REGION_DEST, help="output root"
+    )
+    a_pixels.add_argument(
+        "--force", action="store_true", help="rebuild the global class raster"
+    )
+    a_pixels.add_argument("--quiet", action="store_true", help="no progress output")
+    a_pixels.set_defaults(func=cmd_aridity_pixels)
+
+    a_vs = arid_sub.add_parser(
+        "vs-light",
+        help="join per-unit aridity to per-unit light and publish the table",
+    )
+    a_vs.add_argument(
+        "--results",
+        type=Path,
+        default=RESULTS_DEST,
+        help=f"where the committed tables live (default: {RESULTS_DEST})",
+    )
+    a_vs.set_defaults(func=cmd_aridity_vs_light)
+
+    a_chart = arid_sub.add_parser(
+        "chart", help="draw the aridity-against-darkness figure"
+    )
+    a_chart.add_argument(
+        "--results", type=Path, default=RESULTS_DEST, help="where the tables live"
+    )
+    a_chart.add_argument(
+        "--figures",
+        type=Path,
+        default=FIGURES_DEST,
+        help=f"gallery root for the chart (default: {FIGURES_DEST})",
+    )
+    a_chart.set_defaults(func=cmd_aridity_chart)
 
     trend = commands.add_parser(
         "trends",

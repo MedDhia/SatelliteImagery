@@ -38,7 +38,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 from .raster import _require_numpy, _require_rasterio
 
@@ -574,3 +574,157 @@ def transition_crosstab(
         "lit_by_class": counts(lit_before),
         "lost_by_class": counts(lost),
     }
+
+
+# --------------------------------------------------------------------------- #
+# aridity against darkness, across countries
+# --------------------------------------------------------------------------- #
+#: The published cross-country table.
+VS_LIGHT_TABLE = "aridity_vs_light.csv"
+
+#: The published figure, relative to the gallery root.
+BANDS_FIGURE = "aridity/arid_vs_lit.png"
+
+#: Where the per-country inputs live. Everything below reads committed CSVs
+#: only - no rasters, no GADM, no network - so the table can be rebuilt on a
+#: clone where ``data/`` is empty.
+RESULTS_DIR = "results"
+
+#: A unit counts as desert when more than half its area is hyper-arid or arid.
+MAJORITY = 0.5
+
+#: Darkness is defined against the **cross-country median** of the same column,
+#: compared with a strict ``<``. Both halves of that sentence are load-bearing:
+#: Iraq's Ninawa sits exactly on the median, so ``<=`` would move it and change
+#: the counts. The cut is a choice, not a finding, and the figure built from
+#: this table shows the whole continuum rather than only this one line.
+DARK_QUANTILES = (0.10, 0.25, 0.50)
+DARK_QUANTILE = 0.50
+
+#: Published to 4 decimals, matching the per-country tables it is joined from.
+ROUND_DP = 4
+
+CELL_ANOMALOUS = "anomalously_dark"
+CELL_DESERT_DARK = "desert_dark"
+CELL_LIT_DESERT = "lit_desert"
+CELL_ORDINARY = "ordinary"
+
+
+def _read_csv(path) -> List[dict]:
+    import csv
+
+    path = Path(path)
+    if not path.exists():
+        return []
+    with open(path, newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle))
+
+
+def light_scopes_for(iso3: str, gid: str) -> str:
+    """Which light-derived exclusion scopes selected this unit, if any.
+
+    The scopes are cut from observed darkness, not from climate; this column is
+    what lets the two be compared rather than assumed equal.
+    """
+    from . import regions as R
+
+    keys = [
+        key
+        for key in R.scope_keys(iso3)
+        if key != R.SCOPE_ALL and gid in R.desert_scopes(iso3)[key].gid1
+    ]
+    return ";".join(keys)
+
+
+def cell_of(majority_arid: bool, dark: bool) -> str:
+    """The 2x2 of climate against light. Named so the join is checkable."""
+    if majority_arid:
+        return CELL_DESERT_DARK if dark else CELL_LIT_DESERT
+    return CELL_ANOMALOUS if dark else CELL_ORDINARY
+
+
+def dark_cut(values: Sequence[float], quantile: float = DARK_QUANTILE) -> float:
+    """The darkness threshold, from the pooled cross-country distribution."""
+    import statistics
+
+    ordered = sorted(values)
+    if not ordered:
+        return float("nan")
+    if quantile == 0.5:
+        return statistics.median(ordered)
+    return statistics.quantiles(ordered, n=100)[round(quantile * 100) - 1]
+
+
+def vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
+    """Join per-unit aridity to per-unit light, for every country at once.
+
+    ``mean_dn_*`` is the zonal table's ``mean_dn`` - the mean DN over the unit's
+    land pixels - **not** a sum-of-lights density. The distinction matters
+    because this project publishes a genuine ``density_sol_per_km2`` elsewhere,
+    and the two differ by a few percent on a 1 km grid.
+    """
+    from . import regions as R
+
+    isos = list(countries) if countries is not None else list(R.ARAB_LEAGUE)
+    root = Path(results_dir)
+
+    rows: List[dict] = []
+    for iso3 in isos:
+        arid = _read_csv(root / iso3 / f"{iso3}_adm1_aridity.csv")
+        zonal = _read_csv(root / iso3 / f"{iso3}_adm1_zonal.csv")
+        if not arid or not zonal:
+            continue
+        by_year = {
+            year: {r["gid"]: r for r in zonal if r["year"] == str(year)}
+            for year in (1992, 2022)
+        }
+        for unit in arid:
+            gid = unit["gid"]
+            # A unit present in one source and not the other is dropped whole
+            # rather than emitted with a hole in it.
+            if any(gid not in by_year[year] for year in by_year):
+                continue
+            desert = float(unit["desert_share"])
+            scopes = light_scopes_for(iso3, gid)
+            rows.append(
+                {
+                    "iso3": iso3,
+                    "gid": gid,
+                    "name": unit["name"],
+                    "desert_share": desert,
+                    "dryland_share": float(unit["dryland_share"]),
+                    "humid_share": float(unit["humid_share"]),
+                    "area_km2": float(unit["area_km2"]),
+                    "pixels_classified": int(unit["pixels_classified"]),
+                    "mean_dn_1992": float(by_year[1992][gid]["mean_dn"]),
+                    "mean_dn_2022": float(by_year[2022][gid]["mean_dn"]),
+                    "majority_arid": desert > MAJORITY,
+                    "light_scopes": scopes,
+                    "in_light_scope": bool(scopes),
+                }
+            )
+
+    cut = dark_cut([r["mean_dn_2022"] for r in rows])
+    for row in rows:
+        row["dark_2022"] = row["mean_dn_2022"] < cut
+        row["cell"] = cell_of(row["majority_arid"], row["dark_2022"])
+        for key in (
+            "desert_share",
+            "dryland_share",
+            "humid_share",
+            "area_km2",
+            "mean_dn_1992",
+            "mean_dn_2022",
+        ):
+            row[key] = round(row[key], ROUND_DP)
+    return rows
+
+
+def write_vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
+    """Write ``results/aridity_vs_light.csv``; return (path, rows)."""
+    from .analysis import write_csv
+
+    rows = vs_light(results_dir, countries)
+    if not rows:
+        return None, rows
+    return write_csv(rows, Path(results_dir) / VS_LIGHT_TABLE), rows

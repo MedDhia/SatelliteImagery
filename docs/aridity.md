@@ -107,8 +107,48 @@ Hoose** (Somalia) and **Central Darfur, South Kurdufan, East and South Darfur,
 Blue Nile, Al Qadarif** (Sudan). The "dark for human reasons" cell is Darfur and
 southern Somalia — the poorest and most conflict-affected non-arid regions.
 
-Aridity is in any case a weak predictor of light: Spearman(desert share, 2022
-light density) = **−0.18** across the 317 units.
+### But the cell has no crisp boundary, and the relationship is a step
+
+[![Aridity against darkness](../figures/aridity/arid_vs_lit.png)](../figures/aridity/arid_vs_lit.png)
+
+Two things the 2×2 above cannot show, and the figure does.
+
+**The set depends entirely on where darkness is cut.** At the 10th percentile of
+2022 mean DN it is 6 units, at the 25th 13, at the median 23. The sets are
+**strictly nested**, so this is not churn — there is a hard core that survives
+every threshold (Somalia's Juba valley and Bay, Darfur, South Kurdufan) and a
+soft margin that appears only as the cut loosens. Those margins are not one
+phenomenon: the p25 additions include all three Comoros islands, small humid
+units where the reading is arguably a measurement artefact, and the p50
+additions are ordinary Maghreb agrarian highlands at 3–5 mean DN. Only the core
+six are named on the figure, because naming all 23 would assert a class this
+document elsewhere denies.
+
+**Aridity is a weak predictor of light, and not in the way a correlation
+suggests.** Median 2022 mean DN by band:
+
+| band | units | median mean DN |
+|---|---:|---:|
+| fully arid (`desert_share` = 1) | 156 | 3.70 |
+| partly arid (0 < share < 1) | 107 | 3.78 |
+| not arid at all (share = 0) | 54 | **14.09** |
+
+The two arid bands are indistinguishable from each other, and within the
+interior band there is no internal gradient (Spearman −0.157). The relationship
+is a **single step at "not arid at all"**, not a slope — which is why the figure
+is three bands rather than a scatter, and why the band medians are quoted here
+in preference to a single coefficient.
+
+For the record, that coefficient is **Spearman(`desert_share`, `mean_dn_2022`)
+= −0.146** across the 317 units. An earlier version of this page said −0.18 for
+the pair it named; that number does not reproduce and has been corrected. (The
+nearest reproducing value, −0.173, is for `dryland_share`, a different column.)
+The coefficient hides the step shape in any case.
+
+⚠️ `mean_dn_2022` is the **mean DN over the unit's land pixels**, not a
+sum-of-lights density — `results/` publishes a genuine `density_sol_per_km2`
+elsewhere and the two differ by a few percent on a 1 km grid. The columns were
+briefly published under `density_*` names; they are now `mean_dn_*`.
 
 ---
 
@@ -172,7 +212,22 @@ Jordan lost 8% and Lebanon 3%.
 ## Reproducing
 
 ```bash
-satimg aridity fetch          # 646 MB, CC BY 4.0
-satimg aridity units          # pass A: per-unit class shares
-satimg aridity pixels         # pass B: warp onto the 1 km grid
+satimg aridity fetch                 # 646 MB, CC BY 4.0
+satimg aridity check                 # assert the grid is what this code assumes
+satimg aridity units                 # pass A: per-unit class shares, all 22
+satimg aridity pixels                # pass B: classify once, warp onto each grid
+satimg aridity vs-light              # the cross-country join -> results/
+satimg aridity chart                 # the figure above
 ```
+
+`units` and `pixels` need the source layers and the GADM world layer; `vs-light`
+and `chart` do not — they read only the committed CSVs under `results/`, so the
+table and the figure can be rebuilt on a clone where `data/` is empty:
+
+```bash
+satimg aridity vs-light --results results
+satimg aridity chart --results results --figures figures
+```
+
+A fresh `vs-light` reproduces the committed `results/aridity_vs_light.csv` row
+for row; a test asserts it.
