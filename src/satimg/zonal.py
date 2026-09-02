@@ -17,7 +17,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List, Optional, Sequence, Tuple
 
-from .datasets.lrcc_dvnl import NODATA
 from .raster import _require_numpy, _require_rasterio
 
 #: Origins may disagree between years by floating-point noise in the stored
@@ -25,6 +24,10 @@ from .raster import _require_numpy, _require_rasterio
 #: three groups differing by at most 4e-4 m - 4e-7 of a 1000 m pixel. Treat
 #: grids as the same when origins agree to within a centimetre; a genuine
 #: half-pixel shift is 500 m and is nowhere near this.
+#: Sentinel so ``read_window`` can tell "no nodata argument" from ``None``,
+#: which legitimately means "this raster has no fill value at all".
+_UNSET = object()
+
 GRID_TOLERANCE_M = 0.01
 
 
@@ -93,6 +96,19 @@ def build_zone_grid(
     np = _require_numpy()
     from rasterio.features import rasterize
 
+    # areas_km2 below divides a planar area by 1e6, which is only metres-squared
+    # in a projected CRS. In EPSG:4326 it would silently emit square degrees
+    # scaled by 1e-6 - Tunisia would read 1.59e-5 "km2" - and every density
+    # derived from it would be off by ten orders of magnitude while still
+    # looking like a number. Refuse rather than return a poisoned field.
+    if getattr(frame.crs, "is_geographic", False):
+        raise ValueError(
+            "build_zone_grid needs a projected CRS: areas would be square "
+            f"degrees, not km2 (got {frame.crs}). Reproject the frame, or use "
+            "satimg.aridity for geographic-grid work, which weights rows by "
+            "true cell area instead."
+        )
+
     frame = frame.reset_index(drop=True)
     window = window_for(raster_path, frame.total_bounds)
 
@@ -126,16 +142,37 @@ def build_zone_grid(
     )
 
 
-def read_window(raster_path: str | Path, window):
-    """Read band 1 over a window as float64, with nodata as NaN."""
+def read_window(raster_path: str | Path, window, *, nodata=_UNSET):
+    """Read band 1 over a window as float64, with nodata as NaN.
+
+    ``nodata`` must be given when the file declares none. This used to fall back
+    to the LRCC-DVNL sentinel of 127, which is a trap for any other dataset: in
+    the Global Aridity Index, stored as AI x 10 000, 127 is a perfectly ordinary
+    hyper-arid value, and silently turning it into NaN drops real pixels from
+    both the numerator and the denominator of every share computed from them.
+    A general-purpose reader must not know one dataset's sentinel.
+    """
     rasterio = _require_rasterio()
     np = _require_numpy()
 
     with rasterio.open(raster_path) as src:
-        fill = NODATA if src.nodata is None else float(src.nodata)
+        declared = src.nodata
         data = src.read(1, window=window).astype("float64")
         signature = (src.width, src.height, src.transform)
-    data[data == fill] = np.nan
+
+    if nodata is _UNSET:
+        if declared is None:
+            raise ValueError(
+                f"{raster_path} declares no nodata; pass nodata= explicitly "
+                "(there is no safe default - a wrong sentinel silently deletes "
+                "real pixels)"
+            )
+        fill = float(declared)
+    else:
+        fill = None if nodata is None else float(nodata)
+
+    if fill is not None:
+        data[data == fill] = np.nan
     return data, signature
 
 

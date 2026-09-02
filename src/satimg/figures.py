@@ -43,13 +43,30 @@ GROUP_GLOBAL = "Global overlays"
 
 
 #: Countries with a full country workflow, in the order the gallery lists them.
-COUNTRIES = R.MAGHREB
+COUNTRIES = R.ARAB_LEAGUE
 COUNTRY_NAMES = {
     "MAR": "Morocco",
     "DZA": "Algeria",
     "TUN": "Tunisia",
     "LBY": "Libya",
     "MRT": "Mauritania",
+    "EGY": "Egypt",
+    "SDN": "Sudan",
+    "SAU": "Saudi Arabia",
+    "YEM": "Yemen",
+    "OMN": "Oman",
+    "ARE": "United Arab Emirates",
+    "QAT": "Qatar",
+    "BHR": "Bahrain",
+    "KWT": "Kuwait",
+    "IRQ": "Iraq",
+    "SYR": "Syria",
+    "LBN": "Lebanon",
+    "JOR": "Jordan",
+    "PSE": "Palestine",
+    "SOM": "Somalia",
+    "DJI": "Djibouti",
+    "COM": "Comoros",
 }
 
 
@@ -426,10 +443,11 @@ a figure lifted out of this folder stays self-describing.
 _CAVEAT = """\
 ## Two caveats these figures cannot show you
 
-1. **LRCC-DVNL forbids year-on-year decreases by construction.** Lit area can
-   only grow across this series, so brightening between two frames is partly
-   imposed by the calibration rather than observed. Genuine dimming — urban
-   shrinkage, conflict, blackout — is invisible here.
+1. **A lit pixel never dims here — it goes out.** Every decrease in this series
+   is a lit → unlit transition; no pixel steps from DN 40 to DN 20. So gradual
+   dimming is invisible and brightening between two frames is partly imposed,
+   but catastrophic loss is real signal: Syria's national sum of lights falls
+   54% between 2010 and 2016.
 2. **2014 is a sensor handover** (DMSP → VIIRS), and the storage dtype changes
    with it. Treat any 2013 → 2014 step as a candidate artefact. The charts mark
    the break with a dashed line.

@@ -454,11 +454,12 @@ def test_scope_gloss_lists_each_countrys_own_scopes():
 
 
 def test_level_words_follow_the_country():
-    assert "wilaya" in R.table_by_key("DZA-inequality-series").title.lower() or True
-    assert "wilaya" in dict(R.table_by_key("DZA-inequality-series").columns)["level"]
-    assert (
-        "governorate" in dict(R.table_by_key("TUN-inequality-series").columns)["level"]
-    )
+    # Sourced from GADM's ENGTYPE fields: Algeria's admin-2 units are communes,
+    # not the "daira" that was hand-written and rendered onto its maps.
+    dza = dict(R.table_by_key("DZA-inequality-series").columns)["level"]
+    assert "province" in dza and "commune" in dza
+    tun = dict(R.table_by_key("TUN-inequality-series").columns)["level"]
+    assert "governorate" in tun and "delegation" in tun
 
 
 def test_raster_sets_are_namespaced_by_country():

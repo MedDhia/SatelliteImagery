@@ -154,12 +154,24 @@ before verifying.
 
 ## Caveats before you analyse
 
-1. **Monotonicity is imposed.** The continuity calibration permits NTL values
-   to stay flat or rise, never to fall. Genuine declines — urban shrinkage,
-   war, disaster, energy shortage, sanctions, pandemic dips — are therefore
-   **suppressed by construction**. This is the single most consequential
-   limitation: do not use this series to study dimming, decline, or negative
-   shocks. It biases any trend estimate upward.
+1. **Dimming is invisible; extinction is not.** This caveat was originally
+   written here as "monotonicity is imposed — values never fall". **That was
+   wrong**, and measuring the published rasters shows the real structure:
+
+   > A lit pixel's DN never steps *down* while it stays lit. Every decrease in
+   > this series is a pixel going out entirely.
+
+   Verified on five countries across all 30 year-steps: the count of
+   pixel-years that decrease **exactly equals** the count of lit → unlit
+   transitions, in every one — 108 057 of each in Syria, 56 100 in Tunisia,
+   73 120 in Morocco, 112 590 in Iraq, 77 154 in Egypt. Not one pixel steps
+   from, say, DN 40 to DN 20.
+
+   So the series does capture catastrophic loss: Syria's national sum of lights
+   falls **54%** between 2010 (1 028 331) and 2016 (469 098), tracking the
+   civil war. What it cannot show is *gradual* dimming — a city that halves its
+   brightness while staying lit appears flat. Trend estimates are biased upward
+   for slow decline, but a collapse is real signal, not an artefact.
 2. **Sensor-era discontinuity.** 1992–2013 is DMSP-derived, 2014–2022
    VIIRS-derived. Per-year file sizes jump from ~27 MiB (2013) to ~41 MiB
    (2014), reflecting the change in the underlying information content.
@@ -236,11 +248,11 @@ than anything attaching to the imagery itself.
 
 ## Related long-term NTL series
 
-If the imposed monotonicity is disqualifying for your question, these cover
-similar spans with different trade-offs:
+If the inability to represent gradual dimming is disqualifying for your
+question, these cover similar spans with different trade-offs:
 
 * **Li et al. harmonized DMSP–VIIRS** (1992–2024, ~1 km) — the widely used
-  baseline; permits declines.
+  baseline; represents continuous decline, not only extinction.
 * **SVNL / simulated VIIRS** (1992–2023, ~500 m) — Sci Data 2024,
   [10.1038/s41597-024-04228-6](https://doi.org/10.1038/s41597-024-04228-6).
 * **Annual VNL V2** (2012–present) — VIIRS-native radiances, no DMSP splice.

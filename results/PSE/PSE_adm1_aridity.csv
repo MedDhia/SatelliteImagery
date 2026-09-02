@@ -1,0 +1,3 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+PSE,PSE.1_1,Gaza,339.0256,463,463,0,0.0,0.708791436008084,0.2912085639919185,0.0,0.0,0.708791436008084,1.0000000000000027,adm1
+PSE,PSE.2_1,West Bank,5873.9359,8068,8068,0,0.0,0.3455324468924477,0.6544675531075422,0.0,0.0,0.3455324468924477,0.99999999999999,adm1

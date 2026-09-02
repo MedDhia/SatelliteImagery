@@ -590,19 +590,26 @@ def cmd_inequality(args) -> int:
         print(f"       decomposition identity residual <= {worst:.1e}")
 
     if not args.no_chart:
-        from .charts import plot_decomposition, plot_inequality_series
+        from .charts import (
+            NoNestedHierarchy,
+            plot_decomposition,
+            plot_inequality_series,
+        )
 
         chart = plot_inequality_series(
             rows, dest / "inequality" / f"{iso3}_inequality_series.png", iso3=iso3
         )
         print(f"wrote  {chart}")
         if decomposition:
-            chart = plot_decomposition(
-                decomposition,
-                dest / "inequality" / f"{iso3}_theil_decomposition.png",
-                iso3=iso3,
-            )
-            print(f"wrote  {chart}")
+            try:
+                chart = plot_decomposition(
+                    decomposition,
+                    dest / "inequality" / f"{iso3}_theil_decomposition.png",
+                    iso3=iso3,
+                )
+                print(f"wrote  {chart}")
+            except NoNestedHierarchy as exc:
+                print(f"skip   decomposition chart: {exc}", file=sys.stderr)
 
     if not args.quiet:
         first, last = rasters[0][0], rasters[-1][0]
