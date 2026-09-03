@@ -128,6 +128,12 @@ DRYLAND_MAX_RAW = 6500
 
 CLASS_BY_KEY: Dict[str, AridityClass] = {c.key: c for c in CLASSES}
 DESERT_KEYS = ("hyper_arid", "arid")
+#: Every class below DRYLAND_MAX_RAW - which is to say all of them but humid.
+#: Derived from CLASSES rather than listed, because writing the members out by
+#: hand is exactly how dry sub-humid came to be left out of the sum once.
+DRYLAND_KEYS = tuple(
+    c.key for c in CLASSES if c.upper_raw is not None and c.upper_raw <= DRYLAND_MAX_RAW
+)
 
 
 def classify(raw, land_mask=None):
@@ -416,7 +422,16 @@ def unit_shares(
                 float(per_class[item.key][index] / area) if area > 0 else float("nan")
             )
         row["desert_share"] = sum(row[f"{key}_share"] for key in DESERT_KEYS)
-        row["dryland_share"] = row["desert_share"] + row["semi_arid_share"]
+        # Every class below AI 0.65, dry sub-humid included. Omitting it here
+        # understated the share for 60 of the first 317 units published - most
+        # extremely Beirut, which is wholly dry sub-humid and was reported as
+        # 0% dryland.
+        row["dryland_share"] = sum(row[f"{key}_share"] for key in DRYLAND_KEYS)
+        # Which admin level the row describes. Emitted here rather than added by
+        # the caller: it is a property of the rows, and the published tables
+        # document the column, so a writer that omits it produces a table
+        # `satimg results build` will refuse - as it did.
+        row["level"] = f"adm{level}"
         rows.append(row)
     return rows
 

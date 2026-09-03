@@ -455,3 +455,123 @@ def test_aridity_is_a_step_not_a_slope(published):
     # The two arid bands are indistinguishable; the step is at "not arid".
     assert abs(fully - partly) < 0.2
     assert none > 3 * partly
+
+
+def test_the_pooled_join_covers_the_pool_only(published):
+    """Thailand is analysed but must not enter the cross-country join.
+
+    This is the behavioural half of the pool/analysed split. It bites once
+    `results/THA/` exists on disk: a fresh join that picked up Thailand would
+    move the median `mean_dn_2022` and rewrite `dark_2022`, `cell` and the
+    6/13/23 nesting for every unit already published.
+    """
+    from satimg import regions as R
+
+    fresh = A.vs_light(RESULTS)
+    if not fresh:
+        pytest.skip("per-country tables not present")
+
+    seen = {row["iso3"] for row in fresh}
+    assert seen <= set(R.ARAB_LEAGUE)
+    assert seen == {row["iso3"] for row in published}
+
+    analysed_only = set(R.COUNTRIES) - set(R.ARAB_LEAGUE)
+    for iso3 in analysed_only:
+        if (RESULTS / iso3 / f"{iso3}_adm1_aridity.csv").exists():
+            assert iso3 not in seen, (
+                f"{iso3} has an aridity table on disk and leaked into the "
+                "pooled join, which moves the darkness median"
+            )
+
+
+def test_an_analysed_country_outside_the_pool_can_still_be_joined_explicitly():
+    """Excluded by default, not unreachable: `vs_light` still takes a list."""
+    from satimg import regions as R
+
+    analysed_only = sorted(set(R.COUNTRIES) - set(R.ARAB_LEAGUE))
+    assert analysed_only, "the split is pointless if nothing sits outside it"
+    for iso3 in analysed_only:
+        if not (RESULTS / iso3 / f"{iso3}_adm1_aridity.csv").exists():
+            continue
+        rows = A.vs_light(RESULTS, [iso3])
+        assert rows and {r["iso3"] for r in rows} == {iso3}
+
+
+# --------------------------------------------------------------------------- #
+# dryland is every class below humid
+# --------------------------------------------------------------------------- #
+def test_dryland_keys_are_every_class_below_the_humid_threshold():
+    """Derived from CLASSES, not hand-listed.
+
+    Hand-listing is how dry sub-humid came to be left out of the sum: the
+    original expression was `desert_share + semi_arid_share`, which understated
+    the share for 60 of the first 317 units published - Beirut, wholly dry
+    sub-humid, was reported as 0% dryland.
+    """
+    assert A.DRYLAND_KEYS == ("hyper_arid", "arid", "semi_arid", "dry_subhumid")
+    assert "humid" not in A.DRYLAND_KEYS
+    assert set(A.DESERT_KEYS) < set(A.DRYLAND_KEYS)
+    # Every class but humid, and humid is the only one left out.
+    assert set(A.DRYLAND_KEYS) | {"humid"} == {c.key for c in A.CLASSES}
+
+
+@pytest.mark.parametrize(
+    "shares,dryland",
+    [
+        ({"dry_subhumid": 1.0}, 1.0),
+        ({"humid": 1.0}, 0.0),
+        ({"hyper_arid": 1.0}, 1.0),
+        ({"semi_arid": 0.5, "humid": 0.5}, 0.5),
+        ({"arid": 0.25, "dry_subhumid": 0.25, "humid": 0.5}, 0.5),
+    ],
+)
+def test_dryland_share_is_one_minus_humid(shares, dryland):
+    row = {f"{c.key}_share": shares.get(c.key, 0.0) for c in A.CLASSES}
+    assert sum(row[f"{c.key}_share"] for c in A.CLASSES) == pytest.approx(1.0)
+    got = sum(row[f"{key}_share"] for key in A.DRYLAND_KEYS)
+    assert got == pytest.approx(dryland)
+    assert got == pytest.approx(1.0 - row["humid_share"])
+
+
+def test_every_published_dryland_share_is_one_minus_humid():
+    """A regression guard on the whole published set, not just the arithmetic."""
+    import csv as _csv
+
+    from satimg import regions as R
+
+    checked = 0
+    for iso3 in R.COUNTRIES:
+        path = RESULTS / iso3 / f"{iso3}_adm1_aridity.csv"
+        if not path.exists():
+            continue
+        with open(path, encoding="utf-8") as handle:
+            for row in _csv.DictReader(handle):
+                assert float(row["dryland_share"]) == pytest.approx(
+                    1.0 - float(row["humid_share"]), abs=1e-9
+                ), (iso3, row["name"])
+                checked += 1
+    if not checked:
+        pytest.skip("results/ not present")
+
+
+def test_the_cross_country_table_agrees_with_the_per_country_ones(published):
+    import csv as _csv
+
+    per_country = {}
+    for iso3 in {row["iso3"] for row in published}:
+        path = RESULTS / iso3 / f"{iso3}_adm1_aridity.csv"
+        if not path.exists():
+            pytest.skip("per-country tables not present")
+        with open(path, encoding="utf-8") as handle:
+            for row in _csv.DictReader(handle):
+                per_country[(iso3, row["gid"])] = row
+    # The cross-country table is published to ROUND_DP decimals while the
+    # per-country tables carry full precision, so agreement is asserted at the
+    # published rounding, not exactly.
+    tolerance = 0.5 * 10**-A.ROUND_DP
+    for row in published:
+        want = per_country[(row["iso3"], row["gid"])]
+        for column in ("desert_share", "dryland_share", "humid_share"):
+            assert float(row[column]) == pytest.approx(
+                float(want[column]), abs=tolerance
+            ), (row["iso3"], row["gid"], column)

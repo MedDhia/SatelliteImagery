@@ -85,6 +85,7 @@ COUNTRY_NAMES = {
     "SOM": "Somalia",
     "DJI": "Djibouti",
     "COM": "Comoros",
+    "THA": "Thailand",
 }
 
 _YEAR = "calendar year, 1992–2022"
@@ -439,9 +440,7 @@ def _country_tables(iso3: str):
     return tables
 
 
-TABLES = (
-    tuple(t for iso3 in R.ARAB_LEAGUE for t in _country_tables(iso3)) + CROSS_TABLES
-)
+TABLES = tuple(t for iso3 in R.COUNTRIES for t in _country_tables(iso3)) + CROSS_TABLES
 
 
 @dataclass(frozen=True)
@@ -497,7 +496,7 @@ def _country_rasters(iso3: str) -> RasterSet:
 
 
 RASTER_SETS: Tuple[RasterSet, ...] = tuple(
-    _country_rasters(iso3) for iso3 in R.ARAB_LEAGUE
+    _country_rasters(iso3) for iso3 in R.COUNTRIES
 )
 
 
@@ -760,7 +759,7 @@ checked, re-analysed or disputed — and, with the clipped rasters here,
 GADM world layer first. Regenerate them with:
 
 ```bash
-ISOS=$(python -c "from satimg.regions import ARAB_LEAGUE as A; print(*A)")
+ISOS=$(python -c "from satimg.regions import COUNTRIES as C; print(*C)")
 for ISO in $ISOS; do
   satimg lrcc-dvnl extract    --country "$ISO" --levels 0,1,2
   satimg lrcc-dvnl inequality --country "$ISO"

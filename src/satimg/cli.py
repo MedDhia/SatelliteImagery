@@ -968,11 +968,16 @@ def cmd_results_build(args) -> int:
 # aridity subcommands
 # --------------------------------------------------------------------------- #
 def _aridity_countries(selector: str):
-    """'all' or a comma-separated ISO3 list, as the other country commands take."""
+    """'all' or a comma-separated ISO3 list, as the other country commands take.
+
+    'all' is every country analysed, not just the comparison pool: the per-unit
+    passes are per-country and adding one changes nobody else's numbers. The
+    pooled join in `vs-light` is the opposite case and stays on ARAB_LEAGUE.
+    """
     from . import regions as R
 
     if selector.lower() == "all":
-        return list(R.ARAB_LEAGUE)
+        return list(R.COUNTRIES)
     return selector.upper().split(",")
 
 

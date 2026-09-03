@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import inspect
+import tempfile
 from pathlib import Path
 
 import pytest
@@ -160,3 +162,68 @@ def test_the_module_records_that_the_eyeball_reading_was_wrong():
     assert "94%" in source and "73% base rate" in source
     assert "Darfur" in source
     assert doc
+
+
+# --------------------------------------------------------------------------- #
+# the pool against the analysed set
+# --------------------------------------------------------------------------- #
+def test_countries_is_a_strict_superset_of_the_pool():
+    assert set(R.ARAB_LEAGUE) < set(R.COUNTRIES)
+    assert len(R.COUNTRIES) == len(set(R.COUNTRIES))
+    # The pool keeps its exact membership: everything published about "the 22"
+    # stays a statement about 22 countries.
+    assert len(R.ARAB_LEAGUE) == 22
+
+
+def test_the_pool_leads_the_analysed_set_so_indexes_keep_their_order():
+    assert R.COUNTRIES[: len(R.ARAB_LEAGUE)] == R.ARAB_LEAGUE
+
+
+def test_thailand_is_analysed_but_not_pooled():
+    assert "THA" in R.COUNTRIES
+    assert "THA" not in R.ARAB_LEAGUE
+
+
+def test_the_pooled_analyses_default_to_the_pool_not_the_analysed_set():
+    """The whole point of the split, asserted where it can actually regress.
+
+    `aridity.vs_light` cuts `dark_2022` at the cross-country *median* of mean
+    DN. Defaulting it to COUNTRIES would move that median and silently rewrite
+    `dark_2022`, `cell` and the 6/13/23 nesting for all 317 published units.
+
+    Checked on the resolved default argument rather than the source text, so
+    renaming a constant cannot make this pass vacuously. The behavioural
+    counterpart - that a fresh join still returns exactly the pool's units even
+    with Thailand on disk - lives in tests/test_aridity.py.
+    """
+    from satimg import aridity as A
+    from satimg import trends as T
+
+    for func in (A.vs_light, T.build_rows):
+        default = inspect.signature(func).parameters["countries"].default
+        assert default is None, func.__qualname__
+
+    # Both resolve `countries=None` to the pool. Exercised with a directory
+    # holding nothing, so this asserts the country list and touches no data.
+    with tempfile.TemporaryDirectory() as empty:
+        assert A.vs_light(empty) == []
+        assert T.build_rows(empty) == []
+
+
+def test_thailand_level_names_come_from_gadm_engtype():
+    # GADM 4.1: ENGTYPE_1 is uniformly "Province" (77 units); ENGTYPE_2 is
+    # "District" for 845 of 928, so the majority rule gives "district".
+    assert R.level_title("THA", 1) == "province"
+    assert R.level_title("THA", 2) == "district"
+
+
+def test_thailand_has_no_exclusion_scope_and_that_is_deliberate():
+    """The low-light rule reads its break as desert or conflict.
+
+    Neither transfers to a humid country, so Thailand ships with `all` only -
+    the state eight Arab League members are already in. Inventing a scope and
+    letting the existing vocabulary label it would repeat the desert-prose
+    error this repository has already had to retract.
+    """
+    assert list(R.scope_keys("THA")) == [R.SCOPE_ALL]
+    assert R.desert_scopes("THA") == {}

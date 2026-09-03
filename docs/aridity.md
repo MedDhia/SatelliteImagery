@@ -141,9 +141,23 @@ in preference to a single coefficient.
 
 For the record, that coefficient is **Spearman(`desert_share`, `mean_dn_2022`)
 = −0.146** across the 317 units. An earlier version of this page said −0.18 for
-the pair it named; that number does not reproduce and has been corrected. (The
-nearest reproducing value, −0.173, is for `dryland_share`, a different column.)
-The coefficient hides the step shape in any case.
+the pair it named; that number does not reproduce and has been corrected. The
+coefficient hides the step shape in any case.
+
+That correction also named −0.173 as the value for `dryland_share`. **That was
+computed from a broken column** and is withdrawn. `dryland_share` was being
+summed as hyper-arid + arid + semi-arid, silently dropping **dry sub-humid**,
+against both the `DRYLAND_MAX_RAW = 6500` constant and this page's own
+definition. It understated the share for **60 of the 317** units — most starkly
+Beirut, which is wholly dry sub-humid and was published as **0% dryland**. The
+sum is now derived from the class list rather than hand-written, a test asserts
+`dryland_share == 1 − humid_share` for every published row, and the corrected
+coefficient is **−0.127**.
+
+Nothing else moved: `desert_share` is hyper-arid + arid and was never affected,
+so `majority_arid`, the four cells, the 6/13/23 nesting, the figure and the
+94%-against-73% lift all stand unchanged. The published `dark_2022` and `cell`
+columns are byte-identical across the correction.
 
 ⚠️ `mean_dn_2022` is the **mean DN over the unit's land pixels**, not a
 sum-of-lights density — `results/` publishes a genuine `density_sol_per_km2`

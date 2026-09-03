@@ -70,6 +70,7 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "SDN": {0: "national", 1: "state", 2: "district"},
     "SOM": {0: "national", 1: "region", 2: "district"},
     "SYR": {0: "national", 1: "governorate", 2: "district"},
+    "THA": {0: "national", 1: "province", 2: "district"},
     "TUN": {0: "national", 1: "governorate", 2: "delegation"},
     "YEM": {0: "national", 1: "governorate", 2: "district"},
 }
@@ -115,6 +116,22 @@ ARAB_LEAGUE = (
     "DJI",
     "COM",
 )
+
+#: Every country this repository analyses. Wider than :data:`ARAB_LEAGUE`, and
+#: the difference is load-bearing rather than cosmetic.
+#:
+#: The cross-country artefacts are **pooled** over ``ARAB_LEAGUE``, and one of
+#: them pools in a way that is not reversible by adding a row:
+#: ``aridity_vs_light.csv`` cuts ``dark_2022`` at the cross-country *median* of
+#: mean DN. Widening that pool would move the median and rewrite ``dark_2022``,
+#: ``cell`` and the 6/13/23 nesting for all 317 units already published, along
+#: with the figure and the prose resting on them.
+#:
+#: So a country outside the Arab League is analysed on its own terms - clipped
+#: rasters, zonal tables, inequality series, decomposition, charts, figures -
+#: and stays out of the pooled comparisons. Use ``COUNTRIES`` for "what exists
+#: here" and ``ARAB_LEAGUE`` for "what is being compared with what".
+COUNTRIES = (*ARAB_LEAGUE, "THA")
 
 
 def level_title(iso3: str, level: int) -> str:

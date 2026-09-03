@@ -43,7 +43,8 @@ GROUP_GLOBAL = "Global overlays"
 
 
 #: Countries with a full country workflow, in the order the gallery lists them.
-COUNTRIES = R.ARAB_LEAGUE
+#: The gallery shows every country analysed, pool membership or not.
+COUNTRIES = R.COUNTRIES
 COUNTRY_NAMES = {
     "MAR": "Morocco",
     "DZA": "Algeria",
@@ -67,6 +68,7 @@ COUNTRY_NAMES = {
     "SOM": "Somalia",
     "DJI": "Djibouti",
     "COM": "Comoros",
+    "THA": "Thailand",
 }
 
 

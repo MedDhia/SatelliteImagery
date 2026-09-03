@@ -10,8 +10,8 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 10 951 figures in `figures/`](figures/)** — global overlays, and
-for each of the 22 Arab League countries the map series in three palettes, the
+**[→ Browse all 11 497 figures in `figures/`](figures/)** — global overlays, and
+for each of the 23 countries analysed the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
 
@@ -25,7 +25,7 @@ would suggest:
 [![Nested Theil decomposition](figures/TUN/charts/TUN_theil_decomposition.png)](figures/TUN/charts/TUN_theil_decomposition.png)
 
 The renderers write full-resolution output under gitignored `data/`;
-`figures/` is the same 10 951 images re-encoded for the web (677 MB) and is
+`figures/` is the same 11 497 images re-encoded for the web (726 MB) and is
 regenerated, index and all, by one command:
 
 ```bash
@@ -38,8 +38,8 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 129 tables and
-682 clipped GeoTIFFs across 22 countries, with a generated data dictionary for
+**[→ The numbers behind the figures, in `results/`](results/)** — 135 tables and
+713 clipped GeoTIFFs across 23 countries, with a generated data dictionary for
 every column: the per-country inequality outputs, the per-unit aridity tables,
 and the two cross-country tables.
 
@@ -274,6 +274,21 @@ and must not be compared with each other.
 See [`docs/arab-world.md`](docs/arab-world.md) for the cross-country method and
 [`docs/tunisia.md`](docs/tunisia.md) for the original single-country detail.
 
+## One country outside the pool: Thailand
+
+[`docs/thailand.md`](docs/thailand.md) analyses Thailand on the same terms —
+77 provinces, 928 districts, the full series and decomposition — but
+**deliberately outside the cross-country comparisons**. `aridity_vs_light.csv`
+cuts its darkness column at the *pooled median*, so widening the country set
+would rewrite findings that are about the Arab world. `regions.ARAB_LEAGUE` is
+what gets compared; `regions.COUNTRIES` is everything analysed.
+
+Thailand is the clearest extensive spreader in the whole collection: total
+Theil T falls **−3.05 %/yr**, yet inequality among already-lit pixels **rises**
+(+0.65 %/yr) while the lit share goes from **10% of the country to 72%**. On
+the total alone it looks like dramatic convergence. It is light arriving,
+almost nothing else.
+
 ## Before you use this dataset
 
 Read [`docs/lrcc-dvnl.md`](docs/lrcc-dvnl.md). The one caveat to know up front:
@@ -300,7 +315,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 420 offline tests, no network
+pytest                 # 436 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 
