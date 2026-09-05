@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GNQ,GNQ.1_1,Annobón,21.3634,25,25,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.2_1,Bioko Norte,588.6291,690,690,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.3_1,Bioko Sur,1362.7446,1597,1597,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.4_1,Centro Sur,8397.2426,9827,9827,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.5_1,Kié-Ntem,3484.634,4079,4079,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.6_1,Litoral,7216.1801,8445,8445,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GNQ,GNQ.7_1,Wele-Nzas,5873.8699,6874,6874,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

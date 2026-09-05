@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+RWA,RWA.1_1,Amajyaruguru,3263.2078,3819,3819,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+RWA,RWA.2_1,Amajyepfo,5953.7722,6971,6971,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+RWA,RWA.3_1,Iburasirazuba,9449.0962,11060,11060,0,0.0,0.0,0.0,0.035991020468406375,0.9640089795315835,0.0,0.035991020468406375,adm1
+RWA,RWA.4_1,Iburengerazuba,5871.9474,6874,6874,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+RWA,RWA.5_1,Umujyi wa Kigali,729.59,854,854,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

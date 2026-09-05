@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SLE,SLE.1_1,Eastern,15758.9499,18623,18623,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLE,SLE.2_1,Northern,36016.5737,42663,42663,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLE,SLE.3_1,Southern,20134.3652,23768,23768,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLE,SLE.4_1,Western,717.4066,848,848,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
