@@ -1,0 +1,13 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+COG,COG.1_1,Bouenza,12529.4583,14694,14694,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.2_1,Brazzaville,100.594,118,118,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.4_1,Cuvette,44852.9153,52477,52477,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.3_1,Cuvette-Ouest,24612.4697,28795,28795,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.5_1,Kouilou,13498.8015,15834,15834,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.6_1,Lékoumou,21128.053,24753,24753,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.7_1,Likouala,66733.6953,78128,78128,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.8_1,Niari,25537.9044,29922,29922,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.9_1,Plateaux,39858.1172,46661,46661,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.10_1,Pointe Noire,46.8542,55,55,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.11_1,Pool,35146.0801,41201,41201,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COG,COG.12_1,Sangha,57742.269,67573,67573,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
