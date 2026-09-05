@@ -660,7 +660,16 @@ def raster_problems(stats: Sequence[RasterStats]) -> List[str]:
 class PublishResult:
     copied: List[Path] = field(default_factory=list)
     unchanged: List[Path] = field(default_factory=list)
+    #: Catalogued, and it should have been here: the country has *some* output
+    #: published, so a gap in it is a partial publish - the dangerous state.
     missing: List[object] = field(default_factory=list)
+    #: Catalogued but not analysed at all. A country is added to the catalogue
+    #: before it is run, and during a staged rollout that is the normal state,
+    #: not a fault. Reported as a count so it is never silently forgotten.
+    not_analysed: List[str] = field(default_factory=list)
+    #: Cross-country tables their own command has not written yet. Same
+    #: reasoning, but keyed by filename because they belong to no country.
+    not_generated: List[str] = field(default_factory=list)
     stats: Dict[str, TableStats] = field(default_factory=dict)
     #: Per raster set, its files' stats ordered by year.
     rasters: Dict[str, List[RasterStats]] = field(default_factory=dict)
@@ -750,7 +759,42 @@ def build(
         result.rasters[raster_set.key] = sorted(
             stats, key=lambda s: (s.year is None, s.year)
         )
+
+    _split_missing(result, dest_root)
     return result
+
+
+def _country_of(item) -> Optional[str]:
+    """The ISO3 a catalogue entry belongs to, or None for a cross-country one."""
+    dest = getattr(item, "dest", "")
+    head = str(dest).split("/")[0]
+    return head if head and "." not in head else None
+
+
+def _split_missing(result: PublishResult, dest_root) -> None:
+    """Separate "never analysed" from "analysed, and a piece did not land".
+
+    Both look identical to the copy loop - no source, no destination - but they
+    mean opposite things. A country with nothing at all is simply next in the
+    queue; a country with some outputs and a hole in them is a partial publish,
+    and that is the one worth failing on.
+    """
+    dest_root = Path(dest_root)
+    still_missing, absent, ungenerated = [], set(), set()
+    for item in result.missing:
+        if getattr(item, "in_place", False):
+            # Written straight into results/ by its own command, so absent
+            # simply means that command has not been run yet.
+            ungenerated.add(item.dest)
+            continue
+        iso3 = _country_of(item)
+        if iso3 is not None and not any((dest_root / iso3).glob("*")):
+            absent.add(iso3)
+            continue
+        still_missing.append(item)
+    result.missing = still_missing
+    result.not_analysed = sorted(absent)
+    result.not_generated = sorted(ungenerated)
 
 
 # --------------------------------------------------------------------------- #

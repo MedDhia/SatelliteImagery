@@ -899,9 +899,25 @@ def cmd_results_build(args) -> int:
     source, dest = Path(args.source), Path(args.dest)
     result = results.build(source, dest, check=args.check)
 
+    if result.not_analysed:
+        names = ", ".join(result.not_analysed)
+        print(
+            f"{len(result.not_analysed)} catalogued country/countries not yet "
+            f"analysed, skipped: {names}",
+            file=sys.stderr,
+        )
+
+    if result.not_generated:
+        names = ", ".join(result.not_generated)
+        print(f"cross-country table(s) not generated yet: {names}", file=sys.stderr)
+
     if result.missing:
         names = ", ".join(item.dest for item in result.missing)
-        print(f"error: no source and nothing published for: {names}", file=sys.stderr)
+        print(
+            "error: these belong to a country that has other outputs "
+            f"published, so this is a partial publish: {names}",
+            file=sys.stderr,
+        )
         print(
             "run `satimg lrcc-dvnl inequality --country TUN` first",
             file=sys.stderr,

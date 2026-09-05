@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from satimg import regions as R2
 from satimg import results as R
 
 HEADER = "year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2"
@@ -167,10 +168,16 @@ def test_check_on_a_clone_reads_the_published_copy(source, tmp_path, one_table):
 
 
 def test_missing_source_and_no_published_copy_is_reported(tmp_path, one_table):
+    """Nothing published for the country at all: pending, not a fault.
+
+    It becomes `missing` - an error - only once the country has some other
+    output published, because then the gap is a partial publish.
+    """
     result = R.build(
         tmp_path / "absent", tmp_path / "results", tables=one_table, raster_sets=()
     )
-    assert result.missing == list(one_table)
+    assert not result.missing
+    assert result.not_analysed == [one_table[0].dest.split("/")[0]]
     assert not result.copied and not result.stats
 
 
@@ -417,7 +424,8 @@ def test_missing_rasters_with_nothing_published_is_reported(tmp_path, raster_set
     result = R.build(
         tmp_path / "absent", tmp_path / "out", tables=(), raster_sets=raster_set
     )
-    assert result.missing == list(raster_set)
+    assert not result.missing
+    assert result.not_analysed == [raster_set[0].dest.split("/")[0]]
 
 
 def test_raster_bytes_are_counted_separately(raster_source, tmp_path, raster_set):
@@ -498,3 +506,42 @@ def test_raster_sets_are_namespaced_by_country():
         iso3 = raster_set.key.split("-")[0]
         assert raster_set.dest == f"{iso3}/raster"
         assert raster_set.source == f"{iso3}/raster/*.tif"
+
+
+# --------------------------------------------------------------------------- #
+# not analysed yet vs published with a hole in it
+# --------------------------------------------------------------------------- #
+def test_a_country_with_no_outputs_at_all_is_not_an_error(tmp_path):
+    """The catalogue lists a country before it is run.
+
+    During a staged rollout that is the normal state. Failing on it would make
+    `results build` unusable until the very last country finished.
+    """
+    result = R.build(tmp_path / "src", tmp_path / "dest")
+    assert not result.missing
+    assert set(result.not_analysed) == set(R2.COUNTRIES)
+    # The cross-country tables belong to no country and are tracked apart.
+    assert set(result.not_generated) == {t.dest for t in R.TABLES if t.in_place}
+
+
+def test_a_country_published_with_a_gap_in_it_is_an_error(tmp_path):
+    """The dangerous state: some outputs landed and one did not."""
+    dest = tmp_path / "dest"
+    iso3 = R2.COUNTRIES[0]
+    table = next(t for t in R.TABLES if t.dest.startswith(f"{iso3}/"))
+    written = dest / table.dest
+    written.parent.mkdir(parents=True, exist_ok=True)
+    written.write_text("year\n1992\n", encoding="utf-8")
+
+    result = R.build(tmp_path / "src", dest)
+    assert iso3 not in result.not_analysed
+    gaps = {getattr(item, "dest", "") for item in result.missing}
+    assert any(d.startswith(f"{iso3}/") for d in gaps)
+    assert table.dest not in gaps  # the one that did land is not a gap
+
+
+def test_cross_country_tables_are_never_counted_as_a_country(tmp_path):
+    result = R.build(tmp_path / "src", tmp_path / "dest")
+    for iso3 in result.not_analysed:
+        assert "." not in iso3 and "/" not in iso3
+        assert iso3 in R2.COUNTRIES
