@@ -10,8 +10,8 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 11 497 figures in `figures/`](figures/)** — global overlays, and
-for each of the 23 countries analysed the map series in three palettes, the
+**[→ Browse all 34 942 figures in `figures/`](figures/)** — global overlays, and
+for each of the 68 countries analysed the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
 
@@ -38,8 +38,8 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 135 tables and
-713 clipped GeoTIFFs across 23 countries, with a generated data dictionary for
+**[→ The numbers behind the figures, in `results/`](results/)** — 402 tables and
+2 108 clipped GeoTIFFs across 68 countries, with a generated data dictionary for
 every column: the per-country inequality outputs, the per-unit aridity tables,
 and the two cross-country tables.
 
@@ -274,6 +274,34 @@ and must not be compared with each other.
 See [`docs/arab-world.md`](docs/arab-world.md) for the cross-country method and
 [`docs/tunisia.md`](docs/tunisia.md) for the original single-country detail.
 
+## All of Africa
+
+[`docs/africa.md`](docs/africa.md) covers all **54 African states plus Western
+Sahara** — 854 admin-1 and 6 475 admin-2 units — as a comparison pool of its
+own. Africa and the Arab League overlap by ten countries, so they are separate
+pools rather than one list, and each owns its own tables.
+
+⚠️ **`dark_2022` is not comparable between pools.** Each aridity join cuts at
+the median of *its own* pool: 6.26 for the Arab League, 0.49 for Africa.
+
+Two findings the continent forces:
+
+**Falling inequality is almost never convergence here.** 42 of 55 African
+countries are extensive spreaders — the total falls only because light reaches
+new ground, while inequality among already-lit places rises. The same rule puts
+9 of 22 Arab League countries in that class, and Africa has exactly **one**
+intensive converger (Mauritius) against the Arab League's six.
+
+**Aridity predicts African light essentially not at all** —
+Spearman(`desert_share`, 2022 mean DN) = **+0.024**, against −0.146 in the Arab
+world, and the *fully arid* band is the **brightest** of the three. Africa's
+arid north holds its more urbanised economies and its humid centre its poorest,
+so climate and income confound each other in the opposite direction and roughly
+cancel. Yet the light-derived exclusion rule still lands on arid ground 90% of
+the time against a 24% base rate — a lift of 3.75, where the Arab League gives
+1.29. That the rule survives a continent where the underlying correlation is
+zero is the strongest evidence yet that it finds climate rather than darkness.
+
 ## One country outside the pool: Thailand
 
 [`docs/thailand.md`](docs/thailand.md) analyses Thailand on the same terms —
@@ -315,7 +343,7 @@ states **CC BY-NC-ND 4.0**. Confirm with the authors before redistributing.
 
 ```bash
 pip install -e ".[dev]"
-pytest                 # 436 offline tests, no network
+pytest                 # 449 offline tests, no network
 pytest -m network      # live checks: manifest still matches upstream
 ```
 
