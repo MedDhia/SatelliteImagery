@@ -43,31 +43,11 @@ GROUP_GLOBAL = "Global overlays"
 
 
 #: Countries with a full country workflow, in the order the gallery lists them.
-COUNTRIES = R.ARAB_LEAGUE
-COUNTRY_NAMES = {
-    "MAR": "Morocco",
-    "DZA": "Algeria",
-    "TUN": "Tunisia",
-    "LBY": "Libya",
-    "MRT": "Mauritania",
-    "EGY": "Egypt",
-    "SDN": "Sudan",
-    "SAU": "Saudi Arabia",
-    "YEM": "Yemen",
-    "OMN": "Oman",
-    "ARE": "United Arab Emirates",
-    "QAT": "Qatar",
-    "BHR": "Bahrain",
-    "KWT": "Kuwait",
-    "IRQ": "Iraq",
-    "SYR": "Syria",
-    "LBN": "Lebanon",
-    "JOR": "Jordan",
-    "PSE": "Palestine",
-    "SOM": "Somalia",
-    "DJI": "Djibouti",
-    "COM": "Comoros",
-}
+#: The gallery shows every country analysed, pool membership or not.
+COUNTRIES = R.COUNTRIES
+#: Re-exported so the gallery, the catalogue and the docs cannot disagree
+#: about what a country is called.
+COUNTRY_NAMES = R.COUNTRY_NAMES
 
 
 def country_group(iso3: str) -> str:
@@ -516,13 +496,31 @@ def write_index(
     max_px: Optional[int] = WEB_MAX_PX,
     sets: Sequence[FigureSet] = FIGURE_SETS,
 ) -> Path:
-    """Write the gallery index that the repository's first page links to."""
+    """Write the gallery index that the repository's first page links to.
+
+    Sections come from what is **published under** ``dest_root``, not from what
+    this run happened to convert. The two differ the moment a country's
+    rendered source under ``data/`` is pruned - which a large run has to do to
+    fit on disk - and the old behaviour silently dropped every such country
+    from the index while leaving its files committed.
+    """
     dest_root = Path(dest_root)
     extra = [item for item in CROSS_COUNTRY if (dest_root / item[0]).exists()]
-    total = sum(len(paths) for paths in result.by_set.values()) + len(extra)
-    size = result.total_bytes + sum(
-        (dest_root / rel).stat().st_size for rel, _, _ in extra
-    )
+
+    published: Dict[str, List[Path]] = {}
+    for figure_set in sets:
+        converted = result.by_set.get(figure_set.key)
+        if converted:
+            published[figure_set.key] = converted
+            continue
+        on_disk = sorted((dest_root / figure_set.dest).glob("*.png"))
+        if on_disk:
+            published[figure_set.key] = on_disk
+
+    total = sum(len(paths) for paths in published.values()) + len(extra)
+    size = sum(
+        path.stat().st_size for paths in published.values() for path in paths
+    ) + sum((dest_root / rel).stat().st_size for rel, _, _ in extra)
     lines = [
         _PREAMBLE.format(
             count=total,
@@ -537,12 +535,12 @@ def write_index(
             lines.append(f"[![{Path(rel).stem}]({rel})]({rel})\n")
 
     for group in GROUP_ORDER:
-        members = [s for s in sets if s.group == group and result.by_set.get(s.key)]
+        members = [s for s in sets if s.group == group and published.get(s.key)]
         if not members:
             continue
         lines.append(f"## {group}\n")
         for figure_set in members:
-            paths = result.by_set[figure_set.key]
+            paths = published[figure_set.key]
             lines.append(f"### {figure_set.title}\n")
             if figure_set.caption:
                 lines.append(f"{figure_set.caption}\n")

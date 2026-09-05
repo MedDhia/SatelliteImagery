@@ -50,28 +50,74 @@ LEVEL_TITLES: Dict[int, str] = {
 #: Where GADM records no type (Djibouti's ADM_2 is literally "NA") the generic
 #: fallback applies rather than a plausible-sounding invention.
 COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
+    "AGO": {0: "national", 1: "province"},
     "ARE": {0: "national", 1: "emirate", 2: "district"},
+    "BDI": {0: "national", 1: "province", 2: "commune"},
+    "BEN": {0: "national", 1: "department", 2: "commune"},
+    "BFA": {0: "national", 1: "region", 2: "province"},
     "BHR": {0: "national", 1: "governorate"},
+    "BWA": {0: "national", 1: "district", 2: "sub-district"},
+    "CAF": {0: "national", 1: "prefecture", 2: "sub-prefecture"},
+    "CIV": {0: "national", 1: "district", 2: "region"},
+    "CMR": {0: "national", 1: "region", 2: "department"},
+    "COD": {0: "national", 1: "province", 2: "territory"},
+    "COG": {0: "national", 1: "region", 2: "district"},
     "COM": {0: "national", 1: "autonomous island"},
+    "CPV": {0: "national", 1: "county"},
     "DJI": {0: "national", 1: "region"},
     "DZA": {0: "national", 1: "province", 2: "commune"},
     "EGY": {0: "national", 1: "governorate", 2: "subdivision"},
+    "ERI": {0: "national", 1: "region", 2: "district"},
+    "ESH": {0: "national", 1: "province"},
+    "ETH": {0: "national", 1: "state", 2: "zone"},
+    "GAB": {0: "national", 1: "province", 2: "department"},
+    "GHA": {0: "national", 1: "region", 2: "district"},
+    "GIN": {0: "national", 1: "region", 2: "prefecture"},
+    "GMB": {0: "national", 1: "division", 2: "district"},
+    "GNB": {0: "national", 1: "region", 2: "sector"},
+    "GNQ": {0: "national", 1: "province"},
     "IRQ": {0: "national", 1: "province", 2: "district"},
     "JOR": {0: "national", 1: "province", 2: "sub-province"},
+    "KEN": {0: "national", 1: "county", 2: "constituency"},
     "KWT": {0: "national", 1: "province"},
     "LBN": {0: "national", 1: "governorate", 2: "district"},
+    "LBR": {0: "national", 1: "county", 2: "district"},
     "LBY": {0: "national", 1: "district"},
+    "LSO": {0: "national", 1: "district"},
     "MAR": {0: "national", 1: "region", 2: "province"},
+    "MDG": {0: "national"},
+    "MLI": {0: "national", 1: "region", 2: "circle"},
+    "MOZ": {0: "national", 1: "province", 2: "district"},
     "MRT": {0: "national", 1: "region", 2: "department"},
+    "MUS": {0: "national", 1: "district"},
+    "MWI": {0: "national", 1: "district", 2: "traditional authority"},
+    "NAM": {0: "national", 1: "region", 2: "constituency"},
+    "NER": {0: "national", 1: "department", 2: "arrondissement"},
+    "NGA": {0: "national", 1: "state", 2: "local authority"},
     "OMN": {0: "national", 1: "region", 2: "province"},
     "PSE": {0: "national", 1: "district", 2: "governorate"},
     "QAT": {0: "national", 1: "municipality"},
+    "RWA": {0: "national", 1: "province", 2: "district"},
     "SAU": {0: "national", 1: "province", 2: "governorate"},
     "SDN": {0: "national", 1: "state", 2: "district"},
+    "SEN": {0: "national", 1: "region", 2: "department"},
+    "SLE": {0: "national", 1: "province", 2: "district"},
     "SOM": {0: "national", 1: "region", 2: "district"},
+    "SSD": {0: "national", 1: "state", 2: "district"},
+    "STP": {0: "national", 1: "municipality"},
+    "SWZ": {0: "national", 1: "district", 2: "constituency"},
+    "SYC": {0: "national", 1: "district"},
     "SYR": {0: "national", 1: "governorate", 2: "district"},
+    "TCD": {0: "national", 1: "region", 2: "department"},
+    "TGO": {0: "national", 1: "region", 2: "prefecture"},
+    "THA": {0: "national", 1: "province", 2: "district"},
     "TUN": {0: "national", 1: "governorate", 2: "delegation"},
+    "TZA": {0: "national", 1: "region", 2: "district"},
+    "UGA": {0: "national", 1: "district", 2: "county"},
     "YEM": {0: "national", 1: "governorate", 2: "district"},
+    "ZAF": {0: "national", 1: "province", 2: "district municipality"},
+    "ZMB": {0: "national", 1: "province", 2: "district"},
+    "ZWE": {0: "national", 1: "province", 2: "district"},
 }
 
 #: Generic fallback for a country with no entry above.
@@ -85,7 +131,21 @@ GENERIC_LEVEL_TITLES: Dict[int, str] = {
 #: admin-1 and the nested three-way Theil split degenerates to the two-way one.
 #: Stated here rather than discovered as an empty layer halfway through a run.
 LEVELS_AVAILABLE: Dict[str, tuple] = {
-    iso3: (0, 1) for iso3 in ("LBY", "BHR", "COM", "KWT", "QAT")
+    iso3: (0, 1)
+    for iso3 in (
+        "LBY",
+        "BHR",
+        "COM",
+        "KWT",
+        "QAT",
+        "COM",
+        "CPV",
+        "ESH",
+        "LBY",
+        "LSO",
+        "MUS",
+        "SYC",
+    )
 }
 
 #: The Arab Maghreb Union, in the order its members are usually listed.
@@ -115,6 +175,181 @@ ARAB_LEAGUE = (
     "DJI",
     "COM",
 )
+
+#: The 54 UN member states of Africa, plus Western Sahara. `ESH` appears with
+#: GADM's own coding of the territory - the same footing Palestine is on here,
+#: and for the same reason: it is the boundary set in use, not a position on
+#: status. GADM's `MAR` excludes it, so leaving it out would put a hole in the
+#: continent.
+AFRICA = (
+    "AGO",
+    "BDI",
+    "BEN",
+    "BFA",
+    "BWA",
+    "CAF",
+    "CIV",
+    "CMR",
+    "COD",
+    "COG",
+    "COM",
+    "CPV",
+    "DJI",
+    "DZA",
+    "EGY",
+    "ERI",
+    "ESH",
+    "ETH",
+    "GAB",
+    "GHA",
+    "GIN",
+    "GMB",
+    "GNB",
+    "GNQ",
+    "KEN",
+    "LBR",
+    "LBY",
+    "LSO",
+    "MAR",
+    "MDG",
+    "MLI",
+    "MOZ",
+    "MRT",
+    "MUS",
+    "MWI",
+    "NAM",
+    "NER",
+    "NGA",
+    "RWA",
+    "SDN",
+    "SEN",
+    "SLE",
+    "SOM",
+    "SSD",
+    "STP",
+    "SWZ",
+    "SYC",
+    "TCD",
+    "TGO",
+    "TUN",
+    "TZA",
+    "UGA",
+    "ZAF",
+    "ZMB",
+    "ZWE",
+)
+
+#: Every country this repository analyses. Wider than any single pool, and the
+#: difference is load-bearing rather than cosmetic.
+#:
+#: The cross-country artefacts are **pooled**, and one of them pools in a way
+#: that adding a row does not undo: each aridity join cuts `dark_2022` at the
+#: *median* mean DN **of its own pool**. Adding a country to a pool moves that
+#: pool's median and rewrites every `dark_2022` and `cell` in it.
+#:
+#: So a country is analysed on its own terms - clipped rasters, zonal tables,
+#: inequality series, decomposition, charts, figures - and separately belongs to
+#: zero or more pools. Use `COUNTRIES` for "what exists here" and a pool for
+#: "what is being compared with what".
+COUNTRIES = (
+    *ARAB_LEAGUE,
+    "THA",
+    *(iso3 for iso3 in AFRICA if iso3 not in ARAB_LEAGUE),
+)
+
+#: Named comparison pools. Each owns its own cross-country artefacts, and a
+#: country may sit in more than one - ten African states are also Arab League
+#: members and appear in both, each time against a different set of neighbours.
+POOLS: Dict[str, tuple] = {
+    "arab-league": ARAB_LEAGUE,
+    "africa": AFRICA,
+}
+DEFAULT_POOL = "arab-league"
+
+
+def pool_countries(pool: str) -> tuple:
+    """The countries a pool compares. Raises rather than silently emptying."""
+    try:
+        return POOLS[pool]
+    except KeyError:
+        raise KeyError(
+            f"unknown pool {pool!r}; known pools: {', '.join(sorted(POOLS))}"
+        ) from None
+
+
+#: Display names, in one place because the gallery, the results catalogue and
+#: the docs must not disagree about what a country is called. Where GADM 4.1
+#: carries a stale name the current one is used: Eswatini, not Swaziland.
+COUNTRY_NAMES: Dict[str, str] = {
+    "MAR": "Morocco",
+    "DZA": "Algeria",
+    "TUN": "Tunisia",
+    "LBY": "Libya",
+    "MRT": "Mauritania",
+    "EGY": "Egypt",
+    "SDN": "Sudan",
+    "SAU": "Saudi Arabia",
+    "YEM": "Yemen",
+    "OMN": "Oman",
+    "ARE": "United Arab Emirates",
+    "QAT": "Qatar",
+    "BHR": "Bahrain",
+    "KWT": "Kuwait",
+    "IRQ": "Iraq",
+    "SYR": "Syria",
+    "LBN": "Lebanon",
+    "JOR": "Jordan",
+    "PSE": "Palestine",
+    "SOM": "Somalia",
+    "DJI": "Djibouti",
+    "COM": "Comoros",
+    "THA": "Thailand",
+    "AGO": "Angola",
+    "BDI": "Burundi",
+    "BEN": "Benin",
+    "BFA": "Burkina Faso",
+    "BWA": "Botswana",
+    "CAF": "Central African Republic",
+    "CIV": "Côte d'Ivoire",
+    "CMR": "Cameroon",
+    "COD": "DR Congo",
+    "COG": "Republic of the Congo",
+    "CPV": "Cabo Verde",
+    "ERI": "Eritrea",
+    "ESH": "Western Sahara",
+    "ETH": "Ethiopia",
+    "GAB": "Gabon",
+    "GHA": "Ghana",
+    "GIN": "Guinea",
+    "GMB": "Gambia",
+    "GNB": "Guinea-Bissau",
+    "GNQ": "Equatorial Guinea",
+    "KEN": "Kenya",
+    "LBR": "Liberia",
+    "LSO": "Lesotho",
+    "MDG": "Madagascar",
+    "MLI": "Mali",
+    "MOZ": "Mozambique",
+    "MUS": "Mauritius",
+    "MWI": "Malawi",
+    "NAM": "Namibia",
+    "NER": "Niger",
+    "NGA": "Nigeria",
+    "RWA": "Rwanda",
+    "SEN": "Senegal",
+    "SLE": "Sierra Leone",
+    "SSD": "South Sudan",
+    "STP": "São Tomé and Príncipe",
+    "SWZ": "Eswatini",
+    "SYC": "Seychelles",
+    "TCD": "Chad",
+    "TGO": "Togo",
+    "TZA": "Tanzania",
+    "UGA": "Uganda",
+    "ZAF": "South Africa",
+    "ZMB": "Zambia",
+    "ZWE": "Zimbabwe",
+}
 
 
 def level_title(iso3: str, level: int) -> str:

@@ -62,30 +62,9 @@ class ResultTable:
 #: Shared column glosses. Kept in one place because the same words mean the
 #: same thing in every table and every country, and a data dictionary that
 #: contradicts itself is worse than none.
-COUNTRY_NAMES = {
-    "MAR": "Morocco",
-    "DZA": "Algeria",
-    "TUN": "Tunisia",
-    "LBY": "Libya",
-    "MRT": "Mauritania",
-    "EGY": "Egypt",
-    "SDN": "Sudan",
-    "SAU": "Saudi Arabia",
-    "YEM": "Yemen",
-    "OMN": "Oman",
-    "ARE": "United Arab Emirates",
-    "QAT": "Qatar",
-    "BHR": "Bahrain",
-    "KWT": "Kuwait",
-    "IRQ": "Iraq",
-    "SYR": "Syria",
-    "LBN": "Lebanon",
-    "JOR": "Jordan",
-    "PSE": "Palestine",
-    "SOM": "Somalia",
-    "DJI": "Djibouti",
-    "COM": "Comoros",
-}
+#: Re-exported so the gallery, the catalogue and the docs cannot disagree
+#: about what a country is called.
+COUNTRY_NAMES = R.COUNTRY_NAMES
 
 _YEAR = "calendar year, 1992–2022"
 _ZEROS = (
@@ -242,6 +221,89 @@ def _aridity_columns(iso3: str):
 
 #: Tables computed *from* the published per-country CSVs rather than from the
 #: rasters, and so written straight into ``results/`` by their own commands.
+#: Shared by every pool's copy of these two tables, so the data dictionary
+#: cannot drift between them.
+CROSS_ARIDITY_COLUMNS = (
+    ("iso3", "ISO 3166-1 alpha-3 country code"),
+    ("gid", "GADM identifier of the unit"),
+    ("name", "GADM name of the unit"),
+    ("desert_share", "area share that is hyper-arid or arid"),
+    ("dryland_share", "area share below aridity index 0.65"),
+    ("humid_share", "area share at or above 0.65"),
+    ("area_km2", "unit area on the WGS 84 ellipsoid"),
+    ("pixels_classified", "aridity cells carrying a real value"),
+    (
+        "mean_dn_1992",
+        "mean DN over the unit's land pixels in 1992 — the zonal "
+        "tables' `mean_dn`, **not** a density: `density_sol_per_km2` "
+        "elsewhere in `results/` is that, and the two differ by a few "
+        "percent on a 1 km grid",
+    ),
+    ("mean_dn_2022", "the same for 2022; the column darkness is cut on"),
+    ("majority_arid", "`desert_share` > 0.5"),
+    (
+        "light_scopes",
+        "the light-derived exclusion scopes this unit belongs to, if "
+        "any; blank when the light rule never selected it",
+    ),
+    ("in_light_scope", "whether `light_scopes` is non-empty"),
+    (
+        "dark_2022",
+        "whether `mean_dn_2022` is strictly below the cross-country "
+        "median — the cut is a choice, and the set it produces is "
+        "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
+        "the strict `<` is load-bearing",
+    ),
+    (
+        "cell",
+        "which of the four aridity × darkness cells the unit falls in",
+    ),
+)
+
+CROSS_TRENDS_COLUMNS = (
+    ("iso3", "ISO 3166-1 alpha-3 country code"),
+    (
+        "measure",
+        "`total` (Theil T over all land pixels), `intensive` (Theil T "
+        "over lit pixels only), `extensive` (share of land pixels "
+        "lit), `between_share` (share of Theil T lying between "
+        "admin-1 units)",
+    ),
+    ("measure_note", "the same, spelled out"),
+    (
+        "window",
+        "`full` 1992–2022, `dmsp` 1992–2013, `viirs` 2014–2022; the "
+        "two eras are not comparable to each other",
+    ),
+    ("first_year", "first year with a usable value in the window"),
+    ("last_year", "last such year"),
+    ("n_years", "usable observations behind the fit"),
+    (
+        "percent_per_year",
+        "the fitted slope of ln(value) against year, as a percentage",
+    ),
+    (
+        "r_squared",
+        "goodness of the straight-line fit; `nan` for a series with no "
+        "variation at all, which has no slope to explain",
+    ),
+    (
+        "half_life_years",
+        "ln(2) ÷ |rate| — years to halve; `nan` for a series that is "
+        "not falling, because a rising series has no half-life",
+    ),
+    ("direction", "`falling`, `rising`, `flat` or `undefined`"),
+    (
+        "monotone",
+        "whether `r_squared` clears the threshold; `False` means one "
+        "slope does not describe the series and the rate is a "
+        "direction, not a pace",
+    ),
+    ("trajectory", "the country's typology label, assigned by rule"),
+    ("trajectory_reason", "which rule assigned it, in one clause"),
+)
+
+
 CROSS_TABLES = (
     ResultTable(
         key="aridity-vs-light",
@@ -255,42 +317,35 @@ CROSS_TABLES = (
             "what this repository previously asserted about which dark regions "
             "are desert."
         ),
-        columns=(
-            ("iso3", "ISO 3166-1 alpha-3 country code"),
-            ("gid", "GADM identifier of the unit"),
-            ("name", "GADM name of the unit"),
-            ("desert_share", "area share that is hyper-arid or arid"),
-            ("dryland_share", "area share below aridity index 0.65"),
-            ("humid_share", "area share at or above 0.65"),
-            ("area_km2", "unit area on the WGS 84 ellipsoid"),
-            ("pixels_classified", "aridity cells carrying a real value"),
-            (
-                "mean_dn_1992",
-                "mean DN over the unit's land pixels in 1992 — the zonal "
-                "tables' `mean_dn`, **not** a density: `density_sol_per_km2` "
-                "elsewhere in `results/` is that, and the two differ by a few "
-                "percent on a 1 km grid",
-            ),
-            ("mean_dn_2022", "the same for 2022; the column darkness is cut on"),
-            ("majority_arid", "`desert_share` > 0.5"),
-            (
-                "light_scopes",
-                "the light-derived exclusion scopes this unit belongs to, if "
-                "any; blank when the light rule never selected it",
-            ),
-            ("in_light_scope", "whether `light_scopes` is non-empty"),
-            (
-                "dark_2022",
-                "whether `mean_dn_2022` is strictly below the cross-country "
-                "median — the cut is a choice, and the set it produces is "
-                "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
-                "the strict `<` is load-bearing",
-            ),
-            (
-                "cell",
-                "which of the four aridity × darkness cells the unit falls in",
-            ),
+        columns=CROSS_ARIDITY_COLUMNS,
+    ),
+    ResultTable(
+        key="africa-aridity-vs-light",
+        source="",
+        dest="africa_aridity_vs_light.csv",
+        title="Aridity against darkness, the Africa pool",
+        description=(
+            "The same join as `aridity_vs_light.csv`, pooled over Africa "
+            "instead of the Arab League. ⚠️ **`dark_2022` is not comparable "
+            "between the two files**: each cuts at the median `mean_dn_2022` "
+            "of its own pool, and those medians differ. A unit in one of the "
+            "ten countries that sit in both pools can be dark in one file and "
+            "lit in the other, correctly."
         ),
+        columns=CROSS_ARIDITY_COLUMNS,
+    ),
+    ResultTable(
+        key="africa-trends-by-country",
+        source="",
+        dest="africa_trends_by_country.csv",
+        title="Pace of inequality change, the Africa pool",
+        description=(
+            "The same fits as `trends_by_country.csv`, over the African "
+            "countries. Rates are fitted per country and never pooled, so a "
+            "country appearing in both files carries identical numbers in "
+            "each - only the set of neighbours differs."
+        ),
+        columns=CROSS_TRENDS_COLUMNS,
     ),
     ResultTable(
         key="trends-by-country",
@@ -306,48 +361,7 @@ CROSS_TABLES = (
             "not be compared. See [`../docs/arab-world.md`]"
             "(../docs/arab-world.md)."
         ),
-        columns=(
-            ("iso3", "ISO 3166-1 alpha-3 country code"),
-            (
-                "measure",
-                "`total` (Theil T over all land pixels), `intensive` (Theil T "
-                "over lit pixels only), `extensive` (share of land pixels "
-                "lit), `between_share` (share of Theil T lying between "
-                "admin-1 units)",
-            ),
-            ("measure_note", "the same, spelled out"),
-            (
-                "window",
-                "`full` 1992–2022, `dmsp` 1992–2013, `viirs` 2014–2022; the "
-                "two eras are not comparable to each other",
-            ),
-            ("first_year", "first year with a usable value in the window"),
-            ("last_year", "last such year"),
-            ("n_years", "usable observations behind the fit"),
-            (
-                "percent_per_year",
-                "the fitted slope of ln(value) against year, as a percentage",
-            ),
-            (
-                "r_squared",
-                "goodness of the straight-line fit; `nan` for a series with no "
-                "variation at all, which has no slope to explain",
-            ),
-            (
-                "half_life_years",
-                "ln(2) ÷ |rate| — years to halve; `nan` for a series that is "
-                "not falling, because a rising series has no half-life",
-            ),
-            ("direction", "`falling`, `rising`, `flat` or `undefined`"),
-            (
-                "monotone",
-                "whether `r_squared` clears the threshold; `False` means one "
-                "slope does not describe the series and the rate is a "
-                "direction, not a pace",
-            ),
-            ("trajectory", "the country's typology label, assigned by rule"),
-            ("trajectory_reason", "which rule assigned it, in one clause"),
-        ),
+        columns=CROSS_TRENDS_COLUMNS,
     ),
 )
 
@@ -439,9 +453,7 @@ def _country_tables(iso3: str):
     return tables
 
 
-TABLES = (
-    tuple(t for iso3 in R.ARAB_LEAGUE for t in _country_tables(iso3)) + CROSS_TABLES
-)
+TABLES = tuple(t for iso3 in R.COUNTRIES for t in _country_tables(iso3)) + CROSS_TABLES
 
 
 @dataclass(frozen=True)
@@ -497,7 +509,7 @@ def _country_rasters(iso3: str) -> RasterSet:
 
 
 RASTER_SETS: Tuple[RasterSet, ...] = tuple(
-    _country_rasters(iso3) for iso3 in R.ARAB_LEAGUE
+    _country_rasters(iso3) for iso3 in R.COUNTRIES
 )
 
 
@@ -648,7 +660,16 @@ def raster_problems(stats: Sequence[RasterStats]) -> List[str]:
 class PublishResult:
     copied: List[Path] = field(default_factory=list)
     unchanged: List[Path] = field(default_factory=list)
+    #: Catalogued, and it should have been here: the country has *some* output
+    #: published, so a gap in it is a partial publish - the dangerous state.
     missing: List[object] = field(default_factory=list)
+    #: Catalogued but not analysed at all. A country is added to the catalogue
+    #: before it is run, and during a staged rollout that is the normal state,
+    #: not a fault. Reported as a count so it is never silently forgotten.
+    not_analysed: List[str] = field(default_factory=list)
+    #: Cross-country tables their own command has not written yet. Same
+    #: reasoning, but keyed by filename because they belong to no country.
+    not_generated: List[str] = field(default_factory=list)
     stats: Dict[str, TableStats] = field(default_factory=dict)
     #: Per raster set, its files' stats ordered by year.
     rasters: Dict[str, List[RasterStats]] = field(default_factory=dict)
@@ -738,7 +759,42 @@ def build(
         result.rasters[raster_set.key] = sorted(
             stats, key=lambda s: (s.year is None, s.year)
         )
+
+    _split_missing(result, dest_root)
     return result
+
+
+def _country_of(item) -> Optional[str]:
+    """The ISO3 a catalogue entry belongs to, or None for a cross-country one."""
+    dest = getattr(item, "dest", "")
+    head = str(dest).split("/")[0]
+    return head if head and "." not in head else None
+
+
+def _split_missing(result: PublishResult, dest_root) -> None:
+    """Separate "never analysed" from "analysed, and a piece did not land".
+
+    Both look identical to the copy loop - no source, no destination - but they
+    mean opposite things. A country with nothing at all is simply next in the
+    queue; a country with some outputs and a hole in them is a partial publish,
+    and that is the one worth failing on.
+    """
+    dest_root = Path(dest_root)
+    still_missing, absent, ungenerated = [], set(), set()
+    for item in result.missing:
+        if getattr(item, "in_place", False):
+            # Written straight into results/ by its own command, so absent
+            # simply means that command has not been run yet.
+            ungenerated.add(item.dest)
+            continue
+        iso3 = _country_of(item)
+        if iso3 is not None and not any((dest_root / iso3).glob("*")):
+            absent.add(iso3)
+            continue
+        still_missing.append(item)
+    result.missing = still_missing
+    result.not_analysed = sorted(absent)
+    result.not_generated = sorted(ungenerated)
 
 
 # --------------------------------------------------------------------------- #
@@ -760,7 +816,7 @@ checked, re-analysed or disputed — and, with the clipped rasters here,
 GADM world layer first. Regenerate them with:
 
 ```bash
-ISOS=$(python -c "from satimg.regions import ARAB_LEAGUE as A; print(*A)")
+ISOS=$(python -c "from satimg.regions import COUNTRIES as C; print(*C)")
 for ISO in $ISOS; do
   satimg lrcc-dvnl extract    --country "$ISO" --levels 0,1,2
   satimg lrcc-dvnl inequality --country "$ISO"

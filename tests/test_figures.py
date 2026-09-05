@@ -310,3 +310,37 @@ def test_cross_country_figures_count_toward_the_gallery_total(tmp_path):
     (tmp_path / rel).write_bytes(b"x" * 1024)
     index = F.write_index(F.BuildResult(), tmp_path).read_text(encoding="utf-8")
     assert "1 of them, 1.0 KB" in index
+
+
+def test_the_index_keeps_a_country_whose_source_was_pruned(source, tmp_path):
+    """A large run prunes rendered sources to fit on disk.
+
+    The index must describe what is published under `figures/`, not what the
+    current run converted, or every pruned country silently vanishes from the
+    gallery while its files stay committed.
+    """
+    dest = tmp_path / "figures"
+    first = F.build(source, dest)
+    full = F.write_index(first, dest).read_text(encoding="utf-8")
+
+    # A second run with no sources at all: nothing to convert, everything still
+    # published.
+    empty = F.build(tmp_path / "gone", dest)
+    assert not empty.written and not empty.skipped
+    pruned = F.write_index(empty, dest).read_text(encoding="utf-8")
+
+    for figure_set in F.FIGURE_SETS:
+        if first.by_set.get(figure_set.key):
+            assert f"`{figure_set.dest}/`" in pruned, figure_set.key
+    assert pruned.count("### ") == full.count("### ")
+
+
+def test_the_pruned_index_reports_the_same_totals(source, tmp_path):
+    dest = tmp_path / "figures"
+    first = F.build(source, dest)
+    full = F.write_index(first, dest).read_text(encoding="utf-8")
+    pruned = F.write_index(F.build(tmp_path / "gone", dest), dest).read_text(
+        encoding="utf-8"
+    )
+    headline = full.split("\n")[2]
+    assert headline == pruned.split("\n")[2]

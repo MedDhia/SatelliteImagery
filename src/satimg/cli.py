@@ -20,6 +20,7 @@ from .provenance import original_md5
 # Safe to import at module level: satimg.raster defers its rasterio/numpy
 # imports until a raster command actually runs.
 from .raster import RasterDependencyError
+from .regions import DEFAULT_POOL as R_DEFAULT_POOL
 from .util import format_table, human_bytes, parse_year_spec
 
 DEFAULT_DEST = Path("data/raw/lrcc-dvnl")
@@ -846,14 +847,17 @@ def cmd_trends(args) -> int:
     from . import trends
 
     isos = None if args.country.lower() == "all" else args.country.upper().split(",")
-    path, rows = trends.build(args.results, isos)
+    path, rows = trends.build(args.results, isos, pool=args.pool)
     if not rows:
         raise SystemExit(
             f"no inequality series found under {args.results}; "
             "run `satimg lrcc-dvnl inequality --country <ISO>` first"
         )
     countries = sorted({row["iso3"] for row in rows})
-    print(f"table  {path}  ({len(rows)} rows, {len(countries)} countries)")
+    print(
+        f"table  {path}  ({len(rows)} rows, {len(countries)} countries "
+        f"in pool {args.pool!r})"
+    )
 
     full = trends.full_window(rows, "total")
     groups = {}
@@ -895,9 +899,25 @@ def cmd_results_build(args) -> int:
     source, dest = Path(args.source), Path(args.dest)
     result = results.build(source, dest, check=args.check)
 
+    if result.not_analysed:
+        names = ", ".join(result.not_analysed)
+        print(
+            f"{len(result.not_analysed)} catalogued country/countries not yet "
+            f"analysed, skipped: {names}",
+            file=sys.stderr,
+        )
+
+    if result.not_generated:
+        names = ", ".join(result.not_generated)
+        print(f"cross-country table(s) not generated yet: {names}", file=sys.stderr)
+
     if result.missing:
         names = ", ".join(item.dest for item in result.missing)
-        print(f"error: no source and nothing published for: {names}", file=sys.stderr)
+        print(
+            "error: these belong to a country that has other outputs "
+            f"published, so this is a partial publish: {names}",
+            file=sys.stderr,
+        )
         print(
             "run `satimg lrcc-dvnl inequality --country TUN` first",
             file=sys.stderr,
@@ -968,11 +988,16 @@ def cmd_results_build(args) -> int:
 # aridity subcommands
 # --------------------------------------------------------------------------- #
 def _aridity_countries(selector: str):
-    """'all' or a comma-separated ISO3 list, as the other country commands take."""
+    """'all' or a comma-separated ISO3 list, as the other country commands take.
+
+    'all' is every country analysed, not just the comparison pool: the per-unit
+    passes are per-country and adding one changes nobody else's numbers. The
+    pooled join in `vs-light` is the opposite case and stays on ARAB_LEAGUE.
+    """
     from . import regions as R
 
     if selector.lower() == "all":
-        return list(R.ARAB_LEAGUE)
+        return list(R.COUNTRIES)
     return selector.upper().split(",")
 
 
@@ -1048,19 +1073,19 @@ def cmd_aridity_vs_light(args) -> int:
     """Join per-unit aridity to per-unit light, across every country."""
     from . import aridity as A
 
-    path, rows = A.write_vs_light(args.results)
+    path, rows = A.write_vs_light(args.results, pool=args.pool)
     if not rows:
         raise SystemExit(
-            f"no per-country aridity tables under {args.results}; "
-            "run 'satimg aridity units' first"
+            f"no per-country aridity tables under {args.results} for pool "
+            f"{args.pool!r}; run 'satimg aridity units' first"
         )
-    print(f"table  {path}  ({len(rows)} units)")
+    print(f"table  {path}  ({len(rows)} units, pool {args.pool!r})")
 
     cut = A.dark_cut([r["mean_dn_2022"] for r in rows])
     counts = {}
     for row in rows:
         counts[row["cell"]] = counts.get(row["cell"], 0) + 1
-    print(f"  darkness cut (median mean DN, strict <): {cut:.4f}")
+    print(f"  darkness cut (median mean DN over this pool, strict <): {cut:.4f}")
     for cell in sorted(counts):
         print(f"  {cell:20} {counts[cell]:>4}")
 
@@ -1092,7 +1117,7 @@ def cmd_aridity_chart(args) -> int:
         ) from None
     from . import charts
 
-    rows = A.vs_light(args.results)
+    rows = A.vs_light(args.results, pool=args.pool)
     if not rows:
         raise SystemExit(
             f"no per-country aridity tables under {args.results}; "
@@ -1678,6 +1703,14 @@ def build_parser() -> argparse.ArgumentParser:
         default=RESULTS_DEST,
         help=f"where the committed tables live (default: {RESULTS_DEST})",
     )
+    a_vs.add_argument(
+        "--pool",
+        default=R_DEFAULT_POOL,
+        help=(
+            "which comparison pool to build, from regions.POOLS "
+            "(default: %(default)s). Each pool owns its own table."
+        ),
+    )
     a_vs.set_defaults(func=cmd_aridity_vs_light)
 
     a_chart = arid_sub.add_parser(
@@ -1691,6 +1724,14 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=FIGURES_DEST,
         help=f"gallery root for the chart (default: {FIGURES_DEST})",
+    )
+    a_chart.add_argument(
+        "--pool",
+        default=R_DEFAULT_POOL,
+        help=(
+            "which comparison pool to build, from regions.POOLS "
+            "(default: %(default)s). Each pool owns its own table."
+        ),
     )
     a_chart.set_defaults(func=cmd_aridity_chart)
 
@@ -1714,6 +1755,14 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=FIGURES_DEST,
         help=f"gallery root for the chart (default: {FIGURES_DEST})",
+    )
+    trend.add_argument(
+        "--pool",
+        default=R_DEFAULT_POOL,
+        help=(
+            "which comparison pool to build, from regions.POOLS "
+            "(default: %(default)s). Each pool owns its own table."
+        ),
     )
     trend.add_argument(
         "--no-figure",
