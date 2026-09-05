@@ -49,10 +49,15 @@ def test_keys_sources_and_destinations_are_unique():
 
 def test_an_in_place_table_has_no_source_to_copy_from():
     in_place = [t for t in R.TABLES if t.in_place]
-    assert {t.dest for t in in_place} == {
-        "aridity_vs_light.csv",
-        "trends_by_country.csv",
-    }
+    # One pair per comparison pool: the default pool keeps the unprefixed
+    # names it was published under, every other pool is prefixed.
+    from satimg import aridity as A
+    from satimg import regions as Reg
+    from satimg import trends as T
+
+    expected = {T.trends_table(p) for p in Reg.POOLS}
+    expected |= {A.vs_light_table(p) for p in Reg.POOLS}
+    assert {t.dest for t in in_place} == expected
     for table in in_place:
         assert table.source_path("data/regions") is None
 

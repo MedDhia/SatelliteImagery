@@ -1,0 +1,195 @@
+iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+COM,COM.3_1,Mwali,0.0,0.0,1.0,217.2576,260,0.0,0.3272,False,,False,True,anomalously_dark
+COM,COM.2_1,Njazídja,0.0,0.0,1.0,1025.2298,1224,0.2181,0.9867,False,,False,True,anomalously_dark
+COM,COM.1_1,Nzwani,0.0,0.0,1.0,433.0079,518,0.2396,0.7208,False,,False,True,anomalously_dark
+DJI,DJI.1_2,Ali Sabieh,1.0,1.0,0.0,2328.7512,2776,0.0723,0.5877,True,,False,True,desert_dark
+DJI,DJI.6_1,Arta,1.0,1.0,0.0,2155.9817,2572,0.1358,1.4584,True,,False,True,desert_dark
+DJI,DJI.2_1,Dikhil,1.0,1.0,0.0,6702.0389,7993,0.0262,0.084,True,,False,True,desert_dark
+DJI,DJI.3_1,Djiboutii,1.0,1.0,0.0,184.3382,220,10.449,29.5731,True,,False,False,lit_desert
+DJI,DJI.4_1,Obock,1.0,1.0,0.0,4341.5912,5195,0.0134,0.1403,True,,False,True,desert_dark
+DJI,DJI.5_1,Tadjoura,0.9933,1.0,0.0,6658.2145,7959,0.0099,0.19,True,,False,True,desert_dark
+DZA,DZA.1_1,Adrar,1.0,1.0,0.0,431528.7821,560795,0.0328,0.2837,True,dark;dark_wide,True,True,desert_dark
+DZA,DZA.2_1,Aïn Defla,0.0,1.0,0.0,4550.5465,6565,2.42,11.1972,False,,False,False,ordinary
+DZA,DZA.3_1,Aïn Témouchent,0.0,1.0,0.0,2403.5426,3432,3.0744,12.3303,False,,False,False,ordinary
+DZA,DZA.4_1,Alger,0.0,1.0,0.0,771.9152,1121,43.9767,61.678,False,,False,False,ordinary
+DZA,DZA.5_1,Annaba,0.0,0.6263,0.3737,1412.6609,2055,10.2035,18.3689,False,,False,False,ordinary
+DZA,DZA.6_1,Batna,0.4135,1.0,0.0,12140.4601,17350,1.2994,9.162,False,,False,False,ordinary
+DZA,DZA.7_1,Béchar,1.0,1.0,0.0,161002.8197,216950,0.0641,0.2613,True,dark;dark_wide,True,True,desert_dark
+DZA,DZA.8_1,Béjaïa,0.0,0.8298,0.1702,3224.4811,4675,5.4142,16.1081,False,,False,False,ordinary
+DZA,DZA.9_1,Biskra,0.9889,1.0,0.0,21496.8808,30374,0.7875,3.9476,True,,False,False,lit_desert
+DZA,DZA.10_1,Blida,0.0,0.924,0.076,1481.0607,2145,14.3122,31.0928,False,,False,False,ordinary
+DZA,DZA.11_1,Bordj Bou Arréridj,0.0609,1.0,0.0,3939.427,5676,2.1192,15.0967,False,,False,False,ordinary
+DZA,DZA.12_1,Bouira,0.0056,0.9653,0.0347,4460.7498,6441,2.7425,12.2497,False,,False,False,ordinary
+DZA,DZA.13_1,Boumerdès,0.0,0.5847,0.4153,1442.869,2096,10.3381,27.7692,False,,False,False,ordinary
+DZA,DZA.14_1,Chlef,0.0,1.0,0.0,4073.6986,5881,3.7394,14.7168,False,,False,False,ordinary
+DZA,DZA.15_1,Constantine,0.0,0.939,0.061,2239.1003,3237,6.3968,18.3452,False,,False,False,ordinary
+DZA,DZA.16_1,Djelfa,0.8394,1.0,0.0,32364.536,45688,0.3258,2.4629,True,,False,True,desert_dark
+DZA,DZA.17_1,El Bayadh,0.9996,1.0,0.0,71677.5198,99123,0.0438,0.4602,True,dark_wide,True,True,desert_dark
+DZA,DZA.18_1,El Oued,1.0,1.0,0.0,43807.2056,61060,0.5568,2.3041,True,,False,True,desert_dark
+DZA,DZA.19_1,El Tarf,0.0,0.6254,0.3746,2884.2258,4189,2.543,11.9287,False,,False,False,ordinary
+DZA,DZA.20_1,Ghardaïa,1.0,1.0,0.0,84473.1278,115115,1.0403,1.0465,True,dark_wide,True,True,desert_dark
+DZA,DZA.21_1,Guelma,0.0,0.9713,0.0287,3685.3761,5331,2.4611,8.6705,False,,False,False,ordinary
+DZA,DZA.22_1,Illizi,1.0,1.0,0.0,293519.3079,383854,0.7262,0.9625,True,dark_wide,True,True,desert_dark
+DZA,DZA.23_1,Jijel,0.0,0.0227,0.9773,2395.0719,3478,2.7321,12.9394,False,,False,False,ordinary
+DZA,DZA.24_1,Khenchela,0.5752,1.0,0.0,9570.2907,13605,0.6582,3.4991,True,,False,True,desert_dark
+DZA,DZA.25_1,Laghouat,0.9708,1.0,0.0,27550.7079,38542,2.4232,3.1388,True,,False,True,desert_dark
+DZA,DZA.26_1,M'Sila,0.9108,1.0,0.0,17936.0509,25592,0.8314,6.6526,True,,False,False,lit_desert
+DZA,DZA.27_1,Mascara,0.0,1.0,0.0,5673.3135,8105,3.8031,11.93,False,,False,False,ordinary
+DZA,DZA.28_1,Médéa,0.0322,0.999,0.001,8706.7655,12529,1.2031,7.0505,False,,False,False,ordinary
+DZA,DZA.29_1,Mila,0.0,0.8637,0.1363,3508.0998,5068,3.1075,15.5103,False,,False,False,ordinary
+DZA,DZA.30_1,Mostaganem,0.0,1.0,0.0,2211.0425,3182,5.8111,19.3297,False,,False,False,ordinary
+DZA,DZA.31_1,Naâma,0.9522,1.0,0.0,29779.5312,41518,0.1538,1.1035,True,,False,True,desert_dark
+DZA,DZA.32_1,Oran,0.0,1.0,0.0,2137.3098,3063,18.2777,28.068,False,,False,False,ordinary
+DZA,DZA.33_1,Ouargla,1.0,1.0,0.0,154230.3308,210063,1.8279,2.4473,True,,False,True,desert_dark
+DZA,DZA.34_1,Oum el Bouaghi,0.0012,1.0,0.0,6267.5782,9003,1.6077,7.4298,False,,False,False,ordinary
+DZA,DZA.35_1,Relizane,0.0,1.0,0.0,4871.1358,6994,2.4546,11.0185,False,,False,False,ordinary
+DZA,DZA.36_1,Saïda,0.3549,1.0,0.0,6760.8592,9583,0.6753,4.1273,False,,False,False,ordinary
+DZA,DZA.37_1,Sétif,0.0103,0.9809,0.0191,6662.3301,9606,2.9916,16.8865,False,,False,False,ordinary
+DZA,DZA.38_1,Sidi Bel Abbès,0.4282,1.0,0.0,9374.5364,13283,1.3157,4.9622,False,,False,False,ordinary
+DZA,DZA.39_1,Skikda,0.0,0.5811,0.4189,4134.3854,6010,5.5696,13.2172,False,,False,False,ordinary
+DZA,DZA.40_1,Souk Ahras,0.0,0.917,0.083,4223.8466,6091,1.6189,6.9404,False,,False,False,ordinary
+DZA,DZA.41_1,Tamanghasset,1.0,1.0,0.0,601522.1659,768803,0.0107,0.0927,True,dark;dark_wide,True,True,desert_dark
+DZA,DZA.42_1,Tébessa,0.5054,1.0,0.0,13248.3613,18852,0.9203,3.7805,True,,False,False,lit_desert
+DZA,DZA.43_1,Tiaret,0.445,1.0,0.0,20109.1385,28581,0.5701,2.923,False,,False,True,anomalously_dark
+DZA,DZA.44_1,Tindouf,1.0,1.0,0.0,161560.6484,212876,0.0097,0.1171,True,dark;dark_wide,True,True,desert_dark
+DZA,DZA.45_1,Tipaza,0.0,1.0,0.0,1722.8118,2496,5.5798,16.7439,False,,False,False,ordinary
+DZA,DZA.46_1,Tissemsilt,0.0,1.0,0.0,3218.0368,4618,1.1651,6.4255,False,,False,False,ordinary
+DZA,DZA.47_1,Tizi Ouzou,0.0,0.3432,0.6568,2972.457,4315,5.7901,16.2395,False,,False,False,ordinary
+DZA,DZA.48_1,Tlemcen,0.0,1.0,0.0,9063.3222,12845,2.265,8.519,False,,False,False,ordinary
+EGY,EGY.1_1,Ad Daqahliyah,1.0,1.0,0.0,3707.6425,5048,20.2878,40.2281,True,,False,False,lit_desert
+EGY,EGY.2_1,Al Bahr al Ahmar,1.0,1.0,0.0,104667.6695,134945,0.2983,0.8948,True,dark_wide,True,True,desert_dark
+EGY,EGY.3_1,Al Buhayrah,1.0,1.0,0.0,11439.5882,15499,7.8596,22.4197,True,,False,False,lit_desert
+EGY,EGY.4_1,Al Fayyum,1.0,1.0,0.0,5844.3685,7817,6.4197,18.9647,True,,False,False,lit_desert
+EGY,EGY.5_1,Al Gharbiyah,1.0,1.0,0.0,2001.5566,2719,23.6773,46.8694,True,,False,False,lit_desert
+EGY,EGY.6_1,Al Iskandariyah,1.0,1.0,0.0,2551.1488,3464,16.8637,31.7332,True,,False,False,lit_desert
+EGY,EGY.7_1,Al Isma`iliyah,1.0,1.0,0.0,5690.3184,7702,6.8557,16.8263,True,,False,False,lit_desert
+EGY,EGY.8_1,Al Jizah,1.0,1.0,0.0,36363.9601,48422,2.1896,5.3509,True,,False,False,lit_desert
+EGY,EGY.9_1,Al Minufiyah,1.0,1.0,0.0,2169.1193,2934,25.9848,49.5815,True,,False,False,lit_desert
+EGY,EGY.10_1,Al Minya,1.0,1.0,0.0,31381.4018,41491,2.1434,5.9073,True,,False,False,lit_desert
+EGY,EGY.11_1,Al Qahirah,1.0,1.0,0.0,2896.8983,3899,16.6997,46.1646,True,,False,False,lit_desert
+EGY,EGY.12_1,Al Qalyubiyah,1.0,1.0,0.0,1149.9849,1553,42.5139,60.3243,True,,False,False,lit_desert
+EGY,EGY.13_1,Al Uqsur,1.0,1.0,0.0,614.9299,796,18.9484,34.9987,True,,False,False,lit_desert
+EGY,EGY.14_1,Al Wadi al Jadid,1.0,1.0,0.0,426317.4779,548372,0.0351,0.2278,True,dark;dark_wide,True,True,desert_dark
+EGY,EGY.15_1,As Suways,1.0,1.0,0.0,9408.4987,12627,2.1628,10.5394,True,,False,False,lit_desert
+EGY,EGY.16_1,Ash Sharqiyah,1.0,1.0,0.0,5335.3653,7231,20.3773,41.4922,True,,False,False,lit_desert
+EGY,EGY.17_1,Aswan,1.0,1.0,0.0,61090.2561,77691,0.8544,2.0168,True,,False,True,desert_dark
+EGY,EGY.18_1,Asyut,1.0,1.0,0.0,16483.07,21646,3.6672,7.9009,True,,False,False,lit_desert
+EGY,EGY.19_1,Bani Suwayf,1.0,1.0,0.0,10686.6838,14225,3.2669,9.8452,True,,False,False,lit_desert
+EGY,EGY.20_1,Bur Sa`id,1.0,1.0,0.0,1459.1675,1987,2.8969,19.4608,True,,False,False,lit_desert
+EGY,EGY.21_1,Dumyat,1.0,1.0,0.0,933.1019,1274,18.2364,40.9,True,,False,False,lit_desert
+EGY,EGY.22_1,Janub Sina',1.0,1.0,0.0,29272.7741,39041,1.1106,2.2721,True,,False,True,desert_dark
+EGY,EGY.23_1,Kafr ash Shaykh,1.0,1.0,0.0,3766.0335,5139,10.0575,24.2673,True,,False,False,lit_desert
+EGY,EGY.24_1,Matrouh,1.0,1.0,0.0,158547.7218,212848,0.371,1.4826,True,,False,True,desert_dark
+EGY,EGY.25_1,Qina,1.0,1.0,0.0,13194.1006,17127,5.7113,11.4887,True,,False,False,lit_desert
+EGY,EGY.26_1,Shamal Sina',1.0,1.0,0.0,26558.0206,35908,0.3998,2.3076,True,,False,True,desert_dark
+EGY,EGY.27_1,Suhaj,1.0,1.0,0.0,10081.5722,13163,6.7239,12.6312,True,,False,False,lit_desert
+LBY,LBY.1_1,Al Butnan,1.0,1.0,0.0,82819.7537,111566,0.1026,0.4599,True,dark_wide,True,True,desert_dark
+LBY,LBY.2_1,Al Jabal al Akhdar,0.6648,1.0,0.0,8532.6865,11748,1.3368,3.9621,True,,False,False,lit_desert
+LBY,LBY.3_1,Al Jabal al Gharbi,1.0,1.0,0.0,85607.5463,115643,0.2364,0.7286,True,dark_wide,True,True,desert_dark
+LBY,LBY.4_1,Al Jifarah,1.0,1.0,0.0,1716.4598,2371,9.5834,24.7594,True,,False,False,lit_desert
+LBY,LBY.5_1,Al Jufrah,1.0,1.0,0.0,111251.9319,146772,0.3774,0.2571,True,dark_wide,True,True,desert_dark
+LBY,LBY.6_1,Al Kufrah,1.0,1.0,0.0,429889.4468,548723,0.0185,0.0477,True,dark;dark_wide,True,True,desert_dark
+LBY,LBY.7_1,Al Marj,0.7335,1.0,0.0,10070.5283,13836,0.4515,1.8748,True,,False,True,desert_dark
+LBY,LBY.8_1,Al Marqab,1.0,1.0,0.0,8221.3517,11341,4.2625,10.3684,True,,False,False,lit_desert
+LBY,LBY.9_1,Al Wahat,1.0,1.0,0.0,194086.9298,258392,2.4217,1.3965,True,,False,True,desert_dark
+LBY,LBY.10_1,An Nuqat al Khams,1.0,1.0,0.0,6341.1881,8778,3.0488,8.0166,True,,False,False,lit_desert
+LBY,LBY.11_1,Az Zawiyah,1.0,1.0,0.0,3192.6001,4410,7.2477,15.8881,True,,False,False,lit_desert
+LBY,LBY.12_1,Benghazi,0.9353,1.0,0.0,15328.4446,20999,2.8493,8.1276,True,,False,False,lit_desert
+LBY,LBY.13_1,Darnah,0.9667,1.0,0.0,18505.2305,25420,0.4602,1.479,True,,False,True,desert_dark
+LBY,LBY.14_1,Ghat,1.0,1.0,0.0,52180.4527,67778,0.1047,0.1704,True,dark_wide,True,True,desert_dark
+LBY,LBY.15_1,Misratah,1.0,1.0,0.0,28241.2767,38596,1.0338,2.0233,True,,False,True,desert_dark
+LBY,LBY.16_1,Murzuq,1.0,1.0,0.0,267357.2921,343301,0.0282,0.0865,True,dark_wide,True,True,desert_dark
+LBY,LBY.17_1,Nalut,1.0,1.0,0.0,67603.474,91272,0.1645,0.6961,True,dark_wide,True,True,desert_dark
+LBY,LBY.18_1,Sabha,1.0,1.0,0.0,17159.5065,22485,0.6769,1.6019,True,,False,True,desert_dark
+LBY,LBY.19_1,Surt,1.0,1.0,0.0,78672.8263,106027,0.3263,0.5509,True,dark_wide,True,True,desert_dark
+LBY,LBY.20_1,Tripoli,0.8202,1.0,0.0,2435.0681,3371,16.6817,35.6844,True,,False,False,lit_desert
+LBY,LBY.21_1,Wadi al Hayat,1.0,1.0,0.0,33274.7528,43346,0.2479,1.4051,True,,False,True,desert_dark
+LBY,LBY.22_1,Wadi ash Shati',1.0,1.0,0.0,93596.5575,123599,0.1034,0.252,True,dark_wide,True,True,desert_dark
+MAR,MAR.1_1,Chaouia - Ouardigha,0.0263,1.0,0.0,16549.5551,23000,1.3871,9.0787,False,,False,False,ordinary
+MAR,MAR.2_1,Doukkala - Abda,0.1831,1.0,0.0,14411.5316,19914,0.9323,7.7076,False,,False,False,ordinary
+MAR,MAR.3_1,Fès - Boulemane,0.646,1.0,0.0,19318.0074,26979,0.8909,3.4027,True,,False,True,desert_dark
+MAR,MAR.4_1,Gharb - Chrarda - Béni Hssen,0.0,1.0,0.0,8764.9772,12391,1.6225,8.751,False,,False,False,ordinary
+MAR,MAR.5_1,Grand Casablanca,0.0,1.0,0.0,876.5538,1225,27.7829,52.2671,False,,False,False,ordinary
+MAR,MAR.6_1,Guelmim - Es-Semara,1.0,1.0,0.0,64472.9866,85818,0.0711,0.46,True,dark;dark_wide,True,True,desert_dark
+MAR,MAR.7_1,Laâyoune - Boujdour - Sakia El H,1.0,1.0,0.0,5721.2469,7549,0.0045,0.242,True,dark;dark_wide,True,True,desert_dark
+MAR,MAR.8_1,Marrakech - Tensift - Al Haouz,0.5646,0.9995,0.0005,32387.823,44330,0.6024,5.7265,True,,False,False,lit_desert
+MAR,MAR.9_1,Meknès - Tafilalet,0.7057,1.0,0.0,60115.4818,82660,0.3949,1.681,True,dark_wide,True,True,desert_dark
+MAR,MAR.10_1,Oriental,0.7514,1.0,0.0,59751.9245,83439,0.4574,2.5065,True,dark_wide,True,True,desert_dark
+MAR,MAR.11_1,Rabat - Salé - Zemmour - Zaer,0.0,1.0,0.0,10014.5472,14025,1.9433,6.697,False,,False,False,ordinary
+MAR,MAR.12_1,Souss - Massa - Draâ,0.8317,1.0,0.0,72109.7886,97550,0.3534,2.1398,True,dark_wide,True,True,desert_dark
+MAR,MAR.13_1,Tadla - Azilal,0.0092,1.0,0.0,15571.9794,21430,0.7945,5.0395,False,,False,False,ordinary
+MAR,MAR.14_1,Tanger - Tétouan,0.0,0.8286,0.1714,11807.4283,16837,1.519,8.2243,False,,False,False,ordinary
+MAR,MAR.15_1,Taza - Al Hoceima - Taounate,0.1364,0.9806,0.0194,21602.1766,30505,0.3067,3.8398,False,,False,False,ordinary
+MRT,MRT.1_1,Adrar,1.0,1.0,0.0,222152.8776,277987,0.0009,0.0079,True,dark;dark_wide,True,True,desert_dark
+MRT,MRT.2_1,Assaba,1.0,1.0,0.0,35861.967,43729,0.0,0.0426,True,,False,True,desert_dark
+MRT,MRT.3_1,Brakna,1.0,1.0,0.0,33199.7131,40622,0.0002,0.0565,True,,False,True,desert_dark
+MRT,MRT.4_1,Dakhlet Nouadhibou,1.0,1.0,0.0,17467.1103,21826,0.0716,0.2474,True,,False,True,desert_dark
+MRT,MRT.5_1,Gorgol,0.998,1.0,0.0,13797.96,16776,0.0055,0.1459,True,,False,True,desert_dark
+MRT,MRT.6_1,Guidimaka,0.8558,1.0,0.0,10696.4458,12966,0.0,0.073,True,,False,True,desert_dark
+MRT,MRT.7_1,Hodh ech Chargui,1.0,1.0,0.0,186466.1446,229434,0.0,0.0066,True,dark;dark_wide,True,True,desert_dark
+MRT,MRT.8_1,Hodh el Gharbi,1.0,1.0,0.0,50266.3438,61288,0.0,0.0149,True,dark_wide,True,True,desert_dark
+MRT,MRT.9_1,Inchiri,1.0,1.0,0.0,44674.3295,55531,0.0,0.0985,True,,False,True,desert_dark
+MRT,MRT.10_1,Nouakchott,1.0,1.0,0.0,1490.8842,1833,2.9327,17.1134,True,,False,False,lit_desert
+MRT,MRT.11_1,Tagant,1.0,1.0,0.0,94895.2606,116963,0.0,0.0031,True,dark;dark_wide,True,True,desert_dark
+MRT,MRT.12_1,Tiris Zemmour,1.0,1.0,0.0,261419.0648,334616,0.0051,0.0214,True,dark_wide,True,True,desert_dark
+MRT,MRT.13_1,Trarza,1.0,1.0,0.0,68794.9302,84486,0.0037,0.0732,True,,False,True,desert_dark
+SDN,SDN.1_1,Al Jazirah,1.0,1.0,0.0,24237.9876,29275,0.8798,5.585,True,,False,False,lit_desert
+SDN,SDN.2_1,Al Qadarif,0.4382,1.0,0.0,64052.4779,77229,0.0435,0.3399,False,,False,True,anomalously_dark
+SDN,SDN.3_1,Blue Nile,0.0,0.999,0.001,37023.5604,44144,0.0128,0.2816,False,,False,True,anomalously_dark
+SDN,SDN.4_1,Central Darfur,0.0171,1.0,0.0,37093.034,44397,0.0006,0.0278,False,dark_wide,True,True,anomalously_dark
+SDN,SDN.5_1,East Darfur,0.3577,1.0,0.0,55146.8069,65699,0.0006,0.0908,False,,False,True,anomalously_dark
+SDN,SDN.6_1,Kassala,1.0,1.0,0.0,45618.3878,55461,0.0912,0.454,True,,False,True,desert_dark
+SDN,SDN.7_1,Khartoum,1.0,1.0,0.0,21142.9785,25686,2.2333,8.4661,True,,False,False,lit_desert
+SDN,SDN.8_1,North Darfur,0.9945,1.0,0.0,317150.1015,386249,0.0028,0.023,True,dark;dark_wide,True,True,desert_dark
+SDN,SDN.9_1,North Kurdufan,0.9978,1.0,0.0,188212.9799,227635,0.0155,0.114,True,,False,True,desert_dark
+SDN,SDN.10_1,Northern,1.0,1.0,0.0,366460.4702,454470,0.0109,0.2423,True,,False,True,desert_dark
+SDN,SDN.11_1,Red Sea,0.9999,1.0,0.0,216548.443,268984,0.0199,0.1311,True,,False,True,desert_dark
+SDN,SDN.12_1,River Nile,1.0,1.0,0.0,126149.6452,155345,0.0612,0.731,True,,False,True,desert_dark
+SDN,SDN.13_1,Sennar,0.3755,1.0,0.0,40334.5628,48377,0.1126,0.8105,False,,False,True,anomalously_dark
+SDN,SDN.14_1,South Darfur,0.1153,1.0,0.0,78156.2402,93076,0.0269,0.1128,False,,False,True,anomalously_dark
+SDN,SDN.15_1,South Kurdufan,0.0588,1.0,0.0,79381.311,94657,0.001,0.087,False,,False,True,anomalously_dark
+SDN,SDN.16_1,West Darfur,0.6254,1.0,0.0,22655.4764,27240,0.0078,0.1764,True,,False,True,desert_dark
+SDN,SDN.17_1,West Kurdufan,0.5195,1.0,0.0,112999.3818,134985,0.0006,0.3202,True,,False,True,desert_dark
+SDN,SDN.18_1,White Nile,0.9478,1.0,0.0,39978.5953,48051,0.1403,1.0092,True,,False,True,desert_dark
+SOM,SOM.1_1,Awdal,0.8794,1.0,0.0,16280.407,19366,0.0,0.1409,True,,False,True,desert_dark
+SOM,SOM.2_1,Bakool,0.9588,1.0,0.0,25713.4177,30161,0.0,0.0,True,dark;dark_wide,True,True,desert_dark
+SOM,SOM.3_1,Banaadir,0.012,1.0,0.0,212.7039,249,1.9764,18.9288,False,,False,False,ordinary
+SOM,SOM.4_1,Bari,1.0,1.0,0.0,68217.2431,81067,0.0014,0.0629,True,,False,True,desert_dark
+SOM,SOM.5_1,Bay,0.1317,1.0,0.0,43919.4722,51436,0.0,0.0171,False,,False,True,anomalously_dark
+SOM,SOM.6_1,Galguduud,1.0,1.0,0.0,49038.0763,57595,0.0,0.007,True,,False,True,desert_dark
+SOM,SOM.7_1,Gedo,0.8183,1.0,0.0,45057.7243,52781,0.0,0.0037,True,dark;dark_wide,True,True,desert_dark
+SOM,SOM.8_1,Hiiraan,1.0,1.0,0.0,34122.7538,40026,0.0,0.0186,True,,False,True,desert_dark
+SOM,SOM.9_1,Jubbada Dhexe,0.0,1.0,0.0,18805.0674,22005,0.0,0.0009,False,dark;dark_wide,True,True,anomalously_dark
+SOM,SOM.10_1,Jubbada Hoose,0.164,1.0,0.0,47719.0153,55829,0.0,0.0217,False,dark_wide,True,True,anomalously_dark
+SOM,SOM.11_1,Mudug,1.0,1.0,0.0,58676.726,69067,0.0,0.0437,True,,False,True,desert_dark
+SOM,SOM.12_1,Nugaal,1.0,1.0,0.0,27701.4527,32726,0.0,0.1069,True,,False,True,desert_dark
+SOM,SOM.13_1,Sanaag,0.9974,1.0,0.0,53858.6291,64015,0.0,0.019,True,,False,True,desert_dark
+SOM,SOM.14_1,Shabeellaha Dhexe,0.7468,1.0,0.0,18486.0176,21656,0.0,0.0266,True,,False,True,desert_dark
+SOM,SOM.15_1,Shabeellaha Hoose,0.0284,1.0,0.0,25683.3703,30064,0.0136,0.2907,False,,False,True,anomalously_dark
+SOM,SOM.16_1,Sool,1.0,1.0,0.0,38067.8443,45072,0.0,0.0344,True,,False,True,desert_dark
+SOM,SOM.17_1,Togdheer,0.9566,1.0,0.0,33979.6902,40246,0.0022,0.1122,True,,False,True,desert_dark
+SOM,SOM.18_1,Woqooyi Galbeed,0.8436,1.0,0.0,28013.6916,33253,0.0048,0.56,True,,False,True,desert_dark
+TUN,TUN.1_1,Ariana,0.0,1.0,0.0,542.1614,790,16.2987,35.3432,False,,False,False,ordinary
+TUN,TUN.2_1,Béja,0.0,0.9629,0.0371,3514.1917,5103,1.0196,6.6674,False,,False,False,ordinary
+TUN,TUN.3_1,Ben Arous (Tunis Sud),0.0,1.0,0.0,695.3293,1009,15.142,33.233,False,,False,False,ordinary
+TUN,TUN.4_1,Bizerte,0.0,0.998,0.002,3384.2813,4939,2.4303,8.3195,False,,False,False,ordinary
+TUN,TUN.5_1,Gabès,1.0,1.0,0.0,7469.3343,10471,1.3236,5.0504,True,wide;dark_wide,True,False,lit_desert
+TUN,TUN.6_1,Gafsa,1.0,1.0,0.0,7392.3668,10438,1.4219,5.6386,True,wide,True,False,lit_desert
+TUN,TUN.7_1,Jendouba,0.0,0.6488,0.3512,3054.3438,4432,1.311,8.9638,False,,False,False,ordinary
+TUN,TUN.8_1,Kairouan,0.6924,1.0,0.0,6619.0771,9483,1.6843,9.1833,True,,False,False,lit_desert
+TUN,TUN.9_1,Kassérine,0.565,1.0,0.0,8053.9055,11484,0.9259,5.8077,True,,False,False,lit_desert
+TUN,TUN.10_1,Kebili,1.0,1.0,0.0,21881.3094,30503,0.343,1.5308,True,narrow;wide;dark_wide,True,True,desert_dark
+TUN,TUN.11_1,Le Kef,0.0,0.9999,0.0001,5038.1896,7256,0.7459,5.1544,False,,False,False,ordinary
+TUN,TUN.12_1,Mahdia,0.6506,1.0,0.0,2931.2974,4185,4.5217,15.0209,True,,False,False,lit_desert
+TUN,TUN.13_1,Manubah,0.0,1.0,0.0,1010.2525,1469,5.9398,19.3945,False,,False,False,ordinary
+TUN,TUN.14_1,Médenine,1.0,1.0,0.0,8644.9265,12033,2.4674,6.1576,True,wide;dark_wide,True,False,lit_desert
+TUN,TUN.15_1,Monastir,0.0267,1.0,0.0,993.3254,1423,15.4884,33.1361,False,,False,False,ordinary
+TUN,TUN.16_1,Nabeul,0.0,1.0,0.0,2857.3865,4149,9.4423,23.2167,False,,False,False,ordinary
+TUN,TUN.17_1,Sfax,0.9986,1.0,0.0,7236.5751,10262,3.6932,12.5295,True,,False,False,lit_desert
+TUN,TUN.18_1,Sidi Bou Zid,0.991,1.0,0.0,7383.0212,10483,0.8421,9.027,True,,False,False,lit_desert
+TUN,TUN.19_1,Siliana,0.0336,1.0,0.0,4695.439,6764,0.5241,3.7848,False,dark_wide,True,False,ordinary
+TUN,TUN.20_1,Sousse,0.181,1.0,0.0,2676.2097,3847,5.2117,19.5371,False,,False,False,ordinary
+TUN,TUN.21_1,Tataouine,1.0,1.0,0.0,39532.0469,54336,0.3924,1.271,True,narrow;wide;dark_wide,True,True,desert_dark
+TUN,TUN.22_1,Tozeur,1.0,1.0,0.0,6142.0004,8625,0.7588,2.6039,True,narrow;wide;dark_wide,True,True,desert_dark
+TUN,TUN.23_1,Tunis,0.0,1.0,0.0,273.6893,398,47.0369,58.7132,False,,False,False,ordinary
+TUN,TUN.24_1,Zaghouan,0.0,1.0,0.0,2854.9484,4127,0.9059,10.534,False,,False,False,ordinary

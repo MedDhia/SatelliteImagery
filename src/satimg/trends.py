@@ -304,8 +304,17 @@ def country_rows(iso3: str, series: Dict[str, Dict[int, float]]) -> List[dict]:
 #: Where the committed CSVs live. Everything below reads only from here.
 RESULTS_DIR = "results"
 
-#: The published table.
+#: The published table, per pool. The Arab League keeps the unprefixed name it
+#: was published under; every other pool is prefixed, so adding one never moves
+#: a file somebody already links to.
 TRENDS_TABLE = "trends_by_country.csv"
+
+
+def trends_table(pool: str) -> str:
+    from . import regions as R
+
+    return TRENDS_TABLE if pool == R.DEFAULT_POOL else f"{pool}_{TRENDS_TABLE}"
+
 
 #: The published figure, relative to the gallery root.
 PACE_FIGURE = "trends/pace_total_vs_intensive.png"
@@ -337,11 +346,23 @@ def country_series(iso3: str, results_dir=RESULTS_DIR) -> Dict[str, Dict[int, fl
     return series
 
 
-def build_rows(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
-    """The published table: one row per country x measure x window."""
+def build_rows(
+    results_dir=RESULTS_DIR,
+    countries: Optional[Sequence[str]] = None,
+    *,
+    pool: Optional[str] = None,
+):
+    """The published table: one row per country x measure x window.
+
+    Rates are fitted per country and never pooled, so which pool is passed
+    changes only *which* countries appear - not any country's numbers.
+    """
     from . import regions as R
 
-    isos = list(countries) if countries is not None else list(R.ARAB_LEAGUE)
+    if countries is not None:
+        isos = list(countries)
+    else:
+        isos = list(R.pool_countries(pool or R.DEFAULT_POOL))
     rows: List[dict] = []
     for iso3 in isos:
         series = country_series(iso3, results_dir)
@@ -351,16 +372,23 @@ def build_rows(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = Non
     return rows
 
 
-def build(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
-    """Write ``results/trends_by_country.csv`` and return (path, rows)."""
+def build(
+    results_dir=RESULTS_DIR,
+    countries: Optional[Sequence[str]] = None,
+    *,
+    pool: Optional[str] = None,
+):
+    """Write the pool's trends table and return (path, rows)."""
     from pathlib import Path
 
+    from . import regions as R
     from .analysis import write_csv
 
-    rows = build_rows(results_dir, countries)
+    pool = pool or R.DEFAULT_POOL
+    rows = build_rows(results_dir, countries, pool=pool)
     if not rows:
         return None, rows
-    path = write_csv(rows, Path(results_dir) / TRENDS_TABLE)
+    path = write_csv(rows, Path(results_dir) / trends_table(pool))
     return path, rows
 
 

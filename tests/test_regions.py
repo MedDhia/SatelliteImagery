@@ -124,8 +124,24 @@ def test_djibouti_admin_2_falls_back_rather_than_inventing_a_word():
 
 
 def test_countries_without_gadm_admin_2():
-    # Checked against the GeoPackage, not assumed.
-    assert set(R.LEVELS_AVAILABLE) == {"LBY", "BHR", "COM", "KWT", "QAT"}
+    # Checked against the GeoPackage, not assumed: a query over ADM_2's GID_0
+    # column found no rows for any of these. Five are African, which is why the
+    # set grew when the continent was added.
+    assert set(R.LEVELS_AVAILABLE) == {
+        "BHR",
+        "KWT",
+        "QAT",  # Gulf
+        "LBY",
+        "COM",  # Arab League and African
+        "CPV",
+        "ESH",
+        "LSO",
+        "MUS",
+        "SYC",  # African
+    }
+    for iso3 in R.LEVELS_AVAILABLE:
+        assert R.available_levels(iso3) == (0, 1), iso3
+        assert R.has_level(iso3, 2) is False, iso3
 
 
 def test_small_countries_get_no_derived_scope():
@@ -227,3 +243,81 @@ def test_thailand_has_no_exclusion_scope_and_that_is_deliberate():
     """
     assert list(R.scope_keys("THA")) == [R.SCOPE_ALL]
     assert R.desert_scopes("THA") == {}
+
+
+# --------------------------------------------------------------------------- #
+# pools
+# --------------------------------------------------------------------------- #
+def test_every_pool_is_a_subset_of_the_analysed_countries():
+    for name, members in R.POOLS.items():
+        assert set(members) <= set(R.COUNTRIES), name
+        assert len(members) == len(set(members)), name
+
+
+def test_pools_may_overlap_and_africa_shares_ten_with_the_arab_league():
+    shared = set(R.AFRICA) & set(R.ARAB_LEAGUE)
+    assert len(shared) == 10
+    assert {
+        "DZA",
+        "EGY",
+        "LBY",
+        "MAR",
+        "TUN",
+        "SDN",
+        "SOM",
+        "DJI",
+        "COM",
+        "MRT",
+    } == shared
+
+
+def test_the_default_pool_is_the_arab_league():
+    assert R.DEFAULT_POOL == "arab-league"
+    assert R.pool_countries(R.DEFAULT_POOL) == R.ARAB_LEAGUE
+
+
+def test_an_unknown_pool_raises_rather_than_comparing_nothing():
+    with pytest.raises(KeyError, match="unknown pool"):
+        R.pool_countries("atlantis")
+
+
+def test_each_pool_writes_its_own_table_and_the_default_keeps_its_path():
+    from satimg import aridity as A
+    from satimg import trends as T
+
+    # The Arab League files were published first and are linked from the docs;
+    # adding a pool must not move them.
+    assert T.trends_table(R.DEFAULT_POOL) == "trends_by_country.csv"
+    assert A.vs_light_table(R.DEFAULT_POOL) == "aridity_vs_light.csv"
+    names = {T.trends_table(p) for p in R.POOLS} | {
+        A.vs_light_table(p) for p in R.POOLS
+    }
+    assert len(names) == 2 * len(R.POOLS), "two pools must not share a filename"
+
+
+def test_africa_covers_the_continent_and_western_sahara_is_named():
+    assert len(R.AFRICA) == 55
+    assert "ESH" in R.AFRICA
+    assert R.COUNTRY_NAMES["ESH"] == "Western Sahara"
+    # GADM 4.1 still says Swaziland; the current name is used for display.
+    assert R.COUNTRY_NAMES["SWZ"] == "Eswatini"
+
+
+def test_every_analysed_country_has_a_name_and_level_titles():
+    for iso3 in R.COUNTRIES:
+        assert R.COUNTRY_NAMES.get(iso3), iso3
+        for level in R.available_levels(iso3):
+            assert R.level_title(iso3, level).strip(), (iso3, level)
+
+
+def test_gadm_declining_to_name_a_level_falls_back_rather_than_inventing():
+    """GADM writes "NA", or an alternation like "Municpality|City Council".
+
+    Both are GADM declining to give one word - including its own typo - so both
+    fall back to the generic title instead of printing it as the country's own.
+    """
+    for iso3, level in (("MDG", 1), ("MDG", 2), ("AGO", 2), ("GNQ", 2), ("STP", 2)):
+        assert R.level_title(iso3, level) == R.GENERIC_LEVEL_TITLES[level], (
+            iso3,
+            level,
+        )

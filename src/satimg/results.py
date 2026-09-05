@@ -62,31 +62,9 @@ class ResultTable:
 #: Shared column glosses. Kept in one place because the same words mean the
 #: same thing in every table and every country, and a data dictionary that
 #: contradicts itself is worse than none.
-COUNTRY_NAMES = {
-    "MAR": "Morocco",
-    "DZA": "Algeria",
-    "TUN": "Tunisia",
-    "LBY": "Libya",
-    "MRT": "Mauritania",
-    "EGY": "Egypt",
-    "SDN": "Sudan",
-    "SAU": "Saudi Arabia",
-    "YEM": "Yemen",
-    "OMN": "Oman",
-    "ARE": "United Arab Emirates",
-    "QAT": "Qatar",
-    "BHR": "Bahrain",
-    "KWT": "Kuwait",
-    "IRQ": "Iraq",
-    "SYR": "Syria",
-    "LBN": "Lebanon",
-    "JOR": "Jordan",
-    "PSE": "Palestine",
-    "SOM": "Somalia",
-    "DJI": "Djibouti",
-    "COM": "Comoros",
-    "THA": "Thailand",
-}
+#: Re-exported so the gallery, the catalogue and the docs cannot disagree
+#: about what a country is called.
+COUNTRY_NAMES = R.COUNTRY_NAMES
 
 _YEAR = "calendar year, 1992–2022"
 _ZEROS = (
@@ -243,6 +221,89 @@ def _aridity_columns(iso3: str):
 
 #: Tables computed *from* the published per-country CSVs rather than from the
 #: rasters, and so written straight into ``results/`` by their own commands.
+#: Shared by every pool's copy of these two tables, so the data dictionary
+#: cannot drift between them.
+CROSS_ARIDITY_COLUMNS = (
+    ("iso3", "ISO 3166-1 alpha-3 country code"),
+    ("gid", "GADM identifier of the unit"),
+    ("name", "GADM name of the unit"),
+    ("desert_share", "area share that is hyper-arid or arid"),
+    ("dryland_share", "area share below aridity index 0.65"),
+    ("humid_share", "area share at or above 0.65"),
+    ("area_km2", "unit area on the WGS 84 ellipsoid"),
+    ("pixels_classified", "aridity cells carrying a real value"),
+    (
+        "mean_dn_1992",
+        "mean DN over the unit's land pixels in 1992 — the zonal "
+        "tables' `mean_dn`, **not** a density: `density_sol_per_km2` "
+        "elsewhere in `results/` is that, and the two differ by a few "
+        "percent on a 1 km grid",
+    ),
+    ("mean_dn_2022", "the same for 2022; the column darkness is cut on"),
+    ("majority_arid", "`desert_share` > 0.5"),
+    (
+        "light_scopes",
+        "the light-derived exclusion scopes this unit belongs to, if "
+        "any; blank when the light rule never selected it",
+    ),
+    ("in_light_scope", "whether `light_scopes` is non-empty"),
+    (
+        "dark_2022",
+        "whether `mean_dn_2022` is strictly below the cross-country "
+        "median — the cut is a choice, and the set it produces is "
+        "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
+        "the strict `<` is load-bearing",
+    ),
+    (
+        "cell",
+        "which of the four aridity × darkness cells the unit falls in",
+    ),
+)
+
+CROSS_TRENDS_COLUMNS = (
+    ("iso3", "ISO 3166-1 alpha-3 country code"),
+    (
+        "measure",
+        "`total` (Theil T over all land pixels), `intensive` (Theil T "
+        "over lit pixels only), `extensive` (share of land pixels "
+        "lit), `between_share` (share of Theil T lying between "
+        "admin-1 units)",
+    ),
+    ("measure_note", "the same, spelled out"),
+    (
+        "window",
+        "`full` 1992–2022, `dmsp` 1992–2013, `viirs` 2014–2022; the "
+        "two eras are not comparable to each other",
+    ),
+    ("first_year", "first year with a usable value in the window"),
+    ("last_year", "last such year"),
+    ("n_years", "usable observations behind the fit"),
+    (
+        "percent_per_year",
+        "the fitted slope of ln(value) against year, as a percentage",
+    ),
+    (
+        "r_squared",
+        "goodness of the straight-line fit; `nan` for a series with no "
+        "variation at all, which has no slope to explain",
+    ),
+    (
+        "half_life_years",
+        "ln(2) ÷ |rate| — years to halve; `nan` for a series that is "
+        "not falling, because a rising series has no half-life",
+    ),
+    ("direction", "`falling`, `rising`, `flat` or `undefined`"),
+    (
+        "monotone",
+        "whether `r_squared` clears the threshold; `False` means one "
+        "slope does not describe the series and the rate is a "
+        "direction, not a pace",
+    ),
+    ("trajectory", "the country's typology label, assigned by rule"),
+    ("trajectory_reason", "which rule assigned it, in one clause"),
+)
+
+
 CROSS_TABLES = (
     ResultTable(
         key="aridity-vs-light",
@@ -256,42 +317,35 @@ CROSS_TABLES = (
             "what this repository previously asserted about which dark regions "
             "are desert."
         ),
-        columns=(
-            ("iso3", "ISO 3166-1 alpha-3 country code"),
-            ("gid", "GADM identifier of the unit"),
-            ("name", "GADM name of the unit"),
-            ("desert_share", "area share that is hyper-arid or arid"),
-            ("dryland_share", "area share below aridity index 0.65"),
-            ("humid_share", "area share at or above 0.65"),
-            ("area_km2", "unit area on the WGS 84 ellipsoid"),
-            ("pixels_classified", "aridity cells carrying a real value"),
-            (
-                "mean_dn_1992",
-                "mean DN over the unit's land pixels in 1992 — the zonal "
-                "tables' `mean_dn`, **not** a density: `density_sol_per_km2` "
-                "elsewhere in `results/` is that, and the two differ by a few "
-                "percent on a 1 km grid",
-            ),
-            ("mean_dn_2022", "the same for 2022; the column darkness is cut on"),
-            ("majority_arid", "`desert_share` > 0.5"),
-            (
-                "light_scopes",
-                "the light-derived exclusion scopes this unit belongs to, if "
-                "any; blank when the light rule never selected it",
-            ),
-            ("in_light_scope", "whether `light_scopes` is non-empty"),
-            (
-                "dark_2022",
-                "whether `mean_dn_2022` is strictly below the cross-country "
-                "median — the cut is a choice, and the set it produces is "
-                "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
-                "the strict `<` is load-bearing",
-            ),
-            (
-                "cell",
-                "which of the four aridity × darkness cells the unit falls in",
-            ),
+        columns=CROSS_ARIDITY_COLUMNS,
+    ),
+    ResultTable(
+        key="africa-aridity-vs-light",
+        source="",
+        dest="africa_aridity_vs_light.csv",
+        title="Aridity against darkness, the Africa pool",
+        description=(
+            "The same join as `aridity_vs_light.csv`, pooled over Africa "
+            "instead of the Arab League. ⚠️ **`dark_2022` is not comparable "
+            "between the two files**: each cuts at the median `mean_dn_2022` "
+            "of its own pool, and those medians differ. A unit in one of the "
+            "ten countries that sit in both pools can be dark in one file and "
+            "lit in the other, correctly."
         ),
+        columns=CROSS_ARIDITY_COLUMNS,
+    ),
+    ResultTable(
+        key="africa-trends-by-country",
+        source="",
+        dest="africa_trends_by_country.csv",
+        title="Pace of inequality change, the Africa pool",
+        description=(
+            "The same fits as `trends_by_country.csv`, over the African "
+            "countries. Rates are fitted per country and never pooled, so a "
+            "country appearing in both files carries identical numbers in "
+            "each - only the set of neighbours differs."
+        ),
+        columns=CROSS_TRENDS_COLUMNS,
     ),
     ResultTable(
         key="trends-by-country",
@@ -307,48 +361,7 @@ CROSS_TABLES = (
             "not be compared. See [`../docs/arab-world.md`]"
             "(../docs/arab-world.md)."
         ),
-        columns=(
-            ("iso3", "ISO 3166-1 alpha-3 country code"),
-            (
-                "measure",
-                "`total` (Theil T over all land pixels), `intensive` (Theil T "
-                "over lit pixels only), `extensive` (share of land pixels "
-                "lit), `between_share` (share of Theil T lying between "
-                "admin-1 units)",
-            ),
-            ("measure_note", "the same, spelled out"),
-            (
-                "window",
-                "`full` 1992–2022, `dmsp` 1992–2013, `viirs` 2014–2022; the "
-                "two eras are not comparable to each other",
-            ),
-            ("first_year", "first year with a usable value in the window"),
-            ("last_year", "last such year"),
-            ("n_years", "usable observations behind the fit"),
-            (
-                "percent_per_year",
-                "the fitted slope of ln(value) against year, as a percentage",
-            ),
-            (
-                "r_squared",
-                "goodness of the straight-line fit; `nan` for a series with no "
-                "variation at all, which has no slope to explain",
-            ),
-            (
-                "half_life_years",
-                "ln(2) ÷ |rate| — years to halve; `nan` for a series that is "
-                "not falling, because a rising series has no half-life",
-            ),
-            ("direction", "`falling`, `rising`, `flat` or `undefined`"),
-            (
-                "monotone",
-                "whether `r_squared` clears the threshold; `False` means one "
-                "slope does not describe the series and the rate is a "
-                "direction, not a pace",
-            ),
-            ("trajectory", "the country's typology label, assigned by rule"),
-            ("trajectory_reason", "which rule assigned it, in one clause"),
-        ),
+        columns=CROSS_TRENDS_COLUMNS,
     ),
 )
 
