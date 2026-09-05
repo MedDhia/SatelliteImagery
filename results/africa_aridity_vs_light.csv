@@ -1,11 +1,29 @@
 iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+AGO,AGO.1_1,Bengo,0.0,0.9002,0.0998,34350.6749,40675,0.0005,0.7298,False,,False,False,ordinary
+AGO,AGO.2_1,Benguela,0.0292,0.5736,0.4264,39487.6784,47368,0.0694,0.8043,False,,False,False,ordinary
+AGO,AGO.3_1,Bié,0.0,0.0041,0.9959,72040.1602,86223,0.0,0.1756,False,,False,True,anomalously_dark
+AGO,AGO.4_1,Cabinda,0.0,0.0,1.0,7041.5935,8269,2.1488,3.634,False,,False,False,ordinary
+AGO,AGO.5_1,Cuando Cubango,0.0,0.9529,0.0471,199552.2602,242795,0.0016,0.0524,False,,False,True,anomalously_dark
+AGO,AGO.6_1,Cuanza Norte,0.0,0.1131,0.8869,23833.0489,28213,0.0061,0.459,False,,False,True,anomalously_dark
+AGO,AGO.7_1,Cuanza Sul,0.0,0.22,0.78,55257.7042,65788,0.0042,0.3388,False,,False,True,anomalously_dark
+AGO,AGO.8_1,Cunene,0.0523,1.0,0.0,77292.642,94210,0.0003,0.1678,False,,False,True,anomalously_dark
+AGO,AGO.9_1,Huambo,0.0,0.0,1.0,33137.4784,39695,0.0,0.6739,False,,False,False,ordinary
+AGO,AGO.10_1,Huíla,0.0,0.7215,0.2785,78698.287,95125,0.0235,0.4178,False,,False,True,anomalously_dark
+AGO,AGO.11_1,Luanda,0.0,1.0,0.0,2435.8018,2884,5.1095,37.091,False,,False,False,ordinary
+AGO,AGO.12_1,Lunda Norte,0.0,0.0,1.0,107784.6915,127520,0.0048,0.0977,False,,False,True,anomalously_dark
+AGO,AGO.13_1,Lunda Sul,0.0,0.0,1.0,77904.4735,92563,0.0014,0.1606,False,,False,True,anomalously_dark
+AGO,AGO.14_1,Malanje,0.0,0.0,1.0,82164.4083,97437,0.0023,0.1603,False,,False,True,anomalously_dark
+AGO,AGO.15_1,Moxico,0.0,0.2097,0.7903,199423.2995,239204,0.0,0.049,False,,False,True,anomalously_dark
+AGO,AGO.16_1,Namibe,0.7046,0.9985,0.0015,57882.7945,70212,0.0177,0.1852,True,,False,True,desert_dark
+AGO,AGO.17_1,Uíge,0.0,0.0178,0.9822,62021.5523,73095,0.0007,0.1691,False,,False,True,anomalously_dark
+AGO,AGO.18_1,Zaire,0.0,0.1916,0.8084,36571.5739,43064,0.0623,0.638,False,,False,False,ordinary
 BDI,BDI.1_1,Bubanza,0.0,0.3463,0.6537,1052.4381,1233,0.0,0.3752,False,,False,True,anomalously_dark
 BDI,BDI.2_1,Bujumbura Mairie,0.0,0.6483,0.3517,201.3895,236,16.0808,32.3857,False,,False,False,ordinary
 BDI,BDI.3_1,Bujumbura Rural,0.0,0.2133,0.7867,1563.9956,1833,0.075,2.3013,False,,False,False,ordinary
 BDI,BDI.4_1,Bururi,0.0,0.0,1.0,3089.1157,3622,0.0,0.0794,False,,False,True,anomalously_dark
 BDI,BDI.5_1,Cankuzo,0.0,0.0,1.0,1890.6012,2215,0.0,0.0228,False,,False,True,anomalously_dark
 BDI,BDI.6_1,Cibitoke,0.0,0.064,0.936,1560.7251,1828,0.0,0.1951,False,,False,True,anomalously_dark
-BDI,BDI.7_1,Gitega,0.0,0.0,1.0,1901.0354,2228,0.028,0.6197,False,,False,True,anomalously_dark
+BDI,BDI.7_1,Gitega,0.0,0.0,1.0,1901.0354,2228,0.028,0.6197,False,,False,False,ordinary
 BDI,BDI.8_1,Karuzi,0.0,0.0,1.0,1402.3788,1643,0.0,0.0028,False,,False,True,anomalously_dark
 BDI,BDI.9_1,Kayanza,0.0,0.0,1.0,1179.744,1382,0.0,0.1808,False,,False,True,anomalously_dark
 BDI,BDI.10_1,Kirundo,0.0,0.013,0.987,1772.8529,2076,0.0,0.1564,False,,False,True,anomalously_dark
@@ -13,7 +31,7 @@ BDI,BDI.11_1,Makamba,0.0,0.0,1.0,2541.3346,2981,0.0,0.0266,False,,False,True,ano
 BDI,BDI.12_1,Muramvya,0.0,0.0,1.0,667.3901,782,0.0,0.0513,False,,False,True,anomalously_dark
 BDI,BDI.13_1,Muyinga,0.0,0.0,1.0,1787.8853,2094,0.0,0.2711,False,,False,True,anomalously_dark
 BDI,BDI.14_1,Mwaro,0.0,0.0,1.0,818.269,959,0.0,0.0242,False,,False,True,anomalously_dark
-BDI,BDI.15_1,Ngozi,0.0,0.0,1.0,1408.685,1650,0.0,0.5741,False,,False,True,anomalously_dark
+BDI,BDI.15_1,Ngozi,0.0,0.0,1.0,1408.685,1650,0.0,0.5741,False,,False,False,ordinary
 BDI,BDI.16_1,Rutana,0.0,0.0,1.0,1848.2197,2167,0.0,0.1285,False,,False,True,anomalously_dark
 BDI,BDI.17_1,Ruyigi,0.0,0.0,1.0,2249.2466,2636,0.0,0.1025,False,,False,True,anomalously_dark
 BEN,BEN.1_1,Alibori,0.0,1.0,0.0,26857.8409,32029,0.016,0.1022,False,,False,True,anomalously_dark
@@ -31,12 +49,12 @@ BEN,BEN.12_1,Zou,0.0,0.0,1.0,5225.0727,6161,0.1717,1.3795,False,,False,False,ord
 BFA,BFA.1_1,Boucle du Mouhoun,0.0,1.0,0.0,34535.3401,41365,0.0191,0.1843,False,,False,True,anomalously_dark
 BFA,BFA.2_1,Cascades,0.0,0.9784,0.0216,18596.3485,22106,0.0117,0.2292,False,,False,True,anomalously_dark
 BFA,BFA.7_1,Centre,0.0,1.0,0.0,2866.1465,3430,2.2841,13.2077,False,,False,False,ordinary
-BFA,BFA.3_1,Centre-Est,0.0,1.0,0.0,14635.5428,17470,0.0163,0.5114,False,,False,True,anomalously_dark
+BFA,BFA.3_1,Centre-Est,0.0,1.0,0.0,14635.5428,17470,0.0163,0.5114,False,,False,False,ordinary
 BFA,BFA.4_1,Centre-Nord,0.0349,1.0,0.0,19673.1342,23630,0.0071,0.2893,False,,False,True,anomalously_dark
 BFA,BFA.5_1,Centre-Ouest,0.0,1.0,0.0,21392.4847,25554,0.0303,0.2816,False,,False,True,anomalously_dark
 BFA,BFA.6_1,Centre-Sud,0.0,1.0,0.0,11459.7777,13678,0.0005,0.3445,False,,False,True,anomalously_dark
 BFA,BFA.8_1,Est,0.0,1.0,0.0,46546.0269,55686,0.0,0.0731,False,,False,True,anomalously_dark
-BFA,BFA.9_1,Haut-Bassins,0.0,1.0,0.0,25619.6792,30556,0.09,0.6137,False,,False,True,anomalously_dark
+BFA,BFA.9_1,Haut-Bassins,0.0,1.0,0.0,25619.6792,30556,0.09,0.6137,False,,False,False,ordinary
 BFA,BFA.10_1,Nord,0.0848,1.0,0.0,16425.042,19744,0.0245,0.3392,False,,False,True,anomalously_dark
 BFA,BFA.11_1,Plateau-Central,0.0,1.0,0.0,8605.9956,10304,0.0,0.9127,False,,False,False,ordinary
 BFA,BFA.12_1,Sahel,0.7816,1.0,0.0,36160.7568,43593,0.0024,0.0895,True,,False,True,desert_dark
@@ -55,7 +73,7 @@ BWA,BWA.11_1,North-East,0.0,1.0,0.0,5255.4524,6575,0.1722,2.7708,False,,False,Fa
 BWA,BWA.12_1,North-West,0.5539,1.0,0.0,111260.0328,137979,0.0065,0.083,True,,False,True,desert_dark
 BWA,BWA.13_1,Selibe Phikwe,0.8793,1.0,0.0,46.0609,58,13.8958,31.8013,True,,False,False,lit_desert
 BWA,BWA.14_1,South-East,0.0,1.0,0.0,1694.0553,2181,0.6807,6.579,False,,False,False,ordinary
-BWA,BWA.15_1,Southern,0.668,1.0,0.0,27360.8555,35213,0.0702,0.503,True,,False,True,desert_dark
+BWA,BWA.15_1,Southern,0.668,1.0,0.0,27360.8555,35213,0.0702,0.503,True,,False,False,lit_desert
 BWA,BWA.16_1,Sowa,1.0,1.0,0.0,4.8099,6,17.6,28.0,True,,False,False,lit_desert
 CAF,CAF.1_1,Bamingui-Bangoran,0.0,0.7044,0.2956,58482.2344,69146,0.0,0.0035,False,,False,True,anomalously_dark
 CAF,CAF.2_1,Bangui,0.0,0.0,1.0,92.9075,109,15.2308,22.8395,False,,False,False,ordinary
@@ -89,7 +107,7 @@ CIV,CIV.12_1,Woroba,0.0,0.0016,0.9984,31491.6569,37228,0.0238,1.1106,False,,Fals
 CIV,CIV.13_1,Yamoussoukro,0.0,0.0,1.0,2060.9668,2428,1.8151,10.1614,False,,False,False,ordinary
 CIV,CIV.14_1,Zanzan,0.0,0.3673,0.6327,37872.4604,44808,0.0161,0.8849,False,,False,False,ordinary
 CMR,CMR.1_1,Adamaoua,0.0,0.0,1.0,63995.5091,75392,0.0038,0.063,False,,False,True,anomalously_dark
-CMR,CMR.2_1,Centre,0.0,0.0,1.0,68814.1993,80771,0.1441,0.4952,False,,False,True,anomalously_dark
+CMR,CMR.2_1,Centre,0.0,0.0,1.0,68814.1993,80771,0.1441,0.4952,False,,False,False,ordinary
 CMR,CMR.3_1,Est,0.0,0.0,1.0,108911.8238,127708,0.0043,0.035,False,,False,True,anomalously_dark
 CMR,CMR.4_1,Extrême-Nord,0.1649,1.0,0.0,34296.7797,40869,0.0594,0.3116,False,,False,True,anomalously_dark
 CMR,CMR.5_1,Littoral,0.0,0.0,1.0,20125.2331,23608,0.5611,1.8172,False,,False,False,ordinary
@@ -98,6 +116,32 @@ CMR,CMR.6_1,Nord-Ouest,0.0,0.0,1.0,17468.8432,20560,0.0091,0.1489,False,,False,T
 CMR,CMR.8_1,Ouest,0.0,0.0,1.0,13886.6584,16319,0.0227,0.9651,False,,False,False,ordinary
 CMR,CMR.10_1,Sud,0.0,0.0,1.0,47211.1365,55294,0.0153,0.1353,False,,False,True,anomalously_dark
 CMR,CMR.9_1,Sud-Ouest,0.0,0.0,1.0,24918.3781,29270,0.1091,0.3129,False,,False,True,anomalously_dark
+COD,COD.1_1,Bas-Uele,0.0,0.0,1.0,148603.0273,174202,0.0,0.0002,False,,False,True,anomalously_dark
+COD,COD.2_1,Équateur,0.0,0.0,1.0,102012.1578,119359,0.0,0.0046,False,,False,True,anomalously_dark
+COD,COD.3_1,Haut-Katanga,0.0,0.0595,0.9405,124259.7615,147810,0.0812,0.3731,False,,False,True,anomalously_dark
+COD,COD.4_1,Haut-Lomami,0.0,0.0,1.0,109077.1868,128915,0.0,0.0086,False,,False,True,anomalously_dark
+COD,COD.5_1,Haut-Uele,0.0,0.0,1.0,91206.6819,106887,0.0,0.0303,False,,False,True,anomalously_dark
+COD,COD.6_1,Ituri,0.0,0.0341,0.9659,64921.3807,75989,0.0032,0.0304,False,,False,True,anomalously_dark
+COD,COD.9_1,Kasaï,0.0,0.0,1.0,96596.0333,113444,0.0004,0.0062,False,,False,True,anomalously_dark
+COD,COD.7_1,Kasaï-Central,0.0,0.0,1.0,57072.2697,67161,0.0009,0.0035,False,,False,True,anomalously_dark
+COD,COD.8_1,Kasaï-Oriental,0.0,0.0,1.0,10194.8766,11994,0.0195,0.1893,False,,False,True,anomalously_dark
+COD,COD.10_1,Kinshasa,0.0,0.0,1.0,10804.5496,12677,1.6295,3.3262,False,,False,False,ordinary
+COD,COD.11_1,Kongo-Central,0.0,0.0,1.0,53819.1609,63225,0.1787,0.6772,False,,False,False,ordinary
+COD,COD.12_1,Kwango,0.0,0.0,1.0,89995.6466,105947,0.0,0.0,False,,False,True,anomalously_dark
+COD,COD.13_1,Kwilu,0.0,0.0,1.0,79176.228,92948,0.0,0.0266,False,,False,True,anomalously_dark
+COD,COD.14_1,Lomami,0.0,0.0,1.0,53973.8838,63511,0.0,0.0,False,,False,True,anomalously_dark
+COD,COD.15_1,Lualaba,0.0,0.0,1.0,121789.9824,144567,0.0248,0.2963,False,,False,True,anomalously_dark
+COD,COD.16_1,Mai-Ndombe,0.0,0.0,1.0,128459.9938,150456,0.0,0.0052,False,,False,True,anomalously_dark
+COD,COD.17_1,Maniema,0.0,0.0,1.0,127596.6819,149522,0.0,0.0011,False,,False,True,anomalously_dark
+COD,COD.18_1,Mongala,0.0,0.0,1.0,56151.7529,65736,0.0,0.0094,False,,False,True,anomalously_dark
+COD,COD.19_1,Nord-Kivu,0.0,0.0084,0.9916,58700.2113,68681,0.0103,0.1435,False,,False,True,anomalously_dark
+COD,COD.20_1,Nord-Ubangi,0.0,0.0,1.0,54202.3058,63553,0.0147,0.007,False,,False,True,anomalously_dark
+COD,COD.21_1,Sankuru,0.0,0.0,1.0,108230.0415,126861,0.0,0.0,False,,False,True,anomalously_dark
+COD,COD.22_1,Sud-Kivu,0.0,0.0073,0.9927,64129.061,75145,0.0216,0.0679,False,,False,True,anomalously_dark
+COD,COD.23_1,Sud-Ubangi,0.0,0.0,1.0,52027.5354,60956,0.0008,0.0097,False,,False,True,anomalously_dark
+COD,COD.24_1,Tanganyika,0.0,0.1288,0.8712,132434.7178,155945,0.0025,0.0159,False,,False,True,anomalously_dark
+COD,COD.25_1,Tshopo,0.0,0.0,1.0,200470.7242,234571,0.0058,0.0083,False,,False,True,anomalously_dark
+COD,COD.26_1,Tshuapa,0.0,0.0,1.0,132931.0294,155544,0.0,0.0,False,,False,True,anomalously_dark
 COG,COG.1_1,Bouenza,0.0,0.0,1.0,12529.4583,14694,0.0144,0.3246,False,,False,True,anomalously_dark
 COG,COG.2_1,Brazzaville,0.0,0.0,1.0,100.594,118,56.2475,60.2029,False,,False,False,ordinary
 COG,COG.4_1,Cuvette,0.0,0.0,1.0,44852.9153,52477,0.0066,0.1398,False,,False,True,anomalously_dark
@@ -135,7 +179,7 @@ CPV,CPV.19_1,São Salvador do Mundo,1.0,1.0,0.0,32.2168,39,0.5806,14.828,True,,F
 CPV,CPV.20_1,São Vicente,1.0,1.0,0.0,274.4007,335,1.7978,10.3783,True,,False,False,lit_desert
 CPV,CPV.21_1,Tarrafal,1.0,1.0,0.0,120.5091,146,0.0,6.6578,True,,False,False,lit_desert
 CPV,CPV.22_1,Tarrafal de São Nicolau,1.0,1.0,0.0,114.8131,140,0.2393,2.4915,True,,False,False,lit_desert
-DJI,DJI.1_2,Ali Sabieh,1.0,1.0,0.0,2328.7512,2776,0.0723,0.5877,True,,False,True,desert_dark
+DJI,DJI.1_2,Ali Sabieh,1.0,1.0,0.0,2328.7512,2776,0.0723,0.5877,True,,False,False,lit_desert
 DJI,DJI.6_1,Arta,1.0,1.0,0.0,2155.9817,2572,0.1358,1.4584,True,,False,False,lit_desert
 DJI,DJI.2_1,Dikhil,1.0,1.0,0.0,6702.0389,7993,0.0262,0.084,True,,False,True,desert_dark
 DJI,DJI.3_1,Djiboutii,1.0,1.0,0.0,184.3382,220,10.449,29.5731,True,,False,False,lit_desert
@@ -224,7 +268,7 @@ ERI,ERI.1_1,Maekel,0.0,1.0,0.0,1226.9882,1487,1.2776,3.9104,False,,False,False,o
 ERI,ERI.2_1,Semenawi Keyih Bahri,0.5138,1.0,0.0,34007.5108,41381,0.0036,0.0429,True,,False,True,desert_dark
 ESH,ESH.1_1,Boujdour,1.0,1.0,0.0,43361.0077,55917,0.0069,0.0673,True,,False,True,desert_dark
 ESH,ESH.2_1,Es Semara,1.0,1.0,0.0,66845.5644,87383,0.0217,0.0541,True,,False,True,desert_dark
-ESH,ESH.3_1,Laayoune,1.0,1.0,0.0,30424.0816,39700,0.1073,0.5591,True,,False,True,desert_dark
+ESH,ESH.3_1,Laayoune,1.0,1.0,0.0,30424.0816,39700,0.1073,0.5591,True,,False,False,lit_desert
 ESH,ESH.4_1,Oued el Dahab,1.0,1.0,0.0,126600.0005,160437,0.0094,0.0442,True,,False,True,desert_dark
 ETH,ETH.1_1,Addis Abeba,0.0,0.0767,0.9233,539.6957,639,19.7992,50.0275,False,,False,False,ordinary
 ETH,ETH.2_1,Afar,0.6229,1.0,0.0,94455.553,112948,0.0063,0.0585,True,,False,True,desert_dark
@@ -273,7 +317,7 @@ GIN,GIN.8_1,Nzérékoré,0.0,0.0,1.0,36512.9383,43172,0.0008,0.0642,False,,False
 GMB,GMB.1_1,Banjul,0.0,1.0,0.0,74.876,90,19.5205,38.0459,False,,False,False,ordinary
 GMB,GMB.2_1,Lower River,0.0,1.0,0.0,1497.0764,1799,0.0,0.383,False,,False,True,anomalously_dark
 GMB,GMB.3_1,Maccarthy Island,0.0,1.0,0.0,3027.2882,3641,0.0,0.0453,False,,False,True,anomalously_dark
-GMB,GMB.4_1,North Bank,0.0,1.0,0.0,2264.0507,2722,0.0085,0.5461,False,,False,True,anomalously_dark
+GMB,GMB.4_1,North Bank,0.0,1.0,0.0,2264.0507,2722,0.0085,0.5461,False,,False,False,ordinary
 GMB,GMB.5_1,Upper River,0.0,1.0,0.0,2081.1913,2501,0.0,0.3524,False,,False,True,anomalously_dark
 GMB,GMB.6_1,Western,0.0,1.0,0.0,1721.8992,2068,0.3109,5.7533,False,,False,False,ordinary
 GNB,GNB.1_1,Bafatá,0.0,0.0113,0.9887,5855.9831,7004,0.0,0.0,False,,False,True,anomalously_dark
@@ -287,7 +331,7 @@ GNB,GNB.8_1,Quinara,0.0,0.0,1.0,2969.3012,3545,0.0,0.0,False,,False,True,anomalo
 GNB,GNB.9_1,Tombali,0.0,0.0,1.0,3421.3598,4080,0.0,0.0,False,,False,True,anomalously_dark
 GNQ,GNQ.1_1,Annobón,0.0,0.0,1.0,21.3634,25,0.0,0.0,False,,False,True,anomalously_dark
 GNQ,GNQ.2_1,Bioko Norte,0.0,0.0,1.0,588.6291,690,11.1966,18.172,False,,False,False,ordinary
-GNQ,GNQ.3_1,Bioko Sur,0.0,0.0,1.0,1362.7446,1597,0.244,0.5998,False,,False,True,anomalously_dark
+GNQ,GNQ.3_1,Bioko Sur,0.0,0.0,1.0,1362.7446,1597,0.244,0.5998,False,,False,False,ordinary
 GNQ,GNQ.4_1,Centro Sur,0.0,0.0,1.0,8397.2426,9827,0.0,0.3239,False,,False,True,anomalously_dark
 GNQ,GNQ.5_1,Kié-Ntem,0.0,0.0,1.0,3484.634,4079,0.0,0.4331,False,,False,True,anomalously_dark
 GNQ,GNQ.6_1,Litoral,0.0,0.0,1.0,7216.1801,8445,0.0119,1.4674,False,,False,False,ordinary
@@ -296,7 +340,7 @@ KEN,KEN.1_1,Baringo,0.0,0.828,0.172,10830.9876,12672,0.002,0.1976,False,,False,T
 KEN,KEN.2_1,Bomet,0.0,0.0,1.0,2381.2726,2786,0.0353,2.4608,False,,False,False,ordinary
 KEN,KEN.3_1,Bungoma,0.0,0.0,1.0,3568.4663,4175,0.1655,3.2689,False,,False,False,ordinary
 KEN,KEN.4_1,Busia,0.0,0.084,0.916,1801.8599,2108,0.041,2.1916,False,,False,False,ordinary
-KEN,KEN.5_1,Elgeyo-Marakwet,0.0,0.3123,0.6877,2807.7018,3285,0.0064,0.5466,False,,False,True,anomalously_dark
+KEN,KEN.5_1,Elgeyo-Marakwet,0.0,0.3123,0.6877,2807.7018,3285,0.0064,0.5466,False,,False,False,ordinary
 KEN,KEN.6_1,Embu,0.0,0.654,0.346,2900.1622,3393,0.1836,1.8714,False,,False,False,ordinary
 KEN,KEN.7_1,Garissa,0.5578,1.0,0.0,43856.3321,51312,0.0046,0.0811,True,,False,True,desert_dark
 KEN,KEN.8_1,Homa Bay,0.0,0.1142,0.8858,4685.7823,5482,0.0096,1.3695,False,,False,False,ordinary
@@ -312,7 +356,7 @@ KEN,KEN.17_1,Kisumu,0.0,0.0151,0.9849,2667.8065,3121,0.7304,6.0287,False,,False,
 KEN,KEN.18_1,Kitui,0.0,0.9954,0.0046,30456.114,35644,0.0075,0.1266,False,,False,True,anomalously_dark
 KEN,KEN.19_1,Kwale,0.0,0.6547,0.3453,8389.7082,9840,0.2065,1.6516,False,,False,False,ordinary
 KEN,KEN.20_1,Laikipia,0.0,0.9318,0.0682,9517.9249,11135,0.0579,0.7226,False,,False,False,ordinary
-KEN,KEN.21_1,Lamu,0.0,0.9235,0.0765,6724.7456,7872,0.0144,0.5553,False,,False,True,anomalously_dark
+KEN,KEN.21_1,Lamu,0.0,0.9235,0.0765,6724.7456,7872,0.0144,0.5553,False,,False,False,ordinary
 KEN,KEN.22_1,Machakos,0.0,0.9642,0.0358,6040.193,7068,0.1707,6.0964,False,,False,False,ordinary
 KEN,KEN.23_1,Makueni,0.0,0.9651,0.0349,8169.4877,9564,0.0174,0.8408,False,,False,False,ordinary
 KEN,KEN.24_1,Mandera,0.9869,1.0,0.0,25747.5335,30175,0.0032,0.0474,True,,False,True,desert_dark
@@ -372,14 +416,14 @@ LBY,LBY.15_1,Misratah,1.0,1.0,0.0,28241.2767,38596,1.0338,2.0233,True,,False,Fal
 LBY,LBY.16_1,Murzuq,1.0,1.0,0.0,267357.2921,343301,0.0282,0.0865,True,dark_wide,True,True,desert_dark
 LBY,LBY.17_1,Nalut,1.0,1.0,0.0,67603.474,91272,0.1645,0.6961,True,dark_wide,True,False,lit_desert
 LBY,LBY.18_1,Sabha,1.0,1.0,0.0,17159.5065,22485,0.6769,1.6019,True,,False,False,lit_desert
-LBY,LBY.19_1,Surt,1.0,1.0,0.0,78672.8263,106027,0.3263,0.5509,True,dark_wide,True,True,desert_dark
+LBY,LBY.19_1,Surt,1.0,1.0,0.0,78672.8263,106027,0.3263,0.5509,True,dark_wide,True,False,lit_desert
 LBY,LBY.20_1,Tripoli,0.8202,1.0,0.0,2435.0681,3371,16.6817,35.6844,True,,False,False,lit_desert
 LBY,LBY.21_1,Wadi al Hayat,1.0,1.0,0.0,33274.7528,43346,0.2479,1.4051,True,,False,False,lit_desert
 LBY,LBY.22_1,Wadi ash Shati',1.0,1.0,0.0,93596.5575,123599,0.1034,0.252,True,dark_wide,True,True,desert_dark
 LSO,LSO.1_1,Berea,0.0,0.7828,0.2172,1987.4859,2655,0.2975,2.0774,False,,False,False,ordinary
 LSO,LSO.2_1,Butha-Buthe,0.0,0.2843,0.7157,1790.5221,2383,0.248,0.7761,False,,False,False,ordinary
 LSO,LSO.3_1,Leribe,0.0,0.6373,0.3627,2822.4376,3764,0.3366,1.6914,False,,False,False,ordinary
-LSO,LSO.4_1,Mafeteng,0.0,0.98,0.02,2645.9178,3555,0.0758,0.5181,False,,False,True,anomalously_dark
+LSO,LSO.4_1,Mafeteng,0.0,0.98,0.02,2645.9178,3555,0.0758,0.5181,False,,False,False,ordinary
 LSO,LSO.5_1,Maseru,0.0,0.8169,0.1831,3773.6467,5059,0.5239,2.0813,False,,False,False,ordinary
 LSO,LSO.6_1,Mohale's Hoek,0.0,0.9512,0.0488,3442.5265,4638,0.0235,0.2644,False,,False,True,anomalously_dark
 LSO,LSO.7_1,Mokhotlong,0.0,0.2326,0.7674,4164.1335,5564,0.0,0.3387,False,,False,True,anomalously_dark
@@ -407,6 +451,15 @@ MDG,MDG.3_1,Fianarantsoa,0.0,0.2331,0.7669,100801.1542,126841,0.0003,0.013,False
 MDG,MDG.4_1,Mahajanga,0.0,0.074,0.926,151694.6113,184955,0.0016,0.0211,False,,False,True,anomalously_dark
 MDG,MDG.5_1,Toamasina,0.0,0.0,1.0,71245.629,87465,0.0127,0.1155,False,,False,True,anomalously_dark
 MDG,MDG.6_1,Toliary,0.0,0.8467,0.1533,164035.6274,207561,0.0029,0.0215,False,,False,True,anomalously_dark
+MLI,MLI.1_1,Bamako,0.0,1.0,0.0,243.7345,292,26.2653,60.3793,False,,False,False,ordinary
+MLI,MLI.2_1,Gao,1.0,1.0,0.0,175882.2184,214711,0.0013,0.0174,True,,False,True,desert_dark
+MLI,MLI.3_1,Kayes,0.1512,1.0,0.0,121831.826,146715,0.0033,0.1629,False,,False,True,anomalously_dark
+MLI,MLI.4_1,Kidal,1.0,1.0,0.0,145178.2172,179899,0.0,0.0118,True,,False,True,desert_dark
+MLI,MLI.5_1,Koulikoro,0.325,1.0,0.0,90911.4242,109375,0.0143,0.4772,False,,False,True,anomalously_dark
+MLI,MLI.6_1,Mopti,0.7787,1.0,0.0,81408.3762,98382,0.0047,0.0815,True,,False,True,desert_dark
+MLI,MLI.7_1,Ségou,0.2626,1.0,0.0,61504.0891,74044,0.0136,0.251,False,,False,True,anomalously_dark
+MLI,MLI.8_1,Sikasso,0.0,0.8924,0.1076,71386.7086,85164,0.0067,0.2417,False,,False,True,anomalously_dark
+MLI,MLI.9_1,Timbuktu,1.0,1.0,0.0,502904.6344,625939,0.0002,0.008,True,,False,True,desert_dark
 MOZ,MOZ.1_1,Cabo Delgado,0.0,0.307,0.693,77781.0386,93140,0.0029,0.1243,False,,False,True,anomalously_dark
 MOZ,MOZ.2_1,Gaza,0.0,0.9513,0.0487,75442.8837,95922,0.0115,0.2376,False,,False,True,anomalously_dark
 MOZ,MOZ.3_1,Inhambane,0.0,0.9636,0.0364,68717.8409,87047,0.0022,0.1788,False,,False,True,anomalously_dark
@@ -443,7 +496,7 @@ MUS,MUS.9_1,Rivière du Rempart,0.0,0.0,1.0,152.8056,190,7.9605,25.6165,False,,F
 MUS,MUS.10_1,Rodriguez,0.0,0.1479,0.8521,114.4383,142,2.3158,8.1151,False,,False,False,ordinary
 MUS,MUS.11_1,Saint Brandon,0.0,0.6667,0.3333,4.9174,6,0.0,0.0,False,,False,True,anomalously_dark
 MUS,MUS.12_1,Savanne,0.0,0.0,1.0,244.6579,305,2.6802,11.1652,False,,False,False,ordinary
-MWI,MWI.1_1,Balaka,0.0,0.3517,0.6483,2132.6103,2581,0.1365,0.5503,False,,False,True,anomalously_dark
+MWI,MWI.1_1,Balaka,0.0,0.3517,0.6483,2132.6103,2581,0.1365,0.5503,False,,False,False,ordinary
 MWI,MWI.2_1,Blantyre,0.0,0.6752,0.3248,2023.3233,2456,3.9247,6.7891,False,,False,False,ordinary
 MWI,MWI.3_1,Chikwawa,0.0,0.9965,0.0035,4880.1441,5938,0.1074,0.3921,False,,False,True,anomalously_dark
 MWI,MWI.4_1,Chiradzulu,0.0,0.0,1.0,759.2948,922,0.0529,0.8131,False,,False,False,ordinary
@@ -457,7 +510,7 @@ MWI,MWI.11_1,Lilongwe,0.0,0.713,0.287,6252.2801,7533,1.074,2.5183,False,,False,F
 MWI,MWI.12_1,Machinga,0.0,0.0885,0.9115,3869.4071,4681,0.0565,0.1745,False,,False,True,anomalously_dark
 MWI,MWI.13_1,Mangochi,0.0,0.5094,0.4906,9048.0868,10913,0.0755,0.3339,False,,False,True,anomalously_dark
 MWI,MWI.14_1,Mchinji,0.0,0.9183,0.0817,3059.3286,3681,0.023,0.2002,False,,False,True,anomalously_dark
-MWI,MWI.15_1,Mulanje,0.0,0.0,1.0,1984.524,2412,0.2044,0.5124,False,,False,True,anomalously_dark
+MWI,MWI.15_1,Mulanje,0.0,0.0,1.0,1984.524,2412,0.2044,0.5124,False,,False,False,ordinary
 MWI,MWI.16_1,Mwanza,0.0,0.4773,0.5227,750.5261,911,0.0458,0.7887,False,,False,False,ordinary
 MWI,MWI.17_1,Mzimba,0.0,0.5895,0.4105,10506.0902,12549,0.0998,0.4197,False,,False,True,anomalously_dark
 MWI,MWI.18_1,Neno,0.0,0.5645,0.4355,1574.2642,1909,0.076,0.7143,False,,False,False,ordinary
@@ -475,7 +528,7 @@ NAM,NAM.1_1,!Karas,1.0,1.0,0.0,161210.1223,211060,0.0277,0.0773,True,,False,True
 NAM,NAM.2_1,Erongo,0.9991,1.0,0.0,63606.0934,80141,0.0837,0.4072,True,,False,True,desert_dark
 NAM,NAM.3_1,Hardap,1.0,1.0,0.0,109706.3474,140780,0.0165,0.0468,True,,False,True,desert_dark
 NAM,NAM.4_1,Kavango,0.0,1.0,0.0,48686.199,59936,0.006,0.108,False,,False,True,anomalously_dark
-NAM,NAM.5_1,Khomas,0.8969,1.0,0.0,37084.1227,47007,0.2725,0.5808,True,,False,True,desert_dark
+NAM,NAM.5_1,Khomas,0.8969,1.0,0.0,37084.1227,47007,0.2725,0.5808,True,,False,False,lit_desert
 NAM,NAM.6_1,Kunene,0.9405,1.0,0.0,115335.2053,142636,0.0063,0.0273,True,,False,True,desert_dark
 NAM,NAM.7_1,Ohangwena,0.0,1.0,0.0,10620.6802,13018,0.0,0.9774,False,,False,False,ordinary
 NAM,NAM.8_1,Omaheke,0.8434,1.0,0.0,84740.1718,106653,0.0122,0.039,True,,False,True,desert_dark
@@ -484,8 +537,16 @@ NAM,NAM.10_1,Oshana,0.4512,1.0,0.0,8651.0815,10654,0.2424,1.929,False,,False,Fal
 NAM,NAM.11_1,Oshikoto,0.0964,1.0,0.0,38652.0944,47646,0.0541,0.3289,False,,False,True,anomalously_dark
 NAM,NAM.12_1,Otjozondjupa,0.3275,1.0,0.0,104678.9578,130380,0.0393,0.127,False,,False,True,anomalously_dark
 NAM,NAM.13_1,Zambezi,0.0,1.0,0.0,14535.4063,17843,0.022,0.2701,False,,False,True,anomalously_dark
+NER,NER.1_1,Agadez,1.0,1.0,0.0,623543.6455,773009,0.0051,0.0162,True,,False,True,desert_dark
+NER,NER.2_1,Diffa,1.0,1.0,0.0,146261.6946,177752,0.002,0.0759,True,,False,True,desert_dark
+NER,NER.3_1,Dosso,0.4706,1.0,0.0,31457.2041,37775,0.0185,0.2065,False,,False,True,anomalously_dark
+NER,NER.4_1,Maradi,0.9581,1.0,0.0,39324.9118,47402,0.0328,0.3368,True,,False,True,desert_dark
+NER,NER.5_1,Niamey,0.8476,1.0,0.0,398.3753,479,14.9229,48.272,True,,False,False,lit_desert
+NER,NER.6_1,Tahoua,1.0,1.0,0.0,106343.2778,129176,0.0091,0.0973,True,,False,True,desert_dark
+NER,NER.7_1,Tillabéry,0.8343,1.0,0.0,90645.1389,109299,0.0051,0.209,True,,False,True,desert_dark
+NER,NER.8_1,Zinder,0.9961,1.0,0.0,145727.8733,176356,0.0098,0.0828,True,,False,True,desert_dark
 NGA,NGA.1_1,Abia,0.0,0.0,1.0,4718.9124,5545,4.566,5.105,False,,False,False,ordinary
-NGA,NGA.2_1,Adamawa,0.0,0.7429,0.2571,34292.0184,40646,0.1705,0.5582,False,,False,True,anomalously_dark
+NGA,NGA.2_1,Adamawa,0.0,0.7429,0.2571,34292.0184,40646,0.1705,0.5582,False,,False,False,ordinary
 NGA,NGA.3_1,Akwa Ibom,0.0,0.0,1.0,6744.8754,7919,6.9296,6.724,False,,False,False,ordinary
 NGA,NGA.4_1,Anambra,0.0,0.0,1.0,4594.6069,5406,6.2572,9.3143,False,,False,False,ordinary
 NGA,NGA.5_1,Bauchi,0.0,0.9869,0.0131,49073.2269,58417,0.1134,0.2706,False,,False,True,anomalously_dark
@@ -499,7 +560,7 @@ NGA,NGA.12_1,Edo,0.0,0.0,1.0,19600.029,23080,2.7165,4.6527,False,,False,False,or
 NGA,NGA.13_1,Ekiti,0.0,0.0,1.0,5234.5179,6178,0.278,1.4268,False,,False,False,ordinary
 NGA,NGA.14_1,Enugu,0.0,0.0,1.0,7708.1434,9075,1.1468,2.512,False,,False,False,ordinary
 NGA,NGA.15_1,Federal Capital Territory,0.0,0.0,1.0,7343.4749,8692,2.1497,9.1616,False,,False,False,ordinary
-NGA,NGA.16_1,Gombe,0.0,1.0,0.0,18201.8293,21641,0.1465,0.536,False,,False,True,anomalously_dark
+NGA,NGA.16_1,Gombe,0.0,1.0,0.0,18201.8293,21641,0.1465,0.536,False,,False,False,ordinary
 NGA,NGA.17_1,Imo,0.0,0.0,1.0,5304.4544,6234,16.5748,15.0876,False,,False,False,ordinary
 NGA,NGA.18_1,Jigawa,0.0522,1.0,0.0,23996.5084,28707,0.1213,1.134,False,,False,False,ordinary
 NGA,NGA.19_1,Kaduna,0.0,0.556,0.444,44322.5108,52690,0.4903,1.1631,False,,False,False,ordinary
@@ -507,7 +568,7 @@ NGA,NGA.20_1,Kano,0.0,1.0,0.0,20078.4196,23978,1.0598,2.932,False,,False,False,o
 NGA,NGA.21_1,Katsina,0.0039,1.0,0.0,23718.3094,28391,0.5428,1.2827,False,,False,False,ordinary
 NGA,NGA.22_1,Kebbi,0.0,1.0,0.0,35984.7003,42980,0.0691,0.4623,False,,False,True,anomalously_dark
 NGA,NGA.23_1,Kogi,0.0,0.0,1.0,28952.5654,34173,0.3002,0.7803,False,,False,False,ordinary
-NGA,NGA.24_1,Kwara,0.0,0.1487,0.8513,35432.5513,41954,0.2223,0.5468,False,,False,True,anomalously_dark
+NGA,NGA.24_1,Kwara,0.0,0.1487,0.8513,35432.5513,41954,0.2223,0.5468,False,,False,False,ordinary
 NGA,NGA.25_1,Lagos,0.0,0.0,1.0,3771.3431,4440,13.1401,27.7387,False,,False,False,ordinary
 NGA,NGA.26_1,Nasarawa,0.0,0.0,1.0,26312.1548,31115,0.0536,0.8622,False,,False,False,ordinary
 NGA,NGA.27_1,Niger,0.0,0.5308,0.4692,71013.3781,84313,0.1648,0.4424,False,,False,True,anomalously_dark
@@ -515,9 +576,9 @@ NGA,NGA.28_1,Ogun,0.0,0.0,1.0,16097.5269,18970,1.8529,5.7042,False,,False,False,
 NGA,NGA.29_1,Ondo,0.0,0.0,1.0,14532.0092,17122,1.1215,1.446,False,,False,False,ordinary
 NGA,NGA.30_1,Osun,0.0,0.0,1.0,9180.37,10831,1.1129,2.8747,False,,False,False,ordinary
 NGA,NGA.31_1,Oyo,0.0,0.0,1.0,27387.9309,32359,0.6808,1.6385,False,,False,False,ordinary
-NGA,NGA.32_1,Plateau,0.0,0.2967,0.7033,27582.548,32679,0.3024,0.5376,False,,False,True,anomalously_dark
+NGA,NGA.32_1,Plateau,0.0,0.2967,0.7033,27582.548,32679,0.3024,0.5376,False,,False,False,ordinary
 NGA,NGA.33_1,Rivers,0.0,0.0,1.0,8550.3249,10038,36.9433,34.1994,False,,False,False,ordinary
-NGA,NGA.34_1,Sokoto,0.3017,1.0,0.0,31722.168,38068,0.1968,0.5974,False,,False,True,anomalously_dark
+NGA,NGA.34_1,Sokoto,0.3017,1.0,0.0,31722.168,38068,0.1968,0.5974,False,,False,False,ordinary
 NGA,NGA.35_1,Taraba,0.0,0.145,0.855,60279.9516,71206,0.0049,0.1409,False,,False,True,anomalously_dark
 NGA,NGA.36_1,Yobe,0.5244,1.0,0.0,45560.4473,54522,0.0529,0.2691,True,,False,True,desert_dark
 NGA,NGA.37_1,Zamfara,0.0,1.0,0.0,34524.1175,41282,0.069,0.3909,False,,False,True,anomalously_dark
@@ -553,7 +614,7 @@ SEN,SEN.6_1,Kédougou,0.0,0.9999,0.0001,16944.2755,20318,0.0,0.3443,False,,False
 SEN,SEN.7_1,Kolda,0.0,0.9934,0.0066,13820.2346,16584,0.0,0.2379,False,,False,True,anomalously_dark
 SEN,SEN.8_1,Louga,0.8674,1.0,0.0,24672.0722,29914,0.033,0.7528,True,,False,False,lit_desert
 SEN,SEN.9_1,Matam,0.4072,1.0,0.0,27992.9973,33896,0.0021,0.1115,False,,False,True,anomalously_dark
-SEN,SEN.10_1,Saint-Louis,1.0,1.0,0.0,20270.5925,24666,0.0651,0.6331,True,,False,True,desert_dark
+SEN,SEN.10_1,Saint-Louis,1.0,1.0,0.0,20270.5925,24666,0.0651,0.6331,True,,False,False,lit_desert
 SEN,SEN.11_1,Sédhiou,0.0,0.9183,0.0817,7345.7352,8810,0.0079,0.2271,False,,False,True,anomalously_dark
 SEN,SEN.12_1,Tambacounda,0.0002,1.0,0.0,42829.9698,51577,0.0073,0.1214,False,,False,True,anomalously_dark
 SEN,SEN.13_1,Thiès,0.345,1.0,0.0,6640.2082,8029,0.587,8.6525,False,,False,False,ordinary
@@ -579,7 +640,7 @@ SOM,SOM.14_1,Shabeellaha Dhexe,0.7468,1.0,0.0,18486.0176,21656,0.0,0.0266,True,,
 SOM,SOM.15_1,Shabeellaha Hoose,0.0284,1.0,0.0,25683.3703,30064,0.0136,0.2907,False,,False,True,anomalously_dark
 SOM,SOM.16_1,Sool,1.0,1.0,0.0,38067.8443,45072,0.0,0.0344,True,,False,True,desert_dark
 SOM,SOM.17_1,Togdheer,0.9566,1.0,0.0,33979.6902,40246,0.0022,0.1122,True,,False,True,desert_dark
-SOM,SOM.18_1,Woqooyi Galbeed,0.8436,1.0,0.0,28013.6916,33253,0.0048,0.56,True,,False,True,desert_dark
+SOM,SOM.18_1,Woqooyi Galbeed,0.8436,1.0,0.0,28013.6916,33253,0.0048,0.56,True,,False,False,lit_desert
 SSD,SSD.1_1,Central Equatoria,0.0,0.6264,0.3736,43676.8961,51272,0.0,0.2214,False,,False,True,anomalously_dark
 SSD,SSD.2_1,Eastern Equatoria,0.0,0.8749,0.1251,69184.4595,81231,0.0,0.011,False,,False,True,anomalously_dark
 SSD,SSD.3_1,Jungoli,0.0,0.9383,0.0617,122189.1366,144127,0.0,0.0056,False,,False,True,anomalously_dark
@@ -622,6 +683,29 @@ SYC,SYC.23_1,Port Glaud,0.0,0.0,1.0,27.2659,32,9.1429,13.2821,False,,False,False
 SYC,SYC.24_1,Roche Caïman,0.0,0.0,1.0,0.8521,1,17.3333,38.7193,False,,False,False,ordinary
 SYC,SYC.25_1,Saint Louis,0.0,0.0,1.0,1.7042,2,45.0,60.5909,False,,False,False,ordinary
 SYC,SYC.26_1,Takamaka,0.0,0.0,1.0,12.7785,15,0.4,6.8111,False,,False,False,ordinary
+TCD,TCD.1_1,Barh el Ghazel,1.0,1.0,0.0,56317.2673,68016,0.0,0.0091,True,,False,True,desert_dark
+TCD,TCD.2_1,Batha,0.9504,1.0,0.0,90405.5888,108916,0.0,0.0044,True,,False,True,desert_dark
+TCD,TCD.3_1,Borkou,1.0,1.0,0.0,256216.0016,315494,0.0003,0.0008,True,,False,True,desert_dark
+TCD,TCD.4_1,Chari-Baguirmi,0.1138,1.0,0.0,46046.5892,54897,0.0001,0.4169,False,,False,True,anomalously_dark
+TCD,TCD.5_1,Ennedi Est,1.0,1.0,0.0,77353.8976,94920,0.0,0.0056,True,,False,True,desert_dark
+TCD,TCD.6_1,Ennedi Ouest,1.0,1.0,0.0,111039.9571,136745,0.0,0.0,True,,False,True,desert_dark
+TCD,TCD.7_1,Guéra,0.0502,1.0,0.0,61040.9258,72838,0.0,0.004,False,,False,True,anomalously_dark
+TCD,TCD.8_1,Hadjer-Lamis,0.7566,1.0,0.0,30417.8722,36434,0.0,0.1071,True,,False,True,desert_dark
+TCD,TCD.9_1,Kanem,1.0,1.0,0.0,67665.049,81936,0.0,0.0074,True,,False,True,desert_dark
+TCD,TCD.10_1,Lac,1.0,1.0,0.0,19851.8314,23883,0.0,0.0569,True,,False,True,desert_dark
+TCD,TCD.11_1,Logone Occidental,0.0,1.0,0.0,8796.3319,10409,0.0183,0.2042,False,,False,True,anomalously_dark
+TCD,TCD.12_1,Logone Oriental,0.0,0.7052,0.2948,23722.4359,28032,0.0093,0.3627,False,,False,True,anomalously_dark
+TCD,TCD.13_1,Mandoul,0.0,0.9984,0.0016,17440.2147,20634,0.0,0.0024,False,,False,True,anomalously_dark
+TCD,TCD.14_1,Mayo-Kebbi Est,0.0,1.0,0.0,18036.1062,21430,0.0,0.0164,False,,False,True,anomalously_dark
+TCD,TCD.15_1,Mayo-Kebbi Ouest,0.0,1.0,0.0,12550.9182,14875,0.0,0.0185,False,,False,True,anomalously_dark
+TCD,TCD.16_1,Moyen-Chari,0.0,0.9987,0.0013,41487.1437,49184,0.0093,0.0188,False,,False,True,anomalously_dark
+TCD,TCD.17_1,Ouaddaï,0.8602,1.0,0.0,29758.8779,35784,0.0086,0.0702,True,,False,True,desert_dark
+TCD,TCD.18_1,Salamat,0.0,1.0,0.0,67959.4525,80908,0.0,0.0034,False,,False,True,anomalously_dark
+TCD,TCD.19_1,Sila,0.0399,1.0,0.0,35705.4954,42702,0.0,0.0099,False,,False,True,anomalously_dark
+TCD,TCD.20_1,Tandjilé,0.0,1.0,0.0,17535.9709,20795,0.0,0.0079,False,,False,True,anomalously_dark
+TCD,TCD.21_1,Tibesti,1.0,1.0,0.0,126080.5019,157919,0.0,0.0037,True,,False,True,desert_dark
+TCD,TCD.22_1,Ville de N'Djamena,0.3614,1.0,0.0,395.5303,473,6.9669,31.8096,False,,False,False,ordinary
+TCD,TCD.23_1,Wadi Fira,1.0,1.0,0.0,54121.4397,65500,0.0,0.0066,True,,False,True,desert_dark
 TGO,TGO.1_1,Centre,0.0,0.0,1.0,13116.6747,15516,0.0367,0.3337,False,,False,True,anomalously_dark
 TGO,TGO.2_1,Kara,0.0,0.2371,0.7629,11682.1542,13856,0.0665,0.7786,False,,False,False,ordinary
 TGO,TGO.3_1,Maritime,0.0,0.0099,0.9901,6284.1735,7398,1.6103,7.0057,False,,False,False,ordinary
@@ -653,8 +737,8 @@ TUN,TUN.23_1,Tunis,0.0,1.0,0.0,273.6893,398,47.0369,58.7132,False,,False,False,o
 TUN,TUN.24_1,Zaghouan,0.0,1.0,0.0,2854.9484,4127,0.9059,10.534,False,,False,False,ordinary
 TZA,TZA.1_1,Arusha,0.0236,0.8747,0.1253,38060.7461,44586,0.0432,0.3875,False,,False,True,anomalously_dark
 TZA,TZA.2_1,Dar es Salaam,0.0,0.0518,0.9482,1639.8587,1932,8.3895,37.2143,False,,False,False,ordinary
-TZA,TZA.3_1,Dodoma,0.0,0.9883,0.0117,41875.303,49249,0.0414,0.6185,False,,False,True,anomalously_dark
-TZA,TZA.4_1,Geita,0.0,0.8061,0.1939,20984.0269,24588,0.0,0.627,False,,False,True,anomalously_dark
+TZA,TZA.3_1,Dodoma,0.0,0.9883,0.0117,41875.303,49249,0.0414,0.6185,False,,False,False,ordinary
+TZA,TZA.4_1,Geita,0.0,0.8061,0.1939,20984.0269,24588,0.0,0.627,False,,False,False,ordinary
 TZA,TZA.5_1,Iringa,0.0,0.6387,0.3613,36466.854,43051,0.0379,0.2439,False,,False,True,anomalously_dark
 TZA,TZA.6_1,Kagera,0.0,0.0675,0.9325,36610.1027,42854,0.0093,0.2581,False,,False,True,anomalously_dark
 TZA,TZA.18_1,Kaskazini Pemba,0.0,0.0,1.0,562.895,661,0.0197,1.7128,False,,False,False,ordinary
@@ -693,8 +777,8 @@ UGA,UGA.8_1,Gulu,0.0,0.126,0.874,11850.8495,13880,0.0,0.103,False,,False,True,an
 UGA,UGA.9_1,Hoima,0.0,0.0092,0.9908,3642.0949,4262,0.0,0.3679,False,,False,True,anomalously_dark
 UGA,UGA.10_1,Iganga,0.0,0.0,1.0,2485.5171,2908,0.0185,0.4661,False,,False,True,anomalously_dark
 UGA,UGA.11_1,Jinja,0.0,0.0,1.0,694.0605,812,1.206,4.7357,False,,False,False,ordinary
-UGA,UGA.12_1,Kabale,0.0,0.0,1.0,1757.9249,2057,0.0,0.5091,False,,False,True,anomalously_dark
-UGA,UGA.13_1,Kabarole,0.0,0.0,1.0,1833.435,2145,0.0,0.5636,False,,False,True,anomalously_dark
+UGA,UGA.12_1,Kabale,0.0,0.0,1.0,1757.9249,2057,0.0,0.5091,False,,False,False,ordinary
+UGA,UGA.13_1,Kabarole,0.0,0.0,1.0,1833.435,2145,0.0,0.5636,False,,False,False,ordinary
 UGA,UGA.14_1,Kaberamaido,0.0,0.0,1.0,1624.2169,1901,0.0,0.0,False,,False,True,anomalously_dark
 UGA,UGA.15_1,Kalangala,0.0,0.0,1.0,494.0618,578,0.0,0.082,False,,False,True,anomalously_dark
 UGA,UGA.16_1,Kampala,0.0,0.0,1.0,184.6332,216,33.0387,58.0394,False,,False,False,ordinary
@@ -715,10 +799,10 @@ UGA,UGA.30_1,Kyenjojo,0.0,0.0,1.0,4101.9537,4799,0.0,0.0407,False,,False,True,an
 UGA,UGA.31_1,Lake Albert,0.0,0.8978,0.1022,3186.2853,3729,0.0,0.0047,False,,False,True,anomalously_dark
 UGA,UGA.32_1,Lake Victoria,0.0,0.0195,0.9805,28464.2709,33301,0.0069,0.1102,False,,False,True,anomalously_dark
 UGA,UGA.33_1,Lira,0.0,0.0138,0.9862,7230.0778,8464,0.0041,0.1525,False,,False,True,anomalously_dark
-UGA,UGA.34_1,Luwero,0.0,0.0,1.0,5691.2597,6659,0.0,0.6123,False,,False,True,anomalously_dark
+UGA,UGA.34_1,Luwero,0.0,0.0,1.0,5691.2597,6659,0.0,0.6123,False,,False,False,ordinary
 UGA,UGA.35_1,Masaka,0.0,0.0399,0.9601,3620.8552,4236,0.2109,1.5876,False,,False,False,ordinary
 UGA,UGA.36_1,Masindi,0.0,0.0205,0.9795,8697.9952,10181,0.0,0.1797,False,,False,True,anomalously_dark
-UGA,UGA.37_1,Mayuge,0.0,0.0,1.0,1127.451,1319,0.0,0.6062,False,,False,True,anomalously_dark
+UGA,UGA.37_1,Mayuge,0.0,0.0,1.0,1127.451,1319,0.0,0.6062,False,,False,False,ordinary
 UGA,UGA.38_1,Mbale,0.0,0.0,1.0,1373.465,1607,0.2042,1.0741,False,,False,False,ordinary
 UGA,UGA.39_1,Mbarara,0.0,0.3272,0.6728,10027.1613,11731,0.0222,0.3661,False,,False,True,anomalously_dark
 UGA,UGA.40_1,Moroto,0.0,0.968,0.032,8517.7391,9974,0.0019,0.0297,False,,False,True,anomalously_dark
@@ -763,7 +847,7 @@ ZWE,ZWE.1_1,Bulawayo,0.0,1.0,0.0,550.6677,685,24.2267,28.7033,False,,False,False
 ZWE,ZWE.2_1,Harare,0.0,1.0,0.0,934.4259,1147,35.7134,42.4022,False,,False,False,ordinary
 ZWE,ZWE.3_1,Manicaland,0.0,0.7724,0.2276,35633.9692,44048,0.1279,0.3132,False,,False,True,anomalously_dark
 ZWE,ZWE.4_1,Mashonaland Central,0.0,0.9563,0.0437,28113.2459,34300,0.1467,0.2995,False,,False,True,anomalously_dark
-ZWE,ZWE.5_1,Mashonaland East,0.0,1.0,0.0,32159.7573,39507,0.252,0.5665,False,,False,True,anomalously_dark
+ZWE,ZWE.5_1,Mashonaland East,0.0,1.0,0.0,32159.7573,39507,0.252,0.5665,False,,False,False,ordinary
 ZWE,ZWE.6_1,Mashonaland West,0.0,1.0,0.0,57335.0596,70134,0.1871,0.4933,False,,False,True,anomalously_dark
 ZWE,ZWE.7_1,Masvingo,0.0,1.0,0.0,56421.6705,70488,0.0623,0.1393,False,,False,True,anomalously_dark
 ZWE,ZWE.8_1,Matabeleland North,0.0,1.0,0.0,75427.7431,93104,0.0814,0.1661,False,,False,True,anomalously_dark
