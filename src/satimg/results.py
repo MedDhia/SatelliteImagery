@@ -304,66 +304,63 @@ CROSS_TRENDS_COLUMNS = (
 )
 
 
-CROSS_TABLES = (
-    ResultTable(
-        key="aridity-vs-light",
-        source="",
-        dest="aridity_vs_light.csv",
-        title="Aridity against darkness, every admin-1 unit",
-        description=(
-            "One row per admin-1 unit across all 22 countries, pairing what "
-            "the climate says with what the light says. The table behind "
-            "[`../docs/aridity.md`](../docs/aridity.md), which refutes most of "
-            "what this repository previously asserted about which dark regions "
-            "are desert."
-        ),
-        columns=CROSS_ARIDITY_COLUMNS,
-    ),
-    ResultTable(
-        key="africa-aridity-vs-light",
-        source="",
-        dest="africa_aridity_vs_light.csv",
-        title="Aridity against darkness, the Africa pool",
-        description=(
-            "The same join as `aridity_vs_light.csv`, pooled over Africa "
-            "instead of the Arab League. ⚠️ **`dark_2022` is not comparable "
-            "between the two files**: each cuts at the median `mean_dn_2022` "
-            "of its own pool, and those medians differ. A unit in one of the "
-            "ten countries that sit in both pools can be dark in one file and "
-            "lit in the other, correctly."
-        ),
-        columns=CROSS_ARIDITY_COLUMNS,
-    ),
-    ResultTable(
-        key="africa-trends-by-country",
-        source="",
-        dest="africa_trends_by_country.csv",
-        title="Pace of inequality change, the Africa pool",
-        description=(
-            "The same fits as `trends_by_country.csv`, over the African "
-            "countries. Rates are fitted per country and never pooled, so a "
-            "country appearing in both files carries identical numbers in "
-            "each - only the set of neighbours differs."
-        ),
-        columns=CROSS_TRENDS_COLUMNS,
-    ),
-    ResultTable(
-        key="trends-by-country",
-        source="",
-        dest="trends_by_country.csv",
-        title="Pace of inequality change, all 22 countries",
-        description=(
-            "Log-linear rates of change fitted to the published inequality "
-            "series — how fast spatial inequality is moving, and whether the "
-            "movement is convergence among lit places or light reaching new "
-            "ground. Three fit windows per measure, because 18 of 22 countries "
-            "change pace at exactly the 2014 sensor handover and the eras must "
-            "not be compared. See [`../docs/arab-world.md`]"
-            "(../docs/arab-world.md)."
-        ),
-        columns=CROSS_TRENDS_COLUMNS,
-    ),
-)
+def _pool_label(pool: str) -> str:
+    """A human name for a pool, e.g. 'north-america' -> 'North America'."""
+    return pool.replace("-", " ").title().replace("League", "League")
+
+
+def _cross_tables():
+    """One aridity join and one trends table per pool, generated from POOLS.
+
+    Generated rather than hand-listed: a pool added to `regions.POOLS` whose
+    tables were forgotten here would be published with no data dictionary and
+    invisible to `results build`. That is the same failure mode that dropped
+    dry sub-humid from `dryland_share`, so the list is derived from its source.
+    """
+    from . import aridity as A
+    from . import trends as T
+
+    tables = []
+    for pool in R.POOLS:
+        label = _pool_label(pool)
+        tables.append(
+            ResultTable(
+                key=f"{pool}-aridity-vs-light",
+                source="",
+                dest=A.vs_light_table(pool),
+                title=f"Aridity against darkness, the {label} pool",
+                description=(
+                    "One row per admin-1 unit in this pool, pairing what the "
+                    "climate says with what the light says. ⚠️ **`dark_2022` "
+                    "is not comparable with any other pool's copy of this "
+                    "table**: each cuts at the median `mean_dn_2022` of its "
+                    "own members, and those medians differ. A country in two "
+                    "pools can have a unit dark in one file and lit in the "
+                    "other, correctly."
+                ),
+                columns=CROSS_ARIDITY_COLUMNS,
+            )
+        )
+        tables.append(
+            ResultTable(
+                key=f"{pool}-trends-by-country",
+                source="",
+                dest=T.trends_table(pool),
+                title=f"Pace of inequality change, the {label} pool",
+                description=(
+                    "Log-linear rates fitted to the published inequality "
+                    "series for this pool's countries. Rates are fitted per "
+                    "country and never pooled, so a country appearing in more "
+                    "than one of these files carries identical numbers in "
+                    "each - only the set of neighbours differs."
+                ),
+                columns=CROSS_TRENDS_COLUMNS,
+            )
+        )
+    return tuple(tables)
+
+
+CROSS_TABLES = _cross_tables()
 
 
 def _country_tables(iso3: str):

@@ -125,23 +125,54 @@ def test_djibouti_admin_2_falls_back_rather_than_inventing_a_word():
 
 def test_countries_without_gadm_admin_2():
     # Checked against the GeoPackage, not assumed: a query over ADM_2's GID_0
-    # column found no rows for any of these. Five are African, which is why the
-    # set grew when the continent was added.
+    # column found no rows for any of these.
     assert set(R.LEVELS_AVAILABLE) == {
         "BHR",
         "KWT",
-        "QAT",  # Gulf
         "LBY",
-        "COM",  # Arab League and African
+        "QAT",
+        "COM",  # Arab League
         "CPV",
         "ESH",
         "LSO",
         "MUS",
-        "SYC",  # African
+        "SYC",  # Africa
+        "ATG",
+        "BHS",
+        "BLZ",
+        "BRB",
+        "DMA",  # Caribbean and
+        "GRD",
+        "JAM",
+        "KNA",
+        "LCA",
+        "TTO",
+        "VCT",  # Central America
     }
     for iso3 in R.LEVELS_AVAILABLE:
         assert R.available_levels(iso3) == (0, 1), iso3
         assert R.has_level(iso3, 2) is False, iso3
+
+
+def test_a_missing_name_is_not_a_missing_layer():
+    """Canada has 293 admin-2 units and no reliable word for them.
+
+    Its most common ENGTYPE_2 is Quebec's "Regional County Municipality" at 93
+    of 293 - a 32% plurality, not a name for the country. The title falls back
+    to the generic one; the *level* stays, because dropping it would silently
+    discard 293 real units.
+    """
+    assert R.has_level("CAN", 2) is True
+    assert R.available_levels("CAN") == (0, 1, 2)
+    assert R.level_title("CAN", 2) == R.GENERIC_LEVEL_TITLES[2]
+    assert "CAN" not in R.LEVELS_AVAILABLE
+
+
+def test_a_gadm_misspelling_is_reconciled_against_gadm_itself():
+    """Uruguay's ENGTYPE_2 is "Municipiality" - 124 rows against 14,370 spelled
+    "Municipality" in the same column. Corrected from the source's own dominant
+    spelling, never from our guess."""
+    assert R.level_title("URY", 2) == "municipality"
 
 
 def test_small_countries_get_no_derived_scope():
@@ -321,3 +352,35 @@ def test_gadm_declining_to_name_a_level_falls_back_rather_than_inventing():
             iso3,
             level,
         )
+
+
+def test_every_pool_has_a_catalogued_pair_of_tables():
+    """A pool added without its tables would publish an undocumented CSV.
+
+    The catalogue is generated from POOLS for exactly this reason, so this
+    guards the generation rather than a hand-written list.
+    """
+    from satimg import results as Res
+
+    in_place = {t.dest for t in Res.TABLES if t.in_place}
+    assert len(in_place) == 2 * len(R.POOLS)
+    from satimg import aridity as A
+    from satimg import trends as T
+
+    for pool in R.POOLS:
+        assert A.vs_light_table(pool) in in_place, pool
+        assert T.trends_table(pool) in in_place, pool
+
+
+def test_the_americas_are_two_pools_not_one():
+    """Split because a pool's darkness cut is a median over its own members.
+
+    Canada and Haiti in one pool would produce a cut describing neither.
+    """
+    assert "americas" not in R.POOLS
+    assert len(R.NORTH_AMERICA) == 23 and len(R.SOUTH_AMERICA) == 12
+    assert not set(R.NORTH_AMERICA) & set(R.SOUTH_AMERICA)
+    both = set(R.NORTH_AMERICA) | set(R.SOUTH_AMERICA)
+    assert both <= set(R.COUNTRIES)
+    # No overlap with the older pools, unlike Africa and the Arab League.
+    assert not both & (set(R.ARAB_LEAGUE) | set(R.AFRICA))

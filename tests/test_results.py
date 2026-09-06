@@ -64,7 +64,13 @@ def test_an_in_place_table_has_no_source_to_copy_from():
 
 
 def test_every_committed_top_level_table_is_catalogued(tmp_path):
-    """A committed CSV outside the catalogue is a number nobody can check."""
+    """A committed CSV outside the catalogue is a number nobody can check.
+
+    Only this direction is asserted. The reverse - catalogued but not yet on
+    disk - is the legitimate `not_generated` state: the catalogue is derived
+    from `regions.POOLS`, so a newly added pool is listed before its command
+    has ever run.
+    """
     from pathlib import Path
 
     published = Path(__file__).resolve().parents[1] / "results"
@@ -72,7 +78,13 @@ def test_every_committed_top_level_table_is_catalogued(tmp_path):
         pytest.skip("results/ not present")
     on_disk = {p.name for p in published.glob("*.csv")}
     catalogued = {t.dest for t in R.TABLES if "/" not in t.dest}
-    assert on_disk == catalogued
+    assert on_disk <= catalogued, on_disk - catalogued
+
+
+def test_a_catalogued_table_not_yet_written_is_pending_not_missing(tmp_path):
+    result = R.build(tmp_path / "src", tmp_path / "dest")
+    assert not result.missing
+    assert set(result.not_generated) == {t.dest for t in R.TABLES if t.in_place}
 
 
 def test_every_table_documents_every_column_it_declares():
