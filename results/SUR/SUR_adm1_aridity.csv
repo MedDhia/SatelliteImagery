@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SUR,SUR.1_1,Brokopondo,7337.487,8613,8613,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.2_1,Commewijne,2437.8377,2866,2866,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.3_1,Coronie,3631.0151,4268,4268,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.4_1,Marowijne,4690.3635,5513,5513,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.5_1,Nickerie,5358.3496,6298,6298,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.6_1,Para,5411.7448,6358,6358,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.7_1,Paramaribo,167.5407,197,197,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.8_1,Saramacca,3786.258,4451,4451,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.9_1,Sipaliwini,113167.8711,132683,132683,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SUR,SUR.10_1,Wanica,432.9548,509,509,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

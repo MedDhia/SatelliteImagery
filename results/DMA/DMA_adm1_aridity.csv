@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+DMA,DMA.1_1,Saint Andrew,179.705,218,218,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.2_1,Saint David,125.3751,152,152,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.3_1,Saint George,56.9417,69,69,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.4_1,Saint John,60.1678,73,73,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.5_1,Saint Joseph,123.7059,150,150,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.6_1,Saint Luke,6.6035,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.7_1,Saint Mark,13.2089,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.8_1,Saint Patrick,87.4856,106,106,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.9_1,Saint Paul,67.6511,82,82,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DMA,DMA.10_1,Saint Peter,33.8035,41,41,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

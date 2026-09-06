@@ -1,0 +1,11 @@
+iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+SUR,SUR.1_1,Brokopondo,0.0,0.0,1.0,7337.487,8613,0.0128,0.5225,False,,False,True,anomalously_dark
+SUR,SUR.2_1,Commewijne,0.0,0.0,1.0,2437.8377,2866,0.5502,3.5628,False,,False,False,ordinary
+SUR,SUR.3_1,Coronie,0.0,0.0,1.0,3631.0151,4268,0.0096,0.1267,False,,False,True,anomalously_dark
+SUR,SUR.4_1,Marowijne,0.0,0.0,1.0,4690.3635,5513,0.1947,0.4365,False,,False,True,anomalously_dark
+SUR,SUR.5_1,Nickerie,0.0,0.0,1.0,5358.3496,6298,0.1726,0.7292,False,,False,True,anomalously_dark
+SUR,SUR.6_1,Para,0.0,0.0,1.0,5411.7448,6358,0.4757,1.4097,False,,False,False,ordinary
+SUR,SUR.7_1,Paramaribo,0.0,0.0,1.0,167.5407,197,32.7963,50.4587,False,,False,False,ordinary
+SUR,SUR.8_1,Saramacca,0.0,0.0,1.0,3786.258,4451,0.1058,1.5617,False,,False,False,ordinary
+SUR,SUR.9_1,Sipaliwini,0.0,0.0,1.0,113167.8711,132683,0.0,0.0172,False,,False,True,anomalously_dark
+SUR,SUR.10_1,Wanica,0.0,0.0,1.0,432.9548,509,7.4009,28.2341,False,,False,False,ordinary

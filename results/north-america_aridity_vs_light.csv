@@ -1,0 +1,134 @@
+iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+BLZ,BLZ.1_1,Belize,0.0,0.0,1.0,3359.2684,4117,0.5192,2.721,False,,False,True,anomalously_dark
+BLZ,BLZ.2_1,Cayo,0.0,0.0,1.0,5306.0463,6484,0.1652,2.4747,False,,False,True,anomalously_dark
+BLZ,BLZ.3_1,Corozal,0.0,0.0,1.0,1995.9167,2455,0.738,4.7955,False,,False,True,anomalously_dark
+BLZ,BLZ.4_1,Orange Walk,0.0,0.0,1.0,4687.1231,5751,0.1978,1.7298,False,,False,True,anomalously_dark
+BLZ,BLZ.5_1,Stann Creek,0.0,0.0,1.0,2328.5327,2843,0.0843,2.2956,False,,False,True,anomalously_dark
+BLZ,BLZ.6_1,Toledo,0.0,0.0,1.0,4403.5381,5362,0.059,0.6297,False,,False,True,anomalously_dark
+ATG,ATG.1_1,Barbuda,0.0,1.0,0.0,151.7079,186,0.1176,1.5096,False,,False,True,anomalously_dark
+ATG,ATG.2_1,Redonda,0.0,0.0,1.0,0.8186,1,0.0,0.0,False,,False,True,anomalously_dark
+ATG,ATG.3_1,Saint George,0.0,1.0,0.0,26.1712,32,20.7308,52.2361,False,,False,False,ordinary
+ATG,ATG.4_1,Saint John,0.0,0.8977,0.1023,71.975,88,26.493,45.6199,False,,False,False,ordinary
+ATG,ATG.5_1,Saint Mary,0.0,0.1973,0.8027,62.1804,76,6.7097,21.2143,False,,False,False,ordinary
+ATG,ATG.6_1,Saint Paul,0.0,0.8148,0.1852,44.1847,54,9.439,21.1589,False,,False,False,ordinary
+ATG,ATG.7_1,Saint Peter,0.0,1.0,0.0,34.3553,42,6.6389,23.994,False,,False,False,ordinary
+ATG,ATG.8_1,Saint Philip,0.0,1.0,0.0,44.9953,55,6.5217,13.9224,False,,False,False,ordinary
+BHS,BHS.1_1,Acklins,0.0,1.0,0.0,495.4183,626,0.0,0.1192,False,,False,True,anomalously_dark
+BHS,BHS.2_1,Berry Islands,0.0,0.0,1.0,61.0392,79,0.746,3.586,False,,False,True,anomalously_dark
+BHS,BHS.3_1,Biminis,0.0,0.0,1.0,33.3224,43,0.7222,6.3528,False,,False,True,anomalously_dark
+BHS,BHS.4_1,Black Point,0.0,1.0,0.0,53.2066,68,0.0,0.8333,False,,False,True,anomalously_dark
+BHS,BHS.5_1,Cat Island,0.0,1.0,0.0,372.2986,477,0.2922,0.5938,False,,False,True,anomalously_dark
+BHS,BHS.6_1,Central Abaco,0.0,0.0,1.0,706.7566,921,0.6477,2.2595,False,,False,True,anomalously_dark
+BHS,BHS.7_1,Central Andros,0.0,0.0,1.0,1216.1853,1559,0.0316,0.0682,False,,False,True,anomalously_dark
+BHS,BHS.8_1,Central Eleuthera,0.0,1.0,0.0,69.0475,89,2.9846,5.6764,False,,False,True,anomalously_dark
+BHS,BHS.9_1,City of Freeport,0.0,0.0,1.0,23.7739,31,46.6667,56.0241,False,,False,False,ordinary
+BHS,BHS.10_1,Crooked Island,0.0,1.0,0.0,337.2418,427,0.0,0.2553,False,,False,True,anomalously_dark
+BHS,BHS.11_1,East Grand Bahama,0.0,0.0,1.0,575.1973,751,0.3208,0.9817,False,,False,True,anomalously_dark
+BHS,BHS.12_1,Exuma,0.0,0.9913,0.0087,360.1426,459,1.0089,4.4997,False,,False,True,anomalously_dark
+BHS,BHS.13_1,Grand Cay,0.0,0.0,1.0,5.3361,7,0.0,2.0833,False,,False,True,anomalously_dark
+BHS,BHS.14_1,Harbour Island,0.0,1.0,0.0,2.3195,3,6.5,17.25,False,,False,False,ordinary
+BHS,BHS.15_1,Hope Town,0.0,0.0,1.0,43.6395,57,0.6154,2.6752,False,,False,True,anomalously_dark
+BHS,BHS.16_1,Inagua,0.0,1.0,0.0,1675.1019,2097,0.0662,0.262,False,,False,True,anomalously_dark
+BHS,BHS.17_1,Long Island,0.0,1.0,0.0,471.5242,599,0.1762,1.919,False,,False,True,anomalously_dark
+BHS,BHS.18_1,Mangrove Cay,0.0,0.0,1.0,482.3281,617,0.1481,0.327,False,,False,True,anomalously_dark
+BHS,BHS.19_1,Mayaguana,0.0,1.0,0.0,289.0726,365,0.0,0.045,False,,False,True,anomalously_dark
+BHS,BHS.20_1,Moore's Island,0.0,0.0,1.0,19.9775,26,0.0,3.0556,False,,False,True,anomalously_dark
+BHS,BHS.21_1,New Providence,0.0,0.0,1.0,231.3519,298,36.332,46.7334,False,,False,False,ordinary
+BHS,BHS.22_1,North Abaco,0.0,0.0,1.0,213.4426,279,0.0973,0.6022,False,,False,True,anomalously_dark
+BHS,BHS.23_1,North Andros,0.0,0.0,1.0,2864.5944,3682,0.2755,0.4838,False,,False,True,anomalously_dark
+BHS,BHS.24_1,North Eleuthera,0.0,0.9913,0.0087,178.7736,231,1.0497,4.7785,False,,False,True,anomalously_dark
+BHS,BHS.25_1,Ragged Island,0.0,1.0,0.0,42.7556,54,0.0,0.0,False,,False,True,anomalously_dark
+BHS,BHS.26_1,Rum Cay,0.0,1.0,0.0,92.5665,118,0.0,0.0,False,,False,True,anomalously_dark
+BHS,BHS.27_1,San Salvador,0.0,1.0,0.0,154.9179,198,0.4506,2.4558,False,,False,True,anomalously_dark
+BHS,BHS.28_1,South Abaco,0.0,0.0,1.0,430.4064,559,0.0,0.0907,False,,False,True,anomalously_dark
+BHS,BHS.29_1,South Andros,0.0,0.2213,0.7787,1097.8666,1402,0.1864,0.298,False,,False,True,anomalously_dark
+BHS,BHS.30_1,South Eleuthera,0.0,1.0,0.0,213.0971,274,1.119,3.9177,False,,False,True,anomalously_dark
+BHS,BHS.31_1,Spanish Wells,0.0,1.0,0.0,2.3202,3,0.0,0.0,False,,False,True,anomalously_dark
+BHS,BHS.32_1,West Grand Bahama,0.0,0.0,1.0,576.1919,752,9.1742,14.5499,False,,False,False,ordinary
+BRB,BRB.1_1,Christ Church,0.0,0.0,1.0,58.3228,70,43.1017,52.1576,False,,False,False,ordinary
+BRB,BRB.2_1,Saint Andrew,0.0,0.0,1.0,34.9712,42,10.9143,13.6099,False,,False,False,ordinary
+BRB,BRB.3_1,Saint George,0.0,0.0,1.0,43.316,52,29.6977,35.7207,False,,False,False,ordinary
+BRB,BRB.4_1,Saint James,0.0,0.0,1.0,33.3129,40,39.6452,49.4815,False,,False,False,ordinary
+BRB,BRB.5_1,Saint John,0.0,0.0,1.0,39.1453,47,15.9429,19.1929,False,,False,False,ordinary
+BRB,BRB.6_1,Saint Joseph,0.0,0.0,1.0,22.4851,27,14.8333,16.5417,False,,False,False,ordinary
+BRB,BRB.7_1,Saint Lucy,0.0,0.0,1.0,34.9625,42,14.0294,19.5576,False,,False,False,ordinary
+BRB,BRB.8_1,Saint Michael,0.0,0.0,1.0,43.3198,52,58.275,62.2522,False,,False,False,ordinary
+BRB,BRB.9_1,Saint Peter,0.0,0.0,1.0,34.1361,41,16.3714,25.6562,False,,False,False,ordinary
+BRB,BRB.10_1,Saint Philip,0.0,0.0,1.0,60.811,73,23.9677,34.0215,False,,False,False,ordinary
+BRB,BRB.11_1,Saint Thomas,0.0,0.0,1.0,34.1474,41,28.2,35.3087,False,,False,False,ordinary
+DMA,DMA.1_1,Saint Andrew,0.0,0.0,1.0,179.705,218,0.1304,2.7219,False,,False,True,anomalously_dark
+DMA,DMA.2_1,Saint David,0.0,0.0,1.0,125.3751,152,0.0,1.6953,False,,False,True,anomalously_dark
+DMA,DMA.3_1,Saint George,0.0,0.0,1.0,56.9417,69,3.9107,12.3569,False,,False,False,ordinary
+DMA,DMA.4_1,Saint John,0.0,0.0,1.0,60.1678,73,0.678,7.4944,False,,False,True,anomalously_dark
+DMA,DMA.5_1,Saint Joseph,0.0,0.0,1.0,123.7059,150,0.368,2.0947,False,,False,True,anomalously_dark
+DMA,DMA.6_1,Saint Luke,0.0,0.0,1.0,6.6035,8,3.8571,7.7857,False,,False,True,anomalously_dark
+DMA,DMA.7_1,Saint Mark,0.0,0.0,1.0,13.2089,16,0.6364,6.4091,False,,False,True,anomalously_dark
+DMA,DMA.8_1,Saint Patrick,0.0,0.0,1.0,87.4856,106,0.8202,4.3933,False,,False,True,anomalously_dark
+DMA,DMA.9_1,Saint Paul,0.0,0.0,1.0,67.6511,82,2.6029,8.5933,False,,False,True,anomalously_dark
+DMA,DMA.10_1,Saint Peter,0.0,0.0,1.0,33.8035,41,0.0,3.3802,False,,False,True,anomalously_dark
+GRD,GRD.1_1,Carriacou,0.0,0.0,1.0,39.2506,47,1.0571,8.159,False,,False,True,anomalously_dark
+GRD,GRD.2_1,Saint Andrew,0.0,0.0,1.0,93.6599,112,2.5579,10.178,False,,False,True,anomalously_dark
+GRD,GRD.3_1,Saint David,0.0,0.0,1.0,38.4773,46,2.8605,12.3867,False,,False,False,ordinary
+GRD,GRD.4_1,Saint George,0.0,0.0,1.0,72.7712,87,10.5,26.6276,False,,False,False,ordinary
+GRD,GRD.5_1,Saint John,0.0,0.0,1.0,38.4642,46,0.3158,7.1645,False,,False,True,anomalously_dark
+GRD,GRD.6_1,Saint Mark,0.0,0.0,1.0,23.4089,28,0.0417,6.7917,False,,False,True,anomalously_dark
+GRD,GRD.7_1,Saint Patrick,0.0,0.0,1.0,55.1738,66,1.037,8.204,False,,False,True,anomalously_dark
+JAM,JAM.1_1,Clarendon,0.0,0.298,0.702,1205.6143,1481,7.1763,13.0372,False,,False,False,ordinary
+JAM,JAM.2_1,Hanover,0.0,0.0,1.0,452.4196,557,5.6043,10.7685,False,,False,False,ordinary
+JAM,JAM.3_1,Kingston,0.0,0.8125,0.1875,26.0536,32,51.6818,54.4545,False,,False,False,ordinary
+JAM,JAM.4_1,Manchester,0.0,0.0,1.0,819.5336,1007,8.7558,14.6201,False,,False,False,ordinary
+JAM,JAM.5_1,Portland,0.0,0.0,1.0,832.1709,1023,2.5366,4.2603,False,,False,True,anomalously_dark
+JAM,JAM.6_1,Saint Andrew,0.0,0.0536,0.9464,425.6019,523,30.3555,33.3721,False,,False,False,ordinary
+JAM,JAM.7_1,Saint Ann,0.0,0.0,1.0,1224.5001,1507,5.1321,10.132,False,,False,True,anomalously_dark
+JAM,JAM.8_1,Saint Catherine,0.0,0.3246,0.6754,1184.0416,1455,13.1198,19.8909,False,,False,False,ordinary
+JAM,JAM.9_1,Saint Elizabeth,0.0,0.0,1.0,1203.5,1479,4.4822,9.9483,False,,False,True,anomalously_dark
+JAM,JAM.10_1,Saint James,0.0,0.0,1.0,592.9245,730,9.7412,15.7901,False,,False,False,ordinary
+JAM,JAM.11_1,Saint Mary,0.0,0.0,1.0,627.4108,772,6.305,9.8744,False,,False,True,anomalously_dark
+JAM,JAM.12_1,Saint Thomas,0.0,0.0,1.0,732.8048,900,4.2311,7.6331,False,,False,True,anomalously_dark
+JAM,JAM.13_1,Trelawny,0.0,0.0101,0.9899,887.0814,1092,2.8594,6.1483,False,,False,True,anomalously_dark
+JAM,JAM.14_1,Westmoreland,0.0,0.001,0.999,790.0964,972,6.2618,13.1291,False,,False,False,ordinary
+KNA,KNA.1_1,Christ Church Nichola Town,0.0,0.0,1.0,18.7868,23,6.125,12.6551,False,,False,False,ordinary
+KNA,KNA.2_1,Saint Anne Sandy Point,0.0,0.0,1.0,14.7021,18,5.3571,12.0721,False,,False,False,ordinary
+KNA,KNA.3_1,Saint George Basseterre,0.0,0.0,1.0,28.6028,35,18.6667,38.1283,False,,False,False,ordinary
+KNA,KNA.4_1,Saint George Gingerland,0.0,0.0,1.0,18.8101,23,2.7895,12.7088,False,,False,False,ordinary
+KNA,KNA.5_1,Saint James Windward,0.0,0.0,1.0,34.3401,42,2.2812,11.5827,False,,False,False,ordinary
+KNA,KNA.6_1,Saint John Capisterre,0.0,0.0,1.0,20.4179,25,1.619,9.3,False,,False,True,anomalously_dark
+KNA,KNA.7_1,Saint John Figtree,0.0,0.0,1.0,22.9005,28,7.7273,23.1917,False,,False,False,ordinary
+KNA,KNA.8_1,Saint Mary Cayon,0.0,0.0,1.0,13.8869,17,9.0769,18.9365,False,,False,False,ordinary
+KNA,KNA.9_1,Saint Paul Capisterre,0.0,0.0,1.0,14.7,18,2.9286,10.1976,False,,False,True,anomalously_dark
+KNA,KNA.10_1,Saint Paul Charlestown,0.0,0.0,1.0,3.2711,4,14.0,39.28,False,,False,False,ordinary
+KNA,KNA.11_1,Saint Peter Basseterre,0.0,0.0435,0.9565,18.7912,23,25.1053,42.6782,False,,False,False,ordinary
+KNA,KNA.12_1,Saint Thomas Lowland,0.0,0.0,1.0,17.1714,21,9.2222,24.9013,False,,False,False,ordinary
+KNA,KNA.13_1,Saint Thomas Middle Island,0.0,0.0,1.0,25.3243,31,4.3462,9.7555,False,,False,True,anomalously_dark
+KNA,KNA.14_1,Trinity Palmetto Point,0.0,0.0,1.0,15.5239,19,11.5625,23.2383,False,,False,False,ordinary
+LCA,LCA.1_1,Anse-la-Raye,0.0,0.0,1.0,44.8398,54,2.1136,9.1894,False,,False,True,anomalously_dark
+LCA,LCA.2_1,Canaries,0.0,0.0,1.0,22.4202,27,0.9565,10.6179,False,,False,False,ordinary
+LCA,LCA.3_1,Castries,0.0,0.0,1.0,96.2992,116,14.1146,29.2317,False,,False,False,ordinary
+LCA,LCA.4_1,Choiseul,0.0,0.0,1.0,27.4151,33,2.4286,12.9281,False,,False,False,ordinary
+LCA,LCA.5_1,Dennery,0.0,0.0,1.0,85.525,103,3.5059,9.9036,False,,False,True,anomalously_dark
+LCA,LCA.6_1,Gros Islet,0.0,0.0,1.0,102.9125,124,8.2245,22.6681,False,,False,False,ordinary
+LCA,LCA.7_1,Laborie,0.0,0.0,1.0,34.8947,42,4.4706,14.7452,False,,False,False,ordinary
+LCA,LCA.8_1,Micoud,0.0,0.0,1.0,106.3244,128,4.1604,10.0093,False,,False,True,anomalously_dark
+LCA,LCA.9_1,Soufrière,0.0,0.0,1.0,53.1567,64,3.6182,10.5752,False,,False,False,ordinary
+LCA,LCA.10_1,Vieux Fort,0.0,0.0,1.0,47.359,57,12.2727,24.3806,False,,False,False,ordinary
+VCT,VCT.1_1,Charlotte,0.0,0.0,1.0,142.3681,171,2.6972,6.8881,False,,False,True,anomalously_dark
+VCT,VCT.2_1,Grenadines,0.0,0.0,1.0,50.0389,60,3.766,8.8706,False,,False,True,anomalously_dark
+VCT,VCT.3_1,Saint Andrew,0.0,0.0,1.0,33.3123,40,15.2667,17.5889,False,,False,False,ordinary
+VCT,VCT.4_1,Saint David,0.0,0.0,1.0,79.0817,95,0.25,1.7083,False,,False,True,anomalously_dark
+VCT,VCT.5_1,Saint George,0.0,0.0,1.0,49.1425,59,17.0377,27.1216,False,,False,False,ordinary
+VCT,VCT.6_1,Saint Patrick,0.0,0.0,1.0,43.2987,52,3.0222,6.7296,False,,False,True,anomalously_dark
+TTO,TTO.1_1,Arima,0.0,0.0,1.0,13.4481,16,57.7692,62.0883,False,,False,False,ordinary
+TTO,TTO.2_1,Chaguanas,0.0,0.0,1.0,61.3753,73,41.082,59.1641,False,,False,False,ordinary
+TTO,TTO.3_1,Couva-Tabaquite-Talparo,0.0,0.0,1.0,746.8233,888,15.9664,37.4365,False,,False,False,ordinary
+TTO,TTO.4_1,Diego Martin,0.0,0.0,1.0,140.3289,167,36.3972,44.3362,False,,False,False,ordinary
+TTO,TTO.5_1,Mayaro/Rio Claro,0.0,0.0,1.0,791.7923,941,3.9111,12.4132,False,,False,False,ordinary
+TTO,TTO.6_1,Penal-Debe,0.0,0.0,1.0,239.0542,284,16.2199,42.9901,False,,False,False,ordinary
+TTO,TTO.7_1,Point Fortin,0.0,0.0303,0.9697,27.7763,33,27.3929,58.1691,False,,False,False,ordinary
+TTO,TTO.8_1,Port of Spain,0.0,0.0667,0.9333,12.6064,15,58.5714,61.9286,False,,False,False,ordinary
+TTO,TTO.9_1,Princes Town,0.0,0.0,1.0,615.2348,731,7.728,26.3513,False,,False,False,ordinary
+TTO,TTO.10_1,San Fernando,0.0,0.0833,0.9167,20.1943,24,57.7619,62.5714,False,,False,False,ordinary
+TTO,TTO.11_1,San Juan-Laventille,0.0,0.0,1.0,215.9717,257,27.6744,39.6358,False,,False,False,ordinary
+TTO,TTO.12_1,Sangre Grande,0.0,0.0,1.0,925.3498,1101,4.0687,15.408,False,,False,False,ordinary
+TTO,TTO.13_1,Siparia,0.0,0.0,1.0,501.7143,596,10.4661,30.8952,False,,False,False,ordinary
+TTO,TTO.14_1,Tobago,0.0,0.0,1.0,312.0403,372,11.2628,25.8105,False,,False,False,ordinary
+TTO,TTO.15_1,Tunapuna/Piarco,0.0,0.0,1.0,539.5067,642,20.7659,33.4342,False,,False,False,ordinary

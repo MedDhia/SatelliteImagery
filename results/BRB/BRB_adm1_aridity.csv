@@ -1,0 +1,12 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BRB,BRB.1_1,Christ Church,58.3228,70,70,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.2_1,Saint Andrew,34.9712,42,42,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.3_1,Saint George,43.316,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.4_1,Saint James,33.3129,40,40,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.5_1,Saint John,39.1453,47,47,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.6_1,Saint Joseph,22.4851,27,27,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.7_1,Saint Lucy,34.9625,42,42,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.8_1,Saint Michael,43.3198,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.9_1,Saint Peter,34.1361,41,41,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.10_1,Saint Philip,60.811,73,73,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BRB,BRB.11_1,Saint Thomas,34.1474,41,41,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

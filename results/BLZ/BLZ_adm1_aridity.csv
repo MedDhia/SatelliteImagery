@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BLZ,BLZ.1_1,Belize,3359.2684,4117,4117,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLZ,BLZ.2_1,Cayo,5306.0463,6484,6484,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLZ,BLZ.3_1,Corozal,1995.9167,2455,2455,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLZ,BLZ.4_1,Orange Walk,4687.1231,5751,5751,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLZ,BLZ.5_1,Stann Creek,2328.5327,2843,2843,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLZ,BLZ.6_1,Toledo,4403.5381,5362,5362,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
