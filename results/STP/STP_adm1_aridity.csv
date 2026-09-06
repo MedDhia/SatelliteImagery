@@ -1,0 +1,3 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+STP,STP.1_1,Príncipe,148.6771,174,174,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+STP,STP.2_1,São Tomé,857.3529,1003,1003,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

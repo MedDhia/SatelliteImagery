@@ -1,0 +1,10 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GAB,GAB.1_1,Estuaire,19912.6487,23296,23296,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.2_1,Haut-Ogooué,33689.5711,39425,39425,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.3_1,Moyen-Ogooué,17804.5844,20830,20830,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.4_1,Ngounié,38383.9843,44924,44924,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.5_1,Nyanga,21816.4342,25558,25558,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.6_1,Ogooué-Ivindo,43476.1989,50865,50865,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.7_1,Ogooué-Lolo,29038.3907,33976,33976,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.8_1,Ogooué-Maritime,22901.9771,26804,26804,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GAB,GAB.9_1,Wouleu-Ntem,37568.5332,43965,43965,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

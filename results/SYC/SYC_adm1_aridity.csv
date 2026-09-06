@@ -1,0 +1,27 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SYC,SYC.1_1,Anse aux Pins,3.408,5,4,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.2_1,Anse Boileau,11.0758,13,13,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.3_1,Anse Étoile,8.5212,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.4_1,Anse Royale,7.6675,9,9,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.5_1,Au Cap,9.3719,11,11,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.6_1,Baie Lazare,11.0752,14,13,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.7_1,Baie Sainte Anne,28.1307,35,33,2,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.8_1,Beau Vallon,3.4084,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.9_1,Bel Air,5.9645,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.10_1,Belombre,9.3729,11,11,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.11_1,Cascade,11.0764,13,13,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.12_1,English River,2.5563,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.13_1,Glacis,6.8172,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.14_1,Grand' Anse,14.4844,17,17,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.15_1,Grand'Anse Praslin,15.3437,18,18,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.16_1,La Digue and Inner Islands,43.4701,51,51,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.17_1,Les Mamelles,1.7041,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.18_1,Mont Buxton,0.8521,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.19_1,Mont Fleuri,2.5563,4,3,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.20_1,Outer Islands,221.1173,280,262,18,0.0,0.0,0.0,0.873422066196222,0.12657793380377746,0.0,0.873422066196222,adm1
+SYC,SYC.21_1,Plaisance,4.2603,5,5,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.22_1,Pointe La Rue,4.2601,5,5,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.23_1,Port Glaud,27.2659,33,32,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.24_1,Roche Caïman,0.8521,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.25_1,Saint Louis,1.7042,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SYC,SYC.26_1,Takamaka,12.7785,18,15,3,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

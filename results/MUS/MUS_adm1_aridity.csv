@@ -1,0 +1,13 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+MUS,MUS.1_1,Agalega Islands,26.9142,32,32,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.2_1,Black River,260.9221,325,325,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.3_1,Flacq,305.2749,380,380,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.4_1,Grand Port,253.5898,316,316,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.5_1,Moka,233.7442,291,291,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.6_1,Pamplemousses,185.7208,231,231,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.7_1,Plaines Wilhems,200.725,250,250,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.8_1,Port Louis,41.7903,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.9_1,Rivière du Rempart,152.8056,190,190,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MUS,MUS.10_1,Rodriguez,114.4383,142,142,0,0.0,0.0,0.0,0.14787574519983843,0.8521242548001614,0.0,0.14787574519983843,adm1
+MUS,MUS.11_1,Saint Brandon,4.9174,6,6,0,0.0,0.0,0.0,0.6667160607838295,0.33328393921617055,0.0,0.6667160607838295,adm1
+MUS,MUS.12_1,Savanne,244.6579,305,305,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

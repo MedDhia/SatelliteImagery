@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GMB,GMB.1_1,Banjul,74.876,90,90,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+GMB,GMB.2_1,Lower River,1497.0764,1799,1799,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+GMB,GMB.3_1,Maccarthy Island,3027.2882,3641,3641,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+GMB,GMB.4_1,North Bank,2264.0507,2722,2722,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+GMB,GMB.5_1,Upper River,2081.1913,2501,2501,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+GMB,GMB.6_1,Western,1721.8992,2068,2068,0,0.0,0.0,0.8887467694715572,0.11125323052844042,0.0,0.0,0.9999999999999976,adm1

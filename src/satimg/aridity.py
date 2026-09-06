@@ -128,6 +128,12 @@ DRYLAND_MAX_RAW = 6500
 
 CLASS_BY_KEY: Dict[str, AridityClass] = {c.key: c for c in CLASSES}
 DESERT_KEYS = ("hyper_arid", "arid")
+#: Every class below DRYLAND_MAX_RAW - which is to say all of them but humid.
+#: Derived from CLASSES rather than listed, because writing the members out by
+#: hand is exactly how dry sub-humid came to be left out of the sum once.
+DRYLAND_KEYS = tuple(
+    c.key for c in CLASSES if c.upper_raw is not None and c.upper_raw <= DRYLAND_MAX_RAW
+)
 
 
 def classify(raw, land_mask=None):
@@ -416,7 +422,16 @@ def unit_shares(
                 float(per_class[item.key][index] / area) if area > 0 else float("nan")
             )
         row["desert_share"] = sum(row[f"{key}_share"] for key in DESERT_KEYS)
-        row["dryland_share"] = row["desert_share"] + row["semi_arid_share"]
+        # Every class below AI 0.65, dry sub-humid included. Omitting it here
+        # understated the share for 60 of the first 317 units published - most
+        # extremely Beirut, which is wholly dry sub-humid and was reported as
+        # 0% dryland.
+        row["dryland_share"] = sum(row[f"{key}_share"] for key in DRYLAND_KEYS)
+        # Which admin level the row describes. Emitted here rather than added by
+        # the caller: it is a property of the rows, and the published tables
+        # document the column, so a writer that omits it produces a table
+        # `satimg results build` will refuse - as it did.
+        row["level"] = f"adm{level}"
         rows.append(row)
     return rows
 
@@ -579,8 +594,17 @@ def transition_crosstab(
 # --------------------------------------------------------------------------- #
 # aridity against darkness, across countries
 # --------------------------------------------------------------------------- #
-#: The published cross-country table.
+#: The published cross-country table, per pool. As with the trends table, the
+#: Arab League keeps its unprefixed name so adding a pool moves no published
+#: file.
 VS_LIGHT_TABLE = "aridity_vs_light.csv"
+
+
+def vs_light_table(pool: str) -> str:
+    from . import regions as R
+
+    return VS_LIGHT_TABLE if pool == R.DEFAULT_POOL else f"{pool}_{VS_LIGHT_TABLE}"
+
 
 #: The published figure, relative to the gallery root.
 BANDS_FIGURE = "aridity/arid_vs_lit.png"
@@ -655,8 +679,19 @@ def dark_cut(values: Sequence[float], quantile: float = DARK_QUANTILE) -> float:
     return statistics.quantiles(ordered, n=100)[round(quantile * 100) - 1]
 
 
-def vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
-    """Join per-unit aridity to per-unit light, for every country at once.
+def vs_light(
+    results_dir=RESULTS_DIR,
+    countries: Optional[Sequence[str]] = None,
+    *,
+    pool: Optional[str] = None,
+):
+    """Join per-unit aridity to per-unit light, across one pool.
+
+    **The darkness cut is pooled.** ``dark_2022`` compares each unit against the
+    median ``mean_dn_2022`` *of the countries passed here*, so the same unit can
+    be dark in one pool and lit in another. That is correct - "dark for this
+    continent" and "dark for the Arab world" are different questions - and it
+    means `dark_2022` and `cell` must never be compared across pools.
 
     ``mean_dn_*`` is the zonal table's ``mean_dn`` - the mean DN over the unit's
     land pixels - **not** a sum-of-lights density. The distinction matters
@@ -665,7 +700,10 @@ def vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None)
     """
     from . import regions as R
 
-    isos = list(countries) if countries is not None else list(R.ARAB_LEAGUE)
+    if countries is not None:
+        isos = list(countries)
+    else:
+        isos = list(R.pool_countries(pool or R.DEFAULT_POOL))
     root = Path(results_dir)
 
     rows: List[dict] = []
@@ -720,11 +758,18 @@ def vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None)
     return rows
 
 
-def write_vs_light(results_dir=RESULTS_DIR, countries: Optional[Sequence[str]] = None):
-    """Write ``results/aridity_vs_light.csv``; return (path, rows)."""
+def write_vs_light(
+    results_dir=RESULTS_DIR,
+    countries: Optional[Sequence[str]] = None,
+    *,
+    pool: Optional[str] = None,
+):
+    """Write the pool's aridity-against-light table; return (path, rows)."""
+    from . import regions as R
     from .analysis import write_csv
 
-    rows = vs_light(results_dir, countries)
+    pool = pool or R.DEFAULT_POOL
+    rows = vs_light(results_dir, countries, pool=pool)
     if not rows:
         return None, rows
-    return write_csv(rows, Path(results_dir) / VS_LIGHT_TABLE), rows
+    return write_csv(rows, Path(results_dir) / vs_light_table(pool)), rows
