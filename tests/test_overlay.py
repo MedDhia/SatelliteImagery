@@ -343,3 +343,68 @@ def test_style_line_width_varies_by_level():
     style = overlay.OverlayStyle()
     assert style.line_width(0) > style.line_width(1)
     assert style.line_alpha(0) > style.line_alpha(1)
+
+
+# --- the antimeridian clip -------------------------------------------------
+#
+# GADM's USA has Alaskan vertices on both sides of 180, so its lon/lat bounding
+# box spans the globe and the derived raster window is 159 Mpx instead of 53.
+# These pin the clip's behaviour without needing the 2.5 GiB GADM download.
+
+
+def test_clip_bounds_for_is_case_insensitive_and_defaults_to_none():
+    from satimg import boundaries as B
+
+    assert B.clip_bounds_for("USA") == (-180.0, -90.0, -60.0, 90.0)
+    assert B.clip_bounds_for("usa") == B.clip_bounds_for("USA")
+    assert B.clip_bounds_for("CHL") is None
+    assert B.clip_bounds_for(None) is None
+
+
+def test_clipped_cache_path_cannot_collide_with_an_unclipped_one():
+    """An unclipped cache served for a clipped country would be silent."""
+    from satimg import boundaries as B
+
+    clipped = B.cache_path(level=1, iso3="USA").name
+    plain = B.cache_path(level=1, iso3="CHL").name
+    assert "_clipped" in clipped
+    assert "_clipped" not in plain
+    # and the world layer, which is unscoped, stays exactly as it was
+    assert "_clipped" not in B.cache_path(level=1).name
+
+
+def test_clip_window_covers_the_western_hemisphere_only():
+    """The window must exclude the eastern-hemisphere Aleutian tail."""
+    from satimg import boundaries as B
+
+    minx, miny, maxx, maxy = B.ANTIMERIDIAN_CLIP["USA"]
+    assert minx == -180.0 and maxx < 0.0
+    # Alaska's mainland reaches -179.15 and Maine -66.95: both must survive.
+    assert minx <= -179.15
+    assert maxx >= -66.95
+    # The dropped tail lies at +172.44..+179.77, which this window excludes.
+    assert maxx < 172.44
+    assert miny <= -90.0 and maxy >= 90.0
+
+
+def test_clip_actually_removes_the_antimeridian_tail():
+    """A synthetic USA-shaped geometry: mainland plus a tail past 180."""
+    gpd = pytest.importorskip("geopandas")
+    from shapely.geometry import MultiPolygon
+    from shapely.geometry import box as sbox
+
+    from satimg import boundaries as B
+
+    mainland = sbox(-179.15, 51.0, -66.95, 72.0)
+    tail = sbox(172.44, 51.35, 179.77, 53.01)
+    frame = gpd.GeoDataFrame(
+        {"GID_0": ["USA"]},
+        geometry=[MultiPolygon([mainland, tail])],
+        crs="EPSG:4326",
+    )
+    assert frame.total_bounds[2] > 179.0  # the wrap, before clipping
+
+    clipped = gpd.clip(frame, sbox(*B.ANTIMERIDIAN_CLIP["USA"]))
+    assert len(clipped) == 1
+    assert clipped.total_bounds[0] == pytest.approx(-179.15)
+    assert clipped.total_bounds[2] == pytest.approx(-66.95)

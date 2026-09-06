@@ -31,7 +31,7 @@ import json
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple
 
 from .datasets.lrcc_dvnl import CRS_EPSG, RESOLUTION_M
 from .download import download_file
@@ -93,6 +93,38 @@ DEFAULT_TOLERANCE_M = RESOLUTION_M / 2
 #: Max segment length before reprojection, in degrees (~55 km at the equator).
 DEFAULT_SEGMENTIZE_DEG = 0.5
 
+#: Countries whose GADM geometry crosses the antimeridian, and the geographic
+#: window their analysis is cut to: ``(minx, miny, maxx, maxy)`` in degrees.
+#:
+#: GADM's ``USA`` carries Alaskan vertices at both -179.15 and +179.77, because
+#: the Aleutians run past 180 into the eastern hemisphere. A bounding box is a
+#: flat lon/lat rectangle and knows nothing of the wrap, so ``total_bounds``
+#: spans the globe: 29,188 km wide in EPSG:8857, a 159-megapixel frame where
+#: the largest country otherwise analysed here is Chile at 21. That is not a
+#: slow render but an out-of-memory crash, and it reaches ``zonal.window_for``
+#: - the statistics - and not only the pictures.
+#:
+#: Clipping to the western hemisphere gives 9,664 km and 52.6 Mpx while keeping
+#: all 51 ADM_1 features: two thirds of the frame goes without dropping a
+#: state. The residual width is real - Alaska to Maine is 112 degrees - and
+#: cannot shrink further without dropping Alaska itself.
+#:
+#: What the clip does drop is the Aleutian tail east of 180: 2,121.9 km2
+#: between 172.44E and 179.77E - Attu, Agattu, Kiska, Amchitka, Semisopochnoi -
+#: which is 0.141% of Alaska. They are near-unlit, and near-unlit is not unlit:
+#: Alaska's ``mean_dn`` and the United States totals are computed over a
+#: slightly smaller pixel set than GADM's geometry implies. Stitching two
+#: windows would keep every pixel; this repository took the crop and documents
+#: it in ``docs/americas.md`` rather than leaving it to be discovered.
+ANTIMERIDIAN_CLIP: Dict[str, Tuple[float, float, float, float]] = {
+    "USA": (-180.0, -90.0, -60.0, 90.0),
+}
+
+
+def clip_bounds_for(iso3: Optional[str]) -> Optional[Tuple[float, ...]]:
+    """Geographic clip window for a country, or ``None`` if it needs none."""
+    return ANTIMERIDIAN_CLIP.get(iso3.upper()) if iso3 else None
+
 
 class BoundaryDependencyError(RuntimeError):
     """Raised when the optional overlay dependencies are not installed."""
@@ -149,9 +181,14 @@ def cache_path(
     check_level(level)
     tolerance = f"{tolerance_m:g}".replace(".", "p")
     scope = f"_{iso3.upper()}" if iso3 else ""
+    # A clipped country must never be served from an unclipped cache. The file
+    # would open, carry the right feature count and a wholly plausible name,
+    # and hand back a globe-spanning window - the same shape of failure the
+    # tolerance_m guard in prepare_level exists to prevent, and just as silent.
+    clipped = "_clipped" if clip_bounds_for(iso3) else ""
     return (
         Path(root) / "cache" / f"gadm{GADM_VERSION.replace('.', '')}"
-        f"_adm{level}{scope}_epsg{epsg}_simp{tolerance}m.gpkg"
+        f"_adm{level}{scope}{clipped}_epsg{epsg}_simp{tolerance}m.gpkg"
     )
 
 
@@ -279,6 +316,20 @@ def prepare_level(
         raise ValueError(
             f"no GADM {LEVEL_LAYERS[level]} features for country code {iso3!r}"
         )
+
+    # Cut the antimeridian tail while still in degrees: the clip window is
+    # expressed in lon/lat, and after to_crs the wrap has already poisoned the
+    # bounds this is meant to fix. See ANTIMERIDIAN_CLIP for what it costs.
+    clip = clip_bounds_for(iso3)
+    if clip is not None:
+        from shapely.geometry import box
+
+        frame = gpd.clip(frame, box(*clip))
+        if frame.empty:
+            raise ValueError(
+                f"clipping {iso3} to {clip} left no features; the window and "
+                "the country's geometry do not overlap"
+            )
 
     # Densify in degrees first: long straight lon/lat spans (Antarctica's polar
     # edge, ruler-straight desert borders) would otherwise become chords once
