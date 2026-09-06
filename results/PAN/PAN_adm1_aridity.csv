@@ -1,0 +1,14 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+PAN,PAN.1_1,Bocas del Toro,4683.65,5549,5549,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.2_1,Chiriquí,6641.9271,7854,7854,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.3_1,Coclé,4907.4404,5804,5804,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.4_1,Colón,4680.5754,5545,5545,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.5_1,Darién,12306.7327,14541,14541,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.6_1,Emberá,4222.5667,4990,4990,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.7_1,Herrera,2320.7413,2740,2740,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.8_1,Kuna Yala,2543.446,3013,3013,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.9_1,Los Santos,3793.4816,4476,4476,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.10_1,Ngöbe Buglé,6591.709,7798,7798,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.12_1,Panamá,8783.3538,10402,10402,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.11_1,Panamá Oeste,3051.9184,3612,3612,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PAN,PAN.13_1,Veraguas,10915.4982,12895,12895,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

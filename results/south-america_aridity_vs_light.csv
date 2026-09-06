@@ -1,4 +1,14 @@
 iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+GUY,GUY.1_1,Barima-Waini,0.0,0.0,1.0,19496.1189,23006,0.0,0.0173,False,,False,True,anomalously_dark
+GUY,GUY.2_1,Cuyuni-Mazaruni,0.0,0.0,1.0,47221.2927,55556,0.0087,0.0294,False,,False,True,anomalously_dark
+GUY,GUY.3_1,Demerara-Mahaica,0.0,0.0,1.0,2106.6531,2480,1.3404,6.0362,False,,False,False,ordinary
+GUY,GUY.4_1,East Berbice-Corentyne,0.0,0.0,1.0,35195.8071,41256,0.0128,0.1281,False,,False,True,anomalously_dark
+GUY,GUY.5_1,Essequibo Islands-West Demerara,0.0,0.0,1.0,3281.552,3864,0.3724,2.6703,False,,False,False,ordinary
+GUY,GUY.6_1,Mahaica-Berbice,0.0,0.0,1.0,4026.063,4737,0.065,0.834,False,,False,True,anomalously_dark
+GUY,GUY.7_1,Pomeroon-Supenaam,0.0,0.0,1.0,5954.1007,7019,0.0198,0.3882,False,,False,True,anomalously_dark
+GUY,GUY.8_1,Potaro-Siparuni,0.0,0.0,1.0,19355.1614,22723,0.0,0.0054,False,,False,True,anomalously_dark
+GUY,GUY.9_1,Upper Demerara-Berbice,0.0,0.0,1.0,16572.3608,19471,0.1269,0.3169,False,,False,True,anomalously_dark
+GUY,GUY.10_1,Upper Takutu-Upper Essequibo,0.0,0.0,1.0,56539.8109,66229,0.0,0.0163,False,,False,True,anomalously_dark
 SUR,SUR.1_1,Brokopondo,0.0,0.0,1.0,7337.487,8613,0.0128,0.5225,False,,False,True,anomalously_dark
 SUR,SUR.2_1,Commewijne,0.0,0.0,1.0,2437.8377,2866,0.5502,3.5628,False,,False,False,ordinary
 SUR,SUR.3_1,Coronie,0.0,0.0,1.0,3631.0151,4268,0.0096,0.1267,False,,False,True,anomalously_dark
@@ -9,3 +19,22 @@ SUR,SUR.7_1,Paramaribo,0.0,0.0,1.0,167.5407,197,32.7963,50.4587,False,,False,Fal
 SUR,SUR.8_1,Saramacca,0.0,0.0,1.0,3786.258,4451,0.1058,1.5617,False,,False,False,ordinary
 SUR,SUR.9_1,Sipaliwini,0.0,0.0,1.0,113167.8711,132683,0.0,0.0172,False,,False,True,anomalously_dark
 SUR,SUR.10_1,Wanica,0.0,0.0,1.0,432.9548,509,7.4009,28.2341,False,,False,False,ordinary
+URY,URY.1_2,Artigas,0.0,0.0,1.0,12024.3466,16289,0.0833,0.6286,False,,False,True,anomalously_dark
+URY,URY.2_2,Canelones,0.0,0.0,1.0,4522.9025,6396,5.1406,15.3881,False,,False,False,ordinary
+URY,URY.3_2,Cerro Largo,0.0,0.0,1.0,13811.7855,19073,0.1279,0.9781,False,,False,True,anomalously_dark
+URY,URY.4_2,Colonia,0.0,0.0,1.0,6108.7528,8597,0.6079,4.2793,False,,False,False,ordinary
+URY,URY.5_2,Durazno,0.0,0.0,1.0,12226.7669,16992,0.1103,1.1791,False,,False,False,ordinary
+URY,URY.6_2,Flores,0.0,0.0,1.0,5145.9778,7196,0.1457,0.8671,False,,False,True,anomalously_dark
+URY,URY.7_2,Florida,0.0,0.0,1.0,10420.0278,14605,0.2079,1.5397,False,,False,False,ordinary
+URY,URY.8_2,Lavalleja,0.0,0.0,1.0,10031.4297,14084,0.1444,1.0485,False,,False,True,anomalously_dark
+URY,URY.9_2,Maldonado,0.0,0.0,1.0,4779.3434,6760,1.4737,4.7583,False,,False,False,ordinary
+URY,URY.10_2,Montevideo,0.0,0.0,1.0,529.3278,751,43.9962,51.6477,False,,False,False,ordinary
+URY,URY.11_2,Paysandú,0.0,0.0,1.0,14103.2689,19396,0.1521,1.3188,False,,False,False,ordinary
+URY,URY.12_2,Río Negro,0.0,0.0,1.0,9580.8303,13277,0.1425,1.3451,False,,False,False,ordinary
+URY,URY.13_2,Rivera,0.0,0.0,1.0,9330.5544,12753,0.1652,1.1862,False,,False,False,ordinary
+URY,URY.14_2,Rocha,0.0,0.0,1.0,10854.9974,15244,0.1684,1.284,False,,False,False,ordinary
+URY,URY.15_2,Salto,0.0,0.0,1.0,14166.0262,19330,0.1416,1.0565,False,,False,True,anomalously_dark
+URY,URY.16_2,San José,0.0,0.0,1.0,5015.3269,7073,0.7953,5.5897,False,,False,False,ordinary
+URY,URY.17_2,Soriano,0.0,0.0,1.0,8981.0787,12550,0.1503,1.3832,False,,False,False,ordinary
+URY,URY.18_2,Tacuarembó,0.0,0.0,1.0,15979.1688,21986,0.1107,0.7818,False,,False,True,anomalously_dark
+URY,URY.19_2,Treinta y Tres,0.0,0.0,1.0,9717.5414,13511,0.1296,1.0837,False,,False,False,ordinary

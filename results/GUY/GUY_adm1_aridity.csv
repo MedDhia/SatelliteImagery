@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GUY,GUY.1_1,Barima-Waini,19496.1189,23006,23006,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.2_1,Cuyuni-Mazaruni,47221.2927,55556,55556,0,0.0,0.0,0.0,1.799282646146015e-05,0.9999820071735386,0.0,1.799282646146015e-05,adm1
+GUY,GUY.3_1,Demerara-Mahaica,2106.6531,2480,2480,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.4_1,East Berbice-Corentyne,35195.8071,41256,41256,0,0.0,0.0,2.4146554889922817e-05,0.0,0.9999758534451101,0.0,2.4146554889922817e-05,adm1
+GUY,GUY.5_1,Essequibo Islands-West Demerara,3281.552,3864,3864,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.6_1,Mahaica-Berbice,4026.063,4737,4737,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.7_1,Pomeroon-Supenaam,5954.1007,7019,7019,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.8_1,Potaro-Siparuni,19355.1614,22723,22723,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.9_1,Upper Demerara-Berbice,16572.3608,19471,19471,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUY,GUY.10_1,Upper Takutu-Upper Essequibo,56539.8109,66229,66229,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
