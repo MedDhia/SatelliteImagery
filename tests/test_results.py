@@ -557,3 +557,86 @@ def test_cross_country_tables_are_never_counted_as_a_country(tmp_path):
     for iso3 in result.not_analysed:
         assert "." not in iso3 and "/" not in iso3
         assert iso3 in R2.COUNTRIES
+
+
+# --- the dark_2022 median tie ----------------------------------------------
+#
+# The gloss for `dark_2022` used to name Iraq's Ninawa in every pool, because
+# all four tables were generated from one shared column template. Three of the
+# four contain no Iraqi unit, and Africa has no tie at all - so the sentence
+# was wrong about the example and, there, about the point it was making.
+# Naming a unit is a claim about published data, so it gets checked.
+
+
+def _pool_medians():
+    """(pool, median, tied unit description or None) from the committed CSVs."""
+    import csv
+    import statistics
+    from pathlib import Path
+
+    from satimg import aridity as A
+    from satimg import regions as R
+
+    out = []
+    for pool in R.POOLS:
+        path = Path("results") / A.vs_light_table(pool)
+        if not path.exists():  # pool not published yet
+            continue
+        rows = list(csv.DictReader(path.open()))
+        if not rows:
+            continue
+        values = [float(r["mean_dn_2022"]) for r in rows]
+        median = statistics.median(values)
+        tied = [r for r in rows if float(r["mean_dn_2022"]) == median]
+        out.append((pool, median, tied))
+    return out
+
+
+def test_named_median_ties_are_real():
+    """Every pool named in MEDIAN_TIES must actually have a unit on its median."""
+    from satimg import results as RS
+
+    for pool, median, tied in _pool_medians():
+        named = RS.MEDIAN_TIES.get(pool)
+        if named is None:
+            assert not tied, (
+                f"pool {pool!r} has {len(tied)} unit(s) exactly on its median "
+                f"{median} but MEDIAN_TIES names none; the strict '<' is "
+                "load-bearing there and the gloss should say so"
+            )
+            continue
+        assert tied, (
+            f"MEDIAN_TIES names {named!r} for pool {pool!r}, but no unit sits "
+            f"on its median {median}"
+        )
+        # the named unit must be one of the tied ones, not merely some unit
+        assert any(r["name"] in named or r["iso3"] in named for r in tied), (
+            f"MEDIAN_TIES says {named!r} for {pool!r}, but the tie is "
+            f"{[(r['iso3'], r['name']) for r in tied]}"
+        )
+
+
+def test_dark_2022_gloss_never_names_another_pools_unit():
+    """The defect itself: an Iraqi unit cited in pools without Iraqi units."""
+    from satimg import regions as R
+    from satimg import results as RS
+
+    for table in RS.CROSS_TABLES:
+        if "aridity-vs-light" not in table.key:
+            continue
+        pool = table.key.rsplit("-aridity-vs-light", 1)[0]
+        gloss = dict(table.columns)["dark_2022"]
+        named = RS.MEDIAN_TIES.get(pool)
+        if named is None:
+            assert "sits exactly on" not in gloss, (
+                f"pool {pool!r} has no median tie, but its dark_2022 gloss "
+                f"claims one: {gloss!r}"
+            )
+        else:
+            assert named in gloss
+        # Whatever it names, the country must belong to this pool.
+        if "Iraq" in gloss:
+            assert "IRQ" in R.pool_countries(pool), (
+                f"pool {pool!r} does not contain Iraq, but its dark_2022 "
+                "gloss names an Iraqi unit"
+            )

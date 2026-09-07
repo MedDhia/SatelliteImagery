@@ -251,8 +251,7 @@ CROSS_ARIDITY_COLUMNS = (
         "dark_2022",
         "whether `mean_dn_2022` is strictly below the cross-country "
         "median — the cut is a choice, and the set it produces is "
-        "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
-        "the strict `<` is load-bearing",
+        "sensitive to it",
     ),
     (
         "cell",
@@ -304,6 +303,51 @@ CROSS_TRENDS_COLUMNS = (
 )
 
 
+#: Pools where a unit sits *exactly* on the darkness median, and which unit.
+#:
+#: Only then is the strict ``<`` in `dark_2022` load-bearing: the tied unit is
+#: classified lit, and a ``<=`` would flip it. Whether a tie exists is not a
+#: matter of luck but of parity - ``statistics.median`` returns a real
+#: observation only when the pool holds an odd number of units, and averages
+#: the two middle ones otherwise, landing between them and matching nothing.
+#: The Arab League's 317 units tie; Africa's 854, North America's 328 and
+#: South America's 214 do not.
+#:
+#: This began as one sentence in the shared column template naming Ninawa,
+#: which meant every pool generated from that template asserted an Iraqi unit
+#: sat on its median - false for three of the four, and false about the
+#: underlying point for Africa, which has no tie at all. Naming a unit here is
+#: a claim about published data, so `tests/test_results.py` recomputes each
+#: median from the committed CSV and checks it.
+MEDIAN_TIES: Dict[str, str] = {
+    "arab-league": "Iraq's Ninawa",
+}
+
+
+def _dark_2022_gloss(pool: str) -> str:
+    """The `dark_2022` column gloss for one pool, tie named only if real."""
+    base = (
+        "whether `mean_dn_2022` is strictly below the cross-country "
+        "median — the cut is a choice, and the set it produces is "
+        "sensitive to it"
+    )
+    tie = MEDIAN_TIES.get(pool)
+    if tie is None:
+        return base
+    return (
+        f"{base}; {tie} sits exactly on this pool's median, so the "
+        "strict `<` is load-bearing"
+    )
+
+
+def _cross_aridity_columns(pool: str):
+    """`CROSS_ARIDITY_COLUMNS` with the pool's own `dark_2022` gloss."""
+    return tuple(
+        (name, _dark_2022_gloss(pool) if name == "dark_2022" else gloss)
+        for name, gloss in CROSS_ARIDITY_COLUMNS
+    )
+
+
 def _pool_label(pool: str) -> str:
     """A human name for a pool, e.g. 'north-america' -> 'North America'."""
     return pool.replace("-", " ").title().replace("League", "League")
@@ -338,7 +382,7 @@ def _cross_tables():
                     "pools can have a unit dark in one file and lit in the "
                     "other, correctly."
                 ),
-                columns=CROSS_ARIDITY_COLUMNS,
+                columns=_cross_aridity_columns(pool),
             )
         )
         tables.append(
