@@ -1,0 +1,9 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+ISL,ISL.1_1,Austurland,22395.2301,61296,61107,189,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.3_1,Höfuðborgarsvæði,1045.5509,2776,2776,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.2_1,Norðurland eystra,21864.7337,61084,61083,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.4_1,Norðurland vestra,12427.2844,34498,34497,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.5_1,Suðurland,24719.3684,65578,65573,5,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.6_1,Suðurnes,819.4846,2162,2158,4,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.7_1,Vestfirðir,9218.777,26040,26028,12,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ISL,ISL.8_1,Vesturland,9631.6386,26227,26217,10,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

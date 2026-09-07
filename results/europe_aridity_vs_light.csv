@@ -18,12 +18,77 @@ AND,AND.4_1,Escaldes-Engordany,0.0,0.0,1.0,45.6636,72,13.6531,16.9269,False,,Fal
 AND,AND.5_1,La Massana,0.0,0.0,1.0,69.0572,109,30.4478,37.0896,False,,False,False,ordinary
 AND,AND.6_1,Ordino,0.0,0.0,1.0,78.496,124,10.7342,15.7658,False,,False,False,ordinary
 AND,AND.7_1,Sant Julià de Lòria,0.0,0.0,1.0,64.7122,102,23.875,33.4203,False,,False,False,ordinary
+AUT,AUT.1_1,Burgenland,0.0,0.1298,0.8702,3954.0483,6803,4.4109,13.9414,False,,False,False,ordinary
+AUT,AUT.2_1,Kärnten,0.0,0.0,1.0,9542.8448,16185,3.6787,7.9968,False,,False,True,anomalously_dark
+AUT,AUT.3_1,Niederösterreich,0.0,0.1122,0.8878,19202.167,33500,6.7979,13.6196,False,,False,False,ordinary
+AUT,AUT.4_1,Oberösterreich,0.0,0.0,1.0,11980.6775,20847,5.2242,12.0849,False,,False,False,ordinary
+AUT,AUT.5_1,Salzburg,0.0,0.0,1.0,7167.628,12296,4.4098,9.0983,False,,False,False,ordinary
+AUT,AUT.6_1,Steiermark,0.0,0.0,1.0,16415.673,28098,4.2313,9.3883,False,,False,False,ordinary
+AUT,AUT.7_1,Tirol,0.0,0.0,1.0,12657.3479,21635,4.8076,9.8268,False,,False,False,ordinary
+AUT,AUT.8_1,Vorarlberg,0.0,0.0,1.0,2602.425,4452,7.4316,13.2668,False,,False,False,ordinary
+AUT,AUT.9_1,Wien,0.0,0.5745,0.4255,415.508,724,50.1881,58.1384,False,,False,False,ordinary
+BLR,BLR.1_1,Brest,0.0,0.0,1.0,32708.0562,62172,1.1465,3.5957,False,,False,True,anomalously_dark
+BLR,BLR.2_1,Gomel,0.0,0.0,1.0,40103.125,76085,2.0845,3.366,False,,False,True,anomalously_dark
+BLR,BLR.3_1,Grodno,0.0,0.0,1.0,25008.2234,49018,1.5545,3.7932,False,,False,True,anomalously_dark
+BLR,BLR.5_1,Minsk,0.0,0.0,1.0,37799.2452,74157,3.0354,5.4723,False,,False,True,anomalously_dark
+BLR,BLR.7_1,Minsk,0.0,0.0,1.0,2259.9739,4452,25.6241,30.8713,False,,False,False,ordinary
+BLR,BLR.4_1,Mogilev,0.0,0.0,1.0,29049.4924,56786,2.1683,3.2311,False,,False,True,anomalously_dark
+BLR,BLR.6_1,Vitebsk,0.0,0.0,1.0,40137.5558,81573,1.7955,3.4825,False,,False,True,anomalously_dark
 BEL,BEL.1_1,Bruxelles,0.0,0.0,1.0,154.5552,284,62.0519,62.5166,False,,False,False,ordinary
 BEL,BEL.2_1,Vlaanderen,0.0,0.0,1.0,13705.4825,25292,40.4434,46.1121,False,,False,False,ordinary
 BEL,BEL.3_1,Wallonie,0.0,0.0,1.0,16854.894,30633,22.021,27.0006,False,,False,False,ordinary
 BIH,BIH.1_1,Brčko,0.0,0.0,1.0,509.53,835,0.0,17.4182,False,,False,False,ordinary
 BIH,BIH.2_1,Federacija Bosna i Hercegovina,0.0,0.0,1.0,25670.8597,41561,0.3289,7.6794,False,,False,True,anomalously_dark
 BIH,BIH.3_1,Repuplika Srpska,0.0,0.0,1.0,24891.5395,40374,0.2539,6.284,False,,False,True,anomalously_dark
+BGR,BGR.1_1,Blagoevgrad,0.0,0.6397,0.3603,6605.9574,10293,1.002,4.3021,False,,False,True,anomalously_dark
+BGR,BGR.2_1,Burgas,0.0,0.9701,0.0299,7785.7016,12277,2.0671,4.8646,False,,False,True,anomalously_dark
+BGR,BGR.3_1,Dobrich,0.0,1.0,0.0,4717.5977,7579,1.5445,3.8162,False,,False,True,anomalously_dark
+BGR,BGR.4_1,Gabrovo,0.0,0.4711,0.5289,2231.2156,3543,4.9043,8.0731,False,,False,True,anomalously_dark
+BGR,BGR.5_1,Grad Sofiya,0.0,0.0056,0.9944,1354.0558,2141,17.1954,28.0961,False,,False,False,ordinary
+BGR,BGR.6_1,Haskovo,0.0,0.9959,0.0041,5329.3647,8320,1.9196,5.2856,False,,False,True,anomalously_dark
+BGR,BGR.7_1,Kardzhali,0.0,0.9471,0.0529,3140.7119,4879,1.2519,3.5959,False,,False,True,anomalously_dark
+BGR,BGR.8_1,Kyustendil,0.0,0.5185,0.4815,3159.0826,4963,1.3501,3.897,False,,False,True,anomalously_dark
+BGR,BGR.9_1,Lovech,0.0,0.2745,0.7255,4241.2732,6746,1.7478,4.7423,False,,False,True,anomalously_dark
+BGR,BGR.10_1,Montana,0.0,0.4971,0.5029,3766.0145,6035,1.4214,2.8049,False,,False,True,anomalously_dark
+BGR,BGR.11_1,Pazardzhik,0.0,0.4444,0.5556,4328.9402,6788,3.052,5.427,False,,False,True,anomalously_dark
+BGR,BGR.12_1,Pernik,0.0,0.17,0.83,2421.6774,3826,2.3677,7.1715,False,,False,True,anomalously_dark
+BGR,BGR.13_1,Pleven,0.0,0.9724,0.0276,4455.1133,7138,3.7413,6.7527,False,,False,True,anomalously_dark
+BGR,BGR.14_1,Plovdiv,0.0,0.6925,0.3075,6337.0089,9956,3.9725,8.4928,False,,False,True,anomalously_dark
+BGR,BGR.15_1,Razgrad,0.0,0.9979,0.0021,2648.2159,4254,4.8545,5.7282,False,,False,True,anomalously_dark
+BGR,BGR.16_1,Ruse,0.0,1.0,0.0,2724.2785,4378,3.6609,7.1487,False,,False,True,anomalously_dark
+BGR,BGR.17_1,Shumen,0.0,0.9165,0.0835,3614.2755,5773,4.069,5.742,False,,False,True,anomalously_dark
+BGR,BGR.18_1,Silistra,0.0,1.0,0.0,2723.0422,4396,1.9578,4.1915,False,,False,True,anomalously_dark
+BGR,BGR.19_1,Sliven,0.0,0.59,0.41,3433.8228,5430,2.8164,6.7609,False,,False,True,anomalously_dark
+BGR,BGR.20_1,Smolyan,0.0,0.1427,0.8573,3308.0724,5147,1.2936,4.2891,False,,False,True,anomalously_dark
+BGR,BGR.21_1,Sofia,0.0,0.0243,0.9757,7130.939,11283,1.9442,6.3434,False,,False,True,anomalously_dark
+BGR,BGR.22_1,Stara Zagora,0.0,0.8061,0.1939,5060.0441,7969,3.1881,7.6777,False,,False,True,anomalously_dark
+BGR,BGR.23_1,Targovishte,0.0,0.9192,0.0808,2519.7489,4022,4.029,6.4215,False,,False,True,anomalously_dark
+BGR,BGR.24_1,Varna,0.0,1.0,0.0,3693.4926,5889,5.0361,8.9441,False,,False,True,anomalously_dark
+BGR,BGR.25_1,Veliko Tarnovo,0.0,0.89,0.11,4658.4781,7428,4.5269,8.4036,False,,False,True,anomalously_dark
+BGR,BGR.26_1,Vidin,0.0,0.1254,0.8746,3067.5194,4940,0.7584,3.1717,False,,False,True,anomalously_dark
+BGR,BGR.27_1,Vratsa,0.0,0.6696,0.3304,3743.5319,5989,2.4955,4.2909,False,,False,True,anomalously_dark
+BGR,BGR.28_1,Yambol,0.0,1.0,0.0,3389.9152,5329,1.8149,6.475,False,,False,True,anomalously_dark
+HRV,HRV.1_1,Bjelovarska-Bilogorska,0.0,0.0,1.0,2661.0698,4430,1.1295,6.3996,False,,False,True,anomalously_dark
+HRV,HRV.2_1,Brodsko-Posavska,0.0,0.0,1.0,2009.9358,3315,0.7874,13.17,False,,False,False,ordinary
+HRV,HRV.3_1,Dubrovacko-Neretvanska,0.0,0.1915,0.8085,1987.3699,3152,0.9652,10.8381,False,,False,False,ordinary
+HRV,HRV.4_1,Grad Zagreb,0.0,0.0,1.0,1262.6202,2102,17.0609,36.4317,False,,False,False,ordinary
+HRV,HRV.5_1,Istarska,0.0,0.0,1.0,2889.3897,4765,2.973,13.7947,False,,False,False,ordinary
+HRV,HRV.6_1,Karlovacka,0.0,0.0,1.0,3590.8208,5931,0.7372,8.1189,False,,False,True,anomalously_dark
+HRV,HRV.7_1,Koprivničko-Križevačka,0.0,0.0,1.0,1760.3225,2949,4.2837,13.3109,False,,False,False,ordinary
+HRV,HRV.8_1,Krapinsko-Zagorska,0.0,0.0,1.0,1204.5752,2018,4.14,17.868,False,,False,False,ordinary
+HRV,HRV.9_1,Licko-Senjska,0.0,0.0,1.0,5385.854,8804,0.1007,4.2451,False,,False,True,anomalously_dark
+HRV,HRV.10_1,Medimurska,0.0,0.0,1.0,765.0596,1289,5.1887,17.2012,False,,False,False,ordinary
+HRV,HRV.11_1,Osjecko-Baranjska,0.0,0.0003,0.9997,4000.5516,6639,1.6816,12.0027,False,,False,False,ordinary
+HRV,HRV.12_1,Požeško-Slavonska,0.0,0.0,1.0,1810.9034,2997,0.5135,7.1668,False,,False,True,anomalously_dark
+HRV,HRV.13_1,Primorsko-Goranska,0.0,0.0,1.0,3640.5103,6007,4.0867,9.9007,False,,False,False,ordinary
+HRV,HRV.14_1,Šibensko-Kninska,0.0,0.1223,0.8777,2922.0775,4713,0.8396,9.7539,False,,False,False,ordinary
+HRV,HRV.15_1,Sisacko-Moslavacka,0.0,0.0,1.0,4484.1202,7416,1.4886,8.0023,False,,False,True,anomalously_dark
+HRV,HRV.16_1,Splitsko-Dalmatinska,0.0,0.1747,0.8253,4752.5145,7616,1.9733,11.8664,False,,False,False,ordinary
+HRV,HRV.17_1,Varaždinska,0.0,0.0,1.0,1305.9859,2194,4.0791,21.9642,False,,False,False,ordinary
+HRV,HRV.18_1,Viroviticko-Podravska,0.0,0.0,1.0,2064.8307,3437,1.5864,6.8254,False,,False,True,anomalously_dark
+HRV,HRV.19_1,Vukovarsko-Srijemska,0.0,0.0,1.0,2407.0661,3968,1.4482,15.9388,False,,False,False,ordinary
+HRV,HRV.20_1,Zadarska,0.0,0.0005,0.9995,3773.3314,6116,0.757,6.7781,False,,False,True,anomalously_dark
+HRV,HRV.21_1,Zagrebačka,0.0,0.0,1.0,2398.2495,3996,4.8797,21.6214,False,,False,False,ordinary
 CYP,CYP.1_1,Famagusta,0.0,1.0,0.0,207.4334,295,26.6318,39.8654,False,,False,False,ordinary
 CYP,CYP.2_1,Larnaca,0.0,0.9992,0.0008,912.049,1295,12.6062,22.126,False,,False,False,ordinary
 CYP,CYP.3_1,Limassol,0.0,0.9524,0.0476,1257.8688,1784,10.7332,17.324,False,,False,False,ordinary
@@ -60,7 +125,7 @@ EST,EST.9_1,Peipsi,0.0,0.0,1.0,1763.2188,3930,0.078,0.4622,False,,False,True,ano
 EST,EST.10_1,Põlva,0.0,0.0,1.0,2161.3541,4731,0.8108,5.7674,False,,False,True,anomalously_dark
 EST,EST.11_1,Rapla,0.0,0.0,1.0,2978.0094,6683,0.6245,4.9095,False,,False,True,anomalously_dark
 EST,EST.12_1,Saare,0.0,0.0,1.0,2937.7971,6494,0.2435,1.4594,False,,False,True,anomalously_dark
-EST,EST.13_1,Tartu,0.0,0.0,1.0,3265.8225,7213,2.6204,9.263,False,,False,True,anomalously_dark
+EST,EST.13_1,Tartu,0.0,0.0,1.0,3265.8225,7213,2.6204,9.263,False,,False,False,ordinary
 EST,EST.14_1,Valga,0.0,0.0,1.0,2033.8257,4438,0.8576,4.6678,False,,False,True,anomalously_dark
 EST,EST.15_1,Viljandi,0.0,0.0,1.0,3415.3563,7538,0.8805,3.8952,False,,False,True,anomalously_dark
 EST,EST.16_1,Võru,0.0,0.0,1.0,2282.3611,4956,0.9982,5.1528,False,,False,True,anomalously_dark
@@ -79,13 +144,21 @@ HUN,HUN.12_1,Komárom-Esztergom,0.0,0.8465,0.1535,2233.7891,3848,6.8639,13.2403,
 HUN,HUN.13_1,Nógrád,0.0,0.195,0.805,2561.8841,4445,2.2248,7.0237,False,,False,True,anomalously_dark
 HUN,HUN.14_1,Pest,0.0,0.9199,0.0801,6500.1455,11155,7.6297,16.2872,False,,False,False,ordinary
 HUN,HUN.15_1,Somogy,0.0,0.0574,0.9426,5958.0265,10046,2.2151,6.6192,False,,False,True,anomalously_dark
-HUN,HUN.16_1,Szabolcs-Szatmár-Bereg,0.0,0.1332,0.8668,5944.4352,10316,4.9481,9.8488,False,,False,True,anomalously_dark
+HUN,HUN.16_1,Szabolcs-Szatmár-Bereg,0.0,0.1332,0.8668,5944.4352,10316,4.9481,9.8488,False,,False,False,ordinary
 HUN,HUN.17_1,Tolna,0.0,0.7944,0.2056,3751.286,6332,1.7871,5.4583,False,,False,True,anomalously_dark
 HUN,HUN.18_1,Vas,0.0,0.0048,0.9952,3378.0728,5769,1.9528,8.4738,False,,False,True,anomalously_dark
 HUN,HUN.19_1,Veszprém,0.0,0.2855,0.7145,4309.8734,7358,2.8429,8.7549,False,,False,True,anomalously_dark
 HUN,HUN.20_1,Zala,0.0,0.0,1.0,3820.5361,6470,2.7698,8.5079,False,,False,True,anomalously_dark
+ISL,ISL.1_1,Austurland,0.0,0.0,1.0,22395.2301,61107,0.2185,0.5229,False,,False,True,anomalously_dark
+ISL,ISL.3_1,Höfuðborgarsvæði,0.0,0.0,1.0,1045.5509,2776,17.3656,20.7417,False,,False,False,ordinary
+ISL,ISL.2_1,Norðurland eystra,0.0,0.0,1.0,21864.7337,61083,0.1027,1.0411,False,,False,True,anomalously_dark
+ISL,ISL.4_1,Norðurland vestra,0.0,0.0,1.0,12427.2844,34497,0.012,0.5016,False,,False,True,anomalously_dark
+ISL,ISL.5_1,Suðurland,0.0,0.0,1.0,24719.3684,65573,0.2548,1.3488,False,,False,True,anomalously_dark
+ISL,ISL.6_1,Suðurnes,0.0,0.0,1.0,819.4846,2158,7.1239,14.7744,False,,False,False,ordinary
+ISL,ISL.7_1,Vestfirðir,0.0,0.0,1.0,9218.777,26028,0.1125,0.7425,False,,False,True,anomalously_dark
+ISL,ISL.8_1,Vesturland,0.0,0.0,1.0,9631.6386,26217,0.0963,1.1372,False,,False,True,anomalously_dark
 IRL,IRL.1_1,Carlow,0.0,0.0,1.0,899.5075,1723,4.1086,11.6494,False,,False,False,ordinary
-IRL,IRL.2_1,Cavan,0.0,0.0,1.0,1932.4173,3812,3.5778,8.9998,False,,False,True,anomalously_dark
+IRL,IRL.2_1,Cavan,0.0,0.0,1.0,1932.4173,3812,3.5778,8.9998,False,,False,False,ordinary
 IRL,IRL.3_1,Clare,0.0,0.0,1.0,3265.863,6273,3.2095,7.1997,False,,False,True,anomalously_dark
 IRL,IRL.5_1,Donegal,0.0,0.0,1.0,4850.1392,9785,3.1399,6.6474,False,,False,True,anomalously_dark
 IRL,IRL.6_1,Dublin,0.0,0.0,1.0,907.995,1766,38.8811,47.675,False,,False,False,ordinary
@@ -106,13 +179,13 @@ IRL,IRL.20_1,Roscommon,0.0,0.0,1.0,2547.3949,4993,1.5658,6.8924,False,,False,Tru
 IRL,IRL.21_1,Sligo,0.0,0.0,1.0,1839.0836,3642,1.8303,6.4456,False,,False,True,anomalously_dark
 IRL,IRL.22_1,Tipperary,0.0,0.0,1.0,4305.4762,8231,3.7652,10.0222,False,,False,False,ordinary
 IRL,IRL.23_1,Waterford,0.0,0.0,1.0,1853.896,3507,4.4057,10.7322,False,,False,False,ordinary
-IRL,IRL.24_1,Westmeath,0.0,0.0,1.0,1833.8511,3578,2.8001,9.3061,False,,False,True,anomalously_dark
+IRL,IRL.24_1,Westmeath,0.0,0.0,1.0,1833.8511,3578,2.8001,9.3061,False,,False,False,ordinary
 IRL,IRL.25_1,Wexford,0.0,0.0,1.0,2364.1438,4501,4.2245,12.0424,False,,False,False,ordinary
 IRL,IRL.26_1,Wicklow,0.0,0.0,1.0,2022.4111,3896,4.9014,10.6137,False,,False,False,ordinary
 IRL,IRL.4_1,NA,0.0,0.0,1.0,7458.7292,14030,5.7856,11.1343,False,,False,False,ordinary
 LVA,LVA.1_1,Kurzeme,0.0,0.0,1.0,13561.6645,28799,0.6414,2.5343,False,,False,True,anomalously_dark
 LVA,LVA.2_1,Latgale,0.0,0.0,1.0,14718.4468,30824,0.8049,2.3623,False,,False,True,anomalously_dark
-LVA,LVA.3_1,Riga,0.0,0.0,1.0,10359.359,22103,3.748,8.9989,False,,False,True,anomalously_dark
+LVA,LVA.3_1,Riga,0.0,0.0,1.0,10359.359,22103,3.748,8.9989,False,,False,False,ordinary
 LVA,LVA.4_1,Vidzeme,0.0,0.0,1.0,15273.0779,32765,0.5797,2.5984,False,,False,True,anomalously_dark
 LVA,LVA.5_1,Zemgale,0.0,0.0,1.0,10799.5171,22672,1.1893,4.1256,False,,False,True,anomalously_dark
 LIE,LIE.1_1,Balzers,0.0,0.0,1.0,20.5152,35,5.8,17.7333,False,,False,False,ordinary
@@ -127,7 +200,7 @@ LIE,LIE.9_1,Triesen,0.0,0.0,1.0,24.6237,42,5.6154,13.7692,False,,False,False,ord
 LIE,LIE.10_1,Triesenberg,0.0,0.0,1.0,30.4637,52,10.5312,17.4688,False,,False,False,ordinary
 LIE,LIE.11_1,Valduz,0.0,0.0,1.0,16.9824,29,24.9412,38.8235,False,,False,False,ordinary
 LTU,LTU.1_1,Alytaus,0.0,0.0,1.0,5635.5155,11178,1.0506,3.2144,False,,False,True,anomalously_dark
-LTU,LTU.2_1,Kauno,0.0,0.0,1.0,8176.8288,16561,3.0659,9.9263,False,,False,True,anomalously_dark
+LTU,LTU.2_1,Kauno,0.0,0.0,1.0,8176.8288,16561,3.0659,9.9263,False,,False,False,ordinary
 LTU,LTU.3_1,Klaipedos,0.0,0.0,1.0,5375.4043,11057,1.4425,7.4093,False,,False,True,anomalously_dark
 LTU,LTU.4_1,Marijampoles,0.0,0.0,1.0,4448.8998,8928,1.1337,6.7189,False,,False,True,anomalously_dark
 LTU,LTU.5_1,Panevezio,0.0,0.0,1.0,7840.4721,16219,1.1201,4.0747,False,,False,True,anomalously_dark
@@ -144,7 +217,7 @@ MLT,MLT.2_1,Għawdex,0.0,1.0,0.0,72.2137,104,38.5493,44.4355,False,,False,False,
 MLT,MLT.3_1,Nofsinhar,0.0,1.0,0.0,76.5685,110,49.9231,54.8518,False,,False,False,ordinary
 MLT,MLT.4_1,Tramuntana,0.0,1.0,0.0,117.5283,169,42.1552,47.2912,False,,False,False,ordinary
 MLT,MLT.5_1,Xlokk,0.0,1.0,0.0,34.7945,50,54.8333,60.1374,False,,False,False,ordinary
-MDA,MDA.1_1,Anenii Noi,0.0,1.0,0.0,805.4837,1370,9.0618,9.0859,False,,False,True,anomalously_dark
+MDA,MDA.1_1,Anenii Noi,0.0,1.0,0.0,805.4837,1370,9.0618,9.0859,False,,False,False,ordinary
 MDA,MDA.2_1,Bălţi,0.0,0.0,1.0,100.1373,173,33.1443,36.9983,False,,False,False,ordinary
 MDA,MDA.3_1,Basarabeasca,0.0,1.0,0.0,312.1415,526,6.2595,2.2795,False,,False,True,anomalously_dark
 MDA,MDA.4_1,Bender,0.0,1.0,0.0,84.223,143,32.954,35.0805,False,,False,False,ordinary
@@ -219,11 +292,11 @@ NLD,NLD.14_1,NA,0.0,0.0,1.0,3126.7426,5884,42.1776,47.2146,False,,False,False,or
 MKD,MKD.1_1,Aerodrom,0.0,1.0,0.0,20.4653,32,26.2273,55.1061,False,,False,False,ordinary
 MKD,MKD.2_1,Aracinovo,0.0,1.0,0.0,32.5787,51,7.9714,35.087,False,,False,False,ordinary
 MKD,MKD.3_1,Berovo,0.0,0.9059,0.0941,567.33,883,0.3117,1.2926,False,,False,True,anomalously_dark
-MKD,MKD.4_1,Bitola,0.0,0.368,0.632,747.1495,1152,2.9973,9.1001,False,,False,True,anomalously_dark
+MKD,MKD.4_1,Bitola,0.0,0.368,0.632,747.1495,1152,2.9973,9.1001,False,,False,False,ordinary
 MKD,MKD.5_1,Bogdanci,0.0,1.0,0.0,109.9976,170,3.1019,12.9126,False,,False,False,ordinary
 MKD,MKD.6_1,Bogovinje,0.0,0.0,1.0,138.1748,216,5.2044,17.0397,False,,False,False,ordinary
-MKD,MKD.7_1,Bosilovo,0.0,1.0,0.0,157.8392,245,2.4675,9.692,False,,False,True,anomalously_dark
-MKD,MKD.8_1,Brvenica,0.0,0.0118,0.9882,162.6516,254,2.825,9.7398,False,,False,True,anomalously_dark
+MKD,MKD.7_1,Bosilovo,0.0,1.0,0.0,157.8392,245,2.4675,9.692,False,,False,False,ordinary
+MKD,MKD.8_1,Brvenica,0.0,0.0118,0.9882,162.6516,254,2.825,9.7398,False,,False,False,ordinary
 MKD,MKD.9_1,Butel,0.0,0.8028,0.1972,48.5108,76,16.8125,31.8037,False,,False,False,ordinary
 MKD,MKD.10_1,Čair,0.0,1.0,0.0,5.1126,8,59.8,62.6,False,,False,False,ordinary
 MKD,MKD.11_1,Čaška,0.0,0.78,0.22,788.4647,1226,0.0,0.5102,False,,False,True,anomalously_dark
@@ -231,7 +304,7 @@ MKD,MKD.12_1,Centar,0.0,1.0,0.0,6.3926,10,48.0,59.1661,False,,False,False,ordina
 MKD,MKD.13_1,Centar župa,0.0,0.0,1.0,133.3895,207,0.0611,4.928,False,,False,True,anomalously_dark
 MKD,MKD.14_1,Češinovo-Obleševo,0.0,1.0,0.0,135.7608,212,0.8971,6.5729,False,,False,True,anomalously_dark
 MKD,MKD.15_1,Čučer Sandevo,0.0,0.4541,0.5459,227.6728,357,4.6502,14.0212,False,,False,False,ordinary
-MKD,MKD.16_1,Debar,0.0,0.0,1.0,135.8486,211,3.2889,9.7401,False,,False,True,anomalously_dark
+MKD,MKD.16_1,Debar,0.0,0.0,1.0,135.8486,211,3.2889,9.7401,False,,False,False,ordinary
 MKD,MKD.17_1,Debarca,0.0,0.0,1.0,409.4242,634,0.2571,2.0312,False,,False,True,anomalously_dark
 MKD,MKD.18_1,Delčevo,0.0,0.9939,0.0061,421.6104,659,0.6265,2.0429,False,,False,True,anomalously_dark
 MKD,MKD.19_1,Demir Hisar,0.0,0.1368,0.8632,472.45,731,0.1941,2.4179,False,,False,True,anomalously_dark
@@ -243,7 +316,7 @@ MKD,MKD.25_1,Gjorče Petrov,0.0,1.0,0.0,70.2476,110,15.8841,31.282,False,,False,
 MKD,MKD.26_1,Gostivar,0.0,0.0,1.0,523.9809,817,2.2923,7.2169,False,,False,True,anomalously_dark
 MKD,MKD.27_1,Gradsko,0.0,1.0,0.0,282.2996,439,0.3357,4.5147,False,,False,True,anomalously_dark
 MKD,MKD.28_1,Ilinden,0.0,1.0,0.0,93.9737,147,10.6277,41.7737,False,,False,False,ordinary
-MKD,MKD.29_1,Jegunovtse,0.0,0.0938,0.9062,183.785,288,2.1123,9.5216,False,,False,True,anomalously_dark
+MKD,MKD.29_1,Jegunovtse,0.0,0.0938,0.9062,183.785,288,2.1123,9.5216,False,,False,False,ordinary
 MKD,MKD.30_1,Karbinci,0.0,0.9834,0.0166,231.4837,361,0.7179,5.0179,False,,False,True,anomalously_dark
 MKD,MKD.31_1,Karpoš,0.0,0.9828,0.0172,37.0777,58,30.6053,44.8774,False,,False,False,ordinary
 MKD,MKD.32_1,Kavadartsi,0.0,0.8736,0.1264,962.6481,1490,0.931,3.0125,False,,False,True,anomalously_dark
@@ -257,7 +330,7 @@ MKD,MKD.39_1,Krivogaštani,0.0,1.0,0.0,94.2877,146,1.0316,12.8261,False,,False,F
 MKD,MKD.40_1,Kruševo,0.0,0.3404,0.6596,185.8481,288,0.8619,6.6411,False,,False,True,anomalously_dark
 MKD,MKD.41_1,Kumanovo,0.0,1.0,0.0,503.662,789,2.9506,10.7914,False,,False,False,ordinary
 MKD,MKD.42_1,Lake Ohrid,0.0,0.0,1.0,247.641,382,1.892,6.4604,False,,False,True,anomalously_dark
-MKD,MKD.43_1,Lipkovo,0.0,0.6323,0.3677,265.1743,416,2.1541,9.6121,False,,False,True,anomalously_dark
+MKD,MKD.43_1,Lipkovo,0.0,0.6323,0.3677,265.1743,416,2.1541,9.6121,False,,False,False,ordinary
 MKD,MKD.44_1,Lozovo,0.0,1.0,0.0,161.0357,251,0.0,2.6401,False,,False,True,anomalously_dark
 MKD,MKD.45_1,Makedonska Kamenica,0.0,0.6124,0.3876,199.2386,312,0.1804,2.8333,False,,False,True,anomalously_dark
 MKD,MKD.46_1,Makedonski Brod,0.0,0.2755,0.7245,844.3546,1314,0.0972,0.8282,False,,False,True,anomalously_dark
@@ -275,14 +348,14 @@ MKD,MKD.58_1,Probištip,0.0,0.9715,0.0285,313.3286,490,0.8317,3.74,False,,False,
 MKD,MKD.59_1,Radoviš,0.0,0.9515,0.0485,488.9828,761,0.9694,4.9441,False,,False,True,anomalously_dark
 MKD,MKD.60_1,Rankovce,0.0,0.8484,0.1516,235.1218,369,0.2043,3.7097,False,,False,True,anomalously_dark
 MKD,MKD.61_1,Resen,0.0,0.0,1.0,734.5063,1132,0.418,3.4438,False,,False,True,anomalously_dark
-MKD,MKD.62_1,Rosoman,0.0,1.0,0.0,134.6196,209,0.6316,9.8251,False,,False,True,anomalously_dark
+MKD,MKD.62_1,Rosoman,0.0,1.0,0.0,134.6196,209,0.6316,9.8251,False,,False,False,ordinary
 MKD,MKD.63_1,Saraj,0.0,0.6575,0.3425,233.3112,365,3.3621,13.4594,False,,False,False,ordinary
 MKD,MKD.64_1,Sopište,0.0,0.3796,0.6204,210.7155,329,0.7548,5.2629,False,,False,True,anomalously_dark
 MKD,MKD.65_1,Star Dojran,0.0,1.0,0.0,146.7775,227,0.5098,7.188,False,,False,True,anomalously_dark
 MKD,MKD.66_1,Staro Nagoričane,0.0,0.9524,0.0476,440.8085,692,0.1367,3.4326,False,,False,True,anomalously_dark
 MKD,MKD.67_1,Štip,0.0,1.0,0.0,563.8301,878,1.4153,4.7229,False,,False,True,anomalously_dark
 MKD,MKD.68_1,Struga,0.0,0.0,1.0,473.6538,733,3.1205,10.0204,False,,False,False,ordinary
-MKD,MKD.69_1,Strumitsa,0.0,1.0,0.0,317.3376,492,2.8978,9.1719,False,,False,True,anomalously_dark
+MKD,MKD.69_1,Strumitsa,0.0,1.0,0.0,317.3376,492,2.8978,9.1719,False,,False,False,ordinary
 MKD,MKD.70_1,Studeničani,0.0,0.3964,0.6036,276.2159,431,0.6181,3.9394,False,,False,True,anomalously_dark
 MKD,MKD.71_1,Šuto Orizari,0.0,1.0,0.0,6.3872,10,41.8571,61.7418,False,,False,False,ordinary
 MKD,MKD.72_1,Sveti Nikole,0.0,1.0,0.0,466.0969,728,0.6108,5.6992,False,,False,True,anomalously_dark
@@ -297,6 +370,64 @@ MKD,MKD.81_1,Vrapčište,0.0,0.0,1.0,154.3431,241,6.1987,14.8836,False,,False,Fa
 MKD,MKD.83_1,Zelenikovo,0.0,0.6939,0.3061,171.7743,268,0.0057,1.8628,False,,False,True,anomalously_dark
 MKD,MKD.84_1,Želino,0.0,0.0823,0.9177,194.526,304,1.868,10.067,False,,False,False,ordinary
 MKD,MKD.85_1,Zrnovci,0.0,0.921,0.079,48.6984,76,0.44,2.59,False,,False,True,anomalously_dark
+POL,POL.1_1,Dolnośląskie,0.0,0.0,1.0,19907.0111,36779,6.7934,17.9216,False,,False,False,ordinary
+POL,POL.2_1,Kujawsko-Pomorskie,0.0,0.0,1.0,17973.7576,34700,3.9063,15.2017,False,,False,False,ordinary
+POL,POL.3_1,Łódzkie,0.0,0.0,1.0,18215.5775,34030,6.2702,16.9047,False,,False,False,ordinary
+POL,POL.4_1,Lubelskie,0.0,0.0,1.0,25085.2325,46477,2.4632,11.7689,False,,False,False,ordinary
+POL,POL.5_1,Lubuskie,0.0,0.0,1.0,13978.5151,26457,2.4575,10.9848,False,,False,False,ordinary
+POL,POL.6_1,Małopolskie,0.0,0.0,1.0,15160.8754,27298,7.6746,22.1642,False,,False,False,ordinary
+POL,POL.7_1,Mazowieckie,0.0,0.0008,0.9992,35560.673,67532,5.4886,15.5557,False,,False,False,ordinary
+POL,POL.8_1,Opolskie,0.0,0.0,1.0,9411.8959,17226,6.4631,15.745,False,,False,False,ordinary
+POL,POL.9_1,Podkarpackie,0.0,0.0,1.0,17812.3349,32135,4.2879,14.3836,False,,False,False,ordinary
+POL,POL.10_1,Podlaskie,0.0,0.0,1.0,20154.4079,39083,1.4797,7.5691,False,,False,True,anomalously_dark
+POL,POL.11_1,Pomorskie,0.0,0.0,1.0,18152.0396,35943,2.6284,13.4893,False,,False,False,ordinary
+POL,POL.12_1,Śląskie,0.0,0.0,1.0,12307.5456,22378,16.245,29.0555,False,,False,False,ordinary
+POL,POL.13_1,Świętokrzyskie,0.0,0.0,1.0,11705.9121,21477,3.7317,17.0404,False,,False,False,ordinary
+POL,POL.14_1,Warmińsko-Mazurskie,0.0,0.0,1.0,23974.4419,47135,1.5519,7.938,False,,False,True,anomalously_dark
+POL,POL.15_1,Wielkopolskie,0.0,0.0019,0.9981,29833.5043,56636,5.5416,16.8582,False,,False,False,ordinary
+POL,POL.16_1,Zachodniopomorskie,0.0,0.0,1.0,22444.808,43846,1.813,8.344,False,,False,True,anomalously_dark
+ROU,ROU.1_1,Alba,0.0,0.0,1.0,6243.9256,10475,0.8108,6.477,False,,False,True,anomalously_dark
+ROU,ROU.2_1,Arad,0.0,0.1518,0.8482,7751.6926,13028,0.8658,5.0502,False,,False,True,anomalously_dark
+ROU,ROU.3_1,Argeș,0.0,0.1187,0.8813,6825.8702,11226,1.7659,8.067,False,,False,True,anomalously_dark
+ROU,ROU.4_1,Bacău,0.0,0.4844,0.5156,6619.48,11155,2.3333,7.7041,False,,False,True,anomalously_dark
+ROU,ROU.5_1,Bihor,0.0,0.0001,0.9999,7541.8984,12831,0.8902,6.1096,False,,False,True,anomalously_dark
+ROU,ROU.6_1,Bistrița-Năsăud,0.0,0.0,1.0,5356.5149,9163,0.5221,5.862,False,,False,True,anomalously_dark
+ROU,ROU.7_1,Botoșani,0.0,0.2088,0.7912,4990.1877,8637,1.2501,8.4004,False,,False,True,anomalously_dark
+ROU,ROU.9_1,Brăila,0.0,1.0,0.0,4769.4959,7850,0.9497,6.0888,False,,False,True,anomalously_dark
+ROU,ROU.8_1,Brașov,0.0,0.0,1.0,5366.5824,8938,2.2935,9.0933,False,,False,False,ordinary
+ROU,ROU.10_1,Bucharest,0.0,0.5292,0.4708,241.4256,393,47.0924,61.9395,False,,False,False,ordinary
+ROU,ROU.11_1,Buzău,0.0,0.6776,0.3224,6099.1656,10066,0.7269,6.1277,False,,False,True,anomalously_dark
+ROU,ROU.12_1,Călărași,0.0,1.0,0.0,5082.7721,8256,0.9274,6.7922,False,,False,True,anomalously_dark
+ROU,ROU.13_1,Caraș-Severin,0.0,0.0,1.0,8522.9235,14043,0.2629,2.429,False,,False,True,anomalously_dark
+ROU,ROU.14_1,Cluj,0.0,0.0,1.0,6673.2146,11326,1.3053,8.8417,False,,False,True,anomalously_dark
+ROU,ROU.15_1,Constanța,0.0,1.0,0.0,7061.4828,11457,1.7949,7.6051,False,,False,True,anomalously_dark
+ROU,ROU.16_1,Covasna,0.0,0.0,1.0,3713.0113,6203,0.6796,5.025,False,,False,True,anomalously_dark
+ROU,ROU.17_1,Dâmbovița,0.0,0.1677,0.8323,4052.836,6645,3.4958,11.2532,False,,False,False,ordinary
+ROU,ROU.18_1,Dolj,0.0,0.5692,0.4308,7414.0719,12008,0.7649,5.8132,False,,False,True,anomalously_dark
+ROU,ROU.19_1,Galați,0.0,1.0,0.0,4466.7321,7443,2.503,8.0515,False,,False,True,anomalously_dark
+ROU,ROU.20_1,Giurgiu,0.0,0.9745,0.0255,3546.3202,5744,2.2888,9.9484,False,,False,False,ordinary
+ROU,ROU.21_1,Gorj,0.0,0.0,1.0,5585.5839,9180,0.6381,6.0685,False,,False,True,anomalously_dark
+ROU,ROU.22_1,Harghita,0.0,0.0,1.0,6647.2699,11228,0.7388,4.2675,False,,False,True,anomalously_dark
+ROU,ROU.23_1,Hunedoara,0.0,0.0,1.0,7059.9484,11756,0.8517,5.2663,False,,False,True,anomalously_dark
+ROU,ROU.25_1,Ialomița,0.0,1.0,0.0,4444.7382,7258,0.7485,6.5473,False,,False,True,anomalously_dark
+ROU,ROU.24_1,Iași,0.0,0.6715,0.3285,5471.5182,9353,2.2171,11.7951,False,,False,False,ordinary
+ROU,ROU.26_1,Ilfov,0.0,0.6974,0.3026,1565.6318,2552,7.2444,30.0231,False,,False,False,ordinary
+ROU,ROU.27_1,Maramureș,0.0,0.0,1.0,6298.2048,10862,1.0725,7.1953,False,,False,True,anomalously_dark
+ROU,ROU.28_1,Mehedinți,0.0,0.0368,0.9632,4944.1258,8068,0.5714,4.3589,False,,False,True,anomalously_dark
+ROU,ROU.29_1,Mureș,0.0,0.0,1.0,6714.0159,11353,1.5535,7.1464,False,,False,True,anomalously_dark
+ROU,ROU.30_1,Neamț,0.0,0.1664,0.8336,5886.6993,10020,1.9626,7.8124,False,,False,True,anomalously_dark
+ROU,ROU.31_1,Olt,0.0,0.6355,0.3645,5499.5837,8927,0.6653,6.8879,False,,False,True,anomalously_dark
+ROU,ROU.32_1,Prahova,0.0,0.2374,0.7626,4720.4998,7773,4.6918,12.6964,False,,False,False,ordinary
+ROU,ROU.33_1,Sălaj,0.0,0.0,1.0,3864.9997,6605,0.4192,6.1621,False,,False,True,anomalously_dark
+ROU,ROU.34_1,Satu Mare,0.0,0.0,1.0,4423.5937,7634,0.8154,6.5873,False,,False,True,anomalously_dark
+ROU,ROU.35_1,Sibiu,0.0,0.0,1.0,5434.389,9066,1.507,6.836,False,,False,True,anomalously_dark
+ROU,ROU.36_1,Suceava,0.0,0.0,1.0,8556.6737,14724,2.4417,8.4445,False,,False,True,anomalously_dark
+ROU,ROU.37_1,Teleorman,0.0,1.0,0.0,5789.3923,9359,0.7369,5.5886,False,,False,True,anomalously_dark
+ROU,ROU.38_1,Timiș,0.0,0.3141,0.6859,8692.6163,14472,0.8106,7.1741,False,,False,True,anomalously_dark
+ROU,ROU.39_1,Tulcea,0.0,1.0,0.0,8467.4488,13927,0.4207,2.8817,False,,False,True,anomalously_dark
+ROU,ROU.40_1,Vâlcea,0.0,0.0,1.0,5765.0195,9490,0.5406,5.9191,False,,False,True,anomalously_dark
+ROU,ROU.41_1,Vaslui,0.0,0.9454,0.0546,5322.7939,8987,0.5766,7.6728,False,,False,True,anomalously_dark
+ROU,ROU.42_1,Vrancea,0.0,0.6819,0.3181,4850.6975,8082,1.5507,6.0901,False,,False,True,anomalously_dark
 SMR,SMR.1_1,Acquaviva,0.0,0.0,1.0,4.9556,8,46.2,53.625,False,,False,False,ordinary
 SMR,SMR.2_1,Borgo Maggiore,0.0,0.0,1.0,11.7702,19,49.5,60.9116,False,,False,False,ordinary
 SMR,SMR.3_1,Chiesanuova,0.0,0.0,1.0,4.9583,8,21.5,35.9444,False,,False,False,ordinary
@@ -306,6 +437,31 @@ SMR,SMR.6_1,Fiorentino,0.0,0.0,1.0,6.818,11,26.375,46.7239,False,,False,False,or
 SMR,SMR.7_1,Montegiardino,0.0,0.0,1.0,2.4793,4,19.6667,36.2157,False,,False,False,ordinary
 SMR,SMR.8_1,San Marino,0.0,0.0,1.0,5.5766,9,46.0,56.668,False,,False,False,ordinary
 SMR,SMR.9_1,Serravalle,0.0,0.0,1.0,10.5256,17,44.875,58.6511,False,,False,False,ordinary
+SRB,SRB.1_1,Borski,0.0,0.0063,0.9937,3667.3601,5956,1.3719,5.6432,False,,False,True,anomalously_dark
+SRB,SRB.2_1,Braničevski,0.0,0.0,1.0,4032.9621,6566,1.3921,8.5088,False,,False,True,anomalously_dark
+SRB,SRB.3_1,Grad Beograd,0.0,0.0013,0.9987,3267.0311,5335,13.5243,33.1512,False,,False,False,ordinary
+SRB,SRB.4_1,Jablanički,0.0,0.1896,0.8104,2793.4725,4434,1.8617,8.3515,False,,False,True,anomalously_dark
+SRB,SRB.5_1,Južno-Bački,0.0,0.5154,0.4846,4109.0694,6800,5.9978,15.5854,False,,False,False,ordinary
+SRB,SRB.6_1,Južno-Banatski,0.0,0.0636,0.9364,4468.2967,7342,4.0801,13.31,False,,False,False,ordinary
+SRB,SRB.7_1,Kolubarski,0.0,0.0,1.0,2520.7723,4093,1.9344,14.4165,False,,False,False,ordinary
+SRB,SRB.8_1,Mačvanski,0.0,0.0,1.0,3098.8032,5054,2.8338,13.943,False,,False,False,ordinary
+SRB,SRB.9_1,Moravički,0.0,0.0,1.0,3047.9222,4905,2.4833,11.0839,False,,False,False,ordinary
+SRB,SRB.10_1,Nišavski,0.0,0.1252,0.8748,2751.2757,4402,3.9005,14.2278,False,,False,False,ordinary
+SRB,SRB.11_1,Pčinjski,0.0,0.3093,0.6907,3501.5214,5524,1.3716,8.2361,False,,False,True,anomalously_dark
+SRB,SRB.12_1,Pirotski,0.0,0.0,1.0,2655.1846,4230,0.8343,4.671,False,,False,True,anomalously_dark
+SRB,SRB.13_1,Podunavski,0.0,0.0,1.0,1268.7239,2065,5.2581,18.2759,False,,False,False,ordinary
+SRB,SRB.14_1,Pomoravski,0.0,0.0,1.0,2611.8771,4218,3.1621,13.4196,False,,False,False,ordinary
+SRB,SRB.15_1,Rasinski,0.0,0.0,1.0,2676.6254,4289,2.8802,12.6915,False,,False,False,ordinary
+SRB,SRB.16_1,Raški,0.0,0.0,1.0,3892.5448,6223,1.9132,9.9163,False,,False,False,ordinary
+SRB,SRB.17_1,Severno-Bački,0.0,1.0,0.0,1686.4532,2817,4.513,13.4465,False,,False,False,ordinary
+SRB,SRB.18_1,Severno-Banatski,0.0,1.0,0.0,2369.2066,3956,3.5072,9.8905,False,,False,False,ordinary
+SRB,SRB.19_1,Srednje-Banatski,0.0,0.979,0.021,3461.551,5734,2.8169,9.2249,False,,False,False,ordinary
+SRB,SRB.20_1,Sremski,0.0,0.0009,0.9991,3498.3347,5747,5.7494,20.5131,False,,False,False,ordinary
+SRB,SRB.21_1,Šumadijski,0.0,0.0,1.0,2390.7745,3869,3.2528,18.0867,False,,False,False,ordinary
+SRB,SRB.22_1,Toplički,0.0,0.0318,0.9682,2307.692,3677,0.6989,6.3783,False,,False,True,anomalously_dark
+SRB,SRB.23_1,Zaječarski,0.0,0.0,1.0,3501.0077,5632,0.7451,4.2568,False,,False,True,anomalously_dark
+SRB,SRB.24_1,Zapadno-Bački,0.0,0.5551,0.4449,2474.8705,4119,2.8503,9.9595,False,,False,False,ordinary
+SRB,SRB.25_1,Zlatiborski,0.0,0.0,1.0,6161.9491,9890,1.1528,6.9785,False,,False,True,anomalously_dark
 SVK,SVK.1_1,Banskobystrický,0.0,0.0207,0.9793,9567.3175,16770,5.1957,7.1569,False,,False,True,anomalously_dark
 SVK,SVK.2_1,Bratislavský,0.0,0.0,1.0,2014.7605,3518,13.4963,22.9387,False,,False,False,ordinary
 SVK,SVK.3_1,Košický,0.0,0.0,1.0,6783.8242,11934,9.5191,10.1352,False,,False,False,ordinary

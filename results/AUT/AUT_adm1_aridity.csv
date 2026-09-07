@@ -1,0 +1,10 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+AUT,AUT.1_1,Burgenland,3954.0483,6803,6803,0,0.0,0.0,0.0,0.1298206273482621,0.8701793726517417,0.0,0.1298206273482621,adm1
+AUT,AUT.2_1,Kärnten,9542.8448,16185,16185,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.3_1,Niederösterreich,19202.167,33500,33500,0,0.0,0.0,0.0,0.11223449870850724,0.8877655012915154,0.0,0.11223449870850724,adm1
+AUT,AUT.4_1,Oberösterreich,11980.6775,20847,20847,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.5_1,Salzburg,7167.628,12296,12296,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.6_1,Steiermark,16415.673,28098,28098,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.7_1,Tirol,12657.3479,21635,21635,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.8_1,Vorarlberg,2602.425,4452,4452,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AUT,AUT.9_1,Wien,415.508,724,724,0,0.0,0.0,0.0,0.5745257219816349,0.4254742780183547,0.0,0.5745257219816349,adm1
