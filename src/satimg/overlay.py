@@ -74,6 +74,9 @@ NODATA_COLOR = "#17171d"
 BOUNDARY_COLOR = "#c3c9d2"
 
 FIGURE_BACKGROUND = "#000000"
+
+#: Width in pixels of one small-multiple tile in a year panel.
+PANEL_TILE_PX = 380
 TEXT_PRIMARY = "#e8e8ea"
 TEXT_MUTED = "#8b8f98"
 
@@ -546,6 +549,37 @@ def styles_for_level(level: int, base: Optional[OverlayStyle] = None) -> Overlay
     return replace(base, line_width_adm0=base.line_width_adm1)
 
 
+def panel_thumbnail(data, tile_px: int = PANEL_TILE_PX):
+    """Decimate one year's array to roughly panel-tile resolution.
+
+    A panel holds every year at once so the tiles can share a colour scale,
+    and that is what makes a large country run out of memory rather than
+    merely render slowly: the arrays are float64, so 31 years of the United
+    States' 52.6-megapixel frame is 13 GB before matplotlib's own copies, on
+    a machine with 16. Brazil and Chile, both 21 Mpx, peaked at 8.5 GB - the
+    same arithmetic, just under the ceiling.
+
+    The resolution is not lost so much as never used: each array is drawn
+    into a ``tile_px``-wide tile with ``interpolation="nearest"``, which
+    throws away everything finer by subsampling. Doing that subsampling here
+    instead, at twice the tile width for margin, gives the same picture for a
+    fraction of the memory.
+
+    This is deliberately a *picture* optimisation. Nothing published as a
+    number passes through here: the zonal, inequality and aridity tables read
+    the full-resolution rasters by a different path. Re-rendering a country
+    whose panels predate this will produce a visually equivalent panel that
+    is not byte-identical.
+    """
+    np = _require_numpy()
+
+    data = np.asanyarray(data)
+    if data.ndim != 2:
+        raise ValueError(f"panel_thumbnail needs a 2-D array, got {data.shape}")
+    step = max(1, int(max(data.shape) // (tile_px * 2)))
+    return data if step == 1 else data[::step, ::step]
+
+
 def render_panel(
     frames: Sequence[Tuple[int, object, Tuple[float, float, float, float]]],
     out_path: str | Path,
@@ -555,7 +589,7 @@ def render_panel(
     style: Optional[OverlayStyle] = None,
     columns: int = 8,
     title: Optional[str] = None,
-    tile_px: int = 380,
+    tile_px: int = PANEL_TILE_PX,
 ) -> Path:
     """Small-multiple panel: one tile per year on a shared colour scale.
 

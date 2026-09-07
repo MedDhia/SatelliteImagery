@@ -408,3 +408,82 @@ def test_clip_actually_removes_the_antimeridian_tail():
     assert len(clipped) == 1
     assert clipped.total_bounds[0] == pytest.approx(-179.15)
     assert clipped.total_bounds[2] == pytest.approx(-66.95)
+
+
+# --- panel thumbnails ------------------------------------------------------
+#
+# A panel holds all 31 years at once for a shared colour scale. At full
+# resolution that is 13 GB of float64 for the United States' 52.6 Mpx frame,
+# on a 16 GB machine - an OOM, not a slow render. imshow subsamples each array
+# to tile width anyway, so the resolution was never used.
+
+
+def test_panel_thumbnail_leaves_small_frames_untouched():
+    """Below the threshold the array is returned as-is, byte for byte."""
+    from satimg.overlay import PANEL_TILE_PX, panel_thumbnail
+
+    # Anything up to 2*tile_px*2 - 1 = 1519 px floors to step 1 and is
+    # returned as-is, so most countries' panels are unchanged by this.
+    for width, height in ((1000, 800), (1519, 900)):
+        small = np.zeros((height, width), dtype="float64")
+        out = panel_thumbnail(small)
+        assert out is small, f"{width}x{height} must not be copied"
+    assert PANEL_TILE_PX * 4 - 1 == 1519
+
+
+def test_panel_thumbnail_caps_large_frames_near_tile_width():
+    """The USA and Brazil frames come down to roughly twice the tile width."""
+    from satimg.overlay import PANEL_TILE_PX, panel_thumbnail
+
+    for width, height in ((9664, 5447), (4911, 4336)):
+        out = panel_thumbnail(np.zeros((height, width), dtype="float64"))
+        # `step` floors, so the result can sit a little above 2x the tile
+        # width rather than exactly at it - 9664 // 760 is 12, and 9664/12 is
+        # 806. That slack is deliberate: flooring is what leaves a frame that
+        # was never a memory problem untouched, instead of decimating a
+        # 1200-pixel map for no gain. A tile is 380px, so 806 is still
+        # discarded down to it by imshow.
+        assert max(out.shape) <= PANEL_TILE_PX * 2.2, out.shape
+        assert max(out.shape) >= PANEL_TILE_PX, out.shape
+        # and the saving is the point: at least an order of magnitude
+        assert out.nbytes * 20 < width * height * 8
+
+
+def test_panel_thumbnail_preserves_aspect_and_nodata():
+    """Decimation must not stretch the map or silently fill holes."""
+    from satimg.overlay import panel_thumbnail
+
+    data = np.zeros((4000, 8000), dtype="float64")
+    data[:] = np.nan
+    data[0, 0] = 5.0
+    out = panel_thumbnail(data)
+    ratio_in = 8000 / 4000
+    ratio_out = out.shape[1] / out.shape[0]
+    assert abs(ratio_in - ratio_out) < 0.15, (ratio_in, ratio_out)
+    assert out[0, 0] == 5.0
+    assert np.isnan(out[1:, 1:]).all(), "nodata must survive as nodata"
+
+
+def test_panel_thumbnail_refuses_non_2d():
+    from satimg.overlay import panel_thumbnail
+
+    with pytest.raises(ValueError, match="2-D"):
+        panel_thumbnail(np.zeros(10, dtype="float64"))
+
+
+def test_render_panel_accepts_thumbnails_and_draws_every_year():
+    """End to end: a decimated panel still renders all 31 tiles."""
+    from satimg.overlay import panel_thumbnail, render_panel
+
+    extent = (0.0, 8000.0, 0.0, 4000.0)
+    frames = []
+    for year in range(1992, 2023):
+        block = np.full((2000, 4000), float(year - 1992), dtype="float64")
+        frames.append((year, panel_thumbnail(block), extent))
+
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        out = render_panel(frames, f"{tmp}/panel.png", title="thumbnail panel")
+        assert out.exists()
+        assert out.stat().st_size > 1000
