@@ -90,8 +90,15 @@ def build_zone_grid(
     *,
     id_field: str,
     name_field: Optional[str] = None,
+    window=None,
 ) -> ZoneGrid:
-    """Burn a GeoDataFrame's units onto the raster grid, once."""
+    """Burn a GeoDataFrame's units onto the raster grid, once.
+
+    ``window`` overrides the one derived from ``frame``'s own extent. Pass a
+    shared window when several admin levels of the same country must produce
+    arrays that line up: their extents are not guaranteed to agree, and where
+    they disagree the arrays cannot be combined. See ``analysis.build_grids``.
+    """
     rasterio = _require_rasterio()
     np = _require_numpy()
     from rasterio.features import rasterize
@@ -110,7 +117,8 @@ def build_zone_grid(
         )
 
     frame = frame.reset_index(drop=True)
-    window = window_for(raster_path, frame.total_bounds)
+    if window is None:
+        window = window_for(raster_path, frame.total_bounds)
 
     with rasterio.open(raster_path) as src:
         transform = src.window_transform(window)
