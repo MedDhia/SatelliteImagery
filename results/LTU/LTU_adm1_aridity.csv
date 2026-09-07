@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+LTU,LTU.1_1,Alytaus,5635.5155,11178,11178,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.2_1,Kauno,8176.8288,16561,16561,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.3_1,Klaipedos,5375.4043,11057,11057,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.4_1,Marijampoles,4448.8998,8928,8928,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.5_1,Panevezio,7840.4721,16219,16219,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.6_1,Šiauliai,8696.9777,18003,18003,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.7_1,Taurages,3831.0453,7806,7806,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.8_1,Telšiai,4163.5425,8628,8628,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.9_1,Utenos,7053.6266,14430,14430,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LTU,LTU.10_1,Vilniaus,9799.4378,19726,19726,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

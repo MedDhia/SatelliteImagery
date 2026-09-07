@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+LVA,LVA.1_1,Kurzeme,13561.6645,28799,28799,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LVA,LVA.2_1,Latgale,14718.4468,30824,30824,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LVA,LVA.3_1,Riga,10359.359,22103,22103,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LVA,LVA.4_1,Vidzeme,15273.0779,32765,32765,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LVA,LVA.5_1,Zemgale,10799.5171,22672,22672,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

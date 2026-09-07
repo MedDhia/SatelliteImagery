@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+DNK,DNK.1_1,Hovedstaden,2571.7501,5290,5289,1,0.0,0.0,0.0,0.0001908414145063563,0.9998091585854936,0.0,0.0001908414145063563,adm1
+DNK,DNK.2_1,Midtjylland,13147.3038,27428,27428,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DNK,DNK.3_1,Nordjylland,7916.2572,16868,16868,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DNK,DNK.4_1,Sjælland,7342.4563,14947,14946,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+DNK,DNK.5_1,Syddanmark,12168.0768,24819,24815,4,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
