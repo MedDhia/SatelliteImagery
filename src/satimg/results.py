@@ -321,6 +321,8 @@ CROSS_TRENDS_COLUMNS = (
 #: median from the committed CSV and checks it.
 MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
+    "north-america": "Washington State",
+    "south-america": "Argentina's Mendoza",
 }
 
 
