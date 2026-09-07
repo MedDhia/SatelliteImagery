@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GBR,GBR.2_1,Northern Ireland,14145.7668,28349,28321,28,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GBR,GBR.3_1,Scotland,78084.3168,167268,165380,1888,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GBR,GBR.4_1,Wales,20847.0619,39638,39581,57,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GBR,GBR.1_1,NA,130792.8617,250068,249815,253,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
