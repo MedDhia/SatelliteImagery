@@ -508,9 +508,45 @@ def level_title(iso3: str, level: int) -> str:
     return titles.get(level, GENERIC_LEVEL_TITLES[level])
 
 
-def available_levels(iso3: str) -> tuple:
-    """Admin levels GADM actually provides for a country."""
+#: Levels GADM *does* provide but this repository does not analyse, and why.
+#:
+#: Kept strictly apart from `LEVELS_AVAILABLE`, which records what GADM
+#: lacks. Conflating the two would put a false statement about the source
+#: data into a table other people read: it would say GADM has no Brazilian
+#: municipalities, when GADM has 5,572 of them.
+#:
+#: * **BRA** — 5,572 municipalities, the largest ADM_2 set here by a wide
+#:   margin: sixteen times Chile's 346, and nearly four times Algeria's 1,504,
+#:   which was the previous ceiling. Burning that many polygons onto Brazil's
+#:   21-megapixel frame, for each of 31 years, for each of four choropleth
+#:   variants, is the most expensive computation in the pipeline — it ran for
+#:   over half an hour on a single variant without emitting a file. It was cut
+#:   by choice, not by capability: the state-level analysis is complete, and
+#:   deleting this entry plus re-running the country restores the municipality
+#:   layer.
+LEVELS_NOT_ANALYSED: Dict[str, tuple] = {
+    "BRA": (2,),
+}
+
+
+def gadm_levels(iso3: str) -> tuple:
+    """Admin levels GADM actually provides for a country.
+
+    What the *source* has, irrespective of what this repository does with it.
+    Use `available_levels` for the analysed set.
+    """
     return LEVELS_AVAILABLE.get(iso3.upper(), COUNTRY_LEVELS)
+
+
+def available_levels(iso3: str) -> tuple:
+    """Admin levels this repository analyses for a country.
+
+    GADM's levels minus any this repository declines to analyse. Everything
+    downstream — the figures, the catalogues, the decomposition — keys off
+    this, so a level dropped here leaves no half-built artefacts behind.
+    """
+    skip = LEVELS_NOT_ANALYSED.get(iso3.upper(), ())
+    return tuple(lv for lv in gadm_levels(iso3) if lv not in skip)
 
 
 def has_level(iso3: str, level: int) -> bool:

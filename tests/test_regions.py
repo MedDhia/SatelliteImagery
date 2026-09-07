@@ -384,3 +384,46 @@ def test_the_americas_are_two_pools_not_one():
     assert both <= set(R.COUNTRIES)
     # No overlap with the older pools, unlike Africa and the Arab League.
     assert not both & (set(R.ARAB_LEAGUE) | set(R.AFRICA))
+
+
+# --- levels GADM has, versus levels we analyse ------------------------------
+
+
+def test_levels_not_analysed_is_not_a_claim_about_gadm():
+    """A level we skip must not be recorded as one GADM lacks."""
+    from satimg import regions as R
+
+    for iso3, skipped in R.LEVELS_NOT_ANALYSED.items():
+        # The whole point of the separation: GADM still has these levels.
+        for level in skipped:
+            assert level in R.gadm_levels(iso3), (
+                f"{iso3} level {level} is in LEVELS_NOT_ANALYSED but "
+                "gadm_levels says GADM does not provide it - use "
+                "LEVELS_AVAILABLE for that case instead"
+            )
+            assert not R.has_level(iso3, level)
+        # and it must not also be declared missing from the source
+        assert iso3 not in R.LEVELS_AVAILABLE, (
+            f"{iso3} appears in both LEVELS_AVAILABLE and "
+            "LEVELS_NOT_ANALYSED; those mean different things"
+        )
+
+
+def test_brazil_keeps_its_states_and_drops_only_municipalities():
+    from satimg import regions as R
+
+    assert R.gadm_levels("BRA") == (0, 1, 2)
+    assert R.available_levels("BRA") == (0, 1)
+    assert R.has_level("BRA", 1) is True
+    assert R.has_level("BRA", 2) is False
+    # The name stays: it is what GADM calls the level, and remains true.
+    assert R.COUNTRY_LEVEL_TITLES["BRA"][2] == "municipality"
+
+
+def test_countries_without_a_skip_entry_analyse_everything_gadm_has():
+    from satimg import regions as R
+
+    for iso3 in R.COUNTRIES:
+        if iso3 in R.LEVELS_NOT_ANALYSED:
+            continue
+        assert R.available_levels(iso3) == R.gadm_levels(iso3), iso3
