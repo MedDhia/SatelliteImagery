@@ -1,0 +1,15 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+KNA,KNA.1_1,Christ Church Nichola Town,18.7868,23,23,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.2_1,Saint Anne Sandy Point,14.7021,18,18,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.3_1,Saint George Basseterre,28.6028,35,35,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.4_1,Saint George Gingerland,18.8101,23,23,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.5_1,Saint James Windward,34.3401,42,42,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.6_1,Saint John Capisterre,20.4179,25,25,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.7_1,Saint John Figtree,22.9005,28,28,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.8_1,Saint Mary Cayon,13.8869,17,17,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.9_1,Saint Paul Capisterre,14.7,18,18,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.10_1,Saint Paul Charlestown,3.2711,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.11_1,Saint Peter Basseterre,18.7912,23,23,0,0.0,0.0,0.0,0.04348377860145347,0.9565162213985465,0.0,0.04348377860145347,adm1
+KNA,KNA.12_1,Saint Thomas Lowland,17.1714,21,21,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.13_1,Saint Thomas Middle Island,25.3243,31,31,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+KNA,KNA.14_1,Trinity Palmetto Point,15.5239,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -1,0 +1,9 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+ATG,ATG.1_1,Barbuda,151.7079,186,186,0,0.0,0.0,0.04299919112709776,0.9570008088729028,0.0,0.0,1.0000000000000007,adm1
+ATG,ATG.2_1,Redonda,0.8186,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ATG,ATG.3_1,Saint George,26.1712,32,32,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+ATG,ATG.4_1,Saint John,71.975,88,88,0,0.0,0.0,0.0,0.8977005293683074,0.10229947063169265,0.0,0.8977005293683074,adm1
+ATG,ATG.5_1,Saint Mary,62.1804,76,76,0,0.0,0.0,0.0,0.1973467887126033,0.8026532112873962,0.0,0.1973467887126033,adm1
+ATG,ATG.6_1,Saint Paul,44.1847,54,54,0,0.0,0.0,0.0,0.8148168376592009,0.18518316234079926,0.0,0.8148168376592009,adm1
+ATG,ATG.7_1,Saint Peter,34.3553,42,42,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+ATG,ATG.8_1,Saint Philip,44.9953,55,55,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1

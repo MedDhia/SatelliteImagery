@@ -49,23 +49,51 @@ LEVEL_TITLES: Dict[int, str] = {
 #:
 #: Where GADM records no type (Djibouti's ADM_2 is literally "NA") the generic
 #: fallback applies rather than a plausible-sounding invention.
+#: Derived from GADM's own ENGTYPE by majority, never invented. Three rules,
+#: each forced by something GADM actually contains:
+#:
+#: * **A plurality is not a word.** The mode is used only when it covers more
+#:   than half the units. Canada's most common ENGTYPE_2 is Quebec's "Regional
+#:   County Municipality" at 93 of 293 (32%), and calling every Canadian census
+#:   division that would be wrong; it falls back to the generic title instead.
+#:   Applying this threshold changes none of the titles published before it.
+#: * **"NA" and alternations mean GADM declined**, so they fall back too -
+#:   Madagascar at both levels, Angola's "Municpality|City Council".
+#: * **A misspelling is reconciled against GADM itself**, never against our own
+#:   guess: Uruguay's "Municipiality" appears 124 times where the same column
+#:   spells "Municipality" 14,370 times.
 COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "AGO": {0: "national", 1: "province"},
     "ARE": {0: "national", 1: "emirate", 2: "district"},
+    "ARG": {0: "national", 1: "province", 2: "department"},
+    "ATG": {0: "national", 1: "parish"},
     "BDI": {0: "national", 1: "province", 2: "commune"},
     "BEN": {0: "national", 1: "department", 2: "commune"},
     "BFA": {0: "national", 1: "region", 2: "province"},
     "BHR": {0: "national", 1: "governorate"},
+    "BHS": {0: "national", 1: "district"},
+    "BLZ": {0: "national", 1: "district"},
+    "BOL": {0: "national", 1: "department", 2: "province"},
+    "BRA": {0: "national", 1: "state", 2: "municipality"},
+    "BRB": {0: "national", 1: "parish"},
     "BWA": {0: "national", 1: "district", 2: "sub-district"},
     "CAF": {0: "national", 1: "prefecture", 2: "sub-prefecture"},
+    "CAN": {0: "national", 1: "province"},
+    "CHL": {0: "national", 1: "region", 2: "province"},
     "CIV": {0: "national", 1: "district", 2: "region"},
     "CMR": {0: "national", 1: "region", 2: "department"},
     "COD": {0: "national", 1: "province", 2: "territory"},
     "COG": {0: "national", 1: "region", 2: "district"},
+    "COL": {0: "national", 1: "department", 2: "municipality"},
     "COM": {0: "national", 1: "autonomous island"},
     "CPV": {0: "national", 1: "county"},
+    "CRI": {0: "national", 1: "province", 2: "canton"},
+    "CUB": {0: "national", 1: "province", 2: "municipality"},
     "DJI": {0: "national", 1: "region"},
+    "DMA": {0: "national", 1: "parish"},
+    "DOM": {0: "national", 1: "province", 2: "municipality"},
     "DZA": {0: "national", 1: "province", 2: "commune"},
+    "ECU": {0: "national", 1: "province", 2: "canton"},
     "EGY": {0: "national", 1: "governorate", 2: "subdivision"},
     "ERI": {0: "national", 1: "region", 2: "district"},
     "ESH": {0: "national", 1: "province"},
@@ -76,16 +104,25 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "GMB": {0: "national", 1: "division", 2: "district"},
     "GNB": {0: "national", 1: "region", 2: "sector"},
     "GNQ": {0: "national", 1: "province"},
+    "GRD": {0: "national", 1: "parish"},
+    "GTM": {0: "national", 1: "department", 2: "municipality"},
+    "GUY": {0: "national", 1: "region", 2: "neighbourhood democratic"},
+    "HND": {0: "national", 1: "department", 2: "municipality"},
+    "HTI": {0: "national", 1: "department", 2: "district"},
     "IRQ": {0: "national", 1: "province", 2: "district"},
+    "JAM": {0: "national", 1: "parish"},
     "JOR": {0: "national", 1: "province", 2: "sub-province"},
     "KEN": {0: "national", 1: "county", 2: "constituency"},
+    "KNA": {0: "national", 1: "parish"},
     "KWT": {0: "national", 1: "province"},
     "LBN": {0: "national", 1: "governorate", 2: "district"},
     "LBR": {0: "national", 1: "county", 2: "district"},
     "LBY": {0: "national", 1: "district"},
+    "LCA": {0: "national", 1: "quarter"},
     "LSO": {0: "national", 1: "district"},
     "MAR": {0: "national", 1: "region", 2: "province"},
     "MDG": {0: "national"},
+    "MEX": {0: "national", 1: "state", 2: "municipality"},
     "MLI": {0: "national", 1: "region", 2: "circle"},
     "MOZ": {0: "national", 1: "province", 2: "district"},
     "MRT": {0: "national", 1: "region", 2: "department"},
@@ -94,7 +131,11 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "NAM": {0: "national", 1: "region", 2: "constituency"},
     "NER": {0: "national", 1: "department", 2: "arrondissement"},
     "NGA": {0: "national", 1: "state", 2: "local authority"},
+    "NIC": {0: "national", 1: "department", 2: "municipality"},
     "OMN": {0: "national", 1: "region", 2: "province"},
+    "PAN": {0: "national", 1: "province", 2: "district"},
+    "PER": {0: "national", 1: "region", 2: "province"},
+    "PRY": {0: "national", 1: "department", 2: "district"},
     "PSE": {0: "national", 1: "district", 2: "governorate"},
     "QAT": {0: "national", 1: "municipality"},
     "RWA": {0: "national", 1: "province", 2: "district"},
@@ -102,18 +143,25 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "SDN": {0: "national", 1: "state", 2: "district"},
     "SEN": {0: "national", 1: "region", 2: "department"},
     "SLE": {0: "national", 1: "province", 2: "district"},
+    "SLV": {0: "national", 1: "department", 2: "municipality"},
     "SOM": {0: "national", 1: "region", 2: "district"},
     "SSD": {0: "national", 1: "state", 2: "district"},
     "STP": {0: "national", 1: "municipality"},
+    "SUR": {0: "national", 1: "district", 2: "ressort"},
     "SWZ": {0: "national", 1: "district", 2: "constituency"},
     "SYC": {0: "national", 1: "district"},
     "SYR": {0: "national", 1: "governorate", 2: "district"},
     "TCD": {0: "national", 1: "region", 2: "department"},
     "TGO": {0: "national", 1: "region", 2: "prefecture"},
     "THA": {0: "national", 1: "province", 2: "district"},
+    "TTO": {0: "national", 1: "region"},
     "TUN": {0: "national", 1: "governorate", 2: "delegation"},
     "TZA": {0: "national", 1: "region", 2: "district"},
     "UGA": {0: "national", 1: "district", 2: "county"},
+    "URY": {0: "national", 1: "department", 2: "municipality"},
+    "USA": {0: "national", 1: "state", 2: "county"},
+    "VCT": {0: "national", 1: "parish"},
+    "VEN": {0: "national", 1: "state", 2: "municipality"},
     "YEM": {0: "national", 1: "governorate", 2: "district"},
     "ZAF": {0: "national", 1: "province", 2: "district municipality"},
     "ZMB": {0: "national", 1: "province", 2: "district"},
@@ -130,21 +178,38 @@ GENERIC_LEVEL_TITLES: Dict[int, str] = {
 #: Countries where GADM 4.1 ships no ADM_2 layer, so the analysis stops at
 #: admin-1 and the nested three-way Theil split degenerates to the two-way one.
 #: Stated here rather than discovered as an empty layer halfway through a run.
+#: Countries where GADM 4.1 ships no ADM_2 layer at all, so the analysis stops
+#: at admin-1 and there is no nested three-way split. Note this is about a
+#: **missing layer**, not a missing name: Canada has 293 admin-2 units and is
+#: deliberately absent here, it simply has no reliable word for them (see
+#: COUNTRY_LEVEL_TITLES).
 LEVELS_AVAILABLE: Dict[str, tuple] = {
     iso3: (0, 1)
     for iso3 in (
-        "LBY",
+        # Arab League
         "BHR",
-        "COM",
         "KWT",
+        "LBY",
         "QAT",
         "COM",
+        # Africa
         "CPV",
         "ESH",
-        "LBY",
         "LSO",
         "MUS",
         "SYC",
+        # Caribbean and Central America
+        "ATG",
+        "BHS",
+        "BLZ",
+        "BRB",
+        "DMA",
+        "GRD",
+        "JAM",
+        "KNA",
+        "LCA",
+        "TTO",
+        "VCT",
     )
 }
 
@@ -251,10 +316,58 @@ AFRICA = (
 #: inequality series, decomposition, charts, figures - and separately belongs to
 #: zero or more pools. Use `COUNTRIES` for "what exists here" and a pool for
 #: "what is being compared with what".
+#: The Americas, split north and south rather than pooled as one. The two have
+#: very different income spreads, and a pool's darkness cut is a median over its
+#: own members - pooling Canada with Haiti would produce a cut that describes
+#: neither. Central America and the Caribbean sit with the north by the usual
+#: convention.
+NORTH_AMERICA = (
+    "CAN",
+    "USA",
+    "MEX",
+    "BLZ",
+    "CRI",
+    "SLV",
+    "GTM",
+    "HND",
+    "NIC",
+    "PAN",
+    "ATG",
+    "BHS",
+    "BRB",
+    "CUB",
+    "DMA",
+    "DOM",
+    "GRD",
+    "HTI",
+    "JAM",
+    "KNA",
+    "LCA",
+    "VCT",
+    "TTO",
+)
+
+SOUTH_AMERICA = (
+    "ARG",
+    "BOL",
+    "BRA",
+    "CHL",
+    "COL",
+    "ECU",
+    "GUY",
+    "PRY",
+    "PER",
+    "SUR",
+    "URY",
+    "VEN",
+)
+
 COUNTRIES = (
     *ARAB_LEAGUE,
     "THA",
     *(iso3 for iso3 in AFRICA if iso3 not in ARAB_LEAGUE),
+    *NORTH_AMERICA,
+    *SOUTH_AMERICA,
 )
 
 #: Named comparison pools. Each owns its own cross-country artefacts, and a
@@ -263,6 +376,8 @@ COUNTRIES = (
 POOLS: Dict[str, tuple] = {
     "arab-league": ARAB_LEAGUE,
     "africa": AFRICA,
+    "north-america": NORTH_AMERICA,
+    "south-america": SOUTH_AMERICA,
 }
 DEFAULT_POOL = "arab-league"
 
@@ -349,6 +464,41 @@ COUNTRY_NAMES: Dict[str, str] = {
     "ZAF": "South Africa",
     "ZMB": "Zambia",
     "ZWE": "Zimbabwe",
+    "CAN": "Canada",
+    "USA": "United States",
+    "MEX": "Mexico",
+    "BLZ": "Belize",
+    "CRI": "Costa Rica",
+    "SLV": "El Salvador",
+    "GTM": "Guatemala",
+    "HND": "Honduras",
+    "NIC": "Nicaragua",
+    "PAN": "Panama",
+    "ATG": "Antigua and Barbuda",
+    "BHS": "Bahamas",
+    "BRB": "Barbados",
+    "CUB": "Cuba",
+    "DMA": "Dominica",
+    "DOM": "Dominican Republic",
+    "GRD": "Grenada",
+    "HTI": "Haiti",
+    "JAM": "Jamaica",
+    "KNA": "Saint Kitts and Nevis",
+    "LCA": "Saint Lucia",
+    "VCT": "Saint Vincent and the Grenadines",
+    "TTO": "Trinidad and Tobago",
+    "ARG": "Argentina",
+    "BOL": "Bolivia",
+    "BRA": "Brazil",
+    "CHL": "Chile",
+    "COL": "Colombia",
+    "ECU": "Ecuador",
+    "GUY": "Guyana",
+    "PRY": "Paraguay",
+    "PER": "Peru",
+    "SUR": "Suriname",
+    "URY": "Uruguay",
+    "VEN": "Venezuela",
 }
 
 
@@ -358,9 +508,45 @@ def level_title(iso3: str, level: int) -> str:
     return titles.get(level, GENERIC_LEVEL_TITLES[level])
 
 
-def available_levels(iso3: str) -> tuple:
-    """Admin levels GADM actually provides for a country."""
+#: Levels GADM *does* provide but this repository does not analyse, and why.
+#:
+#: Kept strictly apart from `LEVELS_AVAILABLE`, which records what GADM
+#: lacks. Conflating the two would put a false statement about the source
+#: data into a table other people read: it would say GADM has no Brazilian
+#: municipalities, when GADM has 5,572 of them.
+#:
+#: * **BRA** — 5,572 municipalities, the largest ADM_2 set here by a wide
+#:   margin: sixteen times Chile's 346, and nearly four times Algeria's 1,504,
+#:   which was the previous ceiling. Burning that many polygons onto Brazil's
+#:   21-megapixel frame, for each of 31 years, for each of four choropleth
+#:   variants, is the most expensive computation in the pipeline — it ran for
+#:   over half an hour on a single variant without emitting a file. It was cut
+#:   by choice, not by capability: the state-level analysis is complete, and
+#:   deleting this entry plus re-running the country restores the municipality
+#:   layer.
+LEVELS_NOT_ANALYSED: Dict[str, tuple] = {
+    "BRA": (2,),
+}
+
+
+def gadm_levels(iso3: str) -> tuple:
+    """Admin levels GADM actually provides for a country.
+
+    What the *source* has, irrespective of what this repository does with it.
+    Use `available_levels` for the analysed set.
+    """
     return LEVELS_AVAILABLE.get(iso3.upper(), COUNTRY_LEVELS)
+
+
+def available_levels(iso3: str) -> tuple:
+    """Admin levels this repository analyses for a country.
+
+    GADM's levels minus any this repository declines to analyse. Everything
+    downstream — the figures, the catalogues, the decomposition — keys off
+    this, so a level dropped here leaves no half-built artefacts behind.
+    """
+    skip = LEVELS_NOT_ANALYSED.get(iso3.upper(), ())
+    return tuple(lv for lv in gadm_levels(iso3) if lv not in skip)
 
 
 def has_level(iso3: str, level: int) -> bool:

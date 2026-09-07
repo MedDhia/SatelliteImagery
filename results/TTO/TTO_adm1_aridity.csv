@@ -1,0 +1,16 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+TTO,TTO.1_1,Arima,13.4481,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.2_1,Chaguanas,61.3753,73,73,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.3_1,Couva-Tabaquite-Talparo,746.8233,888,888,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.4_1,Diego Martin,140.3289,167,167,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.5_1,Mayaro/Rio Claro,791.7923,941,941,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.6_1,Penal-Debe,239.0542,284,284,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.7_1,Point Fortin,27.7763,33,33,0,0.0,0.0,0.0,0.030302564241622823,0.9696974357583771,0.0,0.030302564241622823,adm1
+TTO,TTO.8_1,Port of Spain,12.6064,15,15,0,0.0,0.0,0.0,0.06666820793239582,0.9333317920676042,0.0,0.06666820793239582,adm1
+TTO,TTO.9_1,Princes Town,615.2348,731,731,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.10_1,San Fernando,20.1943,24,24,0,0.0,0.0,0.0,0.08333725970263285,0.9166627402973672,0.0,0.08333725970263285,adm1
+TTO,TTO.11_1,San Juan-Laventille,215.9717,257,257,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.12_1,Sangre Grande,925.3498,1101,1101,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.13_1,Siparia,501.7143,596,596,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.14_1,Tobago,312.0403,372,372,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TTO,TTO.15_1,Tunapuna/Piarco,539.5067,642,642,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -425,7 +425,13 @@ def cmd_extract(args) -> int:
     """Clip a country out of the series and render it at each admin level."""
     from . import regions as R
     from . import zonal as Z
-    from .overlay import OverlayStyle, line_segments, render_panel, render_png
+    from .overlay import (
+        OverlayStyle,
+        line_segments,
+        panel_thumbnail,
+        render_panel,
+        render_png,
+    )
     from .raster import clip_raster
 
     iso3 = args.country.upper()
@@ -484,8 +490,13 @@ def cmd_extract(args) -> int:
             clip_raster(path, clipped, window, mask_geometries=mask_geoms)
             written += 1
         data, extent = _read_region_array(clipped)
+        # One decimated copy per year, shared by every level's panel. The
+        # full-resolution `data` still feeds render_png below; only the
+        # panels take the thumbnail, and only because imshow would subsample
+        # it to tile width anyway. See overlay.panel_thumbnail.
+        thumb = panel_thumbnail(data)
         for level in levels:
-            frames[level].append((year, data, extent))
+            frames[level].append((year, thumb, extent))
             png = (
                 dest
                 / f"png{variant}"

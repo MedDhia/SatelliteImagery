@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+VCT,VCT.1_1,Charlotte,142.3681,171,171,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VCT,VCT.2_1,Grenadines,50.0389,60,60,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VCT,VCT.3_1,Saint Andrew,33.3123,40,40,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VCT,VCT.4_1,Saint David,79.0817,95,95,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VCT,VCT.5_1,Saint George,49.1425,59,59,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VCT,VCT.6_1,Saint Patrick,43.2987,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

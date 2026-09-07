@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+CRI,CRI.1_1,Alajuela,9792.9909,11649,11649,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.2_1,Cartago,3099.9548,3679,3679,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.3_1,Guanacaste,10175.9033,12112,12100,12,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.4_1,Heredia,2640.0867,3139,3139,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.5_1,Limón,9184.1122,10922,10904,18,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.6_1,Puntarenas,11250.253,13388,13327,61,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CRI,CRI.7_1,San José,4968.5069,5893,5893,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

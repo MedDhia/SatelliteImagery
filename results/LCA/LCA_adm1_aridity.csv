@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+LCA,LCA.1_1,Anse-la-Raye,44.8398,54,54,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.2_1,Canaries,22.4202,27,27,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.3_1,Castries,96.2992,116,116,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.4_1,Choiseul,27.4151,33,33,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.5_1,Dennery,85.525,103,103,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.6_1,Gros Islet,102.9125,124,124,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.7_1,Laborie,34.8947,42,42,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.8_1,Micoud,106.3244,128,128,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.9_1,Soufrière,53.1567,64,64,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LCA,LCA.10_1,Vieux Fort,47.359,57,57,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

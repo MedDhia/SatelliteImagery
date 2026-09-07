@@ -251,8 +251,7 @@ CROSS_ARIDITY_COLUMNS = (
         "dark_2022",
         "whether `mean_dn_2022` is strictly below the cross-country "
         "median — the cut is a choice, and the set it produces is "
-        "sensitive to it; Iraq's Ninawa sits exactly on the median, so "
-        "the strict `<` is load-bearing",
+        "sensitive to it",
     ),
     (
         "cell",
@@ -304,66 +303,110 @@ CROSS_TRENDS_COLUMNS = (
 )
 
 
-CROSS_TABLES = (
-    ResultTable(
-        key="aridity-vs-light",
-        source="",
-        dest="aridity_vs_light.csv",
-        title="Aridity against darkness, every admin-1 unit",
-        description=(
-            "One row per admin-1 unit across all 22 countries, pairing what "
-            "the climate says with what the light says. The table behind "
-            "[`../docs/aridity.md`](../docs/aridity.md), which refutes most of "
-            "what this repository previously asserted about which dark regions "
-            "are desert."
-        ),
-        columns=CROSS_ARIDITY_COLUMNS,
-    ),
-    ResultTable(
-        key="africa-aridity-vs-light",
-        source="",
-        dest="africa_aridity_vs_light.csv",
-        title="Aridity against darkness, the Africa pool",
-        description=(
-            "The same join as `aridity_vs_light.csv`, pooled over Africa "
-            "instead of the Arab League. ⚠️ **`dark_2022` is not comparable "
-            "between the two files**: each cuts at the median `mean_dn_2022` "
-            "of its own pool, and those medians differ. A unit in one of the "
-            "ten countries that sit in both pools can be dark in one file and "
-            "lit in the other, correctly."
-        ),
-        columns=CROSS_ARIDITY_COLUMNS,
-    ),
-    ResultTable(
-        key="africa-trends-by-country",
-        source="",
-        dest="africa_trends_by_country.csv",
-        title="Pace of inequality change, the Africa pool",
-        description=(
-            "The same fits as `trends_by_country.csv`, over the African "
-            "countries. Rates are fitted per country and never pooled, so a "
-            "country appearing in both files carries identical numbers in "
-            "each - only the set of neighbours differs."
-        ),
-        columns=CROSS_TRENDS_COLUMNS,
-    ),
-    ResultTable(
-        key="trends-by-country",
-        source="",
-        dest="trends_by_country.csv",
-        title="Pace of inequality change, all 22 countries",
-        description=(
-            "Log-linear rates of change fitted to the published inequality "
-            "series — how fast spatial inequality is moving, and whether the "
-            "movement is convergence among lit places or light reaching new "
-            "ground. Three fit windows per measure, because 18 of 22 countries "
-            "change pace at exactly the 2014 sensor handover and the eras must "
-            "not be compared. See [`../docs/arab-world.md`]"
-            "(../docs/arab-world.md)."
-        ),
-        columns=CROSS_TRENDS_COLUMNS,
-    ),
-)
+#: Pools where a unit sits *exactly* on the darkness median, and which unit.
+#:
+#: Only then is the strict ``<`` in `dark_2022` load-bearing: the tied unit is
+#: classified lit, and a ``<=`` would flip it. Whether a tie exists is not a
+#: matter of luck but of parity - ``statistics.median`` returns a real
+#: observation only when the pool holds an odd number of units, and averages
+#: the two middle ones otherwise, landing between them and matching nothing.
+#: The Arab League's 317 units tie; Africa's 854, North America's 328 and
+#: South America's 214 do not.
+#:
+#: This began as one sentence in the shared column template naming Ninawa,
+#: which meant every pool generated from that template asserted an Iraqi unit
+#: sat on its median - false for three of the four, and false about the
+#: underlying point for Africa, which has no tie at all. Naming a unit here is
+#: a claim about published data, so `tests/test_results.py` recomputes each
+#: median from the committed CSV and checks it.
+MEDIAN_TIES: Dict[str, str] = {
+    "arab-league": "Iraq's Ninawa",
+    "north-america": "Washington State",
+    "south-america": "Argentina's Mendoza",
+}
+
+
+def _dark_2022_gloss(pool: str) -> str:
+    """The `dark_2022` column gloss for one pool, tie named only if real."""
+    base = (
+        "whether `mean_dn_2022` is strictly below the cross-country "
+        "median — the cut is a choice, and the set it produces is "
+        "sensitive to it"
+    )
+    tie = MEDIAN_TIES.get(pool)
+    if tie is None:
+        return base
+    return (
+        f"{base}; {tie} sits exactly on this pool's median, so the "
+        "strict `<` is load-bearing"
+    )
+
+
+def _cross_aridity_columns(pool: str):
+    """`CROSS_ARIDITY_COLUMNS` with the pool's own `dark_2022` gloss."""
+    return tuple(
+        (name, _dark_2022_gloss(pool) if name == "dark_2022" else gloss)
+        for name, gloss in CROSS_ARIDITY_COLUMNS
+    )
+
+
+def _pool_label(pool: str) -> str:
+    """A human name for a pool, e.g. 'north-america' -> 'North America'."""
+    return pool.replace("-", " ").title().replace("League", "League")
+
+
+def _cross_tables():
+    """One aridity join and one trends table per pool, generated from POOLS.
+
+    Generated rather than hand-listed: a pool added to `regions.POOLS` whose
+    tables were forgotten here would be published with no data dictionary and
+    invisible to `results build`. That is the same failure mode that dropped
+    dry sub-humid from `dryland_share`, so the list is derived from its source.
+    """
+    from . import aridity as A
+    from . import trends as T
+
+    tables = []
+    for pool in R.POOLS:
+        label = _pool_label(pool)
+        tables.append(
+            ResultTable(
+                key=f"{pool}-aridity-vs-light",
+                source="",
+                dest=A.vs_light_table(pool),
+                title=f"Aridity against darkness, the {label} pool",
+                description=(
+                    "One row per admin-1 unit in this pool, pairing what the "
+                    "climate says with what the light says. ⚠️ **`dark_2022` "
+                    "is not comparable with any other pool's copy of this "
+                    "table**: each cuts at the median `mean_dn_2022` of its "
+                    "own members, and those medians differ. A country in two "
+                    "pools can have a unit dark in one file and lit in the "
+                    "other, correctly."
+                ),
+                columns=_cross_aridity_columns(pool),
+            )
+        )
+        tables.append(
+            ResultTable(
+                key=f"{pool}-trends-by-country",
+                source="",
+                dest=T.trends_table(pool),
+                title=f"Pace of inequality change, the {label} pool",
+                description=(
+                    "Log-linear rates fitted to the published inequality "
+                    "series for this pool's countries. Rates are fitted per "
+                    "country and never pooled, so a country appearing in more "
+                    "than one of these files carries identical numbers in "
+                    "each - only the set of neighbours differs."
+                ),
+                columns=CROSS_TRENDS_COLUMNS,
+            )
+        )
+    return tuple(tables)
+
+
+CROSS_TABLES = _cross_tables()
 
 
 def _country_tables(iso3: str):
