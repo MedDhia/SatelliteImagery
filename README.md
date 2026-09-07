@@ -10,8 +10,8 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 51 352 figures in `figures/`](figures/)** — global overlays, and
-for each of the 103 countries analysed the map series in three palettes, the
+**[→ Browse all 73 030 figures in `figures/`](figures/)** — global overlays, and
+for each of the 146 countries analysed the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
 
@@ -38,10 +38,10 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 604 tables and
-3 193 clipped GeoTIFFs across 103 countries, with a generated data dictionary
+**[→ The numbers behind the figures, in `results/`](results/)** — 856 tables and
+4 526 clipped GeoTIFFs across 146 countries, with a generated data dictionary
 for every column: the per-country inequality outputs, the per-unit aridity
-tables, and the eight cross-country tables, two per pool.
+tables, and the ten cross-country tables, two per pool.
 
 Per country: the inequality series (Gini, Theil T, Theil L), the Theil
 decomposition, per-unit contributions, zonal tables at each admin level, and
@@ -84,7 +84,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/*` | pruned per batch | 103 countries; published instead as [`figures/`](figures/) (3.0 GB) and [`results/`](results/) (899 MB, rasters included) |
+| `data/regions/*` | pruned per batch | 146 countries; published instead as [`figures/`](figures/) (5.0 GB) and [`results/`](results/) (1.1 GB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -350,6 +350,50 @@ latter would have claimed GADM has no Brazilian municipalities, which is false.
 32%, a plurality and not a word the country uses for itself — so it takes the
 generic title while keeping all 293 units. That is what forced the level-name
 rule to require a true majority rather than a mode.
+
+## All of Europe
+
+[`docs/europe.md`](docs/europe.md) covers **43 European countries** as a single
+`europe` pool — 688 admin-1 units, 5 978 analysed admin-2. It is the first pool
+that **overlaps no other**: Africa and the Arab League share ten members, and
+the two American pools were split precisely so they would not share one.
+
+Three states are absent, for two different reasons. **Monaco and the Vatican
+have no GADM 4.1 feature at any level** — a gap in the source, not a choice.
+**Russia is excluded deliberately**: about three quarters of its area is Asian,
+and it wraps the antimeridian like the USA, but the American remedy does not
+transfer — cropping at 180° costs the USA 2 122 km² of Aleutian rock and would
+cost Russia **114 686 km² of Chukotka**, larger than Iceland.
+
+**The brightest pool, and the only one where light is going out.** Europe's
+darkness cut is **9.5926**, well above North America's 6.40 and Africa's 0.49.
+Everywhere else in this repository lit area grows; in Europe five countries are
+losing it — Ukraine **−1.32 %/yr**, Slovakia −0.43, Moldova −0.22, the UK −0.09,
+the Netherlands −0.04 — and four of them are the only European countries whose
+total inequality rises.
+
+⚠️ **That finding is where this dataset is weakest, and the document says so.**
+A falling radiance in a rich, fully-electrified country is more plausibly the
+**LED transition** than a blackout: LEDs emit far less in the day/night band
+than the sodium lamps they replaced, so the same street records as less light.
+The series cannot separate "fewer lit places" from "the same places, lit
+differently", and Europe is where that conversion went furthest. The United
+Kingdom's classification is weaker still — +0.045 %/yr at **R² 0.009**, which
+the direction column itself calls `flat`. The rule fired on a sign, not a
+magnitude.
+
+**Aridity has nothing to work with here.** One European admin-1 unit out of 688
+is majority-arid and the pool's median `dryland_share` is **0.0000**. The eight
+partly-arid units are *twice as bright* as the other 680 (19.13 against 9.31),
+which inverts the Arab result exactly as Africa's did — but on eight units that
+is not a climate finding. Europe's only desert is **Spain's Islas Canarias**, an
+Atlantic archipelago off the African coast, and it is the pool's only lit
+desert; there are no dark ones at all.
+
+**The slowest extensive margin anywhere** at **+0.91 %/yr** — a fifth of
+Africa's +4.92 — because Europe had almost no unlit ground left in 1992. Its
+median intensive margin is −0.01 %/yr: across the continent as a whole,
+inequality among lit places neither converges nor diverges.
 
 ## One country outside the pool: Thailand
 
