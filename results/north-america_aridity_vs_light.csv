@@ -1,4 +1,49 @@
 iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+CAN,CAN.1_1,Alberta,0.0,0.5823,0.4177,663125.6097,1347909,2.7243,4.1729,False,,False,True,anomalously_dark
+CAN,CAN.2_1,British Columbia,0.0,0.0777,0.9223,943083.0156,1898564,0.6671,0.9505,False,,False,True,anomalously_dark
+CAN,CAN.3_1,Manitoba,0.0,0.0369,0.9631,649864.8161,1313109,0.8667,1.1115,False,,False,True,anomalously_dark
+CAN,CAN.4_1,New Brunswick,0.0,0.0,1.0,72990.826,123447,5.6613,6.1803,False,,False,False,ordinary
+CAN,CAN.5_1,Newfoundland and Labrador,0.0,0.0,1.0,407147.2394,783922,0.35,0.516,False,,False,True,anomalously_dark
+CAN,CAN.6_1,Northwest Territories,0.0001,0.637,0.363,1342806.9406,3886112,0.0123,0.034,False,,False,True,anomalously_dark
+CAN,CAN.7_1,Nova Scotia,0.0,0.0,1.0,55504.361,91453,4.337,5.444,False,,False,True,anomalously_dark
+CAN,CAN.8_1,Nunavut,0.0323,0.2865,0.7135,2064100.1513,7373163,0.0035,0.0123,False,,False,True,anomalously_dark
+CAN,CAN.9_1,Ontario,0.0,0.0,1.0,1080811.2067,1958515,2.1004,2.3486,False,,False,True,anomalously_dark
+CAN,CAN.10_1,Prince Edward Island,0.0,0.0,1.0,5740.2297,9668,7.9075,10.905,False,,False,False,ordinary
+CAN,CAN.11_1,Québec,0.0,0.0,1.0,1520076.2801,2969317,1.2531,1.6384,False,,False,True,anomalously_dark
+CAN,CAN.12_1,Saskatchewan,0.0,0.4679,0.5321,652506.2293,1302385,1.0103,1.6726,False,,False,True,anomalously_dark
+CAN,CAN.13_1,Yukon,0.0,0.4834,0.5166,483582.0412,1261207,0.0405,0.0711,False,,False,True,anomalously_dark
+MEX,MEX.1_1,Aguascalientes,0.0,1.0,0.0,5619.1739,7077,7.0924,15.0125,False,,False,False,ordinary
+MEX,MEX.3_1,Baja California,0.8697,1.0,0.0,72836.0089,98636,1.1167,2.4905,True,,False,True,desert_dark
+MEX,MEX.2_1,Baja California Sur,0.9307,1.0,0.0,71714.8181,93068,0.2703,1.0044,True,,False,True,desert_dark
+MEX,MEX.4_1,Campeche,0.0,0.1905,0.8095,55459.905,68466,0.3754,1.6973,False,,False,True,anomalously_dark
+MEX,MEX.5_1,Chiapas,0.0,0.0796,0.9204,72968.9944,88935,1.4862,4.9842,False,,False,True,anomalously_dark
+MEX,MEX.6_1,Chihuahua,0.4849,0.994,0.006,247385.2823,329368,0.3857,1.191,False,,False,True,anomalously_dark
+MEX,MEX.7_1,Coahuila,0.6834,1.0,0.0,151581.5062,199040,0.6186,1.516,True,,False,True,desert_dark
+MEX,MEX.8_1,Colima,0.0104,0.7249,0.2751,5745.2919,7104,4.2615,9.5796,False,,False,False,ordinary
+MEX,MEX.9_1,Distrito Federal,0.0,0.5528,0.4472,1491.6605,1846,45.0427,47.1932,False,,False,False,ordinary
+MEX,MEX.10_1,Durango,0.1876,0.8474,0.1526,123340.8342,158757,0.4572,1.1929,False,,False,True,anomalously_dark
+MEX,MEX.11_1,Guanajuato,0.0,1.0,0.0,30612.2964,38272,6.2441,12.8016,False,,False,False,ordinary
+MEX,MEX.12_1,Guerrero,0.0,0.3234,0.6766,63539.3388,77920,1.3613,3.2581,False,,False,True,anomalously_dark
+MEX,MEX.13_1,Hidalgo,0.0,0.7165,0.2835,20817.5672,25955,4.4858,10.2921,False,,False,False,ordinary
+MEX,MEX.14_1,Jalisco,0.0,0.7101,0.2899,78600.7352,98069,2.502,5.9028,False,,False,False,ordinary
+MEX,MEX.15_1,México,0.0,0.4211,0.5789,22354.0519,27678,14.0531,20.9337,False,,False,False,ordinary
+MEX,MEX.16_1,Michoacán,0.0,0.6817,0.3183,58596.0454,72489,2.2566,4.9346,False,,False,True,anomalously_dark
+MEX,MEX.17_1,Morelos,0.0,0.736,0.264,4877.3094,6017,15.1008,22.5019,False,,False,False,ordinary
+MEX,MEX.18_1,Nayarit,0.0,0.269,0.731,27935.55,35135,1.3375,2.8869,False,,False,True,anomalously_dark
+MEX,MEX.19_1,Nuevo León,0.0892,1.0,0.0,64155.847,83011,1.727,4.2638,False,,False,True,anomalously_dark
+MEX,MEX.20_1,Oaxaca,0.0001,0.4332,0.5668,92617.6109,113161,0.9581,2.7553,False,,False,True,anomalously_dark
+MEX,MEX.21_1,Puebla,0.0018,0.697,0.303,34312.7516,42399,4.7796,10.0656,False,,False,False,ordinary
+MEX,MEX.22_1,Querétaro,0.0,0.9624,0.0376,11693.9835,14615,5.1344,12.7185,False,,False,False,ordinary
+MEX,MEX.23_1,Quintana Roo,0.0,0.0916,0.9084,43283.7089,53687,0.657,2.3342,False,,False,True,anomalously_dark
+MEX,MEX.24_1,San Luis Potosí,0.1444,0.8227,0.1773,61146.2453,77328,1.0134,3.2381,False,,False,True,anomalously_dark
+MEX,MEX.25_1,Sinaloa,0.0707,0.8889,0.1111,55421.5767,71380,1.6531,4.1762,False,,False,True,anomalously_dark
+MEX,MEX.26_1,Sonora,0.4695,0.9999,0.0001,180085.2311,241797,0.5781,1.5133,False,,False,True,anomalously_dark
+MEX,MEX.27_1,Tabasco,0.0,0.0,1.0,24464.5047,30044,5.0321,11.1282,False,,False,False,ordinary
+MEX,MEX.28_1,Tamaulipas,0.0,0.889,0.111,77870.2701,99731,1.2119,2.8205,False,,False,True,anomalously_dark
+MEX,MEX.29_1,Tlaxcala,0.0,0.7947,0.2053,4003.4674,4959,12.6322,20.3181,False,,False,False,ordinary
+MEX,MEX.30_1,Veracruz,0.0,0.0344,0.9656,70793.7851,87687,3.5382,8.1405,False,,False,False,ordinary
+MEX,MEX.31_1,Yucatán,0.0,0.409,0.591,39312.2871,49097,1.7712,4.291,False,,False,True,anomalously_dark
+MEX,MEX.32_1,Zacatecas,0.2569,0.9999,0.0001,75266.9672,95676,0.7848,2.6795,False,,False,True,anomalously_dark
 BLZ,BLZ.1_1,Belize,0.0,0.0,1.0,3359.2684,4117,0.5192,2.721,False,,False,True,anomalously_dark
 BLZ,BLZ.2_1,Cayo,0.0,0.0,1.0,5306.0463,6484,0.1652,2.4747,False,,False,True,anomalously_dark
 BLZ,BLZ.3_1,Corozal,0.0,0.0,1.0,1995.9167,2455,0.738,4.7955,False,,False,True,anomalously_dark
@@ -7,7 +52,7 @@ BLZ,BLZ.5_1,Stann Creek,0.0,0.0,1.0,2328.5327,2843,0.0843,2.2956,False,,False,Tr
 BLZ,BLZ.6_1,Toledo,0.0,0.0,1.0,4403.5381,5362,0.059,0.6297,False,,False,True,anomalously_dark
 CRI,CRI.1_1,Alajuela,0.0,0.0,1.0,9792.9909,11649,2.401,7.9317,False,,False,False,ordinary
 CRI,CRI.2_1,Cartago,0.0,0.0,1.0,3099.9548,3679,4.2419,8.8691,False,,False,False,ordinary
-CRI,CRI.3_1,Guanacaste,0.0,0.0,1.0,10175.9033,12100,0.7209,6.1368,False,,False,True,anomalously_dark
+CRI,CRI.3_1,Guanacaste,0.0,0.0,1.0,10175.9033,12100,0.7209,6.1368,False,,False,False,ordinary
 CRI,CRI.4_1,Heredia,0.0,0.0,1.0,2640.0867,3139,3.9041,7.9069,False,,False,False,ordinary
 CRI,CRI.5_1,Limón,0.0,0.0,1.0,9184.1122,10904,0.706,4.2805,False,,False,True,anomalously_dark
 CRI,CRI.6_1,Puntarenas,0.0,0.0,1.0,11250.253,13327,0.6819,5.5937,False,,False,True,anomalously_dark
@@ -25,7 +70,7 @@ SLV,SLV.10_1,San Salvador,0.0,0.0,1.0,921.4439,1109,20.436,29.9711,False,,False,
 SLV,SLV.11_1,San Vicente,0.0,0.0,1.0,1206.4157,1451,1.3934,7.4015,False,,False,False,ordinary
 SLV,SLV.12_1,Santa Ana,0.0,0.0077,0.9923,2048.3657,2469,2.7191,8.9776,False,,False,False,ordinary
 SLV,SLV.13_1,Sonsonate,0.0,0.0,1.0,1195.9791,1439,3.4416,11.1342,False,,False,False,ordinary
-SLV,SLV.14_1,Usulután,0.0,0.0,1.0,1978.9293,2378,0.7694,5.9848,False,,False,True,anomalously_dark
+SLV,SLV.14_1,Usulután,0.0,0.0,1.0,1978.9293,2378,0.7694,5.9848,False,,False,False,ordinary
 GTM,GTM.1_1,Alta Verapaz,0.0,0.0,1.0,10044.073,12190,0.1146,1.3604,False,,False,True,anomalously_dark
 GTM,GTM.2_1,Baja Verapaz,0.0,0.0,1.0,2820.8858,3415,0.1033,2.6512,False,,False,True,anomalously_dark
 GTM,GTM.3_1,Chimaltenango,0.0,0.0,1.0,1888.4754,2282,1.4086,10.1136,False,,False,False,ordinary
@@ -49,7 +94,7 @@ GTM,GTM.20_1,Suchitepéquez,0.0,0.0,1.0,2083.1391,2514,1.43,7.408,False,,False,F
 GTM,GTM.21_1,Totonicapán,0.0,0.0,1.0,1074.27,1300,1.3467,12.5728,False,,False,False,ordinary
 GTM,GTM.22_1,Zacapa,0.0,0.2358,0.7642,2716.7906,3288,0.6191,4.4198,False,,False,True,anomalously_dark
 HND,HND.1_1,Atlántida,0.0,0.0,1.0,4463.6718,5418,0.5667,4.5117,False,,False,True,anomalously_dark
-HND,HND.2_1,Choluteca,0.0,0.0774,0.9226,4416.1964,5306,0.3869,5.983,False,,False,True,anomalously_dark
+HND,HND.2_1,Choluteca,0.0,0.0774,0.9226,4416.1964,5306,0.3869,5.983,False,,False,False,ordinary
 HND,HND.3_1,Colón,0.0,0.0,1.0,8390.2415,10183,0.1673,1.7225,False,,False,True,anomalously_dark
 HND,HND.4_1,Comayagua,0.0,0.0,1.0,4924.8462,5949,0.6935,5.0391,False,,False,True,anomalously_dark
 HND,HND.5_1,Copán,0.0,0.0,1.0,3319.5473,4015,0.2008,5.2314,False,,False,True,anomalously_dark
@@ -107,7 +152,7 @@ ATG,ATG.7_1,Saint Peter,0.0,1.0,0.0,34.3553,42,6.6389,23.994,False,,False,False,
 ATG,ATG.8_1,Saint Philip,0.0,1.0,0.0,44.9953,55,6.5217,13.9224,False,,False,False,ordinary
 BHS,BHS.1_1,Acklins,0.0,1.0,0.0,495.4183,626,0.0,0.1192,False,,False,True,anomalously_dark
 BHS,BHS.2_1,Berry Islands,0.0,0.0,1.0,61.0392,79,0.746,3.586,False,,False,True,anomalously_dark
-BHS,BHS.3_1,Biminis,0.0,0.0,1.0,33.3224,43,0.7222,6.3528,False,,False,True,anomalously_dark
+BHS,BHS.3_1,Biminis,0.0,0.0,1.0,33.3224,43,0.7222,6.3528,False,,False,False,ordinary
 BHS,BHS.4_1,Black Point,0.0,1.0,0.0,53.2066,68,0.0,0.8333,False,,False,True,anomalously_dark
 BHS,BHS.5_1,Cat Island,0.0,1.0,0.0,372.2986,477,0.2922,0.5938,False,,False,True,anomalously_dark
 BHS,BHS.6_1,Central Abaco,0.0,0.0,1.0,706.7566,921,0.6477,2.2595,False,,False,True,anomalously_dark
@@ -182,7 +227,7 @@ DOM,DOM.5_1,Distrito Nacional,0.0,0.0,1.0,86.8609,107,59.9438,62.614,False,,Fals
 DOM,DOM.6_1,Duarte,0.0,0.0,1.0,1619.5573,2004,1.3595,10.3276,False,,False,False,ordinary
 DOM,DOM.7_1,El Seybo,0.0,0.0,1.0,1742.7783,2151,0.0763,4.567,False,,False,True,anomalously_dark
 DOM,DOM.8_1,Espaillat,0.0,0.0,1.0,855.2308,1060,3.4581,13.5343,False,,False,False,ordinary
-DOM,DOM.9_1,Hato Mayor,0.0,0.0,1.0,1311.4053,1619,0.2291,6.0824,False,,False,True,anomalously_dark
+DOM,DOM.9_1,Hato Mayor,0.0,0.0,1.0,1311.4053,1619,0.2291,6.0824,False,,False,False,ordinary
 DOM,DOM.10_1,Independencia,0.0,0.594,0.406,1987.8999,2448,0.0746,2.5391,False,,False,True,anomalously_dark
 DOM,DOM.11_1,La Altagracia,0.0,0.0833,0.9167,3094.7221,3814,0.6852,12.3857,False,,False,False,ordinary
 DOM,DOM.12_1,La Estrelleta,0.0,0.0,1.0,1429.3858,1766,0.0436,1.9744,False,,False,True,anomalously_dark
@@ -190,7 +235,7 @@ DOM,DOM.13_1,La Romana,0.0,0.3701,0.6299,561.677,692,5.3879,17.0146,False,,False
 DOM,DOM.14_1,La Vega,0.0,0.0,1.0,2246.1839,2776,2.2682,11.5046,False,,False,False,ordinary
 DOM,DOM.15_1,María Trinidad Sánchez,0.0,0.0,1.0,1227.0178,1520,0.412,6.8881,False,,False,False,ordinary
 DOM,DOM.16_1,Monseñor Nouel,0.0,0.0,1.0,969.3815,1197,5.892,10.9226,False,,False,False,ordinary
-DOM,DOM.17_1,Monte Cristi,0.0,0.9408,0.0592,1947.8862,2417,0.1567,6.1939,False,,False,True,anomalously_dark
+DOM,DOM.17_1,Monte Cristi,0.0,0.9408,0.0592,1947.8862,2417,0.1567,6.1939,False,,False,False,ordinary
 DOM,DOM.18_1,Monte Plata,0.0,0.0,1.0,2590.0517,3197,0.278,7.4692,False,,False,False,ordinary
 DOM,DOM.19_1,Pedernales,0.0,0.6606,0.3394,2056.6016,2526,0.0414,0.8954,False,,False,True,anomalously_dark
 DOM,DOM.20_1,Peravia,0.0,0.5659,0.4341,772.6732,951,4.5226,16.6362,False,,False,False,ordinary
@@ -235,7 +280,7 @@ JAM,JAM.9_1,Saint Elizabeth,0.0,0.0,1.0,1203.5,1479,4.4822,9.9483,False,,False,F
 JAM,JAM.10_1,Saint James,0.0,0.0,1.0,592.9245,730,9.7412,15.7901,False,,False,False,ordinary
 JAM,JAM.11_1,Saint Mary,0.0,0.0,1.0,627.4108,772,6.305,9.8744,False,,False,False,ordinary
 JAM,JAM.12_1,Saint Thomas,0.0,0.0,1.0,732.8048,900,4.2311,7.6331,False,,False,False,ordinary
-JAM,JAM.13_1,Trelawny,0.0,0.0101,0.9899,887.0814,1092,2.8594,6.1483,False,,False,True,anomalously_dark
+JAM,JAM.13_1,Trelawny,0.0,0.0101,0.9899,887.0814,1092,2.8594,6.1483,False,,False,False,ordinary
 JAM,JAM.14_1,Westmoreland,0.0,0.001,0.999,790.0964,972,6.2618,13.1291,False,,False,False,ordinary
 KNA,KNA.1_1,Christ Church Nichola Town,0.0,0.0,1.0,18.7868,23,6.125,12.6551,False,,False,False,ordinary
 KNA,KNA.2_1,Saint Anne Sandy Point,0.0,0.0,1.0,14.7021,18,5.3571,12.0721,False,,False,False,ordinary
