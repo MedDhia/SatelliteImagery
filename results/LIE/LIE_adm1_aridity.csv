@@ -1,0 +1,12 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+LIE,LIE.1_1,Balzers,20.5152,35,35,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.2_1,Eschen,10.5287,18,18,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.3_1,Gamprin,6.4338,11,11,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.4_1,Mauren,7.6029,13,13,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.5_1,Planken,7.0229,12,12,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.6_1,Ruggell,6.4295,11,11,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.7_1,Schaan,26.3522,45,45,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.8_1,Schellenberg,3.5073,6,6,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.9_1,Triesen,24.6237,42,42,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.10_1,Triesenberg,30.4637,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LIE,LIE.11_1,Valduz,16.9824,29,29,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

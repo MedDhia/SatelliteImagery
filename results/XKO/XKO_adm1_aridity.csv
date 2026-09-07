@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+XKO,XKO.1_1,Đakovica,1107.5139,1745,1745,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+XKO,XKO.2_1,Gnjilane,1356.3423,2138,2138,0,0.0,0.0,0.0,0.23164396579712213,0.7683560342028681,0.0,0.23164396579712213,adm1
+XKO,XKO.3_1,Kosovska Mitrovica,2069.3615,3285,3285,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+XKO,XKO.4_1,Pećki,1353.6062,2141,2141,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+XKO,XKO.5_1,Pristina,2181.3656,3451,3451,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+XKO,XKO.6_1,Prizren,1718.4091,2699,2699,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+XKO,XKO.7_1,Uroševac,1054.7584,1658,1658,0,0.0,0.0,0.0,0.05018474727512177,0.9498152527248804,0.0,0.05018474727512177,adm1

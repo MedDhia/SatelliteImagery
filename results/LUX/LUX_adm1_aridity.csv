@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+LUX,LUX.1_1,Diekirch,1151.3226,2076,2076,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LUX,LUX.2_1,Grevenmacher,525.033,942,942,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+LUX,LUX.3_1,Luxembourg,903.898,1620,1620,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

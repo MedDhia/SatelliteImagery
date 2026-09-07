@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+MLT,MLT.1_1,Ċentrali,25.0423,36,36,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+MLT,MLT.2_1,Għawdex,72.2137,104,104,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+MLT,MLT.3_1,Nofsinhar,76.5685,110,110,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+MLT,MLT.4_1,Tramuntana,117.5283,169,169,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+MLT,MLT.5_1,Xlokk,34.7945,50,50,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
