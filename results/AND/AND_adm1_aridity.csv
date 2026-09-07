@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+AND,AND.1_1,Andorra la Vella,12.6806,20,20,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.2_1,Canillo,110.1923,174,174,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.3_1,Encamp,70.3595,111,111,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.4_1,Escaldes-Engordany,45.6636,72,72,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.5_1,La Massana,69.0572,109,109,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.6_1,Ordino,78.496,124,124,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+AND,AND.7_1,Sant Julià de Lòria,64.7122,102,102,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

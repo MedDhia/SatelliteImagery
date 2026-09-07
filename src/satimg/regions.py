@@ -64,14 +64,21 @@ LEVEL_TITLES: Dict[int, str] = {
 #:   spells "Municipality" 14,370 times.
 COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "AGO": {0: "national", 1: "province"},
+    "ALB": {0: "national", 1: "county"},
+    "AND": {0: "national", 1: "parish"},
     "ARE": {0: "national", 1: "emirate", 2: "district"},
     "ARG": {0: "national", 1: "province", 2: "department"},
     "ATG": {0: "national", 1: "parish"},
+    "AUT": {0: "national", 1: "state", 2: "district"},
     "BDI": {0: "national", 1: "province", 2: "commune"},
+    "BEL": {0: "national", 1: "region"},
     "BEN": {0: "national", 1: "department", 2: "commune"},
     "BFA": {0: "national", 1: "region", 2: "province"},
+    "BGR": {0: "national", 1: "province", 2: "municipality"},
     "BHR": {0: "national", 1: "governorate"},
     "BHS": {0: "national", 1: "district"},
+    "BIH": {0: "national", 1: "entity", 2: "canton"},
+    "BLR": {0: "national", 1: "region", 2: "district"},
     "BLZ": {0: "national", 1: "district"},
     "BOL": {0: "national", 1: "department", 2: "province"},
     "BRA": {0: "national", 1: "state", 2: "municipality"},
@@ -79,6 +86,7 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "BWA": {0: "national", 1: "district", 2: "sub-district"},
     "CAF": {0: "national", 1: "prefecture", 2: "sub-prefecture"},
     "CAN": {0: "national", 1: "province"},
+    "CHE": {0: "national", 1: "canton", 2: "district"},
     "CHL": {0: "national", 1: "region", 2: "province"},
     "CIV": {0: "national", 1: "district", 2: "region"},
     "CMR": {0: "national", 1: "region", 2: "department"},
@@ -89,27 +97,42 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "CPV": {0: "national", 1: "county"},
     "CRI": {0: "national", 1: "province", 2: "canton"},
     "CUB": {0: "national", 1: "province", 2: "municipality"},
+    "CYP": {0: "national", 1: "district"},
+    "CZE": {0: "national", 1: "region", 2: "district"},
+    "DEU": {0: "national", 1: "state", 2: "district"},
     "DJI": {0: "national", 1: "region"},
     "DMA": {0: "national", 1: "parish"},
+    "DNK": {0: "national", 1: "region", 2: "municipality"},
     "DOM": {0: "national", 1: "province", 2: "municipality"},
     "DZA": {0: "national", 1: "province", 2: "commune"},
     "ECU": {0: "national", 1: "province", 2: "canton"},
     "EGY": {0: "national", 1: "governorate", 2: "subdivision"},
     "ERI": {0: "national", 1: "region", 2: "district"},
     "ESH": {0: "national", 1: "province"},
+    "ESP": {0: "national", 1: "autonomous community", 2: "province"},
+    "EST": {0: "national", 1: "county", 2: "parish"},
     "ETH": {0: "national", 1: "state", 2: "zone"},
+    "FIN": {0: "national", 1: "province", 2: "region"},
+    "FRA": {0: "national", 1: "region", 2: "department"},
     "GAB": {0: "national", 1: "province", 2: "department"},
+    "GBR": {0: "national", 1: "constituent country"},
     "GHA": {0: "national", 1: "region", 2: "district"},
     "GIN": {0: "national", 1: "region", 2: "prefecture"},
     "GMB": {0: "national", 1: "division", 2: "district"},
     "GNB": {0: "national", 1: "region", 2: "sector"},
     "GNQ": {0: "national", 1: "province"},
+    "GRC": {0: "national", 1: "decentralized administration", 2: "region"},
     "GRD": {0: "national", 1: "parish"},
     "GTM": {0: "national", 1: "department", 2: "municipality"},
     "GUY": {0: "national", 1: "region", 2: "neighbourhood democratic"},
     "HND": {0: "national", 1: "department", 2: "municipality"},
+    "HRV": {0: "national", 1: "county", 2: "commune"},
     "HTI": {0: "national", 1: "department", 2: "district"},
+    "HUN": {0: "national", 1: "county", 2: "subregion"},
+    "IRL": {0: "national", 1: "county", 2: "municipal district"},
     "IRQ": {0: "national", 1: "province", 2: "district"},
+    "ISL": {0: "national", 1: "region", 2: "municipality"},
+    "ITA": {0: "national", 1: "region", 2: "province"},
     "JAM": {0: "national", 1: "parish"},
     "JOR": {0: "national", 1: "province", 2: "sub-province"},
     "KEN": {0: "national", 1: "county", 2: "constituency"},
@@ -119,11 +142,19 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "LBR": {0: "national", 1: "county", 2: "district"},
     "LBY": {0: "national", 1: "district"},
     "LCA": {0: "national", 1: "quarter"},
+    "LIE": {0: "national", 1: "commune"},
     "LSO": {0: "national", 1: "district"},
+    "LTU": {0: "national", 1: "county", 2: "district municipality"},
+    "LUX": {0: "national", 1: "district", 2: "canton"},
+    "LVA": {0: "national", 1: "province", 2: "district"},
     "MAR": {0: "national", 1: "region", 2: "province"},
+    "MDA": {0: "national", 1: "district"},
     "MDG": {0: "national"},
     "MEX": {0: "national", 1: "state", 2: "municipality"},
+    "MKD": {0: "national", 1: "municipality"},
     "MLI": {0: "national", 1: "region", 2: "circle"},
+    "MLT": {0: "national", 1: "region", 2: "local council"},
+    "MNE": {0: "national", 1: "municipality"},
     "MOZ": {0: "national", 1: "province", 2: "district"},
     "MRT": {0: "national", 1: "region", 2: "department"},
     "MUS": {0: "national", 1: "district"},
@@ -132,22 +163,32 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "NER": {0: "national", 1: "department", 2: "arrondissement"},
     "NGA": {0: "national", 1: "state", 2: "local authority"},
     "NIC": {0: "national", 1: "department", 2: "municipality"},
+    "NLD": {0: "national", 1: "province", 2: "municipality"},
+    "NOR": {0: "national", 1: "county", 2: "municipality"},
     "OMN": {0: "national", 1: "region", 2: "province"},
     "PAN": {0: "national", 1: "province", 2: "district"},
     "PER": {0: "national", 1: "region", 2: "province"},
+    "POL": {0: "national", 1: "voivodeship", 2: "county"},
+    "PRT": {0: "national", 1: "district", 2: "municipality"},
     "PRY": {0: "national", 1: "department", 2: "district"},
     "PSE": {0: "national", 1: "district", 2: "governorate"},
     "QAT": {0: "national", 1: "municipality"},
+    "ROU": {0: "national", 1: "county", 2: "commune"},
     "RWA": {0: "national", 1: "province", 2: "district"},
     "SAU": {0: "national", 1: "province", 2: "governorate"},
     "SDN": {0: "national", 1: "state", 2: "district"},
     "SEN": {0: "national", 1: "region", 2: "department"},
     "SLE": {0: "national", 1: "province", 2: "district"},
     "SLV": {0: "national", 1: "department", 2: "municipality"},
+    "SMR": {0: "national", 1: "municipality"},
     "SOM": {0: "national", 1: "region", 2: "district"},
+    "SRB": {0: "national", 1: "district"},
     "SSD": {0: "national", 1: "state", 2: "district"},
     "STP": {0: "national", 1: "municipality"},
     "SUR": {0: "national", 1: "district", 2: "ressort"},
+    "SVK": {0: "national", 1: "region", 2: "district"},
+    "SVN": {0: "national", 1: "statistical region"},
+    "SWE": {0: "national", 1: "county", 2: "municipality"},
     "SWZ": {0: "national", 1: "district", 2: "constituency"},
     "SYC": {0: "national", 1: "district"},
     "SYR": {0: "national", 1: "governorate", 2: "district"},
@@ -158,10 +199,12 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "TUN": {0: "national", 1: "governorate", 2: "delegation"},
     "TZA": {0: "national", 1: "region", 2: "district"},
     "UGA": {0: "national", 1: "district", 2: "county"},
+    "UKR": {0: "national", 1: "region", 2: "district"},
     "URY": {0: "national", 1: "department", 2: "municipality"},
     "USA": {0: "national", 1: "state", 2: "county"},
     "VCT": {0: "national", 1: "parish"},
     "VEN": {0: "national", 1: "state", 2: "municipality"},
+    "XKO": {0: "national", 1: "district"},
     "YEM": {0: "national", 1: "governorate", 2: "district"},
     "ZAF": {0: "national", 1: "province", 2: "district municipality"},
     "ZMB": {0: "national", 1: "province", 2: "district"},
@@ -210,6 +253,14 @@ LEVELS_AVAILABLE: Dict[str, tuple] = {
         "LCA",
         "TTO",
         "VCT",
+        # Europe
+        "AND",
+        "CYP",
+        "LIE",
+        "MDA",
+        "MNE",
+        "MKD",
+        "SMR",
     )
 }
 
@@ -362,12 +413,78 @@ SOUTH_AMERICA = (
     "VEN",
 )
 
+#: Europe, as GADM codes it: 43 countries.
+#:
+#: **Monaco and the Vatican are absent from GADM 4.1 entirely** - there is no
+#: MCO or VAT feature at any level - so they cannot be analysed here at all.
+#: That is a gap in the source, not a choice, and it is stated rather than left
+#: to be noticed as two missing rows.
+#:
+#: **Russia is excluded deliberately.** Roughly three quarters of its area is
+#: Asian, so it would dominate a European pool's median while being mostly not
+#: in Europe. It also wraps the antimeridian, as the United States does, but
+#: the Alaskan remedy does not transfer: cropping at 180 would drop 114,686 km2
+#: of Chukotka - larger than Iceland, and about 15% of that federal subject -
+#: against the 2,122 km2 of near-unlit Aleutian rock the American crop costs.
+#: Including Russia would mean either that loss or a two-window stitch, and
+#: neither is worth it for a country that is barely European.
+#:
+#: Kosovo appears as GADM's XKO on the same footing as Palestine and Western
+#: Sahara elsewhere here: GADM's coding of the boundary set in use, not a
+#: position on status.
+EUROPE = (
+    "ALB",  # Albania
+    "AND",  # Andorra
+    "AUT",  # Austria
+    "BLR",  # Belarus
+    "BEL",  # Belgium
+    "BIH",  # Bosnia and Herzegovina
+    "BGR",  # Bulgaria
+    "HRV",  # Croatia
+    "CYP",  # Cyprus
+    "CZE",  # Czechia
+    "DNK",  # Denmark
+    "EST",  # Estonia
+    "FIN",  # Finland
+    "FRA",  # France
+    "DEU",  # Germany
+    "GRC",  # Greece
+    "HUN",  # Hungary
+    "ISL",  # Iceland
+    "IRL",  # Ireland
+    "ITA",  # Italy
+    "LVA",  # Latvia
+    "LIE",  # Liechtenstein
+    "LTU",  # Lithuania
+    "LUX",  # Luxembourg
+    "MLT",  # Malta
+    "MDA",  # Moldova
+    "MNE",  # Montenegro
+    "NLD",  # Netherlands
+    "MKD",  # North Macedonia
+    "NOR",  # Norway
+    "POL",  # Poland
+    "PRT",  # Portugal
+    "ROU",  # Romania
+    "SMR",  # San Marino
+    "SRB",  # Serbia
+    "SVK",  # Slovakia
+    "SVN",  # Slovenia
+    "ESP",  # Spain
+    "SWE",  # Sweden
+    "CHE",  # Switzerland
+    "UKR",  # Ukraine
+    "GBR",  # United Kingdom
+    "XKO",  # Kosovo
+)
+
 COUNTRIES = (
     *ARAB_LEAGUE,
     "THA",
     *(iso3 for iso3 in AFRICA if iso3 not in ARAB_LEAGUE),
     *NORTH_AMERICA,
     *SOUTH_AMERICA,
+    *EUROPE,
 )
 
 #: Named comparison pools. Each owns its own cross-country artefacts, and a
@@ -378,6 +495,7 @@ POOLS: Dict[str, tuple] = {
     "africa": AFRICA,
     "north-america": NORTH_AMERICA,
     "south-america": SOUTH_AMERICA,
+    "europe": EUROPE,
 }
 DEFAULT_POOL = "arab-league"
 
@@ -396,109 +514,152 @@ def pool_countries(pool: str) -> tuple:
 #: the docs must not disagree about what a country is called. Where GADM 4.1
 #: carries a stale name the current one is used: Eswatini, not Swaziland.
 COUNTRY_NAMES: Dict[str, str] = {
-    "MAR": "Morocco",
-    "DZA": "Algeria",
-    "TUN": "Tunisia",
-    "LBY": "Libya",
-    "MRT": "Mauritania",
-    "EGY": "Egypt",
-    "SDN": "Sudan",
-    "SAU": "Saudi Arabia",
-    "YEM": "Yemen",
-    "OMN": "Oman",
-    "ARE": "United Arab Emirates",
-    "QAT": "Qatar",
-    "BHR": "Bahrain",
-    "KWT": "Kuwait",
-    "IRQ": "Iraq",
-    "SYR": "Syria",
-    "LBN": "Lebanon",
-    "JOR": "Jordan",
-    "PSE": "Palestine",
-    "SOM": "Somalia",
-    "DJI": "Djibouti",
-    "COM": "Comoros",
-    "THA": "Thailand",
     "AGO": "Angola",
+    "ALB": "Albania",
+    "AND": "Andorra",
+    "ARE": "United Arab Emirates",
+    "ARG": "Argentina",
+    "ATG": "Antigua and Barbuda",
+    "AUT": "Austria",
     "BDI": "Burundi",
+    "BEL": "Belgium",
     "BEN": "Benin",
     "BFA": "Burkina Faso",
+    "BGR": "Bulgaria",
+    "BHR": "Bahrain",
+    "BHS": "Bahamas",
+    "BIH": "Bosnia and Herzegovina",
+    "BLR": "Belarus",
+    "BLZ": "Belize",
+    "BOL": "Bolivia",
+    "BRA": "Brazil",
+    "BRB": "Barbados",
     "BWA": "Botswana",
     "CAF": "Central African Republic",
+    "CAN": "Canada",
+    "CHE": "Switzerland",
+    "CHL": "Chile",
     "CIV": "Côte d'Ivoire",
     "CMR": "Cameroon",
     "COD": "DR Congo",
     "COG": "Republic of the Congo",
+    "COL": "Colombia",
+    "COM": "Comoros",
     "CPV": "Cabo Verde",
+    "CRI": "Costa Rica",
+    "CUB": "Cuba",
+    "CYP": "Cyprus",
+    "CZE": "Czechia",
+    "DEU": "Germany",
+    "DJI": "Djibouti",
+    "DMA": "Dominica",
+    "DNK": "Denmark",
+    "DOM": "Dominican Republic",
+    "DZA": "Algeria",
+    "ECU": "Ecuador",
+    "EGY": "Egypt",
     "ERI": "Eritrea",
     "ESH": "Western Sahara",
+    "ESP": "Spain",
+    "EST": "Estonia",
     "ETH": "Ethiopia",
+    "FIN": "Finland",
+    "FRA": "France",
     "GAB": "Gabon",
+    "GBR": "United Kingdom",
     "GHA": "Ghana",
     "GIN": "Guinea",
     "GMB": "Gambia",
     "GNB": "Guinea-Bissau",
     "GNQ": "Equatorial Guinea",
+    "GRC": "Greece",
+    "GRD": "Grenada",
+    "GTM": "Guatemala",
+    "GUY": "Guyana",
+    "HND": "Honduras",
+    "HRV": "Croatia",
+    "HTI": "Haiti",
+    "HUN": "Hungary",
+    "IRL": "Ireland",
+    "IRQ": "Iraq",
+    "ISL": "Iceland",
+    "ITA": "Italy",
+    "JAM": "Jamaica",
+    "JOR": "Jordan",
     "KEN": "Kenya",
+    "KNA": "Saint Kitts and Nevis",
+    "KWT": "Kuwait",
+    "LBN": "Lebanon",
     "LBR": "Liberia",
+    "LBY": "Libya",
+    "LCA": "Saint Lucia",
+    "LIE": "Liechtenstein",
     "LSO": "Lesotho",
+    "LTU": "Lithuania",
+    "LUX": "Luxembourg",
+    "LVA": "Latvia",
+    "MAR": "Morocco",
+    "MDA": "Moldova",
     "MDG": "Madagascar",
+    "MEX": "Mexico",
+    "MKD": "North Macedonia",
     "MLI": "Mali",
+    "MLT": "Malta",
+    "MNE": "Montenegro",
     "MOZ": "Mozambique",
+    "MRT": "Mauritania",
     "MUS": "Mauritius",
     "MWI": "Malawi",
     "NAM": "Namibia",
     "NER": "Niger",
     "NGA": "Nigeria",
+    "NIC": "Nicaragua",
+    "NLD": "Netherlands",
+    "NOR": "Norway",
+    "OMN": "Oman",
+    "PAN": "Panama",
+    "PER": "Peru",
+    "POL": "Poland",
+    "PRT": "Portugal",
+    "PRY": "Paraguay",
+    "PSE": "Palestine",
+    "QAT": "Qatar",
+    "ROU": "Romania",
     "RWA": "Rwanda",
+    "SAU": "Saudi Arabia",
+    "SDN": "Sudan",
     "SEN": "Senegal",
     "SLE": "Sierra Leone",
+    "SLV": "El Salvador",
+    "SMR": "San Marino",
+    "SOM": "Somalia",
+    "SRB": "Serbia",
     "SSD": "South Sudan",
     "STP": "São Tomé and Príncipe",
+    "SUR": "Suriname",
+    "SVK": "Slovakia",
+    "SVN": "Slovenia",
+    "SWE": "Sweden",
     "SWZ": "Eswatini",
     "SYC": "Seychelles",
+    "SYR": "Syria",
     "TCD": "Chad",
     "TGO": "Togo",
+    "THA": "Thailand",
+    "TTO": "Trinidad and Tobago",
+    "TUN": "Tunisia",
     "TZA": "Tanzania",
     "UGA": "Uganda",
+    "UKR": "Ukraine",
+    "URY": "Uruguay",
+    "USA": "United States",
+    "VCT": "Saint Vincent and the Grenadines",
+    "VEN": "Venezuela",
+    "XKO": "Kosovo",
+    "YEM": "Yemen",
     "ZAF": "South Africa",
     "ZMB": "Zambia",
     "ZWE": "Zimbabwe",
-    "CAN": "Canada",
-    "USA": "United States",
-    "MEX": "Mexico",
-    "BLZ": "Belize",
-    "CRI": "Costa Rica",
-    "SLV": "El Salvador",
-    "GTM": "Guatemala",
-    "HND": "Honduras",
-    "NIC": "Nicaragua",
-    "PAN": "Panama",
-    "ATG": "Antigua and Barbuda",
-    "BHS": "Bahamas",
-    "BRB": "Barbados",
-    "CUB": "Cuba",
-    "DMA": "Dominica",
-    "DOM": "Dominican Republic",
-    "GRD": "Grenada",
-    "HTI": "Haiti",
-    "JAM": "Jamaica",
-    "KNA": "Saint Kitts and Nevis",
-    "LCA": "Saint Lucia",
-    "VCT": "Saint Vincent and the Grenadines",
-    "TTO": "Trinidad and Tobago",
-    "ARG": "Argentina",
-    "BOL": "Bolivia",
-    "BRA": "Brazil",
-    "CHL": "Chile",
-    "COL": "Colombia",
-    "ECU": "Ecuador",
-    "GUY": "Guyana",
-    "PRY": "Paraguay",
-    "PER": "Peru",
-    "SUR": "Suriname",
-    "URY": "Uruguay",
-    "VEN": "Venezuela",
 }
 
 
@@ -526,6 +687,7 @@ def level_title(iso3: str, level: int) -> str:
 #:   layer.
 LEVELS_NOT_ANALYSED: Dict[str, tuple] = {
     "BRA": (2,),
+    "ROU": (2,),
 }
 
 

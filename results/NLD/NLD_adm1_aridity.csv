@@ -1,0 +1,15 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+NLD,NLD.1_1,Drenthe,2665.8962,5122,5122,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.2_1,Flevoland,1461.1467,2786,2786,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.3_1,Fryslân,3580.8378,6920,6919,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.4_1,Gelderland,5114.4547,9651,9651,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.5_1,Groningen,2370.6104,4592,4592,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.6_1,IJsselmeer,2003.9842,3835,3835,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.7_1,Limburg,2165.5671,4011,4011,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.8_1,Noord-Brabant,5086.3488,9493,9493,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.9_1,Noord-Holland,2874.1052,5494,5487,7,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.10_1,Overijssel,3374.3153,6422,6422,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.11_1,Utrecht,1558.3433,2942,2942,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.12_1,Zeeland,1802.4286,3356,3356,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.13_1,Zeeuwse meren,482.4165,901,901,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NLD,NLD.14_1,NA,3126.7426,5918,5884,34,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

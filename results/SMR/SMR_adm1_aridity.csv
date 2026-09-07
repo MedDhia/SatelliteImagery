@@ -1,0 +1,10 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SMR,SMR.1_1,Acquaviva,4.9556,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.2_1,Borgo Maggiore,11.7702,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.3_1,Chiesanuova,4.9583,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.4_1,Domagnano,7.4322,12,12,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.5_1,Faetano,7.4345,12,12,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.6_1,Fiorentino,6.818,11,11,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.7_1,Montegiardino,2.4793,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.8_1,San Marino,5.5766,9,9,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SMR,SMR.9_1,Serravalle,10.5256,17,17,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

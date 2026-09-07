@@ -10,8 +10,8 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 34 942 figures in `figures/`](figures/)** — global overlays, and
-for each of the 68 countries analysed the map series in three palettes, the
+**[→ Browse all 51 352 figures in `figures/`](figures/)** — global overlays, and
+for each of the 103 countries analysed the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
 
@@ -38,10 +38,10 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 402 tables and
-2 108 clipped GeoTIFFs across 68 countries, with a generated data dictionary for
-every column: the per-country inequality outputs, the per-unit aridity tables,
-and the two cross-country tables.
+**[→ The numbers behind the figures, in `results/`](results/)** — 604 tables and
+3 193 clipped GeoTIFFs across 103 countries, with a generated data dictionary
+for every column: the per-country inequality outputs, the per-unit aridity
+tables, and the eight cross-country tables, two per pool.
 
 Per country: the inequality series (Gini, Theil T, Theil L), the Theil
 decomposition, per-unit contributions, zonal tables at each admin level, and
@@ -84,7 +84,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/*` | 4.6 GB | 22 countries; published instead as [`figures/`](figures/) (676 MB) and [`results/`](results/) (186 MB, rasters included) |
+| `data/regions/*` | pruned per batch | 103 countries; published instead as [`figures/`](figures/) (3.0 GB) and [`results/`](results/) (899 MB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -301,6 +301,55 @@ cancel. Yet the light-derived exclusion rule still lands on arid ground 90% of
 the time against a 24% base rate — a lift of 3.75, where the Arab League gives
 1.29. That the rule survives a continent where the underlying correlation is
 zero is the strongest evidence yet that it finds climate rather than darkness.
+
+## The Americas, in two pools
+
+[`docs/americas.md`](docs/americas.md) covers all **35 states of North and
+South America**, as **two pools rather than one**. A single Americas pool would
+have put Saint Kitts and Nevis in the same median as the United States; the
+measured cuts are **6.3990** north against **1.8081** south, so a pooled median
+would have sat between them and misclassified both ends.
+
+⚠️ `dark_2022` is now incomparable across **four** pools — `arab-league`,
+`africa`, `north-america`, `south-america` — each cut at the median of its own
+members: 6.26, 0.49, 6.40 and 1.81.
+
+**North and South are near-opposites.** South America is **11 of 12 extensive
+spreaders** and contains no intensive converger at all. North America is the
+only pool where genuine convergence among lit places is the largest class — 7
+intensive convergers against 4 extensive spreaders. The extensive margin
+explains it, and orders the pools cleanly: Africa **+4.92 %/yr**, South America
+**+3.81**, the Arab League **+2.25**, North America **+1.31**. North America was
+already lit in 1992, so its falling inequality has to come from convergence
+rather than expansion.
+
+**The strongest aridity signal in the repository is in its least arid pool.**
+North America's Spearman(`desert_share`, `mean_dn_2022`) is **−0.2032** with
+only **2%** of units majority-arid, against the Arab world's −0.1456 at 73% and
+Africa's +0.0237 at 24%. Every one of North America's 7 majority-arid units is
+dark and **not one is a lit desert** — the cleanest version of the pattern
+anywhere here, and too small a cell to carry a claim about climate. South
+America is the only pool whose aridity gradient is **monotone** in the expected
+direction (0.97 → 1.79 → 1.99 across fully arid, partly arid, humid), yet its
+correlation is −0.0329: the ordering is right and the effect is negligible.
+
+**Two countries needed engineering rather than analysis.** GADM's `USA` has
+Alaskan vertices on both sides of the antimeridian, so its bounding box spanned
+the globe — a 159-megapixel frame, an out-of-memory crash rather than a slow
+render, and one that reached the statistics as well as the pictures. The frame
+is cropped to the western hemisphere (52.6 Mpx, all 51 states), which drops
+**2 121.9 km² of western Aleutians, 0.141% of Alaska**; Alaska's `mean_dn`
+therefore rests on a slightly smaller pixel set than GADM's geometry implies.
+**Brazil** stops at the state: its 5 572 municipalities are the largest ADM_2
+set here, and the cost was refused. That is recorded in
+`regions.LEVELS_NOT_ANALYSED`, kept apart from `LEVELS_AVAILABLE` because the
+latter would have claimed GADM has no Brazilian municipalities, which is false.
+
+**Canada has no name for its own admin-2 level.** Its most common GADM
+`ENGTYPE_2` is Quebec's "Regional County Municipality" at 93 of 293 units —
+32%, a plurality and not a word the country uses for itself — so it takes the
+generic title while keeping all 293 units. That is what forced the level-name
+rule to require a true majority rather than a mode.
 
 ## One country outside the pool: Thailand
 

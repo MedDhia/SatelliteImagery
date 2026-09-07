@@ -1,0 +1,13 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SVN,SVN.1_1,Gorenjska,2114.6402,3556,3556,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.2_1,Goriška,2282.4474,3824,3824,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.3_1,Jugovzhodna Slovenija,2637.774,4389,4389,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.4_1,Koroška,1031.651,1742,1742,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.5_1,Notranjsko-kraška,1445.9101,2405,2405,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.6_1,Obalno-kraška,942.5921,1566,1566,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.7_1,Osrednjeslovenska,2551.8234,4270,4270,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.8_1,Podravska,2137.1913,3605,3605,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.9_1,Pomurska,1290.7762,2185,2185,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.10_1,Savinjska,2397.0996,4028,4028,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.11_1,Spodnjeposavska,865.22,1446,1446,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVN,SVN.12_1,Zasavska,263.6474,442,442,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
