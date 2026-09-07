@@ -148,6 +148,13 @@ def test_countries_without_gadm_admin_2():
         "LCA",
         "TTO",
         "VCT",  # Central America
+        "AND",
+        "CYP",
+        "LIE",
+        "MDA",
+        "MNE",
+        "MKD",
+        "SMR",  # Europe
     }
     for iso3 in R.LEVELS_AVAILABLE:
         assert R.available_levels(iso3) == (0, 1), iso3
@@ -427,3 +434,75 @@ def test_countries_without_a_skip_entry_analyse_everything_gadm_has():
         if iso3 in R.LEVELS_NOT_ANALYSED:
             continue
         assert R.available_levels(iso3) == R.gadm_levels(iso3), iso3
+
+
+# --- Europe ----------------------------------------------------------------
+
+
+def test_europe_is_43_countries_in_countries_and_a_pool():
+    from satimg import regions as R
+
+    assert len(R.EUROPE) == 43
+    assert len(set(R.EUROPE)) == 43
+    assert R.POOLS["europe"] == R.EUROPE
+    for iso3 in R.EUROPE:
+        assert iso3 in R.COUNTRIES, iso3
+        assert iso3 in R.COUNTRY_NAMES, iso3
+        assert iso3 in R.COUNTRY_LEVEL_TITLES, iso3
+
+
+def test_europe_does_not_overlap_the_other_pools():
+    """Unlike Africa and the Arab League, Europe shares no member."""
+    from satimg import regions as R
+
+    for other in ("arab-league", "africa", "north-america", "south-america"):
+        shared = set(R.EUROPE) & set(R.pool_countries(other))
+        assert not shared, f"europe overlaps {other}: {sorted(shared)}"
+
+
+def test_russia_monaco_and_the_vatican_are_absent_for_stated_reasons():
+    """Three absences, two different kinds, both documented in the module."""
+    from satimg import regions as R
+
+    # Monaco and the Vatican have no GADM feature at any level.
+    # Russia is excluded by choice - mostly Asian, and its antimeridian wrap
+    # cannot take the Alaskan crop without losing 114,686 km2 of Chukotka.
+    for iso3 in ("MCO", "VAT", "RUS"):
+        assert iso3 not in R.EUROPE
+        assert iso3 not in R.COUNTRIES
+
+
+def test_the_six_european_generic_admin_2_titles():
+    """Where the majority rule or GADM itself declines, the generic word."""
+    from satimg import regions as R
+
+    generic = R.GENERIC_LEVEL_TITLES[2]
+    # GBR "Unitary Authority" 35% of 183 and BEL "Province" 45% of 11 are
+    # genuine no-majority cases; ALB is literally "NA"; SRB, SVN and XKO
+    # carry alternations like "Town|Municipal".
+    for iso3 in ("ALB", "BEL", "SRB", "SVN", "GBR", "XKO"):
+        assert R.has_level(iso3, 2), iso3
+        assert R.level_title(iso3, 2) == generic, iso3
+    # and the ones that do have a majority keep their own word
+    assert R.level_title("FRA", 2) == "department"
+    assert R.level_title("DEU", 2) == "district"
+    assert R.level_title("POL", 1) == "voivodeship"
+
+
+def test_romania_is_skipped_by_choice_not_by_absence():
+    from satimg import regions as R
+
+    assert R.gadm_levels("ROU") == (0, 1, 2)
+    assert R.available_levels("ROU") == (0, 1)
+    assert R.has_level("ROU", 2) is False
+    # The name survives: it is what GADM calls the level.
+    assert R.COUNTRY_LEVEL_TITLES["ROU"][2] == "commune"
+    assert "ROU" not in R.LEVELS_AVAILABLE
+
+
+def test_no_european_country_has_an_exclusion_scope():
+    """Scope `all` only, as with Africa, Thailand and the Americas."""
+    from satimg import regions as R
+
+    for iso3 in R.EUROPE:
+        assert list(R.scope_keys(iso3)) == [R.SCOPE_ALL], iso3
