@@ -25,13 +25,40 @@ ARG,ARG.23_1,Tierra del Fuego,0.0,0.3159,0.6841,20911.005,41587,0.4987,1.0617,Fa
 ARG,ARG.24_1,Tucumán,0.1424,0.9563,0.0437,22540.4614,29500,1.5806,5.998,False,,False,False,ordinary
 BOL,BOL.3_1,Beni,0.0,0.0,1.0,206780.3433,248952,0.0113,0.0861,False,,False,True,anomalously_dark
 BOL,BOL.1_1,Chuquisaca,0.0,1.0,0.0,50910.5461,63305,0.1326,0.4568,False,,False,True,anomalously_dark
-BOL,BOL.2_1,Cochabamba,0.0,0.4054,0.5946,54429.4238,66595,0.5182,1.8032,False,,False,False,ordinary
+BOL,BOL.2_1,Cochabamba,0.0,0.4054,0.5946,54429.4238,66595,0.5182,1.8032,False,,False,True,anomalously_dark
 BOL,BOL.4_1,La Paz,0.0,0.2674,0.7326,131228.7444,159025,0.1477,0.6577,False,,False,True,anomalously_dark
 BOL,BOL.5_1,Oruro,0.4241,1.0,0.0,52187.8534,64348,0.0859,0.486,False,,False,True,anomalously_dark
 BOL,BOL.6_1,Pando,0.0,0.0,1.0,63630.3753,75824,0.0058,0.0752,False,,False,True,anomalously_dark
 BOL,BOL.7_1,Potosí,0.725,1.0,0.0,119208.677,148718,0.0313,0.266,True,,False,True,desert_dark
 BOL,BOL.8_1,Santa Cruz,0.0,0.3836,0.6164,368675.0439,451179,0.1581,0.511,False,,False,True,anomalously_dark
 BOL,BOL.9_1,Tarija,0.0,0.8774,0.1226,37268.8851,46807,0.1432,1.4065,False,,False,True,anomalously_dark
+BRA,BRA.1_1,Acre,0.0,0.0,1.0,164230.5865,194598,0.038,0.3268,False,,False,True,anomalously_dark
+BRA,BRA.2_1,Alagoas,0.0,0.4416,0.5584,27828.311,32998,4.4863,13.1238,False,,False,False,ordinary
+BRA,BRA.3_1,Amapá,0.0,0.0,1.0,141969.6896,166169,0.063,0.3049,False,,False,True,anomalously_dark
+BRA,BRA.4_1,Amazonas,0.0,0.0,1.0,1558262.3682,1829804,0.0193,0.1016,False,,False,True,anomalously_dark
+BRA,BRA.5_1,Bahia,0.0,0.611,0.389,563405.2402,675021,0.4566,2.4256,False,,False,False,ordinary
+BRA,BRA.6_1,Ceará,0.0,0.771,0.229,148854.9487,174851,0.9372,5.0241,False,,False,False,ordinary
+BRA,BRA.7_1,Distrito Federal,0.0,0.0,1.0,5785.9824,7027,10.5089,25.5894,False,,False,False,ordinary
+BRA,BRA.8_1,Espírito Santo,0.0,0.0002,0.9998,46023.3751,57065,1.6934,8.8045,False,,False,False,ordinary
+BRA,BRA.9_1,Goiás,0.0,0.0,1.0,340234.6836,413903,0.3885,1.7137,False,,False,True,anomalously_dark
+BRA,BRA.10_1,Maranhão,0.0,0.0,1.0,328962.6533,386529,0.2253,1.4932,False,,False,True,anomalously_dark
+BRA,BRA.12_1,Mato Grosso,0.0,0.0,1.0,902986.8055,1084108,0.0679,0.4585,False,,False,True,anomalously_dark
+BRA,BRA.11_1,Mato Grosso do Sul,0.0,0.007,0.993,357042.7424,444868,0.1802,0.7862,False,,False,True,anomalously_dark
+BRA,BRA.13_1,Minas Gerais,0.0,0.0494,0.9506,586523.7063,722820,0.6758,3.0811,False,,False,False,ordinary
+BRA,BRA.14_1,Pará,0.0,0.0,1.0,1245341.9214,1462367,0.0706,0.4256,False,,False,True,anomalously_dark
+BRA,BRA.15_1,Paraíba,0.0,0.84,0.16,56454.5753,66546,2.5067,7.8977,False,,False,False,ordinary
+BRA,BRA.16_1,Paraná,0.0,0.0,1.0,198706.9319,255178,1.0642,5.5061,False,,False,False,ordinary
+BRA,BRA.17_1,Pernambuco,0.0,0.8224,0.1776,97998.7879,115838,2.548,7.1408,False,,False,False,ordinary
+BRA,BRA.18_1,Piauí,0.0,0.4347,0.5653,251776.6562,297096,0.1816,1.1582,False,,False,True,anomalously_dark
+BRA,BRA.19_1,Rio de Janeiro,0.0,0.0,1.0,43705.2733,55118,8.039,15.7519,False,,False,False,ordinary
+BRA,BRA.20_1,Rio Grande do Norte,0.0,0.887,0.113,52733.9242,62007,1.6354,6.3051,False,,False,False,ordinary
+BRA,BRA.21_1,Rio Grande do Sul,0.0,0.0,1.0,271448.2379,364623,0.8884,3.7041,False,,False,False,ordinary
+BRA,BRA.22_1,Rondônia,0.0,0.0,1.0,237467.4572,282860,0.1017,0.7104,False,,False,True,anomalously_dark
+BRA,BRA.23_1,Roraima,0.0,0.0,1.0,224357.1502,262725,0.0319,0.1884,False,,False,True,anomalously_dark
+BRA,BRA.24_1,Santa Catarina,0.0,0.0,1.0,94854.1993,124475,1.453,7.3734,False,,False,False,ordinary
+BRA,BRA.25_1,São Paulo,0.0,0.0,1.0,248022.2527,312996,4.2666,10.2027,False,,False,False,ordinary
+BRA,BRA.26_1,Sergipe,0.0,0.4165,0.5835,21862.59,26008,2.8481,14.0132,False,,False,False,ordinary
+BRA,BRA.27_1,Tocantins,0.0,0.0,1.0,277396.7246,329722,0.0639,0.6114,False,,False,True,anomalously_dark
 CHL,CHL.2_1,Antofagasta,1.0,1.0,0.0,126076.8104,160569,0.1507,0.9665,True,,False,True,desert_dark
 CHL,CHL.3_1,Araucanía,0.0,0.0,1.0,31794.7905,47380,0.2947,2.5636,False,,False,False,ordinary
 CHL,CHL.4_1,Arica y Parinacota,0.6526,1.0,0.0,16834.1115,20739,0.259,0.6861,True,,False,True,desert_dark
