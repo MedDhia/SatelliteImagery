@@ -1,0 +1,9 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SVK,SVK.1_1,Banskobystrický,9567.3175,16770,16770,0,0.0,0.0,0.0,0.020736313316743613,0.9792636866832483,0.0,0.020736313316743613,adm1
+SVK,SVK.2_1,Bratislavský,2014.7605,3518,3518,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVK,SVK.3_1,Košický,6783.8242,11934,11934,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVK,SVK.4_1,Nitriansky,6283.9565,10935,10935,0,0.0,0.0,0.0,0.7045886115758832,0.2954113884241515,0.0,0.7045886115758832,adm1
+SVK,SVK.5_1,Prešovský,8955.1693,15887,15887,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVK,SVK.6_1,Trenčiansky,4526.0723,7987,7987,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SVK,SVK.7_1,Trnavský,4129.0911,7215,7215,0,0.0,0.0,0.0,0.306551735085966,0.6934482649140188,0.0,0.306551735085966,adm1
+SVK,SVK.8_1,Žilinský,6827.4196,12125,12125,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
