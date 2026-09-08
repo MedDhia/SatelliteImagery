@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BLR,BLR.1_1,Brest,32708.0562,62172,62172,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.2_1,Gomel,40103.125,76085,76085,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.3_1,Grodno,25008.2234,49018,49018,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.5_1,Minsk,37799.2452,74157,74157,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.7_1,Minsk,2259.9739,4452,4452,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.4_1,Mogilev,29049.4924,56786,56786,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BLR,BLR.6_1,Vitebsk,40137.5558,81573,81573,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

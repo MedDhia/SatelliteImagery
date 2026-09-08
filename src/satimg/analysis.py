@@ -47,17 +47,62 @@ def build_grids(
     root: str | Path = R.DEFAULT_ROOT,
     levels: Sequence[int] = R.COUNTRY_LEVELS,
 ) -> Dict[int, dict]:
-    """Prepare each admin level once: layer, units and burned zone raster."""
+    """Prepare each admin level once: layer, units and burned zone raster.
+
+    Every level is burned onto **one shared window**, the union of all their
+    extents, because GADM does not guarantee that a country's admin levels
+    cover the same ground. The United Kingdom is the case that proved it: its
+    ADM_2 "Shetland Islands" unit reaches 17.6 km further north than the
+    Scotland ADM_1 polygon that contains it, so deriving each level's window
+    from its own bounds gave a 1008-row admin-1 array and a 1026-row admin-2
+    one, and the nested decomposition could not combine them.
+
+    A shared window is also the only *safe* arrangement. Two levels whose
+    extents differ but whose pixel shapes happen to coincide would broadcast
+    without complaint and be silently misaligned - wrong numbers, no error.
+    Checked across all 113 analysed countries with an admin-2 layer: only the
+    United Kingdom's extents differ at all, and none has that coincidence. The
+    guard is here so it stays that way.
+
+    Pixels inside the shared window but outside a given level's units are zone
+    0 there, which is what they already were. In the British case that means
+    the northern Shetland pixels belong to an admin-2 unit and to no admin-1
+    unit, exactly as GADM has it, rather than being quietly reassigned.
+    """
     grids: Dict[int, dict] = {}
+    prepared = {}
     for level in levels:
         layer = R.country_layer(iso3, level, root=root)
-        units = R.load_units(layer)
+        prepared[level] = (layer, R.load_units(layer))
+
+    shared = _union_window(reference_raster, [u for _, u in prepared.values()])
+
+    for level in levels:
+        layer, units = prepared[level]
         id_field, name_field = R.id_fields(level)
         grid = Z.build_zone_grid(
-            reference_raster, units, id_field=id_field, name_field=name_field
+            reference_raster,
+            units,
+            id_field=id_field,
+            name_field=name_field,
+            window=shared,
         )
         grids[level] = {"layer": layer, "units": units, "grid": grid}
     return grids
+
+
+def _union_window(reference_raster, frames):
+    """One raster window covering every level's extent."""
+    bounds = [f.total_bounds for f in frames if len(f)]
+    if not bounds:
+        raise ValueError("no units to build a window from")
+    union = (
+        min(b[0] for b in bounds),
+        min(b[1] for b in bounds),
+        max(b[2] for b in bounds),
+        max(b[3] for b in bounds),
+    )
+    return Z.window_for(reference_raster, union)
 
 
 def _excluded_zone_indices(units, level: int, iso3: str, scope: str):

@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+FIN,FIN.1_1,Eastern Finland,63169.2728,159143,159143,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FIN,FIN.2_1,Lapland,99020.7332,302242,302240,2,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FIN,FIN.3_1,Oulu,61661.3616,167551,167547,4,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FIN,FIN.4_1,Southern Finland,23267.0307,55166,55148,18,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FIN,FIN.5_1,Western Finland,89800.1716,222122,222085,37,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -162,3 +162,70 @@ def test_window_for_clips_to_the_raster(two_zones):
     with rasterio.open(path) as src:
         assert window.col_off + window.width <= src.width
         assert window.row_off + window.height <= src.height
+
+
+# --- one window across admin levels -----------------------------------------
+#
+# GADM does not guarantee that a country's admin levels cover the same ground.
+# Its ADM_2 "Shetland Islands" unit reaches 17.6 km further north than the
+# Scotland ADM_1 polygon containing it, so deriving each level's window from
+# its own bounds gave a 1008-row admin-1 array against a 1026-row admin-2 one
+# and the nested decomposition could not combine them.
+
+
+def test_build_zone_grid_accepts_a_shared_window(tmp_path):
+    """A caller-supplied window overrides the frame's own extent."""
+    raster = tmp_path / "r.tif"
+    _raster(raster, np.ones((20, 20), dtype="int16"))
+
+    small = gpd.GeoDataFrame(
+        {"GID_1": ["A"]},
+        geometry=[box(OX + 2000, OY - 8000, OX + 6000, OY - 4000)],
+        crs=f"EPSG:{CRS_EPSG}",
+    )
+    own = Z.build_zone_grid(raster, small, id_field="GID_1")
+    wide = Z.window_for(raster, (OX, OY - 20000, OX + 20000, OY))
+    shared = Z.build_zone_grid(raster, small, id_field="GID_1", window=wide)
+
+    assert own.ids.shape != shared.ids.shape
+    assert shared.ids.shape == (int(wide.height), int(wide.width))
+    # The unit is still burned, just into a larger canvas.
+    assert own.ids.max() == 1 and shared.ids.max() == 1
+    assert (own.ids > 0).sum() == (shared.ids > 0).sum()
+
+
+def test_levels_with_different_extents_still_align(tmp_path):
+    """The British case: a child unit reaching past its own parent."""
+    raster = tmp_path / "r.tif"
+    _raster(raster, np.ones((30, 30), dtype="int16"))
+
+    # admin-1 stops short; admin-2 reaches further north, as GADM's GBR does
+    parent = gpd.GeoDataFrame(
+        {"GID_1": ["A"]},
+        geometry=[box(OX, OY - 10000, OX + 10000, OY - 3000)],
+        crs=f"EPSG:{CRS_EPSG}",
+    )
+    child = gpd.GeoDataFrame(
+        {"GID_2": ["A.1"]},
+        geometry=[box(OX, OY - 10000, OX + 10000, OY)],
+        crs=f"EPSG:{CRS_EPSG}",
+    )
+    # Deriving each window separately gives incompatible shapes ...
+    a = Z.build_zone_grid(raster, parent, id_field="GID_1")
+    b = Z.build_zone_grid(raster, child, id_field="GID_2")
+    assert a.ids.shape != b.ids.shape
+
+    # ... a shared window over the union makes them combinable.
+    bounds = [parent.total_bounds, child.total_bounds]
+    union = (
+        min(x[0] for x in bounds),
+        min(x[1] for x in bounds),
+        max(x[2] for x in bounds),
+        max(x[3] for x in bounds),
+    )
+    w = Z.window_for(raster, union)
+    a2 = Z.build_zone_grid(raster, parent, id_field="GID_1", window=w)
+    b2 = Z.build_zone_grid(raster, child, id_field="GID_2", window=w)
+    assert a2.ids.shape == b2.ids.shape
+    # and the pixels the parent does not cover stay zone 0 there, not reassigned
+    assert ((b2.ids > 0) & (a2.ids == 0)).any()
