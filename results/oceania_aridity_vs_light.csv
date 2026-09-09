@@ -1,4 +1,23 @@
 iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+NZL,NZL.1_1,Auckland,0.0,0.0,1.0,4952.8336,7193,9.0079,13.7195,False,,False,False,ordinary
+NZL,NZL.2_1,Bay of Plenty,0.0,0.0,1.0,12265.4454,18148,0.9345,2.5166,False,,False,False,ordinary
+NZL,NZL.3_1,Canterbury,0.0,0.1137,0.8863,47903.27,77002,0.5507,1.2579,False,,False,False,ordinary
+NZL,NZL.4_1,Chatham Islands,0.0,0.0,1.0,789.2541,1274,0.0,0.0,False,,False,True,anomalously_dark
+NZL,NZL.5_1,Gisborne,0.0,0.0,1.0,8348.2147,12378,0.2444,0.4649,False,,False,False,ordinary
+NZL,NZL.6_1,Hawke's Bay,0.0,0.0,1.0,12759.0569,19216,0.6598,1.3002,False,,False,False,ordinary
+NZL,NZL.7_1,Manawatu-Wanganui,0.0,0.0,1.0,21970.0,33259,0.7261,1.4433,False,,False,False,ordinary
+NZL,NZL.8_1,Marlborough,0.0,0.0045,0.9955,10489.9807,16338,0.1978,0.619,False,,False,False,ordinary
+NZL,NZL.9_1,Nelson,0.0,0.0,1.0,422.7848,654,1.461,6.4859,False,,False,False,ordinary
+NZL,NZL.10_1,Northern Islands,0.0,0.0,1.0,38.5702,52,0.0,0.0,False,,False,True,anomalously_dark
+NZL,NZL.11_1,Northland,0.0,0.0,1.0,12506.6805,17893,0.4232,1.2906,False,,False,False,ordinary
+NZL,NZL.12_1,Otago,0.0,0.0702,0.9298,28904.2875,47725,0.3636,0.7493,False,,False,False,ordinary
+NZL,NZL.13_1,Southern Islands,0.0,0.0,1.0,743.762,1371,0.0,0.0,False,,False,True,anomalously_dark
+NZL,NZL.14_1,Southland,0.0,0.0,1.0,31648.1033,52679,0.1468,0.4201,False,,False,False,ordinary
+NZL,NZL.15_1,Taranaki,0.0,0.0,1.0,7944.9281,11949,1.5604,2.5827,False,,False,False,ordinary
+NZL,NZL.16_1,Tasman,0.0,0.0,1.0,9652.5669,14978,0.1434,0.4389,False,,False,False,ordinary
+NZL,NZL.17_1,Waikato,0.0,0.0,1.0,25572.0061,37817,0.8551,2.5008,False,,False,False,ordinary
+NZL,NZL.18_1,Wellington,0.0,0.0,1.0,8041.3965,12410,2.9715,4.4764,False,,False,False,ordinary
+NZL,NZL.19_1,West Coast,0.0,0.0,1.0,23017.5522,36469,0.0157,0.143,False,,False,True,anomalously_dark
 FJI,FJI.1_1,Central,0.0,0.0,1.0,4362.4501,5358,0.6383,2.0102,False,,False,False,ordinary
 FJI,FJI.2_1,Eastern,0.0,0.0,1.0,1476.587,1818,0.0068,0.0469,False,,False,True,anomalously_dark
 FJI,FJI.3_1,Northern,0.0,0.0,1.0,6476.3517,7898,0.087,0.5251,False,,False,False,ordinary
@@ -7,6 +26,28 @@ FJI,FJI.5_1,Western,0.0,0.0,1.0,6618.1723,8119,0.967,2.2735,False,,False,False,o
 NCL,NCL.1_1,Îles Loyauté,0.0,0.0,1.0,1975.4167,2473,0.0668,0.6777,False,,False,False,ordinary
 NCL,NCL.2_1,Nord,0.0,0.0,1.0,9467.5906,11836,0.0533,1.0371,False,,False,False,ordinary
 NCL,NCL.3_1,Sud,0.0,0.0,1.0,7374.0718,9279,0.6795,2.3986,False,,False,False,ordinary
+PNG,PNG.1_1,Bougainville,0.0,0.0,1.0,9396.5822,11055,0.0065,0.0541,False,,False,True,anomalously_dark
+PNG,PNG.2_1,Central,0.0,0.0,1.0,29400.9086,34833,0.031,0.3715,False,,False,False,ordinary
+PNG,PNG.3_1,Chimbu,0.0,0.0,1.0,6150.9143,7239,0.0127,0.02,False,,False,True,anomalously_dark
+PNG,PNG.4_1,East New Britain,0.0,0.0,1.0,15352.2106,18030,0.0494,0.2005,False,,False,True,anomalously_dark
+PNG,PNG.5_1,East Sepik,0.0,0.0,1.0,43611.6175,51162,0.0034,0.0119,False,,False,True,anomalously_dark
+PNG,PNG.6_1,Eastern Highlands,0.0,0.0,1.0,11141.8932,13116,0.1171,0.2328,False,,False,True,anomalously_dark
+PNG,PNG.7_1,Enga,0.0,0.0,1.0,11741.9146,13797,0.0398,0.2374,False,,False,True,anomalously_dark
+PNG,PNG.8_1,Gulf,0.0,0.0,1.0,34802.6645,41046,0.0,0.0508,False,,False,True,anomalously_dark
+PNG,PNG.9_1,Hela,0.0,0.0,1.0,9787.2788,11505,0.0034,0.2843,False,,False,True,anomalously_dark
+PNG,PNG.10_1,Jiwaka,0.0,0.0,1.0,4848.8997,5701,0.0,0.035,False,,False,True,anomalously_dark
+PNG,PNG.11_1,Madang,0.0,0.0,1.0,28922.7705,33971,0.0204,0.0728,False,,False,True,anomalously_dark
+PNG,PNG.12_1,Manus,0.0,0.0,1.0,2235.5406,2617,0.0166,0.2049,False,,False,True,anomalously_dark
+PNG,PNG.13_1,Milne Bay,0.0,0.0,1.0,14346.9694,17040,0.074,0.074,False,,False,True,anomalously_dark
+PNG,PNG.14_1,Morobe,0.0,0.0,1.0,34024.8923,40084,0.0953,0.3542,False,,False,False,ordinary
+PNG,PNG.15_1,National Capital District,0.0,0.0,1.0,254.7468,302,20.7748,44.5841,False,,False,False,ordinary
+PNG,PNG.16_1,New Ireland,0.0,0.0,1.0,9681.9658,11348,0.0071,0.3222,False,,False,False,ordinary
+PNG,PNG.17_1,Oro,0.0,0.0,1.0,22695.0068,26872,0.004,0.0526,False,,False,True,anomalously_dark
+PNG,PNG.18_1,Sandaun,0.0,0.0,1.0,35748.9658,41920,0.0009,0.0111,False,,False,True,anomalously_dark
+PNG,PNG.19_1,Southern Highlands,0.0,0.0,1.0,15975.9782,18806,0.2134,0.6779,False,,False,False,ordinary
+PNG,PNG.20_1,West New Britain,0.0,0.0,1.0,20380.2605,23960,0.0103,0.1929,False,,False,True,anomalously_dark
+PNG,PNG.22_1,Western,0.0,0.0,1.0,98840.1653,116605,0.0122,0.0582,False,,False,True,anomalously_dark
+PNG,PNG.21_1,Western Highlands,0.0,0.0,1.0,4261.3986,5010,0.1862,0.3341,False,,False,False,ordinary
 SLB,SLB.1_1,Central,0.0,0.0,1.0,682.2536,808,0.0,0.0,False,,False,True,anomalously_dark
 SLB,SLB.2_1,Choiseul,0.0,0.0,1.0,3316.8159,3909,0.0,0.0,False,,False,True,anomalously_dark
 SLB,SLB.3_1,Guadalcanal,0.0,0.0,1.0,5368.7207,6368,0.0199,0.2123,False,,False,True,anomalously_dark
@@ -65,6 +106,10 @@ MHL,MHL.21_1,Utirik,0.0,0.0,1.0,14.9321,18,0.0,0.0,False,,False,True,anomalously
 MHL,MHL.22_1,Wotho,0.0,0.0,1.0,4.209,5,0.0,0.0,False,,False,True,anomalously_dark
 MHL,MHL.23_1,Wotje,0.0,0.0,1.0,18.5623,22,0.0,0.6667,False,,False,False,ordinary
 MHL,MHL.19_1,NA,0.0,0.0,1.0,25.1541,30,0.0,0.0,False,,False,True,anomalously_dark
+FSM,FSM.1_1,Chuuk,0.0,0.0,1.0,134.0172,158,1.4792,2.5833,False,,False,False,ordinary
+FSM,FSM.2_1,Kosrae,0.0,0.0,1.0,116.618,137,0.9211,1.386,False,,False,False,ordinary
+FSM,FSM.3_1,Pohnpei,0.0,0.0,1.0,399.7981,471,0.8987,2.0899,False,,False,False,ordinary
+FSM,FSM.4_1,Yap,0.0,0.0,1.0,126.5627,150,1.935,3.7832,False,,False,False,ordinary
 NRU,NRU.1_1,Aiwo,0.0,0.0,1.0,0.8548,1,nan,nan,False,,False,,
 NRU,NRU.2_1,Anabar,0.0,0.0,1.0,1.7095,2,3.0,16.0,False,,False,False,ordinary
 NRU,NRU.3_1,Anetan,0.0,0.0,1.0,0.8548,1,6.5,18.5625,False,,False,False,ordinary
@@ -99,6 +144,15 @@ PLW,PLW.13_1,Ngeremlengui,0.0,0.0,1.0,66.115,78,0.0,0.4058,False,,False,False,or
 PLW,PLW.14_1,Ngiwal,0.0,0.0,1.0,16.1039,19,0.0,0.4737,False,,False,False,ordinary
 PLW,PLW.15_1,Peleliu,0.0,0.0,1.0,20.3651,24,0.25,1.4792,False,,False,False,ordinary
 PLW,PLW.16_1,Sonsorol,0.0,0.0,1.0,3.4072,4,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.1_1,Baker,0.0,0.0,1.0,1.7096,2,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.2_1,Howland,0.0,0.0,1.0,1.7094,2,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.3_1,Jarvis island,0.0,0.0,1.0,4.2739,5,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.4_1,Johnston,0.0,0.8334,0.1666,4.9169,6,19.2727,0.0,False,,False,True,anomalously_dark
+UMI,UMI.5_1,Kingman Reef,0.0,0.0,1.0,3.3984,4,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.6_1,Midway,0.0,0.2532,0.7468,9.1438,12,3.2667,0.0,False,,False,True,anomalously_dark
+UMI,UMI.7_1,Navassa,0.0,0.0,1.0,5.6851,7,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.8_1,Palmyra,0.0,0.0,1.0,3.4017,4,0.0,0.0,False,,False,True,anomalously_dark
+UMI,UMI.9_1,Wake,0.0,1.0,0.0,8.0798,10,6.6667,7.8889,False,,False,False,ordinary
 ASM,ASM.1_1,Eastern,0.0,0.0,1.0,67.9838,82,15.1231,20.3534,False,,False,False,ordinary
 ASM,ASM.2_1,Manu'a,0.0,0.0,1.0,60.5362,73,0.3214,0.2679,False,,False,True,anomalously_dark
 ASM,ASM.3_1,Unorganized,0.0,0.0,1.0,3.3574,4,0.0,0.0,False,,False,True,anomalously_dark
@@ -114,6 +168,11 @@ COK,COK.8_1,Penhryn,0.0,0.0,1.0,18.5805,22,0.0,0.0,False,,False,True,anomalously
 COK,COK.9_1,Pukapuka,0.0,0.0,1.0,6.6952,8,0.0,0.0,False,,False,True,anomalously_dark
 COK,COK.10_1,Rakahanga,0.0,0.0,1.0,5.0527,6,0.0,0.0,False,,False,True,anomalously_dark
 COK,COK.11_1,Rarotonga,0.0,0.0,1.0,68.6415,86,4.2714,8.1357,False,,False,False,ordinary
+PYF,PYF.1_1,Îles Australes,0.0,0.0,1.0,377.2964,479,0.1629,1.099,False,,False,False,ordinary
+PYF,PYF.2_1,Îles du Vent,0.0,0.0,1.0,1215.1399,1490,2.2002,5.9424,False,,False,False,ordinary
+PYF,PYF.3_1,Îles Marquises,0.0,0.0674,0.9326,989.9355,1173,0.0669,0.5487,False,,False,False,ordinary
+PYF,PYF.4_1,Îles Sous-le-Vent,0.0,0.0,1.0,414.7425,506,0.7225,3.8504,False,,False,False,ordinary
+PYF,PYF.5_1,Îles Tuamotu-Gambier,0.0,0.0,1.0,1056.1385,1286,0.0077,0.2162,False,,False,True,anomalously_dark
 WSM,WSM.1_1,A'ana,0.0,0.0,1.0,195.9874,236,0.0737,2.893,False,,False,False,ordinary
 WSM,WSM.2_1,Aiga-i-le-Tai,0.0,0.0,1.0,27.4078,33,0.0,2.2593,False,,False,False,ordinary
 WSM,WSM.3_1,Atua,0.0,0.0,1.0,432.5048,521,0.067,0.6409,False,,False,False,ordinary
