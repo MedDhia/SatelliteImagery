@@ -1,0 +1,13 @@
+iso3,measure,measure_note,window,first_year,last_year,n_years,percent_per_year,r_squared,half_life_years,direction,monotone,trajectory,trajectory_reason
+FJI,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.15567707434451003,0.03695412778271291,445.24679274613385,falling,False,flat,total inequality barely moving
+FJI,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.20424207969491998,0.02455204695064257,339.37530483204614,falling,False,flat,total inequality barely moving
+FJI,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-1.224936302290568,0.8137385316221484,56.58638569726406,falling,True,flat,total inequality barely moving
+FJI,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,1.0367152487703521,0.2410436135978804,nan,rising,False,flat,total inequality barely moving
+FJI,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-0.5796363164398675,0.0658614439240798,119.5831180518955,falling,False,flat,total inequality barely moving
+FJI,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,4.708726530098532,0.9335306499118508,nan,rising,True,flat,total inequality barely moving
+FJI,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,0.7901471866113792,0.09782927615501112,nan,rising,False,flat,total inequality barely moving
+FJI,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,0.4176964191727997,0.0117375740877771,nan,rising,False,flat,total inequality barely moving
+FJI,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,4.793176511505245,0.8837459678402565,nan,rising,True,flat,total inequality barely moving
+FJI,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.187603042070146,0.042078514475247915,369.4754482183573,falling,False,flat,total inequality barely moving
+FJI,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.79450208751251,0.3291191363673072,87.24296530549157,falling,False,flat,total inequality barely moving
+FJI,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,1.9682415376801548,0.6341397175278619,nan,rising,True,flat,total inequality barely moving

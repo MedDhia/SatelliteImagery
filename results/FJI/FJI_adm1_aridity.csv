@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+FJI,FJI.1_1,Central,4362.4501,5358,5358,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FJI,FJI.2_1,Eastern,1476.587,1818,1818,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FJI,FJI.3_1,Northern,6476.3517,7898,7898,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FJI,FJI.4_1,Rotuma,45.0925,54,54,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FJI,FJI.5_1,Western,6618.1723,8119,8119,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
