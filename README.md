@@ -336,14 +336,16 @@ correlation is −0.0329: the ordering is right and the effect is negligible.
 **Two countries needed engineering rather than analysis.** GADM's `USA` has
 Alaskan vertices on both sides of the antimeridian, so its bounding box spanned
 the globe — a 159-megapixel frame, an out-of-memory crash rather than a slow
-render, and one that reached the statistics as well as the pictures. The frame
-is cropped to the western hemisphere (52.6 Mpx, all 51 states), which drops
-**2 121.9 km² of western Aleutians, 0.141% of Alaska**; Alaska's `mean_dn`
-therefore rests on a slightly smaller pixel set than GADM's geometry implies.
-**Brazil** stops at the state: its 5 572 municipalities are the largest ADM_2
-set here, and the cost was refused. That is recorded in
-`regions.LEVELS_NOT_ANALYSED`, kept apart from `LEVELS_AVAILABLE` because the
-latter would have claimed GADM has no Brazilian municipalities, which is false.
+render, and one that reached the statistics as well as the pictures. It is
+analysed over **two non-wrapping windows** instead, 52.8 Mpx together, and the
+statistics span both so nothing is dropped. An earlier crop to the western
+hemisphere reached the same cost by discarding 2 121.9 km² of Aleutians;
+restoring them added 2 127 pixels and **338 DN of light** to Alaska, which is
+why "near-unlit" was never treated as "unlit". **Brazil** stops at the state:
+its 5 572 municipalities are the largest ADM_2 set here, and the cost was
+refused. That is recorded in `regions.LEVELS_NOT_ANALYSED`, kept apart from
+`LEVELS_AVAILABLE` because the latter would have claimed GADM has no Brazilian
+municipalities, which is false.
 
 **Canada has no name for its own admin-2 level.** Its most common GADM
 `ENGTYPE_2` is Quebec's "Regional County Municipality" at 93 of 293 units —

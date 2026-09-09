@@ -12,57 +12,57 @@ CAN,CAN.10_1,Prince Edward Island,0.0,0.0,1.0,5740.2297,9668,7.9075,10.905,False
 CAN,CAN.11_1,Québec,0.0,0.0,1.0,1520076.2801,2969317,1.2531,1.6384,False,,False,True,anomalously_dark
 CAN,CAN.12_1,Saskatchewan,0.0,0.4679,0.5321,652506.2293,1302385,1.0103,1.6726,False,,False,True,anomalously_dark
 CAN,CAN.13_1,Yukon,0.0,0.4834,0.5166,483582.0412,1261207,0.0405,0.0711,False,,False,True,anomalously_dark
-USA,USA.12_1,Hawaii,0.0,0.1959,0.8041,16724.1114,20823,4.3836,5.7329,False,,False,True,anomalously_dark
-USA,USA.44_1,Texas,0.1372,0.7995,0.2005,686135.7844,938580,4.465,8.4038,False,,False,False,ordinary
-USA,USA.32_1,New Mexico,0.5288,0.9927,0.0073,314980.2856,444943,1.2017,2.4243,True,,False,True,desert_dark
-USA,USA.3_1,Arizona,0.6705,1.0,0.0,295318.1198,416560,1.9542,3.2079,True,,False,True,desert_dark
-USA,USA.37_1,Oklahoma,0.0,0.6084,0.3916,181052.3328,259295,4.0256,6.7645,False,,False,False,ordinary
-USA,USA.5_1,California,0.3675,0.7928,0.2072,409591.8492,599594,6.2934,7.689,False,,False,False,ordinary
-USA,USA.29_1,Nevada,0.7397,0.9996,0.0004,286262.3596,430968,0.9722,1.4055,True,,False,True,desert_dark
-USA,USA.6_1,Colorado,0.121,0.9351,0.0649,269533.0477,403666,2.6585,3.6692,False,,False,True,anomalously_dark
-USA,USA.45_1,Utah,0.5213,1.0,0.0,219955.3972,330948,1.9445,2.7605,True,,False,True,desert_dark
-USA,USA.28_1,Nebraska,0.0,0.9472,0.0528,200380.3574,311314,2.0624,3.7508,False,,False,True,anomalously_dark
-USA,USA.10_1,Florida,0.0,0.0013,0.9987,147398.2063,195952,12.83,17.2546,False,,False,False,ordinary
-USA,USA.19_1,Louisiana,0.0,0.0,1.0,120647.7791,164236,6.8357,10.9503,False,,False,False,ordinary
-USA,USA.25_1,Mississippi,0.0,0.0,1.0,123639.0897,171354,4.635,8.6715,False,,False,False,ordinary
 USA,USA.1_1,Alabama,0.0,0.0,1.0,133680.0872,185347,6.9949,10.88,False,,False,False,ordinary
-USA,USA.11_1,Georgia,0.0,0.0,1.0,152464.6154,211064,8.2184,13.3017,False,,False,False,ordinary
+USA,USA.2_1,Alaska,0.0,0.3225,0.6775,1490190.3828,3984541,0.1661,0.2707,False,,False,True,anomalously_dark
+USA,USA.3_1,Arizona,0.6705,1.0,0.0,295318.1198,416560,1.9542,3.2079,True,,False,True,desert_dark
 USA,USA.4_1,Arkansas,0.0,0.0,1.0,137796.8588,195724,3.563,6.8929,False,,False,False,ordinary
-USA,USA.43_1,Tennessee,0.0,0.0,1.0,109040.1903,156650,10.6009,14.0424,False,,False,False,ordinary
-USA,USA.18_1,Kentucky,0.0,0.0,1.0,104546.5418,153461,7.4356,11.1118,False,,False,False,ordinary
-USA,USA.26_1,Missouri,0.0,0.0,1.0,180439.0366,267910,4.989,8.4367,False,,False,False,ordinary
-USA,USA.17_1,Kansas,0.0,0.7741,0.2259,212950.1366,316644,2.3684,4.0035,False,,False,True,anomalously_dark
-USA,USA.41_1,South Carolina,0.0003,0.0003,0.9997,80124.7435,112493,11.1758,16.4427,False,,False,False,ordinary
-USA,USA.34_1,North Carolina,0.0,0.0,1.0,127780.01,182898,11.9471,16.8732,False,,False,False,ordinary
-USA,USA.47_1,Virginia,0.0,0.0,1.0,103790.1866,152333,8.9825,13.2921,False,,False,False,ordinary
-USA,USA.21_1,Maryland,0.0,0.0,1.0,25715.1885,38536,24.5335,27.2532,False,,False,False,ordinary
-USA,USA.9_1,District of Columbia,0.0,0.0,1.0,165.8353,248,63.0,63.0,False,,False,False,ordinary
-USA,USA.49_1,West Virginia,0.0,0.0,1.0,62750.3866,93506,6.0161,9.3142,False,,False,False,ordinary
-USA,USA.8_1,Delaware,0.0,0.0,1.0,5303.1282,7942,23.0874,28.6404,False,,False,False,ordinary
-USA,USA.31_1,New Jersey,0.0,0.0,1.0,19701.8722,30008,40.1091,42.0671,False,,False,False,ordinary
-USA,USA.39_1,Pennsylvania,0.0,0.0,1.0,117192.719,180290,18.2293,20.1116,False,,False,False,ordinary
+USA,USA.5_1,California,0.3675,0.7928,0.2072,409591.8492,599594,6.2934,7.689,False,,False,False,ordinary
+USA,USA.6_1,Colorado,0.121,0.9351,0.0649,269533.0477,403666,2.6585,3.6692,False,,False,True,anomalously_dark
 USA,USA.7_1,Connecticut,0.0,0.0,1.0,12890.9241,20055,39.3474,40.4177,False,,False,False,ordinary
+USA,USA.8_1,Delaware,0.0,0.0,1.0,5303.1282,7942,23.0874,28.6404,False,,False,False,ordinary
+USA,USA.9_1,District of Columbia,0.0,0.0,1.0,165.8353,248,63.0,63.0,False,,False,False,ordinary
+USA,USA.10_1,Florida,0.0,0.0013,0.9987,147398.2063,195952,12.83,17.2546,False,,False,False,ordinary
+USA,USA.11_1,Georgia,0.0,0.0,1.0,152464.6154,211064,8.2184,13.3017,False,,False,False,ordinary
+USA,USA.12_1,Hawaii,0.0,0.1959,0.8041,16724.1114,20823,4.3836,5.7329,False,,False,True,anomalously_dark
+USA,USA.13_1,Idaho,0.1088,0.7784,0.2216,216388.6916,352094,1.7051,2.4839,False,,False,True,anomalously_dark
 USA,USA.14_1,Illinois,0.0,0.0,1.0,150088.4959,228423,11.1733,15.3338,False,,False,False,ordinary
 USA,USA.15_1,Indiana,0.0,0.0,1.0,94303.7583,143077,12.3524,17.9042,False,,False,False,ordinary
-USA,USA.36_1,Ohio,0.0,0.0,1.0,119964.2557,183486,15.5279,20.1225,False,,False,False,ordinary
 USA,USA.16_1,Iowa,0.0,0.0451,0.9549,145743.9218,228348,6.2436,10.564,False,,False,False,ordinary
-USA,USA.50_1,Wisconsin,0.0,0.0,1.0,169295.217,276572,9.8049,12.0577,False,,False,False,ordinary
+USA,USA.17_1,Kansas,0.0,0.7741,0.2259,212950.1366,316644,2.3684,4.0035,False,,False,True,anomalously_dark
+USA,USA.18_1,Kentucky,0.0,0.0,1.0,104546.5418,153461,7.4356,11.1118,False,,False,False,ordinary
+USA,USA.19_1,Louisiana,0.0,0.0,1.0,120647.7791,164236,6.8357,10.9503,False,,False,False,ordinary
+USA,USA.20_1,Maine,0.0,0.0,1.0,84365.2805,139581,3.3904,5.4016,False,,False,True,anomalously_dark
+USA,USA.21_1,Maryland,0.0,0.0,1.0,25715.1885,38536,24.5335,27.2532,False,,False,False,ordinary
+USA,USA.22_1,Massachusetts,0.0,0.0,1.0,21006.7009,33004,35.8583,37.9985,False,,False,False,ordinary
 USA,USA.23_1,Michigan,0.0,0.0,1.0,250416.2928,410868,6.6647,8.9686,False,,False,False,ordinary
 USA,USA.24_1,Minnesota,0.0,0.1675,0.8325,225389.277,379489,6.3785,8.4675,False,,False,False,ordinary
-USA,USA.51_1,Wyoming,0.1983,0.9547,0.0453,253337.1723,402797,1.1632,1.6929,False,,False,True,anomalously_dark
-USA,USA.38_1,Oregon,0.0889,0.6399,0.3601,251453.5566,405964,1.7831,2.4488,False,,False,True,anomalously_dark
-USA,USA.42_1,South Dakota,0.0,0.9994,0.0006,199708.8363,325090,1.3343,2.6536,False,,False,True,anomalously_dark
-USA,USA.13_1,Idaho,0.1088,0.7784,0.2216,216388.6916,352094,1.7051,2.4839,False,,False,True,anomalously_dark
+USA,USA.25_1,Mississippi,0.0,0.0,1.0,123639.0897,171354,4.635,8.6715,False,,False,False,ordinary
+USA,USA.26_1,Missouri,0.0,0.0,1.0,180439.0366,267910,4.989,8.4367,False,,False,False,ordinary
 USA,USA.27_1,Montana,0.0008,0.9173,0.0827,380943.498,649332,0.7257,1.2927,False,,False,True,anomalously_dark
-USA,USA.48_1,Washington,0.1169,0.4776,0.5224,174846.7403,299941,4.6629,6.399,False,,False,False,ordinary
-USA,USA.35_1,North Dakota,0.0,0.9991,0.0009,183207.7798,314660,1.9372,6.1443,False,,False,True,anomalously_dark
-USA,USA.40_1,Rhode Island,0.0,0.0,1.0,2826.5712,4401,37.3121,38.6256,False,,False,False,ordinary
-USA,USA.22_1,Massachusetts,0.0,0.0,1.0,21006.7009,33004,35.8583,37.9985,False,,False,False,ordinary
-USA,USA.33_1,New York,0.0,0.0,1.0,135172.2905,214880,14.8586,16.6729,False,,False,False,ordinary
-USA,USA.46_1,Vermont,0.0,0.0,1.0,24961.6194,40386,6.9964,8.8417,False,,False,False,ordinary
+USA,USA.28_1,Nebraska,0.0,0.9472,0.0528,200380.3574,311314,2.0624,3.7508,False,,False,True,anomalously_dark
+USA,USA.29_1,Nevada,0.7397,0.9996,0.0004,286262.3596,430968,0.9722,1.4055,True,,False,True,desert_dark
 USA,USA.30_1,New Hampshire,0.0,0.0,1.0,23997.7176,38579,12.8409,15.2794,False,,False,False,ordinary
-USA,USA.20_1,Maine,0.0,0.0,1.0,84365.2805,139581,3.3904,5.4016,False,,False,True,anomalously_dark
-USA,USA.2_1,Alaska,0.0,0.323,0.677,1488076.0422,3980525,0.1661,0.2708,False,,False,True,anomalously_dark
+USA,USA.31_1,New Jersey,0.0,0.0,1.0,19701.8722,30008,40.1091,42.0671,False,,False,False,ordinary
+USA,USA.32_1,New Mexico,0.5288,0.9927,0.0073,314980.2856,444943,1.2017,2.4243,True,,False,True,desert_dark
+USA,USA.33_1,New York,0.0,0.0,1.0,135172.2905,214880,14.8586,16.6729,False,,False,False,ordinary
+USA,USA.34_1,North Carolina,0.0,0.0,1.0,127780.01,182898,11.9471,16.8732,False,,False,False,ordinary
+USA,USA.35_1,North Dakota,0.0,0.9991,0.0009,183207.7798,314660,1.9372,6.1443,False,,False,True,anomalously_dark
+USA,USA.36_1,Ohio,0.0,0.0,1.0,119964.2557,183486,15.5279,20.1225,False,,False,False,ordinary
+USA,USA.37_1,Oklahoma,0.0,0.6084,0.3916,181052.3328,259295,4.0256,6.7645,False,,False,False,ordinary
+USA,USA.38_1,Oregon,0.0889,0.6399,0.3601,251453.5566,405964,1.7831,2.4488,False,,False,True,anomalously_dark
+USA,USA.39_1,Pennsylvania,0.0,0.0,1.0,117192.719,180290,18.2293,20.1116,False,,False,False,ordinary
+USA,USA.40_1,Rhode Island,0.0,0.0,1.0,2826.5712,4401,37.3121,38.6256,False,,False,False,ordinary
+USA,USA.41_1,South Carolina,0.0003,0.0003,0.9997,80124.7435,112493,11.1758,16.4427,False,,False,False,ordinary
+USA,USA.42_1,South Dakota,0.0,0.9994,0.0006,199708.8363,325090,1.3343,2.6536,False,,False,True,anomalously_dark
+USA,USA.43_1,Tennessee,0.0,0.0,1.0,109040.1903,156650,10.6009,14.0424,False,,False,False,ordinary
+USA,USA.44_1,Texas,0.1372,0.7995,0.2005,686135.7844,938580,4.465,8.4038,False,,False,False,ordinary
+USA,USA.45_1,Utah,0.5213,1.0,0.0,219955.3972,330948,1.9445,2.7605,True,,False,True,desert_dark
+USA,USA.46_1,Vermont,0.0,0.0,1.0,24961.6194,40386,6.9964,8.8417,False,,False,False,ordinary
+USA,USA.47_1,Virginia,0.0,0.0,1.0,103790.1866,152333,8.9825,13.2921,False,,False,False,ordinary
+USA,USA.48_1,Washington,0.1169,0.4776,0.5224,174846.7403,299941,4.6629,6.399,False,,False,False,ordinary
+USA,USA.49_1,West Virginia,0.0,0.0,1.0,62750.3866,93506,6.0161,9.3142,False,,False,False,ordinary
+USA,USA.50_1,Wisconsin,0.0,0.0,1.0,169295.217,276572,9.8049,12.0577,False,,False,False,ordinary
+USA,USA.51_1,Wyoming,0.1983,0.9547,0.0453,253337.1723,402797,1.1632,1.6929,False,,False,True,anomalously_dark
 MEX,MEX.1_1,Aguascalientes,0.0,1.0,0.0,5619.1739,7077,7.0924,15.0125,False,,False,False,ordinary
 MEX,MEX.3_1,Baja California,0.8697,1.0,0.0,72836.0089,98636,1.1167,2.4905,True,,False,True,desert_dark
 MEX,MEX.2_1,Baja California Sur,0.9307,1.0,0.0,71714.8181,93068,0.2703,1.0044,True,,False,True,desert_dark
