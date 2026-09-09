@@ -1,0 +1,10 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+TUV,TUV.1_1,Funafuti,3.3828,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.2_1,Nanumanga,2.5494,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.3_1,Nanumea,5.1044,6,6,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.4_1,Niulakita,0.8401,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.5_1,Niutao,3.4003,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.6_1,Nui,5.9373,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.7_1,Nukufetau,4.2333,5,5,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.8_1,Nukulaelae,2.5307,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TUV,TUV.9_1,Vaitupu,8.4772,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

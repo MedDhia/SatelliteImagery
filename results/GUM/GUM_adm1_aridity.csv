@@ -1,0 +1,20 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GUM,GUM.1_1,Agana Heights,1.6638,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.2_1,Agat,28.297,34,34,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.3_1,Asan,15.8068,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.4_1,Barrigada,21.6285,26,26,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.5_1,Chalan-Pago-Ordot,13.3117,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.6_1,Dededo,78.9999,95,95,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.7_1,Hagåtña,3.3275,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.8_1,Inarajan,51.6136,62,62,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.9_1,Mangilao,29.1167,35,35,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.10_1,Merizo,15.8189,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.11_1,Mongmong-Toto-Maite,5.8232,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.12_1,Piti,19.9674,24,24,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.13_1,Santa Rita,45.7669,55,55,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.14_1,Sinajana,2.4958,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.15_1,Talofofo,44.946,54,54,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.16_1,Tamuning,15.8035,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.17_1,Umatac,18.3135,22,22,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.18_1,Yigo,92.3025,111,111,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GUM,GUM.19_1,Yona,53.2548,64,64,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
