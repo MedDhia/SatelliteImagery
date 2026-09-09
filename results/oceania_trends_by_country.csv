@@ -11,6 +11,42 @@ FJI,extensive,share of land pixels that are lit - light reaching new ground,viir
 FJI,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.187603042070146,0.042078514475247915,369.4754482183573,falling,False,flat,total inequality barely moving
 FJI,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.79450208751251,0.3291191363673072,87.24296530549157,falling,False,flat,total inequality barely moving
 FJI,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,1.9682415376801548,0.6341397175278619,nan,rising,True,flat,total inequality barely moving
+NCL,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-1.374764197263366,0.8758688021973682,50.41935060134228,falling,True,mixed,both margins contribute
+NCL,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-1.6198834935929927,0.8052040584075043,42.78994034456799,falling,True,mixed,both margins contribute
+NCL,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.7818525836201509,0.8514774560039393,88.65445930363498,falling,True,mixed,both margins contribute
+NCL,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,-1.1533975702250796,0.5906379317769154,60.0961193653877,falling,True,mixed,both margins contribute
+NCL,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-1.898922044183277,0.6849008886874781,36.502139868415014,falling,True,mixed,both margins contribute
+NCL,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,-0.12834112041089288,0.033108796816375845,540.0819147758623,falling,False,mixed,both margins contribute
+NCL,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,3.4125665079505243,0.8128062471801658,nan,rising,True,mixed,both margins contribute
+NCL,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,4.0561528707503465,0.7103767146680001,nan,rising,True,mixed,both margins contribute
+NCL,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,1.8347501870118779,0.8063974009984703,nan,rising,True,mixed,both margins contribute
+NCL,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-1.4327868988055448,0.35025242303609777,48.37754875744561,falling,False,mixed,both margins contribute
+NCL,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.5709679845600452,0.03478828618676237,121.39860715553857,falling,False,mixed,both margins contribute
+NCL,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,-4.074976704375847,0.8922840752714195,17.00984400268155,falling,True,mixed,both margins contribute
+SLB,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.30722172554111654,0.2365109729517264,225.61789187893194,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.28112800902980617,0.08904959053125211,246.5592748840815,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.8813309512635592,0.7076736472306877,78.64777466015282,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,0.4366987059668508,0.05454020369932995,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-0.9292835073017419,0.126447412149614,74.5894202483546,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,1.9856022203202368,0.4351529315071225,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,1.8572374909600748,0.25542657950939096,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,1.4014563531752156,0.06946978171769067,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,5.231316737972002,0.687421019504411,nan,rising,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.29922819188854693,0.08932252450704703,231.64501185039435,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.2905136233559225,0.03244662800468246,238.59369228641532,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+SLB,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,-0.8569344169437191,0.7313934710237456,80.88684114614912,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+VUT,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.2204965103470147,0.05944647269436735,314.35743788828165,falling,False,flat,total inequality barely moving
+VUT,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.2947976316324701,0.06790976495619334,235.1264413901755,falling,False,flat,total inequality barely moving
+VUT,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,2.855535804716689,0.6446620078669574,nan,rising,True,flat,total inequality barely moving
+VUT,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,-0.9919954037339496,0.220444329007354,69.87403146737215,falling,False,flat,total inequality barely moving
+VUT,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,0.541661061095802,0.04956779226916239,nan,rising,False,flat,total inequality barely moving
+VUT,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,-2.8725612197874626,0.590628946436745,24.129935883881018,falling,True,flat,total inequality barely moving
+VUT,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,0.46416697285958863,0.0183165681330324,nan,rising,False,flat,total inequality barely moving
+VUT,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,1.3622591908654071,0.10267740793736707,nan,rising,False,flat,total inequality barely moving
+VUT,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,-11.814504336026282,0.6497927255303375,5.866917145616623,falling,True,flat,total inequality barely moving
+VUT,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,0.8234319324546796,0.14894643217654674,nan,rising,False,flat,total inequality barely moving
+VUT,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.7667633407325897,0.08414971342474141,90.39910279196326,falling,False,flat,total inequality barely moving
+VUT,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,3.4774019787565567,0.7334196787418243,nan,rising,True,flat,total inequality barely moving
 GUM,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.27813597698829057,0.1333534970410943,249.21162233863996,falling,False,intensive converger,already largely lit; the decline is convergence among lit places
 GUM,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.5867553819102925,0.21468084790231284,118.13222373917972,falling,False,intensive converger,already largely lit; the decline is convergence among lit places
 GUM,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.16245590302953175,0.8682217887492555,426.66789426170794,falling,True,intensive converger,already largely lit; the decline is convergence among lit places
@@ -23,6 +59,18 @@ GUM,extensive,share of land pixels that are lit - light reaching new ground,viir
 GUM,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,0.06939482830049984,0.10969695983299836,nan,rising,False,intensive converger,already largely lit; the decline is convergence among lit places
 GUM,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.14402026861923886,0.398510264173272,481.2844658639608,falling,False,intensive converger,already largely lit; the decline is convergence among lit places
 GUM,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.4555822898491796,0.8610000151881506,nan,rising,True,intensive converger,already largely lit; the decline is convergence among lit places
+MHL,total,Theil T over all land pixels - both margins together,full,1992,2022,31,0.06228915692199349,0.04166626364561583,nan,rising,False,disrupted,total inequality rising
+MHL,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.13984011525617418,0.10152769856201635,495.6712022799493,falling,False,disrupted,total inequality rising
+MHL,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.2364737268582025,0.7251082403258672,293.11805153541616,falling,True,disrupted,total inequality rising
+MHL,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,1.0349745570076463,0.3142562121654753,nan,rising,False,disrupted,total inequality rising
+MHL,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-0.10467812086975105,0.0029742006484626705,662.1700645757816,falling,False,disrupted,total inequality rising
+MHL,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,3.9493149179733775,0.6847402791239855,nan,rising,True,disrupted,total inequality rising
+MHL,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,0.12837840037550022,0.015720312875058325,nan,rising,False,disrupted,total inequality rising
+MHL,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,0.38395856674773426,0.05726862406206444,nan,rising,False,disrupted,total inequality rising
+MHL,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,1.9450991381674758,0.7369496971662907,nan,rising,True,disrupted,total inequality rising
+MHL,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.24478675528366903,0.4757751059349881,283.1636784256148,falling,False,disrupted,total inequality rising
+MHL,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.20446998070772285,0.19608763567814128,338.99703915498293,falling,False,disrupted,total inequality rising
+MHL,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.09792959977766404,0.2899501124472696,nan,rising,False,disrupted,total inequality rising
 NRU,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-6.914351449330491,0.6561508626629624,10.024760610441083,falling,True,intensive converger,already largely lit; the decline is convergence among lit places
 NRU,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.6937762824108338,0.09485351034233233,99.90932208741665,falling,False,intensive converger,already largely lit; the decline is convergence among lit places
 NRU,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-3.9532836927488484,0.29834561790491754,17.533454070886,falling,False,intensive converger,already largely lit; the decline is convergence among lit places
@@ -71,6 +119,30 @@ ASM,extensive,share of land pixels that are lit - light reaching new ground,viir
 ASM,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,0.4463870087374505,0.5727458265702174,nan,rising,True,disrupted,lit area shrinking
 ASM,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,0.061488782129993015,0.028553477616621588,nan,rising,False,disrupted,lit area shrinking
 ASM,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,1.2410719008213915,0.757061920613762,nan,rising,True,disrupted,lit area shrinking
+COK,total,Theil T over all land pixels - both margins together,full,1992,2022,31,0.5562804288662216,0.359112113757971,nan,rising,False,disrupted,lit area shrinking
+COK,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,0.02446179810784228,0.0006613732863312286,nan,flat,False,disrupted,lit area shrinking
+COK,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.12300593083913956,0.007495492653272498,563.5071218365928,falling,False,disrupted,lit area shrinking
+COK,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,1.4518946856732586,0.22901823469443205,nan,rising,False,disrupted,lit area shrinking
+COK,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-1.1236215228906743,0.17219168375789684,61.688670645674954,falling,False,disrupted,lit area shrinking
+COK,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,9.581024592609893,0.9497781886853923,nan,rising,True,disrupted,lit area shrinking
+COK,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,-0.5872855265781655,0.25546523222953516,118.02558537387863,falling,False,disrupted,lit area shrinking
+COK,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,-0.14649680509061702,0.011963381856167394,473.1483257475768,falling,False,disrupted,lit area shrinking
+COK,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,1.5266705617037306,0.3116232133590434,nan,rising,False,disrupted,lit area shrinking
+COK,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.4498160861286903,0.5160505343810263,154.09568531118273,falling,True,disrupted,lit area shrinking
+COK,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.12622821743608578,0.058675808908489994,549.1222126391134,falling,False,disrupted,lit area shrinking
+COK,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.1791278181755316,0.031473084478080414,nan,rising,False,disrupted,lit area shrinking
+WSM,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.4584876423717971,0.09031086337694523,151.18121329818916,falling,False,mixed,both margins contribute
+WSM,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.8779216242618589,0.1319249768772996,78.95319598064705,falling,False,mixed,both margins contribute
+WSM,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-2.84793242375518,0.8449351951560142,24.338610522436017,falling,True,mixed,both margins contribute
+WSM,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,-0.7156979403328843,0.14187562465878653,96.84912328203009,falling,False,mixed,both margins contribute
+WSM,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-1.6858955146509214,0.4560333054262632,41.114480377715886,falling,False,mixed,both margins contribute
+WSM,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,6.516019557233001,0.8114081706067482,nan,rising,True,mixed,both margins contribute
+WSM,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,1.1614753054718,0.07275624148780782,nan,rising,False,mixed,both margins contribute
+WSM,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,2.0767922156199514,0.09551867484483953,nan,rising,False,mixed,both margins contribute
+WSM,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,9.078565114475758,0.846985258276762,nan,rising,True,mixed,both margins contribute
+WSM,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,0.5329998848839146,0.23849577089475343,nan,rising,False,mixed,both margins contribute
+WSM,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,0.3885673564286314,0.05719783711257548,nan,rising,False,mixed,both margins contribute
+WSM,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.5263318326362756,0.5001814538078752,nan,rising,True,mixed,both margins contribute
 TKL,total,Theil T over all land pixels - both margins together,full,,,0,nan,nan,nan,undefined,False,undefined,no usable series
 TKL,total,Theil T over all land pixels - both margins together,dmsp,,,0,nan,nan,nan,undefined,False,undefined,no usable series
 TKL,total,Theil T over all land pixels - both margins together,viirs,,,0,nan,nan,nan,undefined,False,undefined,no usable series
@@ -83,6 +155,18 @@ TKL,extensive,share of land pixels that are lit - light reaching new ground,viir
 TKL,between_share,share of Theil T lying between admin-1 units,full,,,0,nan,nan,nan,undefined,False,undefined,no usable series
 TKL,between_share,share of Theil T lying between admin-1 units,dmsp,,,0,nan,nan,nan,undefined,False,undefined,no usable series
 TKL,between_share,share of Theil T lying between admin-1 units,viirs,,,0,nan,nan,nan,undefined,False,undefined,no usable series
+TON,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-1.2240959909087117,0.6168855033350692,56.625230840384106,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.6682605936417401,0.24453252817426369,103.72408416042965,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-4.334943888780754,0.8682421360236631,15.989761305881627,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,0.2237367284592682,0.028538506589178284,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,0.5195660782164678,0.056067553404055,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,0.5905637031120219,0.24812162175226568,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,1.323777137777324,0.5389258172129828,nan,rising,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,0.953867443046998,0.21314247868629893,nan,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,4.055476802091291,0.8624172857616084,nan,rising,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-2.250575107286525,0.64269158829876,30.798669118652942,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-3.055957872530364,0.6862794146062536,22.681830361293965,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
+TON,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,-2.8876924220005225,0.18280261293830852,24.00349757747918,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
 TUV,total,Theil T over all land pixels - both margins together,full,1994,2022,29,-0.45156178114312967,0.1671599936365231,153.499966008027,falling,False,mixed,both margins contribute
 TUV,total,Theil T over all land pixels - both margins together,dmsp,1994,2013,20,-1.1129505124057606,0.3363426819766125,62.28014389082172,falling,False,mixed,both margins contribute
 TUV,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,0.06068945248171993,0.09312760566080946,nan,rising,False,mixed,both margins contribute

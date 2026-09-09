@@ -1,0 +1,11 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SLB,SLB.1_1,Central,682.2536,808,808,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.2_1,Choiseul,3316.8159,3909,3909,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.3_1,Guadalcanal,5368.7207,6368,6368,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.4_1,Honiara,22.7752,27,27,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.5_1,Isabel,4295.0955,5073,5073,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.6_1,Makira Ulawa,3174.5603,3851,3776,75,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.7_1,Malaita,4257.7036,5076,5041,35,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.8_1,Rennell and Bellona,856.9023,1023,1023,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.9_1,Temotu,891.6897,1062,1062,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SLB,SLB.10_1,Western,5609.8166,6629,6628,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

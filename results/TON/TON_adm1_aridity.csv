@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+TON,TON.1_1,'Eua,96.4699,121,121,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TON,TON.2_1,Ha'apai,141.737,176,176,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TON,TON.3_1,Niuas,22.2147,27,27,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TON,TON.4_1,Tongatapu,281.8659,354,353,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TON,TON.5_1,Vava'u,223.0664,274,274,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

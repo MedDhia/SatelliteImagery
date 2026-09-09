@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+NCL,NCL.1_1,Îles Loyauté,1975.4167,2473,2473,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NCL,NCL.2_1,Nord,9467.5906,11836,11836,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NCL,NCL.3_1,Sud,7374.0718,9280,9279,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

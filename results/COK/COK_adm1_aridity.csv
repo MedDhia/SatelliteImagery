@@ -1,0 +1,12 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+COK,COK.1_1,Aitutaki,25.0944,31,31,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.2_1,Atiu,30.5738,38,38,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.3_1,Mangaia,50.0493,63,63,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.4_1,Manihiki,6.7283,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.5_1,Mauke,19.2886,24,24,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.6_1,Mitiaro,25.7652,32,32,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.7_1,Palmerston,1.6274,28,2,26,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.8_1,Penhryn,18.5805,22,22,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.9_1,Pukapuka,6.6952,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.10_1,Rakahanga,5.0527,6,6,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+COK,COK.11_1,Rarotonga,68.6415,86,86,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

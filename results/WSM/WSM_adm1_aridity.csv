@@ -1,0 +1,12 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+WSM,WSM.1_1,A'ana,195.9874,236,236,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.2_1,Aiga-i-le-Tai,27.4078,33,33,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.3_1,Atua,432.5048,521,521,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.4_1,Fa'asaleleaga,256.8625,309,309,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.5_1,Gaga'emauga,227.0187,273,273,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.6_1,Gagaifomauga,319.3527,384,384,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.7_1,Palauli,526.8916,634,634,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.8_1,Satupa'itea,161.2654,194,194,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.9_1,Tuamasaga,440.9338,531,531,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.10_1,Va'a-o-Fonoti,31.5489,38,38,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+WSM,WSM.11_1,Vaisigano,233.6837,281,281,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
