@@ -40,6 +40,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
+from .analysis import number
 from .raster import _require_numpy, _require_rasterio
 
 DEFAULT_ROOT = Path("data/aridity")
@@ -733,7 +734,7 @@ def vs_light(
             # rather than emitted with a hole in it.
             if any(gid not in by_year[year] for year in by_year):
                 continue
-            desert = float(unit["desert_share"])
+            desert = number(unit["desert_share"])
             scopes = light_scopes_for(iso3, gid)
             rows.append(
                 {
@@ -741,12 +742,12 @@ def vs_light(
                     "gid": gid,
                     "name": unit["name"],
                     "desert_share": desert,
-                    "dryland_share": float(unit["dryland_share"]),
-                    "humid_share": float(unit["humid_share"]),
-                    "area_km2": float(unit["area_km2"]),
+                    "dryland_share": number(unit["dryland_share"]),
+                    "humid_share": number(unit["humid_share"]),
+                    "area_km2": number(unit["area_km2"]),
                     "pixels_classified": int(unit["pixels_classified"]),
-                    "mean_dn_1992": float(by_year[1992][gid]["mean_dn"]),
-                    "mean_dn_2022": float(by_year[2022][gid]["mean_dn"]),
+                    "mean_dn_1992": number(by_year[1992][gid]["mean_dn"]),
+                    "mean_dn_2022": number(by_year[2022][gid]["mean_dn"]),
                     "majority_arid": desert > MAJORITY,
                     "light_scopes": scopes,
                     "in_light_scope": bool(scopes),

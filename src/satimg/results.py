@@ -319,10 +319,16 @@ CROSS_TRENDS_COLUMNS = (
 #: underlying point for Africa, which has no tie at all. Naming a unit here is
 #: a claim about published data, so `tests/test_results.py` recomputes each
 #: median from the committed CSV and checks it.
+#: A pool whose *measured* unit count is odd has a median that is a real
+#: observation, so some unit sits exactly on the cut and the strict ``<``
+#: decides it. Named per pool because the gloss is a claim about published
+#: data - and rechecked against the committed CSVs by the test suite, which
+#: is what makes adding a country to a pool force this back into agreement.
 MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
     "north-america": "Washington State",
     "south-america": "Argentina's Mendoza",
+    "oceania": "Samoa's Va'a-o-Fonoti",
 }
 
 

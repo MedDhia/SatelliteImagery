@@ -569,8 +569,18 @@ def test_cross_country_tables_are_never_counted_as_a_country(tmp_path):
 
 
 def _pool_medians():
-    """(pool, median, tied unit description or None) from the committed CSVs."""
+    """(pool, median, tied unit description or None) from the committed CSVs.
+
+    A unit with no land pixel in the light raster has no ``mean_dn_2022``, and
+    such a value must never reach ``statistics.median``. NaN is not ordered
+    against anything, so one of them in the list makes ``sorted`` return an
+    arbitrary permutation and the "median" a value with no meaning: Oceania read
+    63.0, the DN ceiling, for a pool where 121 of 205 units sit below 1.0. Skip
+    them exactly as :func:`aridity.dark_cut` does - and then check that this is
+    in fact what it does, so the two readings can never quietly diverge.
+    """
     import csv
+    import math
     import statistics
     from pathlib import Path
 
@@ -585,11 +595,99 @@ def _pool_medians():
         rows = list(csv.DictReader(path.open()))
         if not rows:
             continue
-        values = [float(r["mean_dn_2022"]) for r in rows]
+        measured = [r for r in rows if _as_float(r["mean_dn_2022"]) is not None]
+        values = [float(r["mean_dn_2022"]) for r in measured]
+        assert not any(math.isnan(v) for v in values)
         median = statistics.median(values)
-        tied = [r for r in rows if float(r["mean_dn_2022"]) == median]
+        tied = [r for r in measured if float(r["mean_dn_2022"]) == median]
         out.append((pool, median, tied))
     return out
+
+
+def _as_float(text):
+    """The number in a published cell, or None where there is no measurement.
+
+    Blank means unmeasured. The literal ``nan`` also has to be caught here:
+    ``float`` accepts it silently, and it is the shape that poisoned the cut.
+    """
+    if text is None or not text.strip():
+        return None
+    value = float(text)
+    return None if value != value else value
+
+
+def test_the_median_this_file_computes_is_the_one_the_code_cuts_at():
+    """The check reimplements the median; make sure it reimplements *that* one.
+
+    Reimplementing is deliberate - a check that calls the code under test only
+    proves it agrees with itself. But a reimplementation that has drifted is
+    worse than none, so the two are compared here rather than trusted apart.
+    """
+    import csv
+    from pathlib import Path
+
+    from satimg import aridity as A
+
+    for pool, median, _ in _pool_medians():
+        rows = list((Path("results") / A.vs_light_table(pool)).open())
+        values = [
+            v
+            for v in (_as_float(r["mean_dn_2022"]) for r in csv.DictReader(iter(rows)))
+            if v is not None
+        ]
+        assert A.dark_cut(values) == median, (
+            f"pool {pool!r}: this file reads the median as {median}, "
+            f"aridity.dark_cut cuts at {A.dark_cut(values)}"
+        )
+
+
+#: Columns of the cross-country tables that something downstream aggregates -
+#: a median, a rank, a sort. These are the ones NaN cannot appear in.
+AGGREGATED_COLUMNS = (
+    "mean_dn_1992",
+    "mean_dn_2022",
+    "desert_share",
+    "dryland_share",
+    "humid_share",
+)
+
+
+def test_no_aggregated_column_carries_the_literal_nan():
+    """An unmeasured cell is blank. ``nan`` in a summed column is a trap.
+
+    ``float("nan")`` parses without complaint and then destroys the ordering of
+    any sort it reaches, so a median over it comes back *wrong* rather than
+    absent - Oceania's read 63.0, the DN ceiling, for a pool whose units are
+    mostly below 1.0. Seven Oceanian units published it: four with no land pixel
+    in the light raster, three with no aridity cell.
+
+    Scoped deliberately to the cross-country tables and to the columns
+    something aggregates. A per-country series may hold a genuinely undefined
+    value - Theil L where a unit has zero light, a half-life where the trend
+    rises, the nested split where there is no nesting - and nothing takes a
+    median of those. Whether they too should be blank is a separate question
+    about encoding, not about a wrong number.
+
+    Name columns are excluded, and not for convenience: Thailand's province of
+    **Nan** is a real place, and a case-insensitive match for "nan" flags it.
+    """
+    import csv
+    from pathlib import Path
+
+    offenders = []
+    for path in sorted(Path("results").glob("*.csv")):
+        for row in csv.DictReader(path.open()):
+            for column in AGGREGATED_COLUMNS:
+                value = row.get(column)
+                if value is None or not value.strip():
+                    continue
+                number = float(value)
+                if number != number:  # NaN, the only value unequal to itself
+                    offenders.append(f"{path.name}:{column}")
+    assert not offenders, (
+        f"{len(offenders)} aggregated cell(s) carry NaN, which a median will "
+        f"silently mis-sort rather than reject: {sorted(set(offenders))}"
+    )
 
 
 def test_named_median_ties_are_real():

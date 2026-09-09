@@ -537,6 +537,7 @@ def test_every_published_dryland_share_is_one_minus_humid():
     """A regression guard on the whole published set, not just the arithmetic."""
     import csv as _csv
 
+    from satimg import analysis as A
     from satimg import regions as R
 
     checked = 0
@@ -546,8 +547,11 @@ def test_every_published_dryland_share_is_one_minus_humid():
             continue
         with open(path, encoding="utf-8") as handle:
             for row in _csv.DictReader(handle):
-                dry = float(row["dryland_share"])
-                humid = float(row["humid_share"])
+                # An unmeasured cell is blank in the file and NaN in memory.
+                # analysis.number is the reader the pipeline itself uses, so
+                # the two cannot drift apart on what "no value" looks like.
+                dry = A.number(row["dryland_share"])
+                humid = A.number(row["humid_share"])
                 # A unit smaller than an aridity cell has no shares at all -
                 # Nauru's Boe is the only one in 168 countries. The identity
                 # cannot hold there, but a stronger thing must: the two are
@@ -617,7 +621,7 @@ def test_a_unit_with_no_light_is_neither_dark_nor_lit():
     if not path.exists():
         pytest.skip("oceania pool not published yet")
     rows = list(_csv.DictReader(path.open(encoding="utf-8")))
-    unlit = [r for r in rows if r["mean_dn_2022"] == "nan"]
+    unlit = [r for r in rows if r["mean_dn_2022"] == ""]
     assert unlit, "expected at least one unit with no light pixel"
     for r in unlit:
         assert r["dark_2022"] == "", (r["iso3"], r["name"])
@@ -631,7 +635,7 @@ def test_a_unit_with_no_aridity_cell_is_neither_arid_nor_not():
     if not path.exists():
         pytest.skip("oceania pool not published yet")
     rows = list(_csv.DictReader(path.open(encoding="utf-8")))
-    noclass = [r for r in rows if r["desert_share"] == "nan"]
+    noclass = [r for r in rows if r["desert_share"] == ""]
     assert noclass, "expected at least one unit with no aridity cell"
     for r in noclass:
         assert r["majority_arid"] == "", (r["iso3"], r["name"])

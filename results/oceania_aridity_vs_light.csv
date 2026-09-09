@@ -89,7 +89,7 @@ MHL,MHL.3_1,Arno,0.0,0.0,1.0,27.1497,32,0.0,0.0,False,,False,True,anomalously_da
 MHL,MHL.4_1,Aur,0.0,0.0,1.0,8.4619,10,0.0,0.0,False,,False,True,anomalously_dark
 MHL,MHL.5_1,Ebon,0.0,0.0,1.0,5.9647,7,0.0,0.0,False,,False,True,anomalously_dark
 MHL,MHL.6_1,Enewetok,0.0,0.0,1.0,15.9506,19,0.0,0.0,False,,False,True,anomalously_dark
-MHL,MHL.7_1,Jabat,0.0,0.0,1.0,0.8472,1,nan,nan,False,,False,,
+MHL,MHL.7_1,Jabat,0.0,0.0,1.0,0.8472,1,,,False,,False,,
 MHL,MHL.8_1,Jaluit,0.0,0.0,1.0,9.3509,11,0.0,0.0,False,,False,True,anomalously_dark
 MHL,MHL.9_1,Kwajalein,0.0,0.0,1.0,35.4634,42,2.68,4.12,False,,False,False,ordinary
 MHL,MHL.10_1,Lae,0.0,0.0,1.0,3.3789,4,0.0,0.0,False,,False,True,anomalously_dark
@@ -110,20 +110,20 @@ FSM,FSM.1_1,Chuuk,0.0,0.0,1.0,134.0172,158,1.4792,2.5833,False,,False,False,ordi
 FSM,FSM.2_1,Kosrae,0.0,0.0,1.0,116.618,137,0.9211,1.386,False,,False,False,ordinary
 FSM,FSM.3_1,Pohnpei,0.0,0.0,1.0,399.7981,471,0.8987,2.0899,False,,False,False,ordinary
 FSM,FSM.4_1,Yap,0.0,0.0,1.0,126.5627,150,1.935,3.7832,False,,False,False,ordinary
-NRU,NRU.1_1,Aiwo,0.0,0.0,1.0,0.8548,1,nan,nan,False,,False,,
+NRU,NRU.1_1,Aiwo,0.0,0.0,1.0,0.8548,1,,,False,,False,,
 NRU,NRU.2_1,Anabar,0.0,0.0,1.0,1.7095,2,3.0,16.0,False,,False,False,ordinary
 NRU,NRU.3_1,Anetan,0.0,0.0,1.0,0.8548,1,6.5,18.5625,False,,False,False,ordinary
 NRU,NRU.4_1,Anibare,0.0,0.0,1.0,3.419,4,7.75,20.3333,False,,False,False,ordinary
 NRU,NRU.5_1,Baiti,0.0,0.0,1.0,1.7095,2,11.0,24.5556,False,,False,False,ordinary
-NRU,NRU.6_1,Boe,nan,nan,nan,0.0,0,22.0,29.0,,,False,False,
+NRU,NRU.6_1,Boe,,,,0.0,0,22.0,29.0,,,False,False,
 NRU,NRU.7_1,Buada,0.0,0.0,1.0,3.419,4,20.5,29.1923,False,,False,False,ordinary
 NRU,NRU.8_1,Denigomodu,0.0,0.0,1.0,0.8548,1,21.0,30.0769,False,,False,False,ordinary
 NRU,NRU.9_1,Ewa,0.0,0.0,1.0,1.7095,2,9.0,25.5,False,,False,False,ordinary
 NRU,NRU.10_1,Ijuw,0.0,0.0,1.0,0.8548,1,3.0,18.6667,False,,False,False,ordinary
 NRU,NRU.11_1,Meneng,0.0,0.0,1.0,2.5643,3,8.2,21.4456,False,,False,False,ordinary
 NRU,NRU.12_1,Nibok,0.0,0.0,1.0,1.7095,2,18.0,28.6993,False,,False,False,ordinary
-NRU,NRU.13_1,Uaboe,nan,nan,nan,0.0,0,14.0,26.25,,,False,False,
-NRU,NRU.14_1,Yaren,0.0,0.0,1.0,1.7095,2,nan,nan,False,,False,,
+NRU,NRU.13_1,Uaboe,,,,0.0,0,14.0,26.25,,,False,False,
+NRU,NRU.14_1,Yaren,0.0,0.0,1.0,1.7095,2,,,False,,False,,
 MNP,MNP.1_1,Northern Islands,0.0,0.0,1.0,181.4034,223,0.0,0.0778,False,,False,True,anomalously_dark
 MNP,MNP.2_1,Rota,0.0,0.0,1.0,87.0972,105,2.3409,8.6714,False,,False,False,ordinary
 MNP,MNP.3_1,Saipan,0.0,0.0,1.0,118.8997,144,27.4667,38.4434,False,,False,False,ordinary
@@ -131,7 +131,7 @@ MNP,MNP.4_1,Tinian,0.0,0.0,1.0,110.7381,134,2.5614,8.8933,False,,False,False,ord
 PLW,PLW.1_1,Aimeliik,0.0,0.0,1.0,44.0851,52,0.1778,0.6444,False,,False,False,ordinary
 PLW,PLW.2_1,Airai,0.0,0.0,1.0,60.201,71,1.2034,6.3577,False,,False,False,ordinary
 PLW,PLW.3_1,Angaur,0.0,0.0,1.0,8.4876,10,0.0,0.0,False,,False,True,anomalously_dark
-PLW,PLW.4_1,Hatohobei,nan,nan,nan,0.0,0,0.0,0.0,,,False,True,
+PLW,PLW.4_1,Hatohobei,,,,0.0,0,0.0,0.0,,,False,True,
 PLW,PLW.5_1,Kayangel,0.0,0.0,1.0,2.5396,3,0.0,0.0,False,,False,True,anomalously_dark
 PLW,PLW.6_1,Koror,0.0,0.0,1.0,71.2431,84,3.5942,8.3531,False,,False,False,ordinary
 PLW,PLW.7_1,Melekeok,0.0,0.0,1.0,24.5821,29,0.375,0.75,False,,False,False,ordinary
@@ -195,7 +195,7 @@ TON,TON.5_1,Vava'u,0.0,0.0,1.0,223.0664,274,0.2152,3.6779,False,,False,False,ord
 TUV,TUV.1_1,Funafuti,0.0,0.0,1.0,3.3828,4,0.0,7.3333,False,,False,False,ordinary
 TUV,TUV.2_1,Nanumanga,0.0,0.0,1.0,2.5494,3,0.0,0.0,False,,False,True,anomalously_dark
 TUV,TUV.3_1,Nanumea,0.0,0.0,1.0,5.1044,6,0.0,0.0,False,,False,True,anomalously_dark
-TUV,TUV.4_1,Niulakita,0.0,0.0,1.0,0.8401,1,nan,nan,False,,False,,
+TUV,TUV.4_1,Niulakita,0.0,0.0,1.0,0.8401,1,,,False,,False,,
 TUV,TUV.5_1,Niutao,0.0,0.0,1.0,3.4003,4,0.0,0.0,False,,False,True,anomalously_dark
 TUV,TUV.6_1,Nui,0.0,0.0,1.0,5.9373,7,0.0,0.0,False,,False,True,anomalously_dark
 TUV,TUV.7_1,Nukufetau,0.0,0.0,1.0,4.2333,5,0.0,0.0,False,,False,True,anomalously_dark

@@ -39,6 +39,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Dict, Optional, Sequence
 
+from .analysis import number
+
 #: White -> yellow -> orange -> red. ColorBrewer YlOrRd with a white anchor
 #: prepended, so the lowest class is the page colour and the top is deep red.
 WHITE_YLORRD = (
@@ -302,7 +304,7 @@ def unit_values(
 
     values: Dict[str, float] = {}
     for row in selected:
-        raw = float(row[field])
+        raw = number(row[field])
         if scale == RELATIVE:
             values[str(row["gid"])] = (
                 raw / national if national and national > 0 else float("nan")

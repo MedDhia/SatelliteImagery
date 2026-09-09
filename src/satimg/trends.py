@@ -35,6 +35,8 @@ import math
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Tuple
 
+from .analysis import number
+
 #: The DMSP->VIIRS handover. Rates either side are not comparable.
 BREAK_YEAR = 2014
 
@@ -169,13 +171,6 @@ MEASURES: Tuple[Tuple[str, str], ...] = (
 
 def series_from_rows(rows: Sequence[dict]) -> Dict[str, Dict[int, float]]:
     """Pull the pixel-level, all-units series out of an inequality CSV."""
-
-    def number(value):
-        try:
-            result = float(value)
-        except (TypeError, ValueError):
-            return float("nan")
-        return result
 
     out: Dict[str, Dict[int, float]] = {key: {} for key, _ in MEASURES}
     for row in rows:
@@ -413,7 +408,7 @@ def era_comparison(rows: Sequence[dict], measure: str = "total"):
         dmsp, viirs = windows.get("dmsp"), windows.get("viirs")
         if not dmsp or not viirs:
             continue
-        a, b = float(dmsp["percent_per_year"]), float(viirs["percent_per_year"])
+        a, b = number(dmsp["percent_per_year"]), number(viirs["percent_per_year"])
         if not (math.isfinite(a) and math.isfinite(b)):
             continue
         out.append((iso3, a, b))

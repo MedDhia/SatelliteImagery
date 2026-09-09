@@ -2,7 +2,7 @@ iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_
 PLW,PLW.1_1,Aimeliik,44.0851,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
 PLW,PLW.2_1,Airai,60.201,71,71,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
 PLW,PLW.3_1,Angaur,8.4876,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
-PLW,PLW.4_1,Hatohobei,0.0,0,0,0,nan,nan,nan,nan,nan,nan,nan,adm1
+PLW,PLW.4_1,Hatohobei,0.0,0,0,0,,,,,,,,adm1
 PLW,PLW.5_1,Kayangel,2.5396,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
 PLW,PLW.6_1,Koror,71.2431,84,84,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
 PLW,PLW.7_1,Melekeok,24.5821,29,29,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

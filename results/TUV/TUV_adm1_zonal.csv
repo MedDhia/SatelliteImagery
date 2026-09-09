@@ -2,7 +2,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1992,TUV.1_1,Funafuti,9,7.5594,0.0,0.0,0.0
 1992,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1992,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1992,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1992,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1992,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1992,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1992,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -11,7 +11,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1993,TUV.1_1,Funafuti,9,7.5594,0.0,0.0,0.0
 1993,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1993,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1993,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1993,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1993,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1993,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1993,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -20,7 +20,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1994,TUV.1_1,Funafuti,9,7.5594,3.0,0.3333333333333333,0.39685656516614953
 1994,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1994,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1994,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1994,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1994,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1994,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1994,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -29,7 +29,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1995,TUV.1_1,Funafuti,9,7.5594,8.0,0.8888888888888888,1.0582841737763986
 1995,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1995,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1995,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1995,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1995,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1995,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1995,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -38,7 +38,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1996,TUV.1_1,Funafuti,9,7.5594,7.0,0.7777777777777778,0.9259986520543488
 1996,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1996,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1996,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1996,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1996,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1996,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1996,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -47,7 +47,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1997,TUV.1_1,Funafuti,9,7.5594,7.0,0.7777777777777778,0.9259986520543488
 1997,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1997,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1997,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1997,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1997,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1997,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1997,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -56,7 +56,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1998,TUV.1_1,Funafuti,9,7.5594,10.0,1.1111111111111112,1.3228552172204984
 1998,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1998,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1998,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1998,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1998,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1998,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1998,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -65,7 +65,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 1999,TUV.1_1,Funafuti,9,7.5594,14.0,1.5555555555555556,1.8519973041086977
 1999,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 1999,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-1999,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+1999,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 1999,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 1999,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 1999,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -74,7 +74,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2000,TUV.1_1,Funafuti,9,7.5594,21.0,2.3333333333333335,2.7779959561630467
 2000,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2000,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2000,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2000,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2000,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2000,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2000,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -83,7 +83,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2001,TUV.1_1,Funafuti,9,7.5594,21.0,2.3333333333333335,2.7779959561630467
 2001,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2001,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2001,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2001,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2001,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2001,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2001,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -92,7 +92,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2002,TUV.1_1,Funafuti,9,7.5594,33.0,3.6666666666666665,4.365422216827644
 2002,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2002,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2002,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2002,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2002,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2002,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2002,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -101,7 +101,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2003,TUV.1_1,Funafuti,9,7.5594,33.0,3.6666666666666665,4.365422216827644
 2003,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2003,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2003,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2003,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2003,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2003,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2003,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -110,7 +110,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2004,TUV.1_1,Funafuti,9,7.5594,33.0,3.6666666666666665,4.365422216827644
 2004,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2004,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2004,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2004,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2004,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2004,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2004,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -119,7 +119,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2005,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2005,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2005,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2005,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2005,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2005,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2005,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2005,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -128,7 +128,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2006,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2006,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2006,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2006,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2006,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2006,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2006,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2006,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -137,7 +137,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2007,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2007,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2007,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2007,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2007,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2007,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2007,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2007,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -146,7 +146,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2008,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2008,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2008,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2008,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2008,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2008,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2008,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2008,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -155,7 +155,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2009,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2009,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2009,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2009,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2009,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2009,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2009,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2009,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -164,7 +164,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2010,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2010,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2010,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2010,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2010,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2010,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2010,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2010,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -173,7 +173,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2011,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2011,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2011,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2011,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2011,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2011,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2011,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2011,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -182,7 +182,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2012,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2012,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2012,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2012,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2012,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2012,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2012,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2012,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -191,7 +191,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2013,TUV.1_1,Funafuti,9,7.5594,29.0,3.2222222222222223,3.8362801299394453
 2013,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2013,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2013,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2013,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2013,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2013,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2013,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -200,7 +200,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2014,TUV.1_1,Funafuti,9,7.5594,33.0,3.6666666666666665,4.365422216827644
 2014,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2014,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2014,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2014,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2014,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2014,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2014,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -209,7 +209,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2015,TUV.1_1,Funafuti,9,7.5594,64.0,7.111111111111111,8.466273390211189
 2015,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2015,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2015,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2015,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2015,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2015,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2015,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -218,7 +218,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2016,TUV.1_1,Funafuti,9,7.5594,64.0,7.111111111111111,8.466273390211189
 2016,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2016,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2016,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2016,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2016,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2016,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2016,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -227,7 +227,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2017,TUV.1_1,Funafuti,9,7.5594,64.0,7.111111111111111,8.466273390211189
 2017,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2017,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2017,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2017,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2017,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2017,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2017,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -236,7 +236,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2018,TUV.1_1,Funafuti,9,7.5594,64.00000190734863,7.111111323038737,8.466273642525799
 2018,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2018,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2018,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2018,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2018,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2018,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2018,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -245,7 +245,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2019,TUV.1_1,Funafuti,9,7.5594,66.00000190734863,7.33333354526096,8.730844685969899
 2019,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2019,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2019,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2019,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2019,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2019,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2019,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -254,7 +254,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2020,TUV.1_1,Funafuti,9,7.5594,66.00000190734863,7.33333354526096,8.730844685969899
 2020,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2020,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2020,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2020,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2020,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2020,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2020,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -263,7 +263,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2021,TUV.1_1,Funafuti,9,7.5594,66.00000190734863,7.33333354526096,8.730844685969899
 2021,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2021,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2021,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2021,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2021,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2021,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2021,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0
@@ -272,7 +272,7 @@ year,gid,name,pixels,area_km2,sum_of_lights,mean_dn,density_sol_per_km2
 2022,TUV.1_1,Funafuti,9,7.5594,66.00000190734863,7.33333354526096,8.730844685969899
 2022,TUV.2_1,Nanumanga,3,3.4695,0.0,0.0,0.0
 2022,TUV.3_1,Nanumea,5,4.2313,0.0,0.0,0.0
-2022,TUV.4_1,Niulakita,0,0.5038,0.0,nan,0.0
+2022,TUV.4_1,Niulakita,0,0.5038,0.0,,0.0
 2022,TUV.5_1,Niutao,4,2.9063,0.0,0.0,0.0
 2022,TUV.6_1,Nui,6,5.4441,0.0,0.0,0.0
 2022,TUV.7_1,Nukufetau,7,6.808,0.0,0.0,0.0

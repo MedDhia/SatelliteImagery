@@ -21,6 +21,7 @@ unweighted, so a governorate does not score high merely for being large.
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
@@ -522,6 +523,40 @@ def decomposition_series(
     return summary, group_rows
 
 
+def cell(value):
+    """What a value looks like in a published CSV.
+
+    A non-finite float has no printable value, and ``csv`` writes the literal
+    ``nan`` - a string ``float()`` accepts without complaint and ``sorted``
+    then mis-orders, so a median over the column comes back *wrong* rather
+    than absent. Oceania's read 63.0, the DN ceiling, for a pool whose units
+    are mostly below 1.0.
+
+    Blank is the encoding this repository already uses for a cell that does
+    not apply, and :func:`number` reads it back as the NaN it was, so nothing
+    computed changes.
+    """
+    try:
+        finite = math.isfinite(value)
+    except TypeError:  # a string, None, anything not a number
+        return value
+    return value if finite else ""
+
+
+def number(value):
+    """The float in a published cell; NaN where there is no measurement.
+
+    The inverse of :func:`cell`. A blank means the quantity does not apply -
+    Theil L where a unit has zero light, a half-life where the trend rises,
+    the nested split where there is no nesting - and NaN is what every caller
+    here read back when that cell still said ``nan``.
+    """
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float("nan")
+
+
 def write_csv(
     rows: Sequence[dict], path: str | Path, fields: Optional[Sequence] = None
 ):
@@ -538,5 +573,5 @@ def write_csv(
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
-            writer.writerow(row)
+            writer.writerow({k: cell(v) for k, v in row.items()})
     return path
