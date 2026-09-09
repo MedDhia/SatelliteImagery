@@ -57,18 +57,30 @@ LEVEL_TITLES: Dict[int, str] = {
 #:   County Municipality" at 93 of 293 (32%), and calling every Canadian census
 #:   division that would be wrong; it falls back to the generic title instead.
 #:   Applying this threshold changes none of the titles published before it.
-#: * **"NA" and alternations mean GADM declined**, so they fall back too -
-#:   Madagascar at both levels, Angola's "Municpality|City Council".
+#: * **"NA", "Unknown" and alternations mean GADM declined**, so they fall back
+#:   too - Madagascar at both levels, Angola's "Municpality|City Council",
+#:   Samoa's ADM_2, which is the literal string "Unknown" for all 43 units.
 #: * **A misspelling is reconciled against GADM itself**, never against our own
-#:   guess: Uruguay's "Municipiality" appears 124 times where the same column
-#:   spells "Municipality" 14,370 times.
+#:   guess - but *not* by frequency. Uruguay's "Municipiality" appears 124 times
+#:   where the same column spells "Municipality" 14,370 times, which makes the
+#:   correction look like a majority vote. The Marshall Islands shows it is not:
+#:   GADM spells its ADM_1 "Atol" 20 times against "Atoll" 3 times for Tokelau,
+#:   so the typo is the *more* common of the two. What settles it is that the
+#:   correct spelling of the word GADM is reaching for exists elsewhere in the
+#:   same column, not that it is more numerous.
+#:
+#: Countries whose most common ENGTYPE is a plurality rather than a majority,
+#: and so take the generic title: Canada (32% of 293), the United Kingdom (35%
+#: of 183), Australia ("Shire", 199 of 568 - also 35%), Belgium (45% of 11).
 COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "AGO": {0: "national", 1: "province"},
     "ALB": {0: "national", 1: "county"},
     "AND": {0: "national", 1: "parish"},
     "ARE": {0: "national", 1: "emirate", 2: "district"},
     "ARG": {0: "national", 1: "province", 2: "department"},
+    "ASM": {0: "national", 1: "district", 2: "county"},
     "ATG": {0: "national", 1: "parish"},
+    "AUS": {0: "national", 1: "state"},
     "AUT": {0: "national", 1: "state", 2: "district"},
     "BDI": {0: "national", 1: "province", 2: "commune"},
     "BEL": {0: "national", 1: "region"},
@@ -92,6 +104,7 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "CMR": {0: "national", 1: "region", 2: "department"},
     "COD": {0: "national", 1: "province", 2: "territory"},
     "COG": {0: "national", 1: "region", 2: "district"},
+    "COK": {0: "national", 1: "island council"},
     "COL": {0: "national", 1: "department", 2: "municipality"},
     "COM": {0: "national", 1: "autonomous island"},
     "CPV": {0: "national", 1: "county"},
@@ -113,7 +126,9 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "EST": {0: "national", 1: "county", 2: "parish"},
     "ETH": {0: "national", 1: "state", 2: "zone"},
     "FIN": {0: "national", 1: "province", 2: "region"},
+    "FJI": {0: "national", 1: "division", 2: "province"},
     "FRA": {0: "national", 1: "region", 2: "department"},
+    "FSM": {0: "national", 1: "state", 2: "municipality"},
     "GAB": {0: "national", 1: "province", 2: "department"},
     "GBR": {0: "national", 1: "constituent country"},
     "GHA": {0: "national", 1: "region", 2: "district"},
@@ -124,6 +139,7 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "GRC": {0: "national", 1: "decentralized administration", 2: "region"},
     "GRD": {0: "national", 1: "parish"},
     "GTM": {0: "national", 1: "department", 2: "municipality"},
+    "GUM": {0: "national", 1: "municipality"},
     "GUY": {0: "national", 1: "region", 2: "neighbourhood democratic"},
     "HND": {0: "national", 1: "department", 2: "municipality"},
     "HRV": {0: "national", 1: "county", 2: "commune"},
@@ -151,33 +167,42 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "MDA": {0: "national", 1: "district"},
     "MDG": {0: "national"},
     "MEX": {0: "national", 1: "state", 2: "municipality"},
+    "MHL": {0: "national", 1: "atoll"},
     "MKD": {0: "national", 1: "municipality"},
     "MLI": {0: "national", 1: "region", 2: "circle"},
     "MLT": {0: "national", 1: "region", 2: "local council"},
     "MNE": {0: "national", 1: "municipality"},
+    "MNP": {0: "national", 1: "municipality"},
     "MOZ": {0: "national", 1: "province", 2: "district"},
     "MRT": {0: "national", 1: "region", 2: "department"},
     "MUS": {0: "national", 1: "district"},
     "MWI": {0: "national", 1: "district", 2: "traditional authority"},
     "NAM": {0: "national", 1: "region", 2: "constituency"},
+    "NCL": {0: "national", 1: "province", 2: "commune"},
     "NER": {0: "national", 1: "department", 2: "arrondissement"},
     "NGA": {0: "national", 1: "state", 2: "local authority"},
     "NIC": {0: "national", 1: "department", 2: "municipality"},
     "NLD": {0: "national", 1: "province", 2: "municipality"},
     "NOR": {0: "national", 1: "county", 2: "municipality"},
+    "NRU": {0: "national", 1: "district"},
+    "NZL": {0: "national", 1: "region", 2: "district"},
     "OMN": {0: "national", 1: "region", 2: "province"},
     "PAN": {0: "national", 1: "province", 2: "district"},
     "PER": {0: "national", 1: "region", 2: "province"},
+    "PLW": {0: "national", 1: "state"},
+    "PNG": {0: "national", 1: "province", 2: "district"},
     "POL": {0: "national", 1: "voivodeship", 2: "county"},
     "PRT": {0: "national", 1: "district", 2: "municipality"},
     "PRY": {0: "national", 1: "department", 2: "district"},
     "PSE": {0: "national", 1: "district", 2: "governorate"},
+    "PYF": {0: "national", 1: "administrative subdivisions"},
     "QAT": {0: "national", 1: "municipality"},
     "ROU": {0: "national", 1: "county", 2: "commune"},
     "RWA": {0: "national", 1: "province", 2: "district"},
     "SAU": {0: "national", 1: "province", 2: "governorate"},
     "SDN": {0: "national", 1: "state", 2: "district"},
     "SEN": {0: "national", 1: "region", 2: "department"},
+    "SLB": {0: "national", 1: "province", 2: "ward"},
     "SLE": {0: "national", 1: "province", 2: "district"},
     "SLV": {0: "national", 1: "department", 2: "municipality"},
     "SMR": {0: "national", 1: "municipality"},
@@ -195,15 +220,22 @@ COUNTRY_LEVEL_TITLES: Dict[str, Dict[int, str]] = {
     "TCD": {0: "national", 1: "region", 2: "department"},
     "TGO": {0: "national", 1: "region", 2: "prefecture"},
     "THA": {0: "national", 1: "province", 2: "district"},
+    "TKL": {0: "national", 1: "atoll"},
+    "TON": {0: "national", 1: "island group", 2: "district"},
     "TTO": {0: "national", 1: "region"},
     "TUN": {0: "national", 1: "governorate", 2: "delegation"},
+    "TUV": {0: "national", 1: "island council"},
     "TZA": {0: "national", 1: "region", 2: "district"},
     "UGA": {0: "national", 1: "district", 2: "county"},
     "UKR": {0: "national", 1: "region", 2: "district"},
+    "UMI": {0: "national", 1: "island"},
     "URY": {0: "national", 1: "department", 2: "municipality"},
     "USA": {0: "national", 1: "state", 2: "county"},
     "VCT": {0: "national", 1: "parish"},
     "VEN": {0: "national", 1: "state", 2: "municipality"},
+    "VUT": {0: "national", 1: "province", 2: "area council"},
+    "WLF": {0: "national", 1: "kingdom", 2: "district"},
+    "WSM": {0: "national", 1: "district"},
     "XKO": {0: "national", 1: "district"},
     "YEM": {0: "national", 1: "governorate", 2: "district"},
     "ZAF": {0: "national", 1: "province", 2: "district municipality"},
@@ -261,6 +293,17 @@ LEVELS_AVAILABLE: Dict[str, tuple] = {
         "MNE",
         "MKD",
         "SMR",
+        # Oceania: ten with no GADM ADM_2 layer
+        "COK",
+        "GUM",
+        "MHL",
+        "MNP",
+        "NRU",
+        "PLW",
+        "PYF",
+        "TKL",
+        "TUV",
+        "UMI",
     )
 }
 
@@ -478,6 +521,49 @@ EUROPE = (
     "XKO",  # Kosovo
 )
 
+#: Oceania, as UN M49 defines it and GADM codes it: 22 entities.
+#:
+#: Six M49 members are **excluded because GADM provides no ADM_1 layer for
+#: them at all** - Kiribati, Niue, Norfolk Island, Christmas Island, the Cocos
+#: Islands and Pitcairn. Not "no admin-2": no subnational layer whatsoever, so
+#: ``prepare_level`` raises for level 1. This repository's whole subject is
+#: subnational inequality - Gini and Theil across admin units, the
+#: between/within decomposition, the per-admin-1 aridity join - and an entity
+#: with no units has nothing for any of it to measure. Kiribati is the one that
+#: stings, being a UN member state, and it is named in ``docs/oceania.md``
+#: rather than left as an absence a reader has to notice.
+#:
+#: Timor-Leste and the British Indian Ocean Territory are M49 South-eastern
+#: Asia and Sub-Saharan Africa respectively, so neither is here.
+#:
+#: Four of these entities have land on both sides of 180 degrees. That is what
+#: ``analysis.country_windows`` exists for; a crop would have deleted the
+#: Chatham Islands, Fiji's Lau group and Wake.
+OCEANIA = (
+    "AUS",  # Australia
+    "NZL",  # New Zealand
+    "FJI",  # Fiji
+    "NCL",  # New Caledonia
+    "PNG",  # Papua New Guinea
+    "SLB",  # Solomon Islands
+    "VUT",  # Vanuatu
+    "GUM",  # Guam
+    "MHL",  # Marshall Islands
+    "FSM",  # Micronesia
+    "NRU",  # Nauru
+    "MNP",  # Northern Mariana Islands
+    "PLW",  # Palau
+    "UMI",  # US Minor Outlying Islands
+    "ASM",  # American Samoa
+    "COK",  # Cook Islands
+    "PYF",  # French Polynesia
+    "WSM",  # Samoa
+    "TKL",  # Tokelau
+    "TON",  # Tonga
+    "TUV",  # Tuvalu
+    "WLF",  # Wallis and Futuna
+)
+
 COUNTRIES = (
     *ARAB_LEAGUE,
     "THA",
@@ -485,6 +571,7 @@ COUNTRIES = (
     *NORTH_AMERICA,
     *SOUTH_AMERICA,
     *EUROPE,
+    *OCEANIA,
 )
 
 #: Named comparison pools. Each owns its own cross-country artefacts, and a
@@ -496,6 +583,7 @@ POOLS: Dict[str, tuple] = {
     "north-america": NORTH_AMERICA,
     "south-america": SOUTH_AMERICA,
     "europe": EUROPE,
+    "oceania": OCEANIA,
 }
 DEFAULT_POOL = "arab-league"
 
@@ -519,7 +607,9 @@ COUNTRY_NAMES: Dict[str, str] = {
     "AND": "Andorra",
     "ARE": "United Arab Emirates",
     "ARG": "Argentina",
+    "ASM": "American Samoa",
     "ATG": "Antigua and Barbuda",
+    "AUS": "Australia",
     "AUT": "Austria",
     "BDI": "Burundi",
     "BEL": "Belgium",
@@ -543,6 +633,7 @@ COUNTRY_NAMES: Dict[str, str] = {
     "CMR": "Cameroon",
     "COD": "DR Congo",
     "COG": "Republic of the Congo",
+    "COK": "Cook Islands",
     "COL": "Colombia",
     "COM": "Comoros",
     "CPV": "Cabo Verde",
@@ -564,7 +655,9 @@ COUNTRY_NAMES: Dict[str, str] = {
     "EST": "Estonia",
     "ETH": "Ethiopia",
     "FIN": "Finland",
+    "FJI": "Fiji",
     "FRA": "France",
+    "FSM": "Micronesia",
     "GAB": "Gabon",
     "GBR": "United Kingdom",
     "GHA": "Ghana",
@@ -575,6 +668,7 @@ COUNTRY_NAMES: Dict[str, str] = {
     "GRC": "Greece",
     "GRD": "Grenada",
     "GTM": "Guatemala",
+    "GUM": "Guam",
     "GUY": "Guyana",
     "HND": "Honduras",
     "HRV": "Croatia",
@@ -602,33 +696,42 @@ COUNTRY_NAMES: Dict[str, str] = {
     "MDA": "Moldova",
     "MDG": "Madagascar",
     "MEX": "Mexico",
+    "MHL": "Marshall Islands",
     "MKD": "North Macedonia",
     "MLI": "Mali",
     "MLT": "Malta",
     "MNE": "Montenegro",
+    "MNP": "Northern Mariana Islands",
     "MOZ": "Mozambique",
     "MRT": "Mauritania",
     "MUS": "Mauritius",
     "MWI": "Malawi",
     "NAM": "Namibia",
+    "NCL": "New Caledonia",
     "NER": "Niger",
     "NGA": "Nigeria",
     "NIC": "Nicaragua",
     "NLD": "Netherlands",
     "NOR": "Norway",
+    "NRU": "Nauru",
+    "NZL": "New Zealand",
     "OMN": "Oman",
     "PAN": "Panama",
     "PER": "Peru",
+    "PLW": "Palau",
+    "PNG": "Papua New Guinea",
     "POL": "Poland",
     "PRT": "Portugal",
     "PRY": "Paraguay",
     "PSE": "Palestine",
+    "PYF": "French Polynesia",
     "QAT": "Qatar",
     "ROU": "Romania",
     "RWA": "Rwanda",
     "SAU": "Saudi Arabia",
     "SDN": "Sudan",
     "SEN": "Senegal",
+    "SLB": "Solomon Islands",
     "SLE": "Sierra Leone",
     "SLV": "El Salvador",
     "SMR": "San Marino",
@@ -646,15 +749,22 @@ COUNTRY_NAMES: Dict[str, str] = {
     "TCD": "Chad",
     "TGO": "Togo",
     "THA": "Thailand",
+    "TKL": "Tokelau",
+    "TON": "Tonga",
     "TTO": "Trinidad and Tobago",
     "TUN": "Tunisia",
+    "TUV": "Tuvalu",
     "TZA": "Tanzania",
     "UGA": "Uganda",
     "UKR": "Ukraine",
+    "UMI": "US Minor Outlying Islands",
     "URY": "Uruguay",
     "USA": "United States",
     "VCT": "Saint Vincent and the Grenadines",
     "VEN": "Venezuela",
+    "VUT": "Vanuatu",
+    "WLF": "Wallis and Futuna",
+    "WSM": "Samoa",
     "XKO": "Kosovo",
     "YEM": "Yemen",
     "ZAF": "South Africa",
