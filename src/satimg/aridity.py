@@ -668,10 +668,21 @@ def cell_of(majority_arid: bool, dark: bool) -> str:
 
 
 def dark_cut(values: Sequence[float], quantile: float = DARK_QUANTILE) -> float:
-    """The darkness threshold, from the pooled cross-country distribution."""
+    """The darkness threshold, from the pooled cross-country distribution.
+
+    Units with no value are dropped before the quantile is taken. A unit can
+    have none: an island smaller than a pixel gets aridity cells but no land
+    pixel in the light raster, so its ``mean_dn`` is 0/0. Oceania is the first
+    pool to contain any - Nauru's Aiwo and Yaren, Tuvalu's Niulakita - and
+    ``statistics.median`` over a list holding one NaN returns NaN, which then
+    makes ``mean_dn < cut`` False for *every* unit in the pool and quietly
+    records all of them as lit. A median over units that have no value is not
+    a median.
+    """
+    import math
     import statistics
 
-    ordered = sorted(values)
+    ordered = sorted(v for v in values if not math.isnan(v))
     if not ordered:
         return float("nan")
     if quantile == 0.5:
@@ -744,8 +755,29 @@ def vs_light(
 
     cut = dark_cut([r["mean_dn_2022"] for r in rows])
     for row in rows:
-        row["dark_2022"] = row["mean_dn_2022"] < cut
-        row["cell"] = cell_of(row["majority_arid"], row["dark_2022"])
+        # A unit with no land pixel in the light raster cannot be called dark
+        # or lit, and must not be. Left as False it would assert that an island
+        # with no observation is lit, and cell_of would then file it under
+        # "ordinary" - claiming both that it is not arid and that it is lit.
+        # Blank is what this table already uses for not-applicable, as
+        # light_scopes does.
+        no_light = math.isnan(row["mean_dn_2022"])
+        no_aridity = math.isnan(row["desert_share"])
+        if no_light:
+            row["dark_2022"] = ""
+        else:
+            row["dark_2022"] = row["mean_dn_2022"] < cut
+        # majority_arid was computed as `desert_share > MAJORITY`, and NaN > x
+        # is False - which asserts "not arid" about a unit with no aridity cell
+        # at all. Nauru's Boe is the case: it has light (29.0 DN) and no cells.
+        if no_aridity:
+            row["majority_arid"] = ""
+        # The cell needs both halves. Missing either, it is not a cell.
+        row["cell"] = (
+            ""
+            if (no_light or no_aridity)
+            else cell_of(row["majority_arid"], row["dark_2022"])
+        )
         for key in (
             "desert_share",
             "dryland_share",
