@@ -93,32 +93,29 @@ DEFAULT_TOLERANCE_M = RESOLUTION_M / 2
 #: Max segment length before reprojection, in degrees (~55 km at the equator).
 DEFAULT_SEGMENTIZE_DEG = 0.5
 
-#: Countries whose GADM geometry crosses the antimeridian, and the geographic
-#: window their analysis is cut to: ``(minx, miny, maxx, maxy)`` in degrees.
+#: Countries whose GADM geometry crosses the antimeridian and are cut to one
+#: hemisphere. **Empty, deliberately.**
 #:
-#: GADM's ``USA`` carries Alaskan vertices at both -179.15 and +179.77, because
-#: the Aleutians run past 180 into the eastern hemisphere. A bounding box is a
-#: flat lon/lat rectangle and knows nothing of the wrap, so ``total_bounds``
-#: spans the globe: 29,188 km wide in EPSG:8857, a 159-megapixel frame where
-#: the largest country otherwise analysed here is Chile at 21. That is not a
-#: slow render but an out-of-memory crash, and it reaches ``zonal.window_for``
-#: - the statistics - and not only the pictures.
+#: GADM's ``USA`` carries Alaskan vertices at both -179.15 and +179.77 because
+#: the Aleutians run past 180, so a flat lon/lat bounding box spanned the globe:
+#: 29,188 km, a 159-megapixel frame, an out-of-memory crash rather than a slow
+#: render, and one that reached the statistics through ``zonal.window_for`` and
+#: not only the pictures. This table held ``USA`` and cut it to the western
+#: hemisphere, which cost 2,121.9 km2 of near-unlit Aleutian rock - Attu,
+#: Agattu, Kiska, Amchitka, Semisopochnoi - or 0.141% of Alaska.
 #:
-#: Clipping to the western hemisphere gives 9,664 km and 52.6 Mpx while keeping
-#: all 51 ADM_1 features: two thirds of the frame goes without dropping a
-#: state. The residual width is real - Alaska to Maine is 112 degrees - and
-#: cannot shrink further without dropping Alaska itself.
+#: That crop is gone. ``analysis.country_windows`` now splits a country into as
+#: many non-wrapping windows as its land needs and the statistics span all of
+#: them, which gets the United States to 52.8 megapixels - the same cost as the
+#: crop - while keeping every pixel. Cropping was always the second-best
+#: answer; it was taken when the alternative did not exist yet.
 #:
-#: What the clip does drop is the Aleutian tail east of 180: 2,121.9 km2
-#: between 172.44E and 179.77E - Attu, Agattu, Kiska, Amchitka, Semisopochnoi -
-#: which is 0.141% of Alaska. They are near-unlit, and near-unlit is not unlit:
-#: Alaska's ``mean_dn`` and the United States totals are computed over a
-#: slightly smaller pixel set than GADM's geometry implies. Stitching two
-#: windows would keep every pixel; this repository took the crop and documents
-#: it in ``docs/americas.md`` rather than leaving it to be discovered.
-ANTIMERIDIAN_CLIP: Dict[str, Tuple[float, float, float, float]] = {
-    "USA": (-180.0, -90.0, -60.0, 90.0),
-}
+#: The table stays rather than being deleted because the mechanism is sound and
+#: the reasoning is worth keeping: if a future GADM release needs a country cut
+#: for some reason other than a wrap, this is where it is declared, and
+#: ``cache_path`` already encodes it so a cropped frame can never be served
+#: from an uncropped cache.
+ANTIMERIDIAN_CLIP: Dict[str, Tuple[float, float, float, float]] = {}
 
 
 def clip_bounds_for(iso3: Optional[str]) -> Optional[Tuple[float, ...]]:

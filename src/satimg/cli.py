@@ -424,7 +424,6 @@ def _region_rasters(args):
 def cmd_extract(args) -> int:
     """Clip a country out of the series and render it at each admin level."""
     from . import regions as R
-    from . import zonal as Z
     from .overlay import (
         OverlayStyle,
         line_segments,
@@ -461,9 +460,25 @@ def cmd_extract(args) -> int:
             file=sys.stderr,
         )
 
-    # One window for every level and year: the country's extent on the shared grid.
+    # One window for every level and year: the country's extent on the shared
+    # grid. For a country whose land straddles the antimeridian this is the
+    # LARGEST of its analysis windows, not the extent of its bounding box - a
+    # flat lon/lat box round the United States spans the globe (159 megapixels,
+    # an out-of-memory crash), while its main window is 52.7. The pictures show
+    # the principal landmass; the statistics, in analysis.build_grids, span
+    # every window and drop nothing. docs/americas.md says which is which.
     outline = R.load_units(R.country_layer(iso3, 0, root=args.boundaries_root))
-    window = Z.window_for(rasters[0][1], outline.total_bounds)
+    from .analysis import country_windows
+
+    render_windows = country_windows(rasters[0][1], [outline])
+    window = max(render_windows, key=lambda w: int(w.width) * int(w.height))
+    if len(render_windows) > 1:
+        print(
+            f"{iso3}: land spans {len(render_windows)} windows; rendering the "
+            f"largest ({int(window.width)}x{int(window.height)} px). "
+            "Statistics use all of them.",
+            file=sys.stderr,
+        )
     mask_geoms = None if args.no_mask else list(outline.geometry)
     from .overlay import REGION_CMAP
 
