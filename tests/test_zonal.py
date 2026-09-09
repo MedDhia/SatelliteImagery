@@ -229,3 +229,100 @@ def test_levels_with_different_extents_still_align(tmp_path):
     assert a2.ids.shape == b2.ids.shape
     # and the pixels the parent does not cover stay zone 0 there, not reassigned
     assert ((b2.ids > 0) & (a2.ids == 0)).any()
+
+
+# --- many windows for one country -------------------------------------------
+#
+# A lon/lat bounding box knows nothing of the antimeridian. GADM reports
+# -180..180 for Fiji, a country 500 km across, and -178..167 for the nine
+# specks of UMI, one of which is in the Caribbean. Splitting the space into
+# non-wrapping windows and concatenating them keeps every pixel.
+
+
+def test_read_window_concatenates_a_tuple_of_windows(tmp_path):
+    from satimg import zonal as Z
+
+    array = np.arange(400, dtype="int16").reshape(20, 20)
+    path = _raster(tmp_path / "r.tif", array)
+
+    whole = Z.window_for(path, (OX, OY - 20000, OX + 20000, OY))
+    one, sig1 = Z.read_window(path, whole)
+    assert one.ndim == 2, "a single window must still come back 2-D"
+
+    # Deliberately far apart: window_for pads by a pixel, so adjacent windows
+    # would overlap and double-count the seam. Real clusters are 20 degrees
+    # apart and country_windows asserts non-overlap.
+    left = Z.window_for(path, (OX, OY - 20000, OX + 4000, OY))
+    right = Z.window_for(path, (OX + 15000, OY - 20000, OX + 20000, OY))
+    both, sig2 = Z.read_window(path, (left, right))
+    assert both.ndim == 1, "several windows must come back flat"
+    assert both.size == left.width * left.height + right.width * right.height
+    assert sig1 == sig2
+    # the two disjoint windows sum to less than the whole, and to exactly
+    # what reading each of them separately gives
+    a, _ = Z.read_window(path, left)
+    b, _ = Z.read_window(path, right)
+    assert np.nansum(both) == np.nansum(a) + np.nansum(b)
+    assert np.nansum(both) < np.nansum(one)
+
+
+def test_read_window_refuses_an_empty_window_tuple(tmp_path):
+    from satimg import zonal as Z
+
+    path = _raster(tmp_path / "r.tif", np.ones((5, 5), dtype="int16"))
+    with pytest.raises(ValueError, match="empty window tuple"):
+        Z.read_window(path, ())
+
+
+def test_zone_grid_over_two_windows_keeps_one_unit_whole(tmp_path):
+    """A unit present in both windows accumulates, not chooses a side."""
+    gpd = pytest.importorskip("geopandas")
+
+    from satimg import zonal as Z
+
+    path = _raster(tmp_path / "r.tif", np.ones((20, 20), dtype="int16"))
+    # one unit with land in two far-apart places, as a Pacific state has
+    left = box(OX, OY - 4000, OX + 3000, OY)
+    right = box(OX + 16000, OY - 4000, OX + 20000, OY)
+    frame = gpd.GeoDataFrame(
+        {"GID_1": ["A"]},
+        geometry=[left.union(right)],
+        crs=f"EPSG:{CRS_EPSG}",
+    )
+    w1 = Z.window_for(path, (OX, OY - 4000, OX + 3000, OY))
+    w2 = Z.window_for(path, (OX + 16000, OY - 4000, OX + 20000, OY))
+
+    grid = Z.build_zone_grid(path, frame, id_field="GID_1", window=(w1, w2))
+    assert grid.ids.ndim == 1
+    assert len(grid.windows) == 2
+    assert grid.read_windows == (w1, w2)
+    # the single unit is burned in both windows under the same id
+    assert grid.count == 1
+    assert (grid.ids == 1).sum() > 0
+    per_zone = grid.pixels_per_zone()
+    assert per_zone[0] == (grid.ids == 1).sum()
+
+    # and the values line up with the ids, so the aggregate is exact
+    values, _ = Z.read_window(path, grid.read_windows)
+    assert values.size == grid.ids.size
+    sums, counts = Z.zonal_sums(values, grid.ids, grid.count)
+    assert counts[0] == per_zone[0]
+    assert sums[0] == per_zone[0]  # every pixel is 1
+
+
+def test_one_window_still_yields_a_2d_grid_and_its_own_window(tmp_path):
+    """The overwhelmingly common case must be untouched."""
+    gpd = pytest.importorskip("geopandas")
+
+    from satimg import zonal as Z
+
+    path = _raster(tmp_path / "r.tif", np.ones((10, 10), dtype="int16"))
+    frame = gpd.GeoDataFrame(
+        {"GID_1": ["A"]},
+        geometry=[box(OX, OY - 5000, OX + 5000, OY)],
+        crs=f"EPSG:{CRS_EPSG}",
+    )
+    grid = Z.build_zone_grid(path, frame, id_field="GID_1")
+    assert grid.ids.ndim == 2
+    assert len(grid.windows) == 1
+    assert grid.read_windows is grid.window
