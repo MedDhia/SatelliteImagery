@@ -47,6 +47,39 @@ UZB,UZB.12_1,Surxondaryo,0.4402,0.9368,0.0632,19886.0432,29387,3.3066,4.2142,Fal
 UZB,UZB.14_1,Toshkent,0.0,0.6423,0.3577,15119.3074,23392,8.3947,11.3851,False,,False,False,ordinary
 UZB,UZB.13_1,Toshkent Shahri,0.0,1.0,0.0,325.657,504,58.6972,62.1948,False,,False,False,ordinary
 UZB,UZB.7_1,Xorazm,1.0,1.0,0.0,7294.1725,11303,5.266,6.9662,True,,False,False,lit_desert
+CHN,CHN.1_1,Anhui,0.0,0.111,0.889,140308.7289,192514,1.2184,11.6421,False,,False,False,ordinary
+CHN,CHN.2_1,Beijing,0.0,1.0,0.0,16410.3886,24990,11.0738,27.3688,False,,False,False,ordinary
+CHN,CHN.3_1,Chongqing,0.0,0.0,1.0,82447.8459,111081,0.5654,6.2164,False,,False,False,ordinary
+CHN,CHN.4_1,Fujian,0.0,0.0,1.0,122110.5365,158663,1.2878,11.0151,False,,False,False,ordinary
+CHN,CHN.5_1,Gansu,0.4568,0.7836,0.2164,405200.7089,597693,0.228,2.1707,False,,False,True,anomalously_dark
+CHN,CHN.6_1,Guangdong,0.0,0.0,1.0,177769.3773,226059,4.1216,17.8629,False,,False,False,ordinary
+CHN,CHN.7_1,Guangxi,0.0,0.0,1.0,236552.5118,301916,0.5265,5.0821,False,,False,True,anomalously_dark
+CHN,CHN.8_1,Guizhou,0.0,0.0,1.0,175959.6403,230061,0.3569,3.6279,False,,False,True,anomalously_dark
+CHN,CHN.9_1,Hainan,0.0,0.0,1.0,34064.1708,42137,0.9632,13.1255,False,,False,False,ordinary
+CHN,CHN.10_1,Hebei,0.0,0.9994,0.0006,187570.7498,283138,2.9332,12.5093,False,,False,False,ordinary
+CHN,CHN.11_1,Heilongjiang,0.0,0.3467,0.6533,454838.1404,787667,0.7821,3.3103,False,,False,True,anomalously_dark
+CHN,CHN.12_1,Henan,0.0,0.5081,0.4919,165522.078,232322,2.4536,13.7841,False,,False,False,ordinary
+CHN,CHN.HKG,Hong Kong,0.0,0.0,1.0,1129.3094,1426,45.9401,50.4628,False,,False,False,ordinary
+CHN,CHN.13_1,Hubei,0.0,0.0,1.0,186025.5337,252959,1.0502,6.8437,False,,False,False,ordinary
+CHN,CHN.14_1,Hunan,0.0,0.0,1.0,212075.0342,279242,0.5703,4.7609,False,,False,True,anomalously_dark
+CHN,CHN.15_1,Jiangsu,0.0,0.1095,0.8905,101680.9317,141256,5.2656,28.1139,False,,False,False,ordinary
+CHN,CHN.16_1,Jiangxi,0.0,0.0,1.0,167007.1828,219919,0.5396,5.6652,False,,False,True,anomalously_dark
+CHN,CHN.17_1,Jilin,0.0,0.3831,0.6169,191025.5978,307020,1.2421,4.975,False,,False,True,anomalously_dark
+CHN,CHN.18_1,Liaoning,0.0,0.5803,0.4197,145797.4275,225738,3.1822,9.1829,False,,False,False,ordinary
+CHN,CHN.MAC,Macau,0.0,0.0,1.0,30.1406,38,51.5758,60.8699,False,,False,False,ordinary
+CHN,CHN.19_1,Nei Mongol,0.3658,0.9051,0.0949,1146491.4527,1859256,0.1432,1.3268,False,,False,True,anomalously_dark
+CHN,CHN.20_1,Ningxia Hui,0.3588,0.9852,0.0148,51859.5101,75875,0.8806,6.6661,False,,False,False,ordinary
+CHN,CHN.21_1,Qinghai,0.2518,0.8129,0.1871,715701.8256,1027457,0.0304,0.3661,False,,False,True,anomalously_dark
+CHN,CHN.22_1,Shaanxi,0.0,0.5522,0.4478,205886.5943,293605,0.9514,6.2324,False,,False,False,ordinary
+CHN,CHN.23_1,Shandong,0.0,0.8168,0.1832,155522.2148,224870,4.5491,21.2464,False,,False,False,ordinary
+CHN,CHN.24_1,Shanghai,0.0,0.0,1.0,6880.2023,9376,22.2337,49.7136,False,,False,False,ordinary
+CHN,CHN.25_1,Shanxi,0.0,0.9906,0.0094,156476.3347,229904,2.7907,9.1229,False,,False,False,ordinary
+CHN,CHN.26_1,Sichuan,0.0,0.0407,0.9593,483849.9703,655755,0.2671,2.8109,False,,False,True,anomalously_dark
+CHN,CHN.27_1,Tianjin,0.0,0.9997,0.0003,11700.0931,17596,12.5217,35.1985,False,,False,False,ordinary
+CHN,CHN.28_1,Xinjiang Uygur,0.8347,0.9777,0.0223,1599249.5578,2476724,0.1,1.209,True,,False,True,desert_dark
+CHN,CHN.29_1,Xizang,0.3642,0.8284,0.1716,1125974.6209,1543160,0.0033,0.1418,False,,False,True,anomalously_dark
+CHN,CHN.30_1,Yunnan,0.0,0.0302,0.9698,383077.7982,493422,0.2929,3.7613,False,,False,True,anomalously_dark
+CHN,CHN.31_1,Zhejiang,0.0,0.0,1.0,102799.4988,137321,2.4637,19.4031,False,,False,False,ordinary
 JPN,JPN.1_1,Aichi,0.0,0.0,1.0,5139.6077,7311,39.1626,41.014,False,,False,False,ordinary
 JPN,JPN.2_1,Akita,0.0,0.0,1.0,11636.1463,17609,5.8209,10.8405,False,,False,False,ordinary
 JPN,JPN.3_1,Aomori,0.0,0.0,1.0,9666.1076,14849,9.3075,14.5165,False,,False,False,ordinary
@@ -359,7 +392,7 @@ THA,THA.4_1,Bueng Kan,0.0,0.0,1.0,4001.6221,4920,0.1221,6.0528,False,,False,Fals
 THA,THA.5_1,Buri Ram,0.0,0.0032,0.9968,10075.3013,12182,0.2615,7.553,False,,False,False,ordinary
 THA,THA.6_1,Chachoengsao,0.0,0.0,1.0,5223.8167,6283,2.5521,17.5608,False,,False,False,ordinary
 THA,THA.7_1,Chai Nat,0.0,0.6416,0.3584,2465.3449,2985,0.7645,12.9167,False,,False,False,ordinary
-THA,THA.8_1,Chaiyaphum,0.0,0.1809,0.8191,12672.9702,15410,0.2741,5.858,False,,False,False,ordinary
+THA,THA.8_1,Chaiyaphum,0.0,0.1809,0.8191,12672.9702,15410,0.2741,5.858,False,,False,True,anomalously_dark
 THA,THA.9_1,Chanthaburi,0.0,0.0,1.0,6253.7224,7500,0.6877,8.5832,False,,False,False,ordinary
 THA,THA.10_1,Chiang Mai,0.0,0.0119,0.9881,22096.4449,27269,1.0402,5.7713,False,,False,True,anomalously_dark
 THA,THA.11_1,Chiang Rai,0.0,0.0,1.0,11578.8692,14379,0.886,8.5927,False,,False,False,ordinary
@@ -584,7 +617,7 @@ IND,IND.15_1,Jharkhand,0.0,0.0337,0.9663,80021.3438,101990,1.1849,5.2949,False,,
 IND,IND.16_1,Karnataka,0.0,0.7565,0.2435,191378.8052,231364,1.5826,10.1558,False,,False,False,ordinary
 IND,IND.17_1,Kerala,0.0,0.0001,0.9999,37694.0252,44829,4.7099,16.2345,False,,False,False,ordinary
 IND,IND.18_1,Lakshadweep,0.0,0.0,1.0,36.1644,43,0.9706,7.3358,False,,False,False,ordinary
-IND,IND.19_1,Madhya Pradesh,0.0,0.5909,0.4091,308032.9718,392328,1.3589,5.8619,False,,False,False,ordinary
+IND,IND.19_1,Madhya Pradesh,0.0,0.5909,0.4091,308032.9718,392328,1.3589,5.8619,False,,False,True,anomalously_dark
 IND,IND.20_1,Maharashtra,0.0,0.7144,0.2856,307301.2026,380802,2.8931,10.1201,False,,False,False,ordinary
 IND,IND.21_1,Manipur,0.0,0.0,1.0,22308.0065,28668,0.3358,2.7201,False,,False,True,anomalously_dark
 IND,IND.22_1,Meghalaya,0.0,0.0,1.0,21263.4744,27502,0.2775,2.3849,False,,False,True,anomalously_dark
@@ -859,7 +892,7 @@ TUR,TUR.47_1,Kayseri,0.0,0.9995,0.0005,15943.6342,23768,1.7435,8.0644,False,,Fal
 TUR,TUR.48_1,Kilis,0.0,1.0,0.0,1420.7635,2066,1.0077,11.9873,False,,False,False,ordinary
 TUR,TUR.49_1,Kinkkale,0.0,1.0,0.0,4673.2218,7075,1.9491,6.1849,False,,False,False,ordinary
 TUR,TUR.50_1,Kirklareli,0.0,0.9686,0.0314,6350.1275,9888,2.5506,7.9356,False,,False,False,ordinary
-TUR,TUR.51_1,Kirsehir,0.0,1.0,0.0,6784.5462,10204,1.7108,5.8938,False,,False,False,ordinary
+TUR,TUR.51_1,Kirsehir,0.0,1.0,0.0,6784.5462,10204,1.7108,5.8938,False,,False,True,anomalously_dark
 TUR,TUR.52_1,Kocaeli,0.0,0.1414,0.8586,4033.3497,6203,6.6969,22.7309,False,,False,False,ordinary
 TUR,TUR.53_1,Konya,0.0,0.9985,0.0015,40928.3359,60488,1.0948,5.0266,False,,False,True,anomalously_dark
 TUR,TUR.54_1,Kütahya,0.0,0.8481,0.1519,12205.5044,18346,0.697,6.3064,False,,False,False,ordinary
@@ -868,7 +901,7 @@ TUR,TUR.56_1,Manisa,0.0,0.9764,0.0236,13223.3511,19736,1.4955,8.5792,False,,Fals
 TUR,TUR.57_1,Mardin,0.0,1.0,0.0,10552.1061,15456,1.3595,9.5182,False,,False,False,ordinary
 TUR,TUR.58_1,Mersin,0.0,0.9866,0.0134,15212.7632,22089,1.9516,7.6631,False,,False,False,ordinary
 TUR,TUR.59_1,Mugla,0.0,0.8512,0.1488,12822.9141,18699,1.6246,7.9648,False,,False,False,ordinary
-TUR,TUR.60_1,Mus,0.0,0.5903,0.4097,8139.2917,12190,0.3657,5.8986,False,,False,False,ordinary
+TUR,TUR.60_1,Mus,0.0,0.5903,0.4097,8139.2917,12190,0.3657,5.8986,False,,False,True,anomalously_dark
 TUR,TUR.61_1,Nevsehir,0.0,1.0,0.0,5135.7236,7670,3.8497,10.1951,False,,False,False,ordinary
 TUR,TUR.62_1,Nigde,0.0,0.9841,0.0159,7185.5366,10607,2.2736,9.4546,False,,False,False,ordinary
 TUR,TUR.63_1,Ordu,0.0,0.1167,0.8833,5914.1775,9086,1.4412,10.3372,False,,False,False,ordinary

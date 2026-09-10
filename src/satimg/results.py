@@ -333,7 +333,6 @@ MEDIAN_TIES: Dict[str, str] = {
     # unit changes when it is in; the test recomputes every pool's cut from
     # the committed CSVs, which is what forces the correction either way
     # rather than letting the published gloss drift from the numbers.
-    "asia": "Thailand's Chaiyaphum",
     # Oceania is deliberately absent. With 201 measured units it had a real
     # tie - Samoa's Va'a-o-Fonoti at 0.2879 - and Australia's eleven states
     # took the count to 212. An even count averages the two middles, so the
