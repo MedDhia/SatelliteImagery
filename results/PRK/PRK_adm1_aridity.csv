@@ -1,0 +1,15 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+PRK,PRK.1_1,Chagang-do,16695.1285,25650,25650,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.2_1,Hamgyŏng-bukto,15834.1727,24705,24705,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.3_1,Hamgyŏng-namdo,18490.5019,28192,28192,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.4_1,Hwanghae-bukto,8240.0289,12267,12267,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.5_1,Hwanghae-namdo,8559.4474,12676,12676,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.6_1,Kaesŏng,1181.2417,1745,1745,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.7_1,Kangwŏn-do,10267.5526,15317,15317,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.8_1,Kumgangsan,981.455,1461,1461,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.9_1,P'yŏngan-bukto,12408.1338,18854,18854,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.10_1,P'yŏngan-namdo,12465.9071,18793,18793,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.11_1,P'yŏngyang,2719.5573,4072,4072,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.12_1,Rasŏn,847.566,1334,1334,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.13_1,Ryanggang,13907.3609,21533,21533,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PRK,PRK.14_1,Sinŭiju,110.4977,168,168,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

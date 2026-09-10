@@ -613,12 +613,20 @@ OCEANIA = (
 #: first time. That is the pool design working as intended, not duplication:
 #: each pool cuts ``dark_2022`` at its own median.
 #:
-#: **Three M49 members cannot be analysed.** GADM 4.1 has an ADM_0 for the
+#: **One M49 member cannot be analysed**: GADM 4.1 has an ADM_0 for the
 #: Maldives but no ADM_1, so it has no units to compare - the Kiribati problem
-#: exactly. Hong Kong and Macao are worse: they have no feature at any level,
-#: being folded into China, so they are not absent from this list by choice
-#: either. Timor-Leste is M49 South-eastern Asia and is here; the British
-#: Indian Ocean Territory is M49 Sub-Saharan Africa and is not.
+#: exactly.
+#:
+#: **Hong Kong and Macao are analysed, inside China.** They have no ADM_0 of
+#: their own, but GADM carries them as two of China's 33 ADM_1 units, under
+#: the non-numeric ids ``CHN.HKG`` and ``CHN.MAC`` and the ``ENGTYPE_1``
+#: "Special Administrative Region", with 18 and 2 admin-2 units. So they are
+#: measured at both levels; they simply do not get a country row, and their
+#: light is counted toward China's. Taiwan is *not* among China's units, so
+#: including TWN separately double-counts nothing.
+#:
+#: Timor-Leste is M49 South-eastern Asia and is here; the British Indian
+#: Ocean Territory is M49 Sub-Saharan Africa and is not.
 #:
 #: **Russia is here, and analysable, which it was not when Europe was built.**
 #: It is excluded from EUROPE because three quarters of its area is Asian, and
