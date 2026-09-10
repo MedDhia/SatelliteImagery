@@ -1,0 +1,8 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+TWN,TWN.1_1,Fujian,185.1179,238,238,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.2_1,Kaohsiung,2959.8648,3771,3754,17,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.3_1,New Taipei,2059.6942,2652,2652,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.4_1,Taichung,2208.5641,2869,2827,42,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.5_1,Tainan,2223.3998,2823,2823,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.6_1,Taipei,279.3848,360,360,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+TWN,TWN.7_1,Taiwan,26161.1373,33745,33361,384,2.9901455923657643e-05,0.0,0.0,0.0,0.9999700985440764,2.9901455923657643e-05,2.9901455923657643e-05,adm1
