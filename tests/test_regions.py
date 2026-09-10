@@ -165,6 +165,9 @@ def test_countries_without_gadm_admin_2():
         "TKL",
         "TUV",
         "UMI",  # Oceania
+        "ARM",
+        "ISR",
+        "SGP",  # Asia
     }
     for iso3 in R.LEVELS_AVAILABLE:
         assert R.available_levels(iso3) == (0, 1), iso3
@@ -470,16 +473,30 @@ def test_europe_does_not_overlap_the_other_pools():
         assert not shared, f"europe overlaps {other}: {sorted(shared)}"
 
 
-def test_russia_monaco_and_the_vatican_are_absent_for_stated_reasons():
-    """Three absences, two different kinds, both documented in the module."""
+def test_monaco_and_the_vatican_are_absent_because_gadm_has_no_feature():
+    """An absence the source imposes, not one this repository chose."""
     from satimg import regions as R
 
-    # Monaco and the Vatican have no GADM feature at any level.
-    # Russia is excluded by choice - mostly Asian, and its antimeridian wrap
-    # cannot take the Alaskan crop without losing 114,686 km2 of Chukotka.
-    for iso3 in ("MCO", "VAT", "RUS"):
+    for iso3 in ("MCO", "VAT"):
         assert iso3 not in R.EUROPE
         assert iso3 not in R.COUNTRIES
+
+
+def test_russia_is_out_of_europe_but_analysed_in_asia():
+    """The reason it left EUROPE is not a reason to leave it unmeasured.
+
+    Europe excludes it on two grounds: three quarters of its area is Asian,
+    and an antimeridian crop would have cost 114,686 km2 of Chukotka. The
+    first still holds. The second stopped being a cost when
+    ``analysis.country_windows`` arrived for Fiji and New Zealand, so Russia
+    is analysed whole, in the pool it actually belongs to.
+    """
+    from satimg import regions as R
+
+    assert "RUS" not in R.EUROPE
+    assert "RUS" in R.ASIA
+    assert "RUS" in R.COUNTRIES
+    assert R.available_levels("RUS") == (0, 1, 2)
 
 
 def test_the_six_european_generic_admin_2_titles():
