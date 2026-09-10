@@ -321,7 +321,7 @@ SGP,SGP.5_1,West,0.0,0.0,1.0,205.0968,240,56.1983,62.0488,False,,False,False,ord
 THA,THA.1_1,Amnat Charoen,0.0,0.0,1.0,3241.6132,3939,0.0819,6.3865,False,,False,False,ordinary
 THA,THA.2_1,Ang Thong,0.0,0.9825,0.0175,946.197,1143,3.7681,28.3264,False,,False,False,ordinary
 THA,THA.3_1,Bangkok Metropolis,0.0,0.0,1.0,1563.6633,1882,45.4802,58.4283,False,,False,False,ordinary
-THA,THA.4_1,Bueng Kan,0.0,0.0,1.0,4001.6221,4920,0.1221,6.0528,False,,False,False,ordinary
+THA,THA.4_1,Bueng Kan,0.0,0.0,1.0,4001.6221,4920,0.1221,6.0528,False,,False,True,anomalously_dark
 THA,THA.5_1,Buri Ram,0.0,0.0032,0.9968,10075.3013,12182,0.2615,7.553,False,,False,False,ordinary
 THA,THA.6_1,Chachoengsao,0.0,0.0,1.0,5223.8167,6283,2.5521,17.5608,False,,False,False,ordinary
 THA,THA.7_1,Chai Nat,0.0,0.6416,0.3584,2465.3449,2985,0.7645,12.9167,False,,False,False,ordinary
@@ -362,9 +362,9 @@ THA,THA.41_1,Phayao,0.0,0.0,1.0,6114.5137,7565,0.4638,5.9401,False,,False,True,a
 THA,THA.42_1,Phetchabun,0.0,0.0,1.0,12396.2398,15091,0.3046,5.442,False,,False,True,anomalously_dark
 THA,THA.43_1,Phetchaburi,0.0,0.6792,0.3208,6173.8079,7406,1.7613,10.8921,False,,False,False,ordinary
 THA,THA.44_1,Phichit,0.0,0.0,1.0,4311.0813,5248,0.5835,8.6706,False,,False,False,ordinary
-THA,THA.45_1,Phitsanulok,0.0,0.0,1.0,10603.8257,12956,0.6668,6.1089,False,,False,False,ordinary
+THA,THA.45_1,Phitsanulok,0.0,0.0,1.0,10603.8257,12956,0.6668,6.1089,False,,False,True,anomalously_dark
 THA,THA.46_1,Phra Nakhon Si Ayutthaya,0.0,0.2095,0.7905,2543.675,3069,8.6348,34.2652,False,,False,False,ordinary
-THA,THA.47_1,Phrae,0.0,0.0,1.0,6469.7544,7957,0.5369,6.068,False,,False,False,ordinary
+THA,THA.47_1,Phrae,0.0,0.0,1.0,6469.7544,7957,0.5369,6.068,False,,False,True,anomalously_dark
 THA,THA.48_1,Phuket,0.0,0.0,1.0,552.9413,653,17.2401,50.6406,False,,False,False,ordinary
 THA,THA.49_1,Prachin Buri,0.0,0.0,1.0,4986.71,6009,0.295,13.2221,False,,False,False,ordinary
 THA,THA.50_1,Prachuap Khiri Khan,0.0,0.2826,0.7174,6426.0944,7680,1.8925,10.0766,False,,False,False,ordinary
@@ -533,6 +533,41 @@ BTN,BTN.16_1,Trongsa,0.0,0.026,0.974,1810.2435,2379,0.0,0.4034,False,,False,True
 BTN,BTN.17_1,Tsirang,0.0,0.0,1.0,642.1635,841,0.0,0.753,False,,False,True,anomalously_dark
 BTN,BTN.18_1,Wangdue Phodrang,0.0,0.2782,0.7218,4036.0472,5310,0.0,0.5027,False,,False,True,anomalously_dark
 BTN,BTN.20_1,Zhemgang,0.0,0.0,1.0,2418.3244,3168,0.0,0.0518,False,,False,True,anomalously_dark
+IND,IND.1_1,Andaman and Nicobar,0.0,0.0,1.0,7589.2514,9053,0.2546,0.8469,False,,False,True,anomalously_dark
+IND,IND.2_1,Andhra Pradesh,0.0,0.817,0.183,160058.6101,194391,2.014,9.6307,False,,False,False,ordinary
+IND,IND.3_1,Arunachal Pradesh,0.0,0.0,1.0,14863.8242,19565,0.2327,0.8616,False,,False,True,anomalously_dark
+IND,IND.4_1,Assam,0.0,0.0,1.0,78490.3639,102215,1.3969,4.9397,False,,False,True,anomalously_dark
+IND,IND.5_1,Bihar,0.0,0.2851,0.7149,94230.598,122020,0.5454,10.2919,False,,False,False,ordinary
+IND,IND.6_1,Chandigarh,0.0,0.0,1.0,117.2338,159,56.678,62.7454,False,,False,False,ordinary
+IND,IND.7_1,Chhattisgarh,0.0,0.0036,0.9964,135425.1016,169769,0.638,5.2746,False,,False,True,anomalously_dark
+IND,IND.8_1,Dadra and Nagar Haveli,0.0,0.0,1.0,493.368,614,1.4564,21.5729,False,,False,False,ordinary
+IND,IND.9_1,Daman and Diu,0.0,0.3065,0.6935,80.9961,101,16.9268,48.2844,False,,False,False,ordinary
+IND,IND.10_1,Goa,0.0,0.0,1.0,3706.876,4493,4.873,15.595,False,,False,False,ordinary
+IND,IND.11_1,Gujarat,0.1443,0.9334,0.0666,185725.8828,235071,2.9334,9.9677,False,,False,False,ordinary
+IND,IND.12_1,Haryana,0.0473,0.928,0.072,44028.2127,58822,8.7958,17.703,False,,False,False,ordinary
+IND,IND.13_1,Himachal Pradesh,0.0001,0.2738,0.7262,55197.6633,75804,0.4468,3.3726,False,,False,True,anomalously_dark
+IND,IND.15_1,Jharkhand,0.0,0.0337,0.9663,80021.3438,101990,1.1849,5.2949,False,,False,True,anomalously_dark
+IND,IND.16_1,Karnataka,0.0,0.7565,0.2435,191378.8052,231364,1.5826,10.1558,False,,False,False,ordinary
+IND,IND.17_1,Kerala,0.0,0.0001,0.9999,37694.0252,44829,4.7099,16.2345,False,,False,False,ordinary
+IND,IND.18_1,Lakshadweep,0.0,0.0,1.0,36.1644,43,0.9706,7.3358,False,,False,False,ordinary
+IND,IND.19_1,Madhya Pradesh,0.0,0.5909,0.4091,308032.9718,392328,1.3589,5.8619,False,,False,True,anomalously_dark
+IND,IND.20_1,Maharashtra,0.0,0.7144,0.2856,307301.2026,380802,2.8931,10.1201,False,,False,False,ordinary
+IND,IND.21_1,Manipur,0.0,0.0,1.0,22308.0065,28668,0.3358,2.7201,False,,False,True,anomalously_dark
+IND,IND.22_1,Meghalaya,0.0,0.0,1.0,21263.4744,27502,0.2775,2.3849,False,,False,True,anomalously_dark
+IND,IND.23_1,Mizoram,0.0,0.0,1.0,21236.3832,26996,0.0859,0.5309,False,,False,True,anomalously_dark
+IND,IND.24_1,Nagaland,0.0,0.0,1.0,16605.7573,21571,0.2097,1.9396,False,,False,True,anomalously_dark
+IND,IND.25_1,NCT of Delhi,0.0,1.0,0.0,1498.9346,1992,47.2781,58.886,False,,False,False,ordinary
+IND,IND.26_1,Odisha,0.0,0.0,1.0,155642.813,194112,0.6383,4.8573,False,,False,True,anomalously_dark
+IND,IND.27_1,Puducherry,0.0,0.4058,0.5942,534.7063,639,10.5174,30.738,False,,False,False,ordinary
+IND,IND.28_1,Punjab,0.0285,0.8978,0.1022,50237.16,68214,8.7056,17.9693,False,,False,False,ordinary
+IND,IND.29_1,Rajasthan,0.4879,0.9996,0.0004,341914.762,446221,1.366,6.6427,False,,False,False,ordinary
+IND,IND.30_1,Sikkim,0.0,0.4085,0.5915,7082.9506,9321,0.1429,1.4673,False,,False,True,anomalously_dark
+IND,IND.31_1,Tamil Nadu,0.0,0.8969,0.1031,130289.2357,155238,4.0934,14.3125,False,,False,False,ordinary
+IND,IND.32_1,Telangana,0.0,0.9373,0.0627,114719.5684,140792,2.7116,12.2804,False,,False,False,ordinary
+IND,IND.33_1,Tripura,0.0,0.0,1.0,10539.4385,13441,1.2391,6.5743,False,,False,False,ordinary
+IND,IND.34_1,Uttar Pradesh,0.0,0.6306,0.3694,240780.0363,315145,2.5544,8.3631,False,,False,False,ordinary
+IND,IND.35_1,Uttarakhand,0.0,0.0,1.0,52572.6871,70877,0.8428,4.2712,False,,False,True,anomalously_dark
+IND,IND.36_1,West Bengal,0.0,0.0,1.0,85391.0348,108995,3.0916,9.6851,False,,False,False,ordinary
 IRN,IRN.1_1,Alborz,0.596,1.0,0.0,5390.572,7754,12.393,23.5701,True,,False,False,lit_desert
 IRN,IRN.2_1,Ardebil,0.0,0.9987,0.0013,17815.8505,26476,1.63,6.502,False,,False,False,ordinary
 IRN,IRN.3_1,Bushehr,0.9996,1.0,0.0,23803.7184,31698,4.5405,13.1607,True,,False,False,lit_desert
