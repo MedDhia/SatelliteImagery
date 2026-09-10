@@ -328,7 +328,10 @@ MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
     "north-america": "Washington State",
     "south-america": "Argentina's Mendoza",
-    "oceania": "Samoa's Va'a-o-Fonoti",
+    # Oceania is deliberately absent. With 201 measured units it had a real
+    # tie - Samoa's Va'a-o-Fonoti at 0.2879 - and Australia's eleven states
+    # took the count to 212. An even count averages the two middles, so the
+    # cut is 0.30505, a value no unit has, and the gloss has nothing to name.
 }
 
 

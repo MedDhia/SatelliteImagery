@@ -1,4 +1,16 @@
 iso3,measure,measure_note,window,first_year,last_year,n_years,percent_per_year,r_squared,half_life_years,direction,monotone,trajectory,trajectory_reason
+AUS,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.3187758476488178,0.7696322825361307,217.44030662058094,falling,True,mixed,both margins contribute
+AUS,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.35941611955241015,0.630921008058263,192.8536709547526,falling,True,mixed,both margins contribute
+AUS,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.5584955809602968,0.9054908998436396,124.10969830202127,falling,True,mixed,both margins contribute
+AUS,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,-0.31837454017149597,0.27135219514797976,217.71438764750908,falling,False,mixed,both margins contribute
+AUS,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-0.4579806460987177,0.2376038715737326,151.34857476281596,falling,False,mixed,both margins contribute
+AUS,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,0.5556542643973452,0.5938845015962247,,rising,True,mixed,both margins contribute
+AUS,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,1.3183020157807965,0.6544059073225593,,rising,True,mixed,both margins contribute
+AUS,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,1.478745396842519,0.484975409225506,,rising,False,mixed,both margins contribute
+AUS,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,2.7445515816850596,0.9163742627358148,,rising,True,mixed,both margins contribute
+AUS,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.37677078317122054,0.7908143090223225,183.97052306599633,falling,True,mixed,both margins contribute
+AUS,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.27088667708473596,0.5249534813607079,255.88086797754255,falling,True,mixed,both margins contribute
+AUS,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.044552762809597635,0.025722134830957366,,flat,False,mixed,both margins contribute
 NZL,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-0.47570402855682076,0.7050362728280978,145.7097562664748,falling,True,mixed,both margins contribute
 NZL,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.5420729742363071,0.5509459323640324,127.86971745574981,falling,True,mixed,both margins contribute
 NZL,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.8736453345621795,0.9040334406409742,79.33965341980685,falling,True,mixed,both margins contribute
