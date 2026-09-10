@@ -328,6 +328,11 @@ MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
     "north-america": "Washington State",
     "south-america": "Argentina's Mendoza",
+    # Named only while Asia's measured-unit count is odd. It is 1,035 now that
+    # the pool is complete, so the median is a real observation; the test
+    # recomputes every pool's cut from the committed CSVs and forces this back
+    # into agreement whenever a country is added.
+    "asia": "Turkey's Sirnak",
     # Named only while Asia's measured-unit count is odd. Each batch of the
     # rollout flips that parity, so this entry goes in and out and the named
     # unit changes when it is in; the test recomputes every pool's cut from
