@@ -557,6 +557,27 @@ def number(value):
         return float("nan")
 
 
+#: Column order of the per-unit contribution table. Named rather than taken
+#: from ``rows[0]`` because a country can legitimately produce no rows at all:
+#: Tokelau's 17 pixels are unlit in all 31 years, so it has no lit unit to
+#: contribute anything, and a zero-byte file cannot be told apart from a
+#: failed write. With the schema stated, the table is written header-only and
+#: says what it would have contained.
+GROUP_ROW_FIELDS: Tuple[str, ...] = (
+    "year",
+    "scope",
+    "zeros",
+    "grouping",
+    "unit",
+    "pixels",
+    "mean_dn",
+    "population_share",
+    "value_share",
+    "theil_t",
+    "within_contribution",
+)
+
+
 def write_csv(
     rows: Sequence[dict], path: str | Path, fields: Optional[Sequence] = None
 ):
@@ -565,7 +586,7 @@ def write_csv(
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
+    if not rows and not fields:
         path.write_text("", encoding="utf-8")
         return path
     fieldnames = list(fields) if fields else list(rows[0].keys())

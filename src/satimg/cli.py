@@ -580,7 +580,12 @@ def _read_region_array(path):
 def cmd_inequality(args) -> int:
     """Zonal tables, Gini/Theil series and the Theil decomposition."""
     from . import regions as R
-    from .analysis import decomposition_series, gini_series, write_csv
+    from .analysis import (
+        GROUP_ROW_FIELDS,
+        decomposition_series,
+        gini_series,
+        write_csv,
+    )
 
     iso3 = args.country.upper()
     rasters = _region_rasters(args)
@@ -608,7 +613,11 @@ def cmd_inequality(args) -> int:
             decomposition, dest / "inequality" / f"{iso3}_theil_decomposition.csv"
         )
         print(f"wrote  {path}  ({len(decomposition)} rows)")
-        path = write_csv(group_rows, dest / "inequality" / f"{iso3}_theil_by_unit.csv")
+        path = write_csv(
+            group_rows,
+            dest / "inequality" / f"{iso3}_theil_by_unit.csv",
+            fields=GROUP_ROW_FIELDS,
+        )
         print(f"wrote  {path}  ({len(group_rows)} rows)")
 
         worst = max(

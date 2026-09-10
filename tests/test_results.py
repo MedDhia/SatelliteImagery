@@ -738,3 +738,30 @@ def test_dark_2022_gloss_never_names_another_pools_unit():
                 f"pool {pool!r} does not contain Iraq, but its dark_2022 "
                 "gloss names an Iraqi unit"
             )
+
+
+def test_no_published_csv_is_empty():
+    """A zero-byte table cannot be told apart from a failed write.
+
+    Tokelau is the case that made this real: its 17 pixels are unlit in all 31
+    years, so it has no lit unit to contribute anything and its per-unit table
+    has no rows. Written header-only it states its schema and says there is
+    nothing to report; written empty it broke `satimg results build`, which
+    left the published catalogue stale at 147 countries for several commits
+    because the caller only checked the copy count.
+    """
+    published = Path(__file__).resolve().parents[1] / "results"
+    empty = [p for p in published.rglob("*.csv") if p.stat().st_size == 0]
+    assert not empty, [str(p) for p in empty]
+
+
+def test_every_published_csv_has_a_header_row():
+    """Stronger than non-empty: the first line must name the columns."""
+    import csv as _csv
+
+    published = Path(__file__).resolve().parents[1] / "results"
+    for path in sorted(published.rglob("*.csv")):
+        with open(path, encoding="utf-8", newline="") as handle:
+            header = next(_csv.reader(handle), None)
+        assert header, path
+        assert all(field.strip() for field in header), (path, header)
