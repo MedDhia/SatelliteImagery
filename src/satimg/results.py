@@ -328,6 +328,11 @@ MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
     "north-america": "Washington State",
     "south-america": "Argentina's Mendoza",
+    # Asia's 789 measured units are an odd count, so its median is a real
+    # observation. This entry moves as the pool grows - every batch flips the
+    # parity - and the test that recomputes each cut from the committed CSVs
+    # is what forces it back into agreement rather than letting the gloss rot.
+    "asia": "Thailand's Phetchabun",
     # Oceania is deliberately absent. With 201 measured units it had a real
     # tie - Samoa's Va'a-o-Fonoti at 0.2879 - and Australia's eleven states
     # took the count to 212. An even count averages the two middles, so the

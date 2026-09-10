@@ -33,6 +33,28 @@ UZB,UZB.12_1,Surxondaryo,0.4402,0.9368,0.0632,19886.0432,29387,3.3066,4.2142,Fal
 UZB,UZB.14_1,Toshkent,0.0,0.6423,0.3577,15119.3074,23392,8.3947,11.3851,False,,False,False,ordinary
 UZB,UZB.13_1,Toshkent Shahri,0.0,1.0,0.0,325.657,504,58.6972,62.1948,False,,False,False,ordinary
 UZB,UZB.7_1,Xorazm,1.0,1.0,0.0,7294.1725,11303,5.266,6.9662,True,,False,False,lit_desert
+MNG,MNG.1_1,Arhangay,0.0,0.9951,0.0049,54955.5809,95126,0.0066,0.0444,False,,False,True,anomalously_dark
+MNG,MNG.2_1,Bayan-Ölgiy,0.2487,0.9721,0.0279,46366.5031,81336,0.0124,0.047,False,,False,True,anomalously_dark
+MNG,MNG.3_1,Bayanhongor,0.7157,0.9992,0.0008,116876.1712,192905,0.0012,0.0248,True,,False,True,desert_dark
+MNG,MNG.4_1,Bulgan,0.0,0.8373,0.1627,48581.3949,85900,0.0248,0.1622,False,,False,True,anomalously_dark
+MNG,MNG.5_1,Darhan-Uul,0.0,1.0,0.0,3680.9233,6563,0.9665,2.3807,False,,False,True,anomalously_dark
+MNG,MNG.6_1,Dornod,0.1001,1.0,0.0,125065.1269,217701,0.0211,0.0488,False,,False,True,anomalously_dark
+MNG,MNG.7_1,Dornogovi,0.9901,1.0,0.0,109833.4789,178745,0.0044,0.0726,True,,False,True,desert_dark
+MNG,MNG.8_1,Dundgovi,0.9692,1.0,0.0,73601.4287,122063,0.0016,0.0257,True,,False,True,desert_dark
+MNG,MNG.9_1,Dzavhan,0.2497,0.998,0.002,82524.2043,144047,0.0064,0.041,False,,False,True,anomalously_dark
+MNG,MNG.10_1,Govi-Altay,0.9,0.9999,0.0001,140766.7775,232756,0.0004,0.0201,True,,False,True,desert_dark
+MNG,MNG.11_1,Govisümber,0.3055,1.0,0.0,5113.8435,8624,0.0466,0.4078,False,,False,True,anomalously_dark
+MNG,MNG.12_1,Hentiy,0.0221,0.9732,0.0268,81493.5209,141141,0.0052,0.0456,False,,False,True,anomalously_dark
+MNG,MNG.13_1,Hovd,0.7609,0.9971,0.0029,76059.9208,129316,0.0028,0.0328,True,,False,True,desert_dark
+MNG,MNG.14_1,Hövsgöl,0.0,0.7303,0.2697,102259.1517,185531,0.0032,0.0306,False,,False,True,anomalously_dark
+MNG,MNG.15_1,Ömnögovi,1.0,1.0,0.0,164387.5009,262526,0.0011,0.1021,True,,False,True,desert_dark
+MNG,MNG.16_1,Orhon,0.0,1.0,0.0,711.6756,1260,5.9535,9.8222,False,,False,False,ordinary
+MNG,MNG.17_1,Övörhangay,0.4392,0.9997,0.0003,62990.5543,105041,0.0065,0.0663,False,,False,True,anomalously_dark
+MNG,MNG.18_1,Selenge,0.0,0.9597,0.0403,42117.4849,75237,0.0876,0.4765,False,,False,True,anomalously_dark
+MNG,MNG.19_1,Sühbaatar,0.2583,1.0,0.0,81755.011,137260,0.0003,0.0256,False,,False,True,anomalously_dark
+MNG,MNG.20_1,Töv,0.0313,0.9915,0.0085,73102.628,126064,0.0153,0.2773,False,,False,True,anomalously_dark
+MNG,MNG.21_1,Ulaanbaatar,0.0,1.0,0.0,4534.3693,7856,2.9518,15.1459,False,,False,False,ordinary
+MNG,MNG.22_1,Uvs,0.3035,0.9918,0.0082,69477.622,124514,0.0051,0.0653,False,,False,True,anomalously_dark
 PRK,PRK.1_1,Chagang-do,0.0,0.0,1.0,16695.1285,25650,0.0256,0.2221,False,,False,True,anomalously_dark
 PRK,PRK.2_1,Hamgyŏng-bukto,0.0,0.0,1.0,15834.1727,24705,0.1591,0.3017,False,,False,True,anomalously_dark
 PRK,PRK.3_1,Hamgyŏng-namdo,0.0,0.0,1.0,18490.5019,28192,0.0385,0.1811,False,,False,True,anomalously_dark
@@ -153,7 +175,7 @@ PHL,PHL.1_1,Abra,0.0,0.0,1.0,3970.0143,4866,0.0201,0.6151,False,,False,True,anom
 PHL,PHL.2_1,Agusan del Norte,0.0,0.0,1.0,2996.322,3548,0.5065,3.3947,False,,False,True,anomalously_dark
 PHL,PHL.3_1,Agusan del Sur,0.0,0.0,1.0,8572.6979,10135,0.0214,0.672,False,,False,True,anomalously_dark
 PHL,PHL.4_1,Aklan,0.0,0.0,1.0,1667.1392,1990,0.149,2.992,False,,False,True,anomalously_dark
-PHL,PHL.5_1,Albay,0.0,0.0,1.0,2508.2604,3012,0.8188,5.4759,False,,False,True,anomalously_dark
+PHL,PHL.5_1,Albay,0.0,0.0,1.0,2508.2604,3012,0.8188,5.4759,False,,False,False,ordinary
 PHL,PHL.6_1,Antique,0.0,0.0,1.0,2738.9243,3264,0.1056,1.5902,False,,False,True,anomalously_dark
 PHL,PHL.7_1,Apayao,0.0,0.0,1.0,3918.9937,4817,0.0,0.19,False,,False,True,anomalously_dark
 PHL,PHL.8_1,Aurora,0.0,0.0,1.0,3036.9283,3691,0.003,0.2453,False,,False,True,anomalously_dark
@@ -276,7 +298,7 @@ THA,THA.38_1,Pattani,0.0,0.0,1.0,1949.445,2296,1.4216,16.906,False,,False,False,
 THA,THA.39_1,Phangnga,0.0,0.0,1.0,3995.5858,4727,0.475,8.1115,False,,False,False,ordinary
 THA,THA.40_1,Phatthalung,0.0,0.0,1.0,3817.8157,4504,0.4293,11.6612,False,,False,False,ordinary
 THA,THA.41_1,Phayao,0.0,0.0,1.0,6114.5137,7565,0.4638,5.9401,False,,False,False,ordinary
-THA,THA.42_1,Phetchabun,0.0,0.0,1.0,12396.2398,15091,0.3046,5.442,False,,False,True,anomalously_dark
+THA,THA.42_1,Phetchabun,0.0,0.0,1.0,12396.2398,15091,0.3046,5.442,False,,False,False,ordinary
 THA,THA.43_1,Phetchaburi,0.0,0.6792,0.3208,6173.8079,7406,1.7613,10.8921,False,,False,False,ordinary
 THA,THA.44_1,Phichit,0.0,0.0,1.0,4311.0813,5248,0.5835,8.6706,False,,False,False,ordinary
 THA,THA.45_1,Phitsanulok,0.0,0.0,1.0,10603.8257,12956,0.6668,6.1089,False,,False,False,ordinary
@@ -305,7 +327,7 @@ THA,THA.67_1,Surat Thani,0.0,0.0,1.0,13107.9718,15523,0.9507,6.5467,False,,False
 THA,THA.68_1,Surin,0.0,0.0,1.0,8763.5234,10599,0.2788,6.4836,False,,False,False,ordinary
 THA,THA.69_1,Tak,0.0,0.0002,0.9998,17224.1512,21017,0.2098,2.9011,False,,False,True,anomalously_dark
 THA,THA.70_1,Trang,0.0,0.0,1.0,4859.3189,5733,1.0719,11.9007,False,,False,False,ordinary
-THA,THA.71_1,Trat,0.0,0.0,1.0,2853.6931,3415,1.1546,5.5182,False,,False,True,anomalously_dark
+THA,THA.71_1,Trat,0.0,0.0,1.0,2853.6931,3415,1.1546,5.5182,False,,False,False,ordinary
 THA,THA.72_1,Ubon Ratchathani,0.0,0.0,1.0,15475.9255,18743,0.3591,6.0071,False,,False,False,ordinary
 THA,THA.73_1,Udon Thani,0.0,0.0,1.0,11056.8538,13541,0.6773,8.3021,False,,False,False,ordinary
 THA,THA.74_1,Uthai Thani,0.0,0.0,1.0,6653.4306,8064,0.1264,5.2314,False,,False,True,anomalously_dark
@@ -450,6 +472,37 @@ BTN,BTN.16_1,Trongsa,0.0,0.026,0.974,1810.2435,2379,0.0,0.4034,False,,False,True
 BTN,BTN.17_1,Tsirang,0.0,0.0,1.0,642.1635,841,0.0,0.753,False,,False,True,anomalously_dark
 BTN,BTN.18_1,Wangdue Phodrang,0.0,0.2782,0.7218,4036.0472,5310,0.0,0.5027,False,,False,True,anomalously_dark
 BTN,BTN.20_1,Zhemgang,0.0,0.0,1.0,2418.3244,3168,0.0,0.0518,False,,False,True,anomalously_dark
+IRN,IRN.1_1,Alborz,0.596,1.0,0.0,5390.572,7754,12.393,23.5701,True,,False,False,lit_desert
+IRN,IRN.2_1,Ardebil,0.0,0.9987,0.0013,17815.8505,26476,1.63,6.502,False,,False,False,ordinary
+IRN,IRN.3_1,Bushehr,0.9996,1.0,0.0,23803.7184,31698,4.5405,13.1607,True,,False,False,lit_desert
+IRN,IRN.4_1,Chahar Mahall and Bakhtiari,0.6143,1.0,0.0,15301.5588,21017,1.6598,6.5965,True,,False,False,lit_desert
+IRN,IRN.5_1,East Azarbaijan,0.0949,1.0,0.0,48626.1984,71800,2.2878,6.8736,False,,False,False,ordinary
+IRN,IRN.6_1,Esfahan,0.978,1.0,0.0,110366.389,153661,1.735,4.6129,True,,False,True,desert_dark
+IRN,IRN.7_1,Fars,0.9981,1.0,0.0,125599.5252,167975,1.6584,7.0866,True,,False,False,lit_desert
+IRN,IRN.8_1,Gilan,0.0,0.4853,0.5147,14157.0678,20712,4.8417,11.1932,False,,False,False,ordinary
+IRN,IRN.9_1,Golestan,0.2496,1.0,0.0,20490.0602,29985,2.0443,6.657,False,,False,False,ordinary
+IRN,IRN.10_1,Hamadan,0.1607,1.0,0.0,20486.3995,29084,3.0918,8.6242,False,,False,False,ordinary
+IRN,IRN.11_1,Hormozgan,0.9464,1.0,0.0,67721.7906,88767,1.0698,6.7797,True,,False,False,lit_desert
+IRN,IRN.12_1,Ilam,0.591,1.0,0.0,18260.3397,25424,1.7055,7.5656,True,,False,False,lit_desert
+IRN,IRN.13_1,Kerman,0.9988,1.0,0.0,183122.1172,245583,0.6813,2.5965,True,,False,True,desert_dark
+IRN,IRN.14_1,Kermanshah,0.0672,1.0,0.0,22829.8132,32252,2.2073,7.3302,False,,False,False,ordinary
+IRN,IRN.15_1,Khuzestan,0.9271,1.0,0.0,63928.6861,87389,10.9179,17.3606,True,,False,False,lit_desert
+IRN,IRN.16_1,Kohgiluyeh and Buyer Ahmad,0.9438,1.0,0.0,13301.6542,18055,9.6484,13.9872,True,,False,False,lit_desert
+IRN,IRN.17_1,Kordestan,0.0,1.0,0.0,29443.4988,42233,0.9254,4.4345,False,,False,True,anomalously_dark
+IRN,IRN.18_1,Lorestan,0.2375,1.0,0.0,29113.0993,40670,1.5705,5.8069,False,,False,False,ordinary
+IRN,IRN.19_1,Markazi,0.9556,1.0,0.0,28157.4711,39834,1.95,7.9972,True,,False,False,lit_desert
+IRN,IRN.20_1,Mazandaran,0.2031,0.8245,0.1755,24424.2866,35322,3.6302,11.1188,False,,False,False,ordinary
+IRN,IRN.21_1,North Khorasan,0.25,1.0,0.0,25045.5315,36702,0.7656,3.8677,False,,False,True,anomalously_dark
+IRN,IRN.22_1,Qazvin,0.1881,1.0,0.0,15689.8894,22610,2.889,9.4389,False,,False,False,ordinary
+IRN,IRN.23_1,Qom,1.0,1.0,0.0,11677.8877,16544,2.032,7.6315,True,,False,False,lit_desert
+IRN,IRN.24_1,Razavi Khorasan,0.798,1.0,0.0,137202.8552,196266,1.3536,4.531,True,,False,True,desert_dark
+IRN,IRN.25_1,Semnan,0.9978,1.0,0.0,90759.952,129795,0.319,1.4149,True,,False,True,desert_dark
+IRN,IRN.26_1,Sistan and Baluchestan,0.9999,1.0,0.0,175946.5918,232113,0.277,1.7336,True,,False,True,desert_dark
+IRN,IRN.27_1,South Khorasan,1.0,1.0,0.0,83827.4946,115669,0.1317,1.5628,True,,False,True,desert_dark
+IRN,IRN.28_1,Tehran,0.9487,1.0,0.0,13785.6696,19734,11.1846,21.6266,True,,False,False,lit_desert
+IRN,IRN.29_1,West Azarbaijan,0.0468,1.0,0.0,35947.0522,52907,1.9309,6.4535,False,,False,False,ordinary
+IRN,IRN.30_1,Yazd,1.0,1.0,0.0,127343.0583,176110,0.4105,1.6652,True,,False,True,desert_dark
+IRN,IRN.31_1,Zanjan,0.0006,1.0,0.0,22166.1665,32117,1.46,5.42,False,,False,True,anomalously_dark
 NPL,NPL.1_1,Central,0.0,0.0513,0.9487,27472.6055,36133,0.5368,2.4755,False,,False,True,anomalously_dark
 NPL,NPL.2_1,East,0.0,0.1029,0.8971,28480.7779,37346,0.201,1.2928,False,,False,True,anomalously_dark
 NPL,NPL.3_1,Far-Western,0.0,0.0001,0.9999,19752.6304,26420,0.0249,0.2607,False,,False,True,anomalously_dark
@@ -696,7 +749,7 @@ TUR,TUR.67_1,Samsun,0.0,0.445,0.555,9518.8228,14717,1.5522,10.4382,False,,False,
 TUR,TUR.68_1,Sanliurfa,0.0496,0.9997,0.0003,19620.9302,28696,1.0735,9.1335,False,,False,False,ordinary
 TUR,TUR.69_1,Siirt,0.0,0.7228,0.2772,4973.4059,7341,0.6058,6.5436,False,,False,False,ordinary
 TUR,TUR.70_1,Sinop,0.0,0.2994,0.7006,6011.3317,9352,0.2709,4.7731,False,,False,True,anomalously_dark
-TUR,TUR.71_1,Sirnak,0.0,0.8766,0.1234,7866.2119,11543,0.4139,5.5619,False,,False,True,anomalously_dark
+TUR,TUR.71_1,Sirnak,0.0,0.8766,0.1234,7866.2119,11543,0.4139,5.5619,False,,False,False,ordinary
 TUR,TUR.72_1,Sivas,0.0,0.9985,0.0015,28343.3393,42782,0.522,4.0289,False,,False,True,anomalously_dark
 TUR,TUR.73_1,Tekirdag,0.0,0.9834,0.0166,6616.9674,10215,2.8491,14.2651,False,,False,False,ordinary
 TUR,TUR.74_1,Tokat,0.0,0.9718,0.0282,9842.7519,15028,1.117,6.6095,False,,False,False,ordinary
