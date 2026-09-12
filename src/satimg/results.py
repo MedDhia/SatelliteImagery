@@ -329,10 +329,11 @@ MEDIAN_TIES: Dict[str, str] = {
     "south-america": "Bolivia's Cochabamba",
     # africa is absent again: Reunion and Saint Helena took it from 871
     # measured units to an even 878, so the cut falls between two.
-    # north-america is absent now. Nine Caribbean and North Atlantic
-    # territories took it from 379 measured units to 430, an even count, so
-    # the cut falls between two units and Washington State - named while the
-    # pool was 379 - no longer sits on it.
+    # Puerto Rico's 78 municipalities and Greenland's 5 communes took
+    # north-america from an even 430 to an odd 519, so its median is a real
+    # observation again - and a different unit from the Washington State
+    # named when the pool was 379 states and no territories.
+    "north-america": "Guatemala's Chimaltenango",
     # Named only while Asia's measured-unit count is odd. It is 1,035 now that
     # the pool is complete, so the median is a real observation; the test
     # recomputes every pool's cut from the committed CSVs and forces this back

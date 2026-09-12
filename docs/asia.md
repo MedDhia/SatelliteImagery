@@ -100,13 +100,24 @@ which divides by the polygon — treats unmeasured Arctic land as though it were
 dark. `mean_dn` is unaffected, being total over pixels with both from the
 raster.
 
-The effect on published numbers is small enough to state precisely.
-Recomputing admin-1 Gini with covered area as the denominator instead of
-polygon area moves **Canada from 0.5790 to 0.5789** and **Russia from 0.5635
-to 0.5634**: the affected units are among the darkest either way, so their
-exact density barely moves the curve. Nothing published is corrected by this.
-It is a limit of the source grid, and a reader deriving density for an Arctic
-unit should know about it.
+The effect on these two is small enough to state precisely. Recomputing
+admin-1 Gini with covered area as the denominator instead of polygon area
+moves **Canada from 0.5790 to 0.5789** and **Russia from 0.5635 to 0.5634**:
+the uncovered land is a few per cent of each, and the units holding it are
+among the darkest either way, so their exact density barely moves the curve.
+
+**That is not a general result, and Greenland shows why.** Added with the
+rest of the world, it is 60.8% covered — not 96% or 99% — and the shortfall
+is concentrated rather than spread: the Northeast Greenland National Park is
+36.3% covered and Qaasuitsup 51.8%, while the three southern communes are
+whole. Their densities are understated 2.75× and 1.93× as a result, and
+Greenland's admin-1 Gini reads 0.4672 where covered-area denominators give
+0.4143 — **a difference of +0.0529, five hundred times Canada's**.
+
+Nothing published is corrected by any of this. It is a limit of the source
+grid, and a reader deriving density for an Arctic unit should know both that
+it exists and that its size depends entirely on how much of the country lies
+beyond 75°N.
 
 ## Coverage
 
