@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+CYM,CYM.1_1,Bodden Town,7.2726,9,9,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CYM,CYM.3_1,East End,55.7402,69,69,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CYM,CYM.4_1,George Town,27.4715,34,34,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CYM,CYM.6_1,North Side,90.4795,112,112,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CYM,CYM.8_1,Sister Islands,76.567,95,95,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+CYM,CYM.7_1,West Bay,20.9982,26,26,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

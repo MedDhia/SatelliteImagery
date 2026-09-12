@@ -1,0 +1,12 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BMU,BMU.1_1,Devonshire,5.0769,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.2_1,Hamilton,10.8752,15,15,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.3_1,Hamilton Municipality,1.4507,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.4_1,Paget,5.8034,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.5_1,Pembroke,5.8024,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.6_1,Saint George's,11.5961,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.7_1,Saint George municipality,2.1751,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.8_1,Sandys,10.1549,15,14,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.9_1,Smiths,5.0763,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.10_1,Southampton,5.8052,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BMU,BMU.11_1,Warwick,5.8044,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

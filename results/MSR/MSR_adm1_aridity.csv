@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+MSR,MSR.1_1,Saint Anthon,38.5228,47,47,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MSR,MSR.2_1,Saint Georges,29.501,36,36,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MSR,MSR.3_1,Saint Peter,35.2315,43,43,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -1,0 +1,3 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BLM,BLM.1_1,Au Vent,13.0312,16,16,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+BLM,BLM.2_1,Sous le Vent,6.5153,8,8,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1

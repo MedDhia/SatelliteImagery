@@ -1,0 +1,13 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+JEY,JEY.1_1,Grouville,7.3188,13,13,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.2_1,Saint Berlade,14.6381,26,26,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.3_1,Saint Clement,5.6317,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.4_1,Saint Helier,9.0063,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.5_1,Saint John,11.2474,20,20,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.6_1,Saint Lawrence,9.0023,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.7_1,Saint Martin,9.0023,16,16,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.8_1,Saint Mary,6.7487,12,12,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.9_1,Saint Ouen,15.1853,27,27,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.10_1,Saint Peter,12.3796,22,22,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.11_1,Saint Saviour,10.6941,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+JEY,JEY.12_1,Trinity,14.0624,25,25,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

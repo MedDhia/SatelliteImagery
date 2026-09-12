@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+VGB,VGB.1_1,Anegada,39.7225,49,49,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+VGB,VGB.2_1,Jost Van Dyke,12.9914,16,16,0,0.0,0.0,0.0,0.6250036983141882,0.37499630168581194,0.0,0.6250036983141882,adm1
+VGB,VGB.3_1,Other Islands,13.8109,17,17,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+VGB,VGB.4_1,Tortola,73.8962,91,91,0,0.0,0.0,0.0,0.30767049737653207,0.6923295026234685,0.0,0.30767049737653207,adm1
+VGB,VGB.5_1,Virgin Gorda,27.6023,34,34,0,0.0,0.0,0.0,0.8529500303278204,0.1470499696721795,0.0,0.8529500303278204,adm1

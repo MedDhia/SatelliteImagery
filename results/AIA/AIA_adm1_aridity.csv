@@ -1,0 +1,19 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+AIA,AIA.1_1,Blowing Point,4.066,6,5,1,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.15_1,Dog Island,1.6255,2,2,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.2_1,East End,5.6904,7,7,0,0.0,0.0,0.8571409474228383,0.14285905257716175,0.0,0.0,1.0,adm1
+AIA,AIA.3_1,George Hill,5.6917,7,7,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.4_1,Island Harbour,5.6898,7,7,0,0.0,0.0,0.8571390343216984,0.14286096567830173,0.0,0.0,1.0,adm1
+AIA,AIA.5_1,North Hill,1.6262,2,2,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.6_1,North Side,8.9423,11,11,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.16_1,Pricly Pear Cays,0.8128,1,1,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+AIA,AIA.7_1,Sandy Ground,0.0,0,0,0,,,,,,,,adm1
+AIA,AIA.8_1,Sandy Hill,5.6906,7,7,0,0.0,0.0,0.8571399941635732,0.14286000583642675,0.0,0.0,1.0,adm1
+AIA,AIA.17_1,Scrub Island,3.2508,4,4,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+AIA,AIA.18_1,Sombrero Island,0.0,0,0,0,,,,,,,,adm1
+AIA,AIA.9_1,South Hill,8.1315,11,10,1,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.10_1,Stoney Ground,8.1292,10,10,0,0.0,0.0,0.09999064457715794,0.9000093554228422,0.0,0.0,1.0000000000000002,adm1
+AIA,AIA.11_1,The Farrington,5.6912,8,7,1,0.0,0.0,0.5714295233948069,0.42857047660519304,0.0,0.0,1.0,adm1
+AIA,AIA.12_1,The Quarter,2.4392,3,3,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.13_1,The Valley,2.4391,3,3,0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1
+AIA,AIA.14_1,West End,6.5057,9,8,1,0.0,0.0,0.0,1.0,0.0,0.0,1.0,adm1

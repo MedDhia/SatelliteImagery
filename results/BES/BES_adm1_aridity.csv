@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BES,BES.1_1,Bonaire,286.762,343,343,0,0.0,0.02622824528577465,0.9737717547142253,0.0,0.0,0.02622824528577465,0.9999999999999999,adm1
+BES,BES.2_1,Saba,14.6814,18,18,0,0.0,0.0,0.0,0.3888826220260109,0.6111173779739894,0.0,0.3888826220260109,adm1
+BES,BES.3_1,Sint Eustatius,23.6716,29,29,0,0.0,0.0,0.0,0.6551542300838245,0.3448457699161759,0.0,0.6551542300838245,adm1

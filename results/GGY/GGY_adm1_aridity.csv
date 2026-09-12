@@ -1,0 +1,13 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GGY,GGY.1_1,Alderney,12.2542,22,22,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.3_1,Castel,11.7573,21,21,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.4_1,Forest,4.4825,8,8,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.7_1,Saint Andrew,5.6008,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.8_1,Saint Martin,7.2829,13,13,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.9_1,Saint Peter Port,8.3988,15,15,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.10_1,Saint Pierre du Bois,7.8422,14,14,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.11_1,Saint Sampson,7.835,14,14,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.12_1,Saint Saviour,5.6007,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.13_1,Sark,6.7232,12,12,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.14_1,Torteval,2.8013,5,5,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GGY,GGY.15_1,Vale,9.5121,17,17,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

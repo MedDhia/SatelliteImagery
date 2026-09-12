@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+VIR,VIR.1_1,Saint Croix,221.7327,272,272,0,0.0,0.0,0.0,0.8566262337658377,0.14337376623416365,0.0,0.8566262337658377,adm1
+VIR,VIR.2_1,Saint John,51.9973,64,64,0,0.0,0.0,0.0,0.37500284163661585,0.624997158363384,0.0,0.37500284163661585,adm1
+VIR,VIR.3_1,Saint Thomas,86.118,106,106,0,0.0,0.0,0.0,0.9245332748593844,0.07546672514061555,0.0,0.9245332748593844,adm1

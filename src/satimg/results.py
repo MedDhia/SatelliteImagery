@@ -326,8 +326,12 @@ CROSS_TRENDS_COLUMNS = (
 #: is what makes adding a country to a pool force this back into agreement.
 MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
-    "north-america": "Washington State",
+    "africa": "the Gambia's North Bank",
     "south-america": "Argentina's Mendoza",
+    # north-america is absent now. Nine Caribbean and North Atlantic
+    # territories took it from 379 measured units to 430, an even count, so
+    # the cut falls between two units and Washington State - named while the
+    # pool was 379 - no longer sits on it.
     # Named only while Asia's measured-unit count is odd. It is 1,035 now that
     # the pool is complete, so the median is a real observation; the test
     # recomputes every pool's cut from the committed CSVs and forces this back

@@ -203,6 +203,18 @@ GBR,extensive,share of land pixels that are lit - light reaching new ground,viir
 GBR,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.3756204936808469,0.8311742483012168,184.53390915057233,falling,True,disrupted,lit area shrinking
 GBR,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.33598320327433756,0.6134185007142393,206.30411693348123,falling,True,disrupted,lit area shrinking
 GBR,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,-0.10251907735673342,0.5663893204451517,676.1153128095525,falling,True,disrupted,lit area shrinking
+GGY,total,Theil T over all land pixels - both margins together,full,1992,2022,31,0.45413288898358395,0.23001140011730606,,rising,False,disrupted,total inequality rising
+GGY,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.031501423358640014,0.0006856908893159566,2200.3678140779416,flat,False,disrupted,total inequality rising
+GGY,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-0.3489421384000446,0.17268138027929336,198.64244076056153,falling,False,disrupted,total inequality rising
+GGY,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,0.7351860306640621,0.061069929888458746,,rising,False,disrupted,total inequality rising
+GGY,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-1.6255957337909264,0.15707629692040748,42.63957921097087,falling,False,disrupted,total inequality rising
+GGY,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,3.588103892718931,0.7724728874212619,,rising,True,disrupted,total inequality rising
+GGY,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,-0.02520851957762772,0.0057805277157561615,2749.6544508512343,flat,False,disrupted,total inequality rising
+GGY,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,-0.11703025856063395,0.047972908433852594,592.2803120193248,falling,False,disrupted,total inequality rising
+GGY,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,0.5000091856324148,0.7596771986835914,,rising,True,disrupted,total inequality rising
+GGY,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.4920696481248387,0.5767059313554788,140.86363245556103,falling,True,disrupted,total inequality rising
+GGY,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.08203349050595038,0.04640765753142925,844.9563419584921,falling,False,disrupted,total inequality rising
+GGY,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.3339018127571283,0.27623880409687174,,rising,False,disrupted,total inequality rising
 GRC,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-1.7509756667356737,0.7530770571171393,39.586339989074354,falling,True,mixed,both margins contribute
 GRC,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-1.7524056601117475,0.5617208283824323,39.55403684987782,falling,True,mixed,both margins contribute
 GRC,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,-4.021211136385112,0.9511869475504076,17.237273971718217,falling,True,mixed,both margins contribute
@@ -275,6 +287,18 @@ ITA,extensive,share of land pixels that are lit - light reaching new ground,viir
 ITA,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,0.2860560093484023,0.6279128688672537,,rising,True,mixed,both margins contribute
 ITA,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,0.22884306972561472,0.29060988683922406,,rising,False,mixed,both margins contribute
 ITA,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,0.4294886682535082,0.8621023795727152,,rising,True,mixed,both margins contribute
+JEY,total,Theil T over all land pixels - both margins together,full,1992,2022,31,0.19198744885035485,0.057085887960513865,,rising,False,disrupted,total inequality rising
+JEY,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-0.6441404234925818,0.4323430127090916,107.60808595145215,falling,False,disrupted,total inequality rising
+JEY,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,0.7081433842618257,0.31825945677191775,,rising,False,disrupted,total inequality rising
+JEY,intensive,Theil T over lit pixels only - convergence among the already lit,full,1992,2022,31,-0.39317897742908403,0.3190307821985887,176.29304218966416,falling,False,disrupted,total inequality rising
+JEY,intensive,Theil T over lit pixels only - convergence among the already lit,dmsp,1992,2013,22,-0.7743849265144563,0.6007832730495454,89.50938439360306,falling,True,disrupted,total inequality rising
+JEY,intensive,Theil T over lit pixels only - convergence among the already lit,viirs,2014,2022,9,0.8006543473252973,0.15785499309743226,,rising,False,disrupted,total inequality rising
+JEY,extensive,share of land pixels that are lit - light reaching new ground,full,1992,2022,31,-0.04630763483047213,0.49327395848883804,1496.8313175516123,flat,False,disrupted,total inequality rising
+JEY,extensive,share of land pixels that are lit - light reaching new ground,dmsp,1992,2013,22,-0.009840477645883475,0.13043478260869562,7043.8367475983905,flat,False,disrupted,total inequality rising
+JEY,extensive,share of land pixels that are lit - light reaching new ground,viirs,2014,2022,9,-0.00023148951940505044,1.1542168724297268e-06,299429.18467384524,flat,False,disrupted,total inequality rising
+JEY,between_share,share of Theil T lying between admin-1 units,full,1992,2022,31,-0.5075213149296364,0.8595208445224101,136.5749891028802,falling,True,disrupted,total inequality rising
+JEY,between_share,share of Theil T lying between admin-1 units,dmsp,1992,2013,22,-0.3558492867469639,0.713791589232644,194.7867275206388,falling,True,disrupted,total inequality rising
+JEY,between_share,share of Theil T lying between admin-1 units,viirs,2014,2022,9,-0.302789151293415,0.1960741187910247,228.92074488106658,falling,False,disrupted,total inequality rising
 LIE,total,Theil T over all land pixels - both margins together,full,1992,2022,31,-1.7971712076439008,0.43629977383497376,38.56878952944412,falling,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
 LIE,total,Theil T over all land pixels - both margins together,dmsp,1992,2013,22,-3.617252491514151,0.6756109203414855,19.162255943869702,falling,True,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
 LIE,total,Theil T over all land pixels - both margins together,viirs,2014,2022,9,0.5735426043254096,0.1544422071315684,,rising,False,extensive spreader,total falls only because light reaches new ground; inequality among lit places rises
