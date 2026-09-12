@@ -578,6 +578,33 @@ GROUP_ROW_FIELDS: Tuple[str, ...] = (
 )
 
 
+def unit_sort_key(iso3, gid):
+    """A stable, readable order for a published cross-country table.
+
+    Row order used to follow the GADM layer's feature order, which depends on
+    upstream cache state rather than on the data: re-running the United States
+    from an unclipped cache instead of a clipped one moved 37 rows of
+    ``north-america_aridity_vs_light.csv`` while only Alaska's numbers changed.
+    That defeats the point of publishing plain text - a re-run that changes no
+    number should produce no diff, and a real change should not be able to hide
+    inside a reordering.
+
+    The digits inside a gid sort numerically, so ``TUN.2_1`` comes before
+    ``TUN.10_1`` rather than after it. Sorting the raw string would be
+    deterministic too, but it would scatter every country's units into
+    lexicographic order and make the published tables harder to read than the
+    layer order they replace.
+    """
+    import re
+
+    parts = tuple(
+        (0, int(chunk)) if chunk.isdigit() else (1, chunk)
+        for chunk in re.split(r"(\d+)", str(gid))
+        if chunk
+    )
+    return (str(iso3), parts)
+
+
 def write_csv(
     rows: Sequence[dict], path: str | Path, fields: Optional[Sequence] = None
 ):

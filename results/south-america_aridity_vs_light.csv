@@ -23,9 +23,9 @@ ARG,ARG.21_1,Santa Fe,0.0,0.1412,0.8588,133065.7182,180507,0.8916,3.6181,False,,
 ARG,ARG.22_1,Santiago del Estero,0.0,0.9978,0.0022,136865.9113,180489,0.1192,0.8711,False,,False,True,anomalously_dark
 ARG,ARG.23_1,Tierra del Fuego,0.0,0.3159,0.6841,20911.005,41587,0.4987,1.0617,False,,False,True,anomalously_dark
 ARG,ARG.24_1,Tucumán,0.1424,0.9563,0.0437,22540.4614,29500,1.5806,5.998,False,,False,False,ordinary
-BOL,BOL.3_1,Beni,0.0,0.0,1.0,206780.3433,248952,0.0113,0.0861,False,,False,True,anomalously_dark
 BOL,BOL.1_1,Chuquisaca,0.0,1.0,0.0,50910.5461,63305,0.1326,0.4568,False,,False,True,anomalously_dark
 BOL,BOL.2_1,Cochabamba,0.0,0.4054,0.5946,54429.4238,66595,0.5182,1.8032,False,,False,True,anomalously_dark
+BOL,BOL.3_1,Beni,0.0,0.0,1.0,206780.3433,248952,0.0113,0.0861,False,,False,True,anomalously_dark
 BOL,BOL.4_1,La Paz,0.0,0.2674,0.7326,131228.7444,159025,0.1477,0.6577,False,,False,True,anomalously_dark
 BOL,BOL.5_1,Oruro,0.4241,1.0,0.0,52187.8534,64348,0.0859,0.486,False,,False,True,anomalously_dark
 BOL,BOL.6_1,Pando,0.0,0.0,1.0,63630.3753,75824,0.0058,0.0752,False,,False,True,anomalously_dark
@@ -42,8 +42,8 @@ BRA,BRA.7_1,Distrito Federal,0.0,0.0,1.0,5785.9824,7027,10.5089,25.5894,False,,F
 BRA,BRA.8_1,Espírito Santo,0.0,0.0002,0.9998,46023.3751,57065,1.6934,8.8045,False,,False,False,ordinary
 BRA,BRA.9_1,Goiás,0.0,0.0,1.0,340234.6836,413903,0.3885,1.7137,False,,False,True,anomalously_dark
 BRA,BRA.10_1,Maranhão,0.0,0.0,1.0,328962.6533,386529,0.2253,1.4932,False,,False,True,anomalously_dark
-BRA,BRA.12_1,Mato Grosso,0.0,0.0,1.0,902986.8055,1084108,0.0679,0.4585,False,,False,True,anomalously_dark
 BRA,BRA.11_1,Mato Grosso do Sul,0.0,0.007,0.993,357042.7424,444868,0.1802,0.7862,False,,False,True,anomalously_dark
+BRA,BRA.12_1,Mato Grosso,0.0,0.0,1.0,902986.8055,1084108,0.0679,0.4585,False,,False,True,anomalously_dark
 BRA,BRA.13_1,Minas Gerais,0.0,0.0494,0.9506,586523.7063,722820,0.6758,3.0811,False,,False,False,ordinary
 BRA,BRA.14_1,Pará,0.0,0.0,1.0,1245341.9214,1462367,0.0706,0.4256,False,,False,True,anomalously_dark
 BRA,BRA.15_1,Paraíba,0.0,0.84,0.16,56454.5753,66546,2.5067,7.8977,False,,False,False,ordinary
@@ -59,11 +59,11 @@ BRA,BRA.24_1,Santa Catarina,0.0,0.0,1.0,94854.1993,124475,1.453,7.3734,False,,Fa
 BRA,BRA.25_1,São Paulo,0.0,0.0,1.0,248022.2527,312996,4.2666,10.2027,False,,False,False,ordinary
 BRA,BRA.26_1,Sergipe,0.0,0.4165,0.5835,21862.59,26008,2.8481,14.0132,False,,False,False,ordinary
 BRA,BRA.27_1,Tocantins,0.0,0.0,1.0,277396.7246,329722,0.0639,0.6114,False,,False,True,anomalously_dark
+CHL,CHL.1_1,Aysén del General Ibañez del Cam,0.0,0.066,0.934,102129.6448,171902,0.0067,0.0942,False,,False,True,anomalously_dark
 CHL,CHL.2_1,Antofagasta,1.0,1.0,0.0,126076.8104,160569,0.1507,0.9665,True,,False,True,desert_dark
 CHL,CHL.3_1,Araucanía,0.0,0.0,1.0,31794.7905,47380,0.2947,2.5636,False,,False,False,ordinary
 CHL,CHL.4_1,Arica y Parinacota,0.6526,1.0,0.0,16834.1115,20739,0.259,0.6861,True,,False,True,desert_dark
 CHL,CHL.5_1,Atacama,1.0,1.0,0.0,75703.107,99482,0.1282,0.7046,True,,False,True,desert_dark
-CHL,CHL.1_1,Aysén del General Ibañez del Cam,0.0,0.066,0.934,102129.6448,171902,0.0067,0.0942,False,,False,True,anomalously_dark
 CHL,CHL.6_1,Bío-Bío,0.0,0.0,1.0,23956.9121,35152,0.933,4.9663,False,,False,False,ordinary
 CHL,CHL.7_1,Coquimbo,0.9364,1.0,0.0,40567.4964,54962,0.1977,2.0966,True,,False,False,lit_desert
 CHL,CHL.8_1,Libertador General Bernardo O'Hi,0.0,0.8096,0.1904,16341.9675,23081,0.8742,6.1595,False,,False,False,ordinary
@@ -142,6 +142,32 @@ GUY,GUY.7_1,Pomeroon-Supenaam,0.0,0.0,1.0,5954.1007,7019,0.0198,0.3882,False,,Fa
 GUY,GUY.8_1,Potaro-Siparuni,0.0,0.0,1.0,19355.1614,22723,0.0,0.0054,False,,False,True,anomalously_dark
 GUY,GUY.9_1,Upper Demerara-Berbice,0.0,0.0,1.0,16572.3608,19471,0.1269,0.3169,False,,False,True,anomalously_dark
 GUY,GUY.10_1,Upper Takutu-Upper Essequibo,0.0,0.0,1.0,56539.8109,66229,0.0,0.0163,False,,False,True,anomalously_dark
+PER,PER.1_1,Amazonas,0.0,0.0526,0.9474,39594.0289,46504,0.0166,0.2283,False,,False,True,anomalously_dark
+PER,PER.2_1,Ancash,0.3392,0.5836,0.4164,35888.1776,42544,0.238,1.4555,False,,False,True,anomalously_dark
+PER,PER.3_1,Apurímac,0.0,0.0384,0.9616,21097.0961,25420,0.0273,1.2217,False,,False,True,anomalously_dark
+PER,PER.4_1,Arequipa,0.5533,0.9272,0.0728,63276.4283,76875,0.2363,1.36,True,,False,True,desert_dark
+PER,PER.5_1,Ayacucho,0.106,0.5156,0.4844,43558.0297,52502,0.0379,0.6659,False,,False,True,anomalously_dark
+PER,PER.6_1,Cajamarca,0.0461,0.4051,0.5949,32904.8016,38735,0.0796,1.42,False,,False,True,anomalously_dark
+PER,PER.7_1,Callao,1.0,1.0,0.0,157.3079,188,43.4451,56.3572,True,,False,False,lit_desert
+PER,PER.8_1,Cusco,0.0,0.0665,0.9335,72232.3145,86744,0.1025,0.9821,False,,False,True,anomalously_dark
+PER,PER.9_1,Huancavelica,0.0457,0.4343,0.5657,22084.3568,26501,0.0551,0.9119,False,,False,True,anomalously_dark
+PER,PER.10_1,Huánuco,0.0,0.0754,0.9246,37102.1183,43984,0.0755,0.4819,False,,False,True,anomalously_dark
+PER,PER.11_1,Ica,0.9507,1.0,0.0,21155.7367,25514,0.7021,3.0965,True,,False,False,lit_desert
+PER,PER.12_1,Junín,0.0,0.0426,0.9574,44633.6583,53266,0.3242,1.242,False,,False,True,anomalously_dark
+PER,PER.13_1,La Libertad,0.428,0.699,0.301,25301.7224,29878,0.5269,2.9917,False,,False,False,ordinary
+PER,PER.14_1,Lambayeque,0.8719,0.9639,0.0361,14288.076,16816,0.7824,3.4026,True,,False,False,lit_desert
+PER,PER.15_1,Lima Province,0.9997,1.0,0.0,2701.1865,3229,19.6894,40.7271,True,,False,False,lit_desert
+PER,PER.16_1,Lima,0.4201,0.6681,0.3319,32341.1599,38629,0.4379,2.8529,False,,False,False,ordinary
+PER,PER.17_1,Loreto,0.0,0.0,1.0,375444.1004,440517,0.0281,0.0608,False,,False,True,anomalously_dark
+PER,PER.18_1,Madre de Dios,0.0,0.0,1.0,84359.4721,100833,0.0075,0.142,False,,False,True,anomalously_dark
+PER,PER.19_1,Moquegua,0.5523,1.0,0.0,15757.476,19241,0.193,1.7885,True,,False,True,desert_dark
+PER,PER.20_1,Pasco,0.0,0.0094,0.9906,23965.8955,28493,0.1034,0.6479,False,,False,True,anomalously_dark
+PER,PER.21_1,Piura,0.687,0.8948,0.1052,35860.3304,42118,0.3687,3.0171,True,,False,False,lit_desert
+PER,PER.22_1,Puno,0.0,0.3109,0.6891,72694.5704,87977,0.0604,0.7527,False,,False,True,anomalously_dark
+PER,PER.23_1,San Martín,0.0,0.0,1.0,50373.9692,59372,0.0459,0.5615,False,,False,True,anomalously_dark
+PER,PER.24_1,Tacna,0.7405,1.0,0.0,16003.1006,19622,0.234,1.4445,True,,False,True,desert_dark
+PER,PER.25_1,Tumbes,0.4997,1.0,0.0,4649.1999,5451,0.4407,3.4645,False,,False,False,ordinary
+PER,PER.26_1,Ucayali,0.0,0.0,1.0,105098.4174,124677,0.0348,0.1716,False,,False,True,anomalously_dark
 PRY,PRY.1_1,Alto Paraguay,0.0,0.9667,0.0333,77470.4501,96665,0.0028,0.0383,False,,False,True,anomalously_dark
 PRY,PRY.2_1,Alto Paraná,0.0,0.0,1.0,14125.4478,18247,0.8587,5.207,False,,False,False,ordinary
 PRY,PRY.3_1,Amambay,0.0,0.0,1.0,12533.1449,15882,0.1857,1.2243,False,,False,True,anomalously_dark
@@ -160,32 +186,6 @@ PRY,PRY.15_1,Ñeembucú,0.0,0.0,1.0,11440.559,14949,0.0677,1.4971,False,,False,T
 PRY,PRY.16_1,Paraguarí,0.0,0.0,1.0,8724.1357,11330,0.2129,3.7343,False,,False,False,ordinary
 PRY,PRY.17_1,Presidente Hayes,0.0,0.6678,0.3322,73165.0044,93222,0.0536,0.2426,False,,False,True,anomalously_dark
 PRY,PRY.18_1,San Pedro,0.0,0.0,1.0,20888.8205,26725,0.0333,2.5243,False,,False,False,ordinary
-PER,PER.1_1,Amazonas,0.0,0.0526,0.9474,39594.0289,46504,0.0166,0.2283,False,,False,True,anomalously_dark
-PER,PER.2_1,Ancash,0.3392,0.5836,0.4164,35888.1776,42544,0.238,1.4555,False,,False,True,anomalously_dark
-PER,PER.3_1,Apurímac,0.0,0.0384,0.9616,21097.0961,25420,0.0273,1.2217,False,,False,True,anomalously_dark
-PER,PER.4_1,Arequipa,0.5533,0.9272,0.0728,63276.4283,76875,0.2363,1.36,True,,False,True,desert_dark
-PER,PER.5_1,Ayacucho,0.106,0.5156,0.4844,43558.0297,52502,0.0379,0.6659,False,,False,True,anomalously_dark
-PER,PER.6_1,Cajamarca,0.0461,0.4051,0.5949,32904.8016,38735,0.0796,1.42,False,,False,True,anomalously_dark
-PER,PER.7_1,Callao,1.0,1.0,0.0,157.3079,188,43.4451,56.3572,True,,False,False,lit_desert
-PER,PER.8_1,Cusco,0.0,0.0665,0.9335,72232.3145,86744,0.1025,0.9821,False,,False,True,anomalously_dark
-PER,PER.9_1,Huancavelica,0.0457,0.4343,0.5657,22084.3568,26501,0.0551,0.9119,False,,False,True,anomalously_dark
-PER,PER.10_1,Huánuco,0.0,0.0754,0.9246,37102.1183,43984,0.0755,0.4819,False,,False,True,anomalously_dark
-PER,PER.11_1,Ica,0.9507,1.0,0.0,21155.7367,25514,0.7021,3.0965,True,,False,False,lit_desert
-PER,PER.12_1,Junín,0.0,0.0426,0.9574,44633.6583,53266,0.3242,1.242,False,,False,True,anomalously_dark
-PER,PER.13_1,La Libertad,0.428,0.699,0.301,25301.7224,29878,0.5269,2.9917,False,,False,False,ordinary
-PER,PER.14_1,Lambayeque,0.8719,0.9639,0.0361,14288.076,16816,0.7824,3.4026,True,,False,False,lit_desert
-PER,PER.16_1,Lima,0.4201,0.6681,0.3319,32341.1599,38629,0.4379,2.8529,False,,False,False,ordinary
-PER,PER.15_1,Lima Province,0.9997,1.0,0.0,2701.1865,3229,19.6894,40.7271,True,,False,False,lit_desert
-PER,PER.17_1,Loreto,0.0,0.0,1.0,375444.1004,440517,0.0281,0.0608,False,,False,True,anomalously_dark
-PER,PER.18_1,Madre de Dios,0.0,0.0,1.0,84359.4721,100833,0.0075,0.142,False,,False,True,anomalously_dark
-PER,PER.19_1,Moquegua,0.5523,1.0,0.0,15757.476,19241,0.193,1.7885,True,,False,True,desert_dark
-PER,PER.20_1,Pasco,0.0,0.0094,0.9906,23965.8955,28493,0.1034,0.6479,False,,False,True,anomalously_dark
-PER,PER.21_1,Piura,0.687,0.8948,0.1052,35860.3304,42118,0.3687,3.0171,True,,False,False,lit_desert
-PER,PER.22_1,Puno,0.0,0.3109,0.6891,72694.5704,87977,0.0604,0.7527,False,,False,True,anomalously_dark
-PER,PER.23_1,San Martín,0.0,0.0,1.0,50373.9692,59372,0.0459,0.5615,False,,False,True,anomalously_dark
-PER,PER.24_1,Tacna,0.7405,1.0,0.0,16003.1006,19622,0.234,1.4445,True,,False,True,desert_dark
-PER,PER.25_1,Tumbes,0.4997,1.0,0.0,4649.1999,5451,0.4407,3.4645,False,,False,False,ordinary
-PER,PER.26_1,Ucayali,0.0,0.0,1.0,105098.4174,124677,0.0348,0.1716,False,,False,True,anomalously_dark
 SUR,SUR.1_1,Brokopondo,0.0,0.0,1.0,7337.487,8613,0.0128,0.5225,False,,False,True,anomalously_dark
 SUR,SUR.2_1,Commewijne,0.0,0.0,1.0,2437.8377,2866,0.5502,3.5628,False,,False,False,ordinary
 SUR,SUR.3_1,Coronie,0.0,0.0,1.0,3631.0151,4268,0.0096,0.1267,False,,False,True,anomalously_dark

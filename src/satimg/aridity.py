@@ -40,7 +40,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from .analysis import number
+from .analysis import number, unit_sort_key
 from .raster import _require_numpy, _require_rasterio
 
 DEFAULT_ROOT = Path("data/aridity")
@@ -788,6 +788,9 @@ def vs_light(
             "mean_dn_2022",
         ):
             row[key] = round(row[key], ROUND_DP)
+    # Deterministic by construction, not by whatever order the layers arrived
+    # in. See analysis.unit_sort_key.
+    rows.sort(key=lambda r: unit_sort_key(r["iso3"], r["gid"]))
     return rows
 
 

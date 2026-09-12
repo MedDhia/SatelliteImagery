@@ -364,6 +364,11 @@ def build_rows(
         if not series.get("total"):
             continue
         rows.extend(country_rows(iso3, series))
+    # Stable sort on the country alone: every country's measure and window rows
+    # keep the order country_rows emits them in, which is meaningful (full,
+    # dmsp, viirs), while the countries themselves stop depending on how the
+    # pool tuple happens to be written. See analysis.unit_sort_key.
+    rows.sort(key=lambda r: str(r["iso3"]))
     return rows
 
 

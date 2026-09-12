@@ -765,3 +765,72 @@ def test_every_published_csv_has_a_header_row():
             header = next(_csv.reader(handle), None)
         assert header, path
         assert all(field.strip() for field in header), (path, header)
+
+
+def test_unit_sort_key_orders_digits_numerically():
+    """TUN.2_1 before TUN.10_1, which a plain string sort gets backwards."""
+    from satimg.analysis import unit_sort_key
+
+    gids = ["TUN.10_1", "TUN.2_1", "TUN.1_1", "CHN.1.1_1", "HKG.1_1"]
+    assert sorted(gids, key=lambda g: unit_sort_key("X", g)) == [
+        "CHN.1.1_1",
+        "HKG.1_1",
+        "TUN.1_1",
+        "TUN.2_1",
+        "TUN.10_1",
+    ]
+    # the iso3 leads, so a country's units never interleave with another's
+    pairs = [("TUN", "TUN.9_1"), ("DZA", "DZA.1_1"), ("TUN", "TUN.1_1")]
+    assert [p[1] for p in sorted(pairs, key=lambda p: unit_sort_key(*p))] == [
+        "DZA.1_1",
+        "TUN.1_1",
+        "TUN.9_1",
+    ]
+
+
+def test_every_published_aridity_join_is_sorted():
+    """Row order is a property of the data, not of upstream cache state.
+
+    The published tables used to follow the GADM layer's feature order, so
+    re-running one country from a differently-filtered cache could move rows
+    that had not changed - 37 of them, once, when the United States was
+    re-run uncropped. A sorted table cannot do that: a re-run that changes no
+    number produces no diff, and a change cannot hide inside a reordering.
+    """
+    import csv as _csv
+
+    from satimg import aridity as A
+    from satimg import regions as R
+    from satimg.analysis import unit_sort_key
+
+    published = Path(__file__).resolve().parents[1] / "results"
+    seen = 0
+    for pool in R.POOLS:
+        path = published / A.vs_light_table(pool)
+        if not path.exists():
+            continue
+        rows = list(_csv.DictReader(path.open(encoding="utf-8", newline="")))
+        keys = [unit_sort_key(r["iso3"], r["gid"]) for r in rows]
+        assert keys == sorted(keys), f"{path.name} is not in unit_sort_key order"
+        assert len(set(keys)) == len(keys), f"{path.name} has a duplicate unit"
+        seen += 1
+    assert seen, "no aridity joins found to check"
+
+
+def test_every_published_trends_table_groups_countries():
+    """Countries in iso3 order; each one's rows stay in the order emitted."""
+    import csv as _csv
+
+    from satimg import regions as R
+    from satimg import trends as T
+
+    published = Path(__file__).resolve().parents[1] / "results"
+    seen = 0
+    for pool in R.POOLS:
+        path = published / T.trends_table(pool)
+        if not path.exists():
+            continue
+        isos = [r["iso3"] for r in _csv.DictReader(path.open(encoding="utf-8"))]
+        assert isos == sorted(isos), f"{path.name} is not grouped by iso3"
+        seen += 1
+    assert seen, "no trends tables found to check"
