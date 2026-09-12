@@ -1,0 +1,2 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+Z07,Z07.3_1,Arunachal Pradesh,67112.4261,88774,88774,0,0.0,0.0,0.015560498676968546,0.05552468040087825,0.9289148209220527,0.0,0.0710851790778468,adm1

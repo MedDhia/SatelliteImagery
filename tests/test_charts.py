@@ -192,3 +192,35 @@ def test_the_swarm_offsets_are_symmetric_and_bounded():
 def test_the_swarm_leaves_a_lone_point_on_its_row():
     assert C._swarm([2.0], half_width=0.3) == [0.0]
     assert C._swarm([], half_width=0.3) == []
+
+
+def test_a_single_unit_decomposition_does_not_divide_by_its_own_zero(tmp_path):
+    """One unit means a Theil total of exactly 0, not a NaN.
+
+    The nested panel filtered NaN totals and then divided by the rest, so a
+    country with a single admin-1 and admin-2 unit reached 0/0 and raised
+    ZeroDivisionError. Two of the nine disputed Himalayan areas are exactly
+    that shape, and both failed their pipeline run.
+    """
+    rows = [
+        {
+            "year": year,
+            "scope": "all",
+            "zeros": "zeros_included",
+            "measure": "theil_t",
+            "grouping": "nested",
+            "total": 0.0,
+            "between": 0.0,
+            "within": 0.0,
+            "between_deleg_within_gov": 0.0,
+            "between_share": float("nan"),
+            "within_share": float("nan"),
+            "residual": 0.0,
+            "n_groups": 1,
+        }
+        for year in (1992, 2022)
+    ]
+    out = tmp_path / "nested.png"
+    # Draws the "nothing to apportion" panel rather than raising.
+    C.plot_decomposition(rows, out, iso3="Z02")
+    assert out.exists() and out.stat().st_size > 0

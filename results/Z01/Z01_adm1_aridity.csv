@@ -1,0 +1,2 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+Z01,Z01.14_1,Jammu and Kashmir,104243.1478,146110,146110,0,0.0,0.4198629122795532,0.20427707127210704,0.03204616348927926,0.3438138529590619,0.4198629122795532,0.6561861470409395,adm1

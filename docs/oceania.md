@@ -8,7 +8,7 @@ Every UN M49 Oceanian entity GADM can support, as a single `oceania` pool.
 
 ⚠️ **`dark_2022` is incomparable across pools.** Each cuts at the median
 `mean_dn_2022` of its own members, and Oceania's is **0.3050** against Europe's
-9.5926 and the Arab League's 6.2628. A unit called dark here would be called
+9.9373 and the Arab League's 6.2628. A unit called dark here would be called
 lit almost anywhere else.
 
 That cut is also an example of the parity rule this repository keeps tripping

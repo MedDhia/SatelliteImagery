@@ -1,0 +1,13 @@
+year,scope,zeros,grouping,unit,pixels,mean_dn,population_share,value_share,theil_t,within_contribution
+1997,all,zeros_included,autonomous region,Xinjiang Uygur,26503,0.00011319473267177301,0.8559847555067502,1.0,9.548499044819179,9.548499044819179
+1997,all,zeros_included,autonomous region,Xizang,4459,0.0,0.1440152444932498,0.0,0.0,0.0
+1997,all,zeros_included,prefecture,Khotan,26503,0.00011319473267177301,0.8559847555067502,1.0,9.548499044819179,9.548499044819179
+1997,all,zeros_included,prefecture,Ngari,4459,0.0,0.1440152444932498,0.0,0.0,0.0
+1997,all,lit_only,autonomous region,Xinjiang Uygur,2,1.5,1.0,1.0,0.056633012265132454,0.056633012265132454
+1997,all,lit_only,prefecture,Khotan,2,1.5,1.0,1.0,0.056633012265132454,0.056633012265132454
+2022,all,zeros_included,autonomous region,Xinjiang Uygur,26503,3.773157755725767e-05,0.8559847555067502,1.0,10.185013213113992,10.185013213113992
+2022,all,zeros_included,autonomous region,Xizang,4459,0.0,0.1440152444932498,0.0,0.0,0.0
+2022,all,zeros_included,prefecture,Khotan,26503,3.773157755725767e-05,0.8559847555067502,1.0,10.185013213113992,10.185013213113992
+2022,all,zeros_included,prefecture,Ngari,4459,0.0,0.1440152444932498,0.0,0.0,0.0
+2022,all,lit_only,autonomous region,Xinjiang Uygur,1,1.0,1.0,1.0,0.0,0.0
+2022,all,lit_only,prefecture,Khotan,1,1.0,1.0,1.0,0.0,0.0

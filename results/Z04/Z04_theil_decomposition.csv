@@ -1,0 +1,373 @@
+year,scope,zeros,measure,grouping,total,between,within,between_share,within_share,between_deleg_within_gov,residual,n_groups
+1992,all,lit_only,theil_l,district,,,,,,,,0
+1993,all,lit_only,theil_l,district,,,,,,,,0
+1994,all,lit_only,theil_l,district,,,,,,,,0
+1995,all,lit_only,theil_l,district,,,,,,,,0
+1996,all,lit_only,theil_l,district,,,,,,,,0
+1997,all,lit_only,theil_l,district,,,,,,,,0
+1998,all,lit_only,theil_l,district,,,,,,,,0
+1999,all,lit_only,theil_l,district,,,,,,,,0
+2000,all,lit_only,theil_l,district,,,,,,,,0
+2001,all,lit_only,theil_l,district,,,,,,,,0
+2002,all,lit_only,theil_l,district,,,,,,,,0
+2003,all,lit_only,theil_l,district,,,,,,,,0
+2004,all,lit_only,theil_l,district,,,,,,,,0
+2005,all,lit_only,theil_l,district,,,,,,,,0
+2006,all,lit_only,theil_l,district,,,,,,,,0
+2007,all,lit_only,theil_l,district,,,,,,,,0
+2008,all,lit_only,theil_l,district,,,,,,,,0
+2009,all,lit_only,theil_l,district,,,,,,,,0
+2010,all,lit_only,theil_l,district,,,,,,,,0
+2011,all,lit_only,theil_l,district,,,,,,,,0
+2012,all,lit_only,theil_l,district,,,,,,,,0
+2013,all,lit_only,theil_l,district,,,,,,,,0
+2014,all,lit_only,theil_l,district,,,,,,,,0
+2015,all,lit_only,theil_l,district,,,,,,,,0
+2016,all,lit_only,theil_l,district,,,,,,,,0
+2017,all,lit_only,theil_l,district,,,,,,,,0
+2018,all,lit_only,theil_l,district,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,,1.3877787807814457e-17,1
+2019,all,lit_only,theil_l,district,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,,1.3877787807814457e-17,1
+2020,all,lit_only,theil_l,district,0.12738249764128975,0.009780197498843346,0.11760230014244631,0.07677818915424683,0.9232218108457524,,8.326672684688674e-17,2
+2021,all,lit_only,theil_l,district,0.09148363735720955,0.004333667127073275,0.08714997023013638,0.04737095345424361,0.9526290465457575,,1.1102230246251565e-16,2
+2022,all,lit_only,theil_l,district,0.09901325190562543,0.008117115672839563,0.09089613623278583,0.08198009374115293,0.9180199062588467,,2.7755575615628914e-17,2
+1992,all,zeros_included,theil_l,district,,,,,,,,0
+1993,all,zeros_included,theil_l,district,,,,,,,,0
+1994,all,zeros_included,theil_l,district,,,,,,,,0
+1995,all,zeros_included,theil_l,district,,,,,,,,0
+1996,all,zeros_included,theil_l,district,,,,,,,,0
+1997,all,zeros_included,theil_l,district,,,,,,,,0
+1998,all,zeros_included,theil_l,district,,,,,,,,0
+1999,all,zeros_included,theil_l,district,,,,,,,,0
+2000,all,zeros_included,theil_l,district,,,,,,,,0
+2001,all,zeros_included,theil_l,district,,,,,,,,0
+2002,all,zeros_included,theil_l,district,,,,,,,,0
+2003,all,zeros_included,theil_l,district,,,,,,,,0
+2004,all,zeros_included,theil_l,district,,,,,,,,0
+2005,all,zeros_included,theil_l,district,,,,,,,,0
+2006,all,zeros_included,theil_l,district,,,,,,,,0
+2007,all,zeros_included,theil_l,district,,,,,,,,0
+2008,all,zeros_included,theil_l,district,,,,,,,,0
+2009,all,zeros_included,theil_l,district,,,,,,,,0
+2010,all,zeros_included,theil_l,district,,,,,,,,0
+2011,all,zeros_included,theil_l,district,,,,,,,,0
+2012,all,zeros_included,theil_l,district,,,,,,,,0
+2013,all,zeros_included,theil_l,district,,,,,,,,0
+2014,all,zeros_included,theil_l,district,,,,,,,,0
+2015,all,zeros_included,theil_l,district,,,,,,,,0
+2016,all,zeros_included,theil_l,district,,,,,,,,0
+2017,all,zeros_included,theil_l,district,,,,,,,,0
+2018,all,zeros_included,theil_l,district,,,,,,,,0
+2019,all,zeros_included,theil_l,district,,,,,,,,0
+2020,all,zeros_included,theil_l,district,,,,,,,,0
+2021,all,zeros_included,theil_l,district,,,,,,,,0
+2022,all,zeros_included,theil_l,district,,,,,,,,0
+1992,all,lit_only,theil_l,nested,,,,,,,,0
+1993,all,lit_only,theil_l,nested,,,,,,,,0
+1994,all,lit_only,theil_l,nested,,,,,,,,0
+1995,all,lit_only,theil_l,nested,,,,,,,,0
+1996,all,lit_only,theil_l,nested,,,,,,,,0
+1997,all,lit_only,theil_l,nested,,,,,,,,0
+1998,all,lit_only,theil_l,nested,,,,,,,,0
+1999,all,lit_only,theil_l,nested,,,,,,,,0
+2000,all,lit_only,theil_l,nested,,,,,,,,0
+2001,all,lit_only,theil_l,nested,,,,,,,,0
+2002,all,lit_only,theil_l,nested,,,,,,,,0
+2003,all,lit_only,theil_l,nested,,,,,,,,0
+2004,all,lit_only,theil_l,nested,,,,,,,,0
+2005,all,lit_only,theil_l,nested,,,,,,,,0
+2006,all,lit_only,theil_l,nested,,,,,,,,0
+2007,all,lit_only,theil_l,nested,,,,,,,,0
+2008,all,lit_only,theil_l,nested,,,,,,,,0
+2009,all,lit_only,theil_l,nested,,,,,,,,0
+2010,all,lit_only,theil_l,nested,,,,,,,,0
+2011,all,lit_only,theil_l,nested,,,,,,,,0
+2012,all,lit_only,theil_l,nested,,,,,,,,0
+2013,all,lit_only,theil_l,nested,,,,,,,,0
+2014,all,lit_only,theil_l,nested,,,,,,,,0
+2015,all,lit_only,theil_l,nested,,,,,,,,0
+2016,all,lit_only,theil_l,nested,,,,,,,,0
+2017,all,lit_only,theil_l,nested,,,,,,,,0
+2018,all,lit_only,theil_l,nested,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,0.0,1.3877787807814457e-17,1
+2019,all,lit_only,theil_l,nested,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,0.0,1.3877787807814457e-17,1
+2020,all,lit_only,theil_l,nested,0.12738249764128975,0.0,0.11760230014244631,0.0,0.9232218108457524,0.009780197498843346,8.326672684688674e-17,2
+2021,all,lit_only,theil_l,nested,0.09148363735720955,0.0,0.08714997023013638,0.0,0.9526290465457575,0.004333667127073275,1.1102230246251565e-16,2
+2022,all,lit_only,theil_l,nested,0.09901325190562543,0.0,0.09089613623278583,0.0,0.9180199062588467,0.008117115672839563,2.7755575615628914e-17,2
+1992,all,zeros_included,theil_l,nested,,,,,,,,0
+1993,all,zeros_included,theil_l,nested,,,,,,,,0
+1994,all,zeros_included,theil_l,nested,,,,,,,,0
+1995,all,zeros_included,theil_l,nested,,,,,,,,0
+1996,all,zeros_included,theil_l,nested,,,,,,,,0
+1997,all,zeros_included,theil_l,nested,,,,,,,,0
+1998,all,zeros_included,theil_l,nested,,,,,,,,0
+1999,all,zeros_included,theil_l,nested,,,,,,,,0
+2000,all,zeros_included,theil_l,nested,,,,,,,,0
+2001,all,zeros_included,theil_l,nested,,,,,,,,0
+2002,all,zeros_included,theil_l,nested,,,,,,,,0
+2003,all,zeros_included,theil_l,nested,,,,,,,,0
+2004,all,zeros_included,theil_l,nested,,,,,,,,0
+2005,all,zeros_included,theil_l,nested,,,,,,,,0
+2006,all,zeros_included,theil_l,nested,,,,,,,,0
+2007,all,zeros_included,theil_l,nested,,,,,,,,0
+2008,all,zeros_included,theil_l,nested,,,,,,,,0
+2009,all,zeros_included,theil_l,nested,,,,,,,,0
+2010,all,zeros_included,theil_l,nested,,,,,,,,0
+2011,all,zeros_included,theil_l,nested,,,,,,,,0
+2012,all,zeros_included,theil_l,nested,,,,,,,,0
+2013,all,zeros_included,theil_l,nested,,,,,,,,0
+2014,all,zeros_included,theil_l,nested,,,,,,,,0
+2015,all,zeros_included,theil_l,nested,,,,,,,,0
+2016,all,zeros_included,theil_l,nested,,,,,,,,0
+2017,all,zeros_included,theil_l,nested,,,,,,,,0
+2018,all,zeros_included,theil_l,nested,,,,,,,,0
+2019,all,zeros_included,theil_l,nested,,,,,,,,0
+2020,all,zeros_included,theil_l,nested,,,,,,,,0
+2021,all,zeros_included,theil_l,nested,,,,,,,,0
+2022,all,zeros_included,theil_l,nested,,,,,,,,0
+1992,all,lit_only,theil_l,union territory,,,,,,,,0
+1993,all,lit_only,theil_l,union territory,,,,,,,,0
+1994,all,lit_only,theil_l,union territory,,,,,,,,0
+1995,all,lit_only,theil_l,union territory,,,,,,,,0
+1996,all,lit_only,theil_l,union territory,,,,,,,,0
+1997,all,lit_only,theil_l,union territory,,,,,,,,0
+1998,all,lit_only,theil_l,union territory,,,,,,,,0
+1999,all,lit_only,theil_l,union territory,,,,,,,,0
+2000,all,lit_only,theil_l,union territory,,,,,,,,0
+2001,all,lit_only,theil_l,union territory,,,,,,,,0
+2002,all,lit_only,theil_l,union territory,,,,,,,,0
+2003,all,lit_only,theil_l,union territory,,,,,,,,0
+2004,all,lit_only,theil_l,union territory,,,,,,,,0
+2005,all,lit_only,theil_l,union territory,,,,,,,,0
+2006,all,lit_only,theil_l,union territory,,,,,,,,0
+2007,all,lit_only,theil_l,union territory,,,,,,,,0
+2008,all,lit_only,theil_l,union territory,,,,,,,,0
+2009,all,lit_only,theil_l,union territory,,,,,,,,0
+2010,all,lit_only,theil_l,union territory,,,,,,,,0
+2011,all,lit_only,theil_l,union territory,,,,,,,,0
+2012,all,lit_only,theil_l,union territory,,,,,,,,0
+2013,all,lit_only,theil_l,union territory,,,,,,,,0
+2014,all,lit_only,theil_l,union territory,,,,,,,,0
+2015,all,lit_only,theil_l,union territory,,,,,,,,0
+2016,all,lit_only,theil_l,union territory,,,,,,,,0
+2017,all,lit_only,theil_l,union territory,,,,,,,,0
+2018,all,lit_only,theil_l,union territory,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,,1.3877787807814457e-17,1
+2019,all,lit_only,theil_l,union territory,0.04985675617422343,0.0,0.04985675617422344,0.0,1.0000000000000002,,1.3877787807814457e-17,1
+2020,all,lit_only,theil_l,union territory,0.12738249764128975,0.0,0.12738249764128973,0.0,0.9999999999999998,,2.7755575615628914e-17,1
+2021,all,lit_only,theil_l,union territory,0.09148363735720955,0.0,0.09148363735720966,0.0,1.000000000000001,,1.1102230246251565e-16,1
+2022,all,lit_only,theil_l,union territory,0.09901325190562543,0.0,0.09901325190562549,0.0,1.0000000000000007,,5.551115123125783e-17,1
+1992,all,zeros_included,theil_l,union territory,,,,,,,,0
+1993,all,zeros_included,theil_l,union territory,,,,,,,,0
+1994,all,zeros_included,theil_l,union territory,,,,,,,,0
+1995,all,zeros_included,theil_l,union territory,,,,,,,,0
+1996,all,zeros_included,theil_l,union territory,,,,,,,,0
+1997,all,zeros_included,theil_l,union territory,,,,,,,,0
+1998,all,zeros_included,theil_l,union territory,,,,,,,,0
+1999,all,zeros_included,theil_l,union territory,,,,,,,,0
+2000,all,zeros_included,theil_l,union territory,,,,,,,,0
+2001,all,zeros_included,theil_l,union territory,,,,,,,,0
+2002,all,zeros_included,theil_l,union territory,,,,,,,,0
+2003,all,zeros_included,theil_l,union territory,,,,,,,,0
+2004,all,zeros_included,theil_l,union territory,,,,,,,,0
+2005,all,zeros_included,theil_l,union territory,,,,,,,,0
+2006,all,zeros_included,theil_l,union territory,,,,,,,,0
+2007,all,zeros_included,theil_l,union territory,,,,,,,,0
+2008,all,zeros_included,theil_l,union territory,,,,,,,,0
+2009,all,zeros_included,theil_l,union territory,,,,,,,,0
+2010,all,zeros_included,theil_l,union territory,,,,,,,,0
+2011,all,zeros_included,theil_l,union territory,,,,,,,,0
+2012,all,zeros_included,theil_l,union territory,,,,,,,,0
+2013,all,zeros_included,theil_l,union territory,,,,,,,,0
+2014,all,zeros_included,theil_l,union territory,,,,,,,,0
+2015,all,zeros_included,theil_l,union territory,,,,,,,,0
+2016,all,zeros_included,theil_l,union territory,,,,,,,,0
+2017,all,zeros_included,theil_l,union territory,,,,,,,,0
+2018,all,zeros_included,theil_l,union territory,,,,,,,,0
+2019,all,zeros_included,theil_l,union territory,,,,,,,,0
+2020,all,zeros_included,theil_l,union territory,,,,,,,,0
+2021,all,zeros_included,theil_l,union territory,,,,,,,,0
+2022,all,zeros_included,theil_l,union territory,,,,,,,,0
+1992,all,lit_only,theil_t,district,,,,,,,,0
+1993,all,lit_only,theil_t,district,,,,,,,,0
+1994,all,lit_only,theil_t,district,,,,,,,,0
+1995,all,lit_only,theil_t,district,,,,,,,,0
+1996,all,lit_only,theil_t,district,,,,,,,,0
+1997,all,lit_only,theil_t,district,,,,,,,,0
+1998,all,lit_only,theil_t,district,,,,,,,,0
+1999,all,lit_only,theil_t,district,,,,,,,,0
+2000,all,lit_only,theil_t,district,,,,,,,,0
+2001,all,lit_only,theil_t,district,,,,,,,,0
+2002,all,lit_only,theil_t,district,,,,,,,,0
+2003,all,lit_only,theil_t,district,,,,,,,,0
+2004,all,lit_only,theil_t,district,,,,,,,,0
+2005,all,lit_only,theil_t,district,,,,,,,,0
+2006,all,lit_only,theil_t,district,,,,,,,,0
+2007,all,lit_only,theil_t,district,,,,,,,,0
+2008,all,lit_only,theil_t,district,,,,,,,,0
+2009,all,lit_only,theil_t,district,,,,,,,,0
+2010,all,lit_only,theil_t,district,,,,,,,,0
+2011,all,lit_only,theil_t,district,,,,,,,,0
+2012,all,lit_only,theil_t,district,,,,,,,,0
+2013,all,lit_only,theil_t,district,,,,,,,,0
+2014,all,lit_only,theil_t,district,,,,,,,,0
+2015,all,lit_only,theil_t,district,,,,,,,,0
+2016,all,lit_only,theil_t,district,,,,,,,,0
+2017,all,lit_only,theil_t,district,,,,,,,,0
+2018,all,lit_only,theil_t,district,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,,8.326672684688674e-17,1
+2019,all,lit_only,theil_t,district,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,,8.326672684688674e-17,1
+2020,all,lit_only,theil_t,district,0.11371494056371491,0.009037124396160848,0.10467781616755419,0.07947174180772941,0.9205282581922717,,1.249000902703301e-16,2
+2021,all,lit_only,theil_t,district,0.07907822138309012,0.004141946666587813,0.07493627471650234,0.05237784302864349,0.947622156971357,,2.7755575615628914e-17,2
+2022,all,lit_only,theil_t,district,0.08152615867156822,0.0076150235702262675,0.07391113510134192,0.09340589197761336,0.9065941080223863,,2.7755575615628914e-17,2
+1992,all,zeros_included,theil_t,district,,,,,,,,0
+1993,all,zeros_included,theil_t,district,,,,,,,,0
+1994,all,zeros_included,theil_t,district,,,,,,,,0
+1995,all,zeros_included,theil_t,district,,,,,,,,0
+1996,all,zeros_included,theil_t,district,,,,,,,,0
+1997,all,zeros_included,theil_t,district,,,,,,,,0
+1998,all,zeros_included,theil_t,district,,,,,,,,0
+1999,all,zeros_included,theil_t,district,,,,,,,,0
+2000,all,zeros_included,theil_t,district,,,,,,,,0
+2001,all,zeros_included,theil_t,district,,,,,,,,0
+2002,all,zeros_included,theil_t,district,,,,,,,,0
+2003,all,zeros_included,theil_t,district,,,,,,,,0
+2004,all,zeros_included,theil_t,district,,,,,,,,0
+2005,all,zeros_included,theil_t,district,,,,,,,,0
+2006,all,zeros_included,theil_t,district,,,,,,,,0
+2007,all,zeros_included,theil_t,district,,,,,,,,0
+2008,all,zeros_included,theil_t,district,,,,,,,,0
+2009,all,zeros_included,theil_t,district,,,,,,,,0
+2010,all,zeros_included,theil_t,district,,,,,,,,0
+2011,all,zeros_included,theil_t,district,,,,,,,,0
+2012,all,zeros_included,theil_t,district,,,,,,,,0
+2013,all,zeros_included,theil_t,district,,,,,,,,0
+2014,all,zeros_included,theil_t,district,,,,,,,,0
+2015,all,zeros_included,theil_t,district,,,,,,,,0
+2016,all,zeros_included,theil_t,district,,,,,,,,0
+2017,all,zeros_included,theil_t,district,,,,,,,,0
+2018,all,zeros_included,theil_t,district,4.3848486611960995,0.9634375102998571,3.421411150896242,0.21971967215786428,0.7802803278421356,,0.0,2
+2019,all,zeros_included,theil_t,district,4.3848486611960995,0.9634375102998571,3.421411150896242,0.21971967215786428,0.7802803278421356,,0.0,2
+2020,all,zeros_included,theil_t,district,3.5281575489758907,0.4724205451827749,3.055737003793116,0.13390007068133994,0.8660999293186602,,4.440892098500626e-16,2
+2021,all,zeros_included,theil_t,district,3.5988813454530924,0.39485489160795495,3.2040264538451377,0.10971600719952146,0.8902839928004787,,4.440892098500626e-16,2
+2022,all,zeros_included,theil_t,district,3.601329282741571,0.4204941848617717,3.180835097879799,0.11676082686381392,0.883239173136186,,0.0,2
+1992,all,lit_only,theil_t,nested,,,,,,,,0
+1993,all,lit_only,theil_t,nested,,,,,,,,0
+1994,all,lit_only,theil_t,nested,,,,,,,,0
+1995,all,lit_only,theil_t,nested,,,,,,,,0
+1996,all,lit_only,theil_t,nested,,,,,,,,0
+1997,all,lit_only,theil_t,nested,,,,,,,,0
+1998,all,lit_only,theil_t,nested,,,,,,,,0
+1999,all,lit_only,theil_t,nested,,,,,,,,0
+2000,all,lit_only,theil_t,nested,,,,,,,,0
+2001,all,lit_only,theil_t,nested,,,,,,,,0
+2002,all,lit_only,theil_t,nested,,,,,,,,0
+2003,all,lit_only,theil_t,nested,,,,,,,,0
+2004,all,lit_only,theil_t,nested,,,,,,,,0
+2005,all,lit_only,theil_t,nested,,,,,,,,0
+2006,all,lit_only,theil_t,nested,,,,,,,,0
+2007,all,lit_only,theil_t,nested,,,,,,,,0
+2008,all,lit_only,theil_t,nested,,,,,,,,0
+2009,all,lit_only,theil_t,nested,,,,,,,,0
+2010,all,lit_only,theil_t,nested,,,,,,,,0
+2011,all,lit_only,theil_t,nested,,,,,,,,0
+2012,all,lit_only,theil_t,nested,,,,,,,,0
+2013,all,lit_only,theil_t,nested,,,,,,,,0
+2014,all,lit_only,theil_t,nested,,,,,,,,0
+2015,all,lit_only,theil_t,nested,,,,,,,,0
+2016,all,lit_only,theil_t,nested,,,,,,,,0
+2017,all,lit_only,theil_t,nested,,,,,,,,0
+2018,all,lit_only,theil_t,nested,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,0.0,8.326672684688674e-17,1
+2019,all,lit_only,theil_t,nested,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,0.0,8.326672684688674e-17,1
+2020,all,lit_only,theil_t,nested,0.11371494056371491,0.0,0.10467781616755419,0.0,0.9205282581922717,0.009037124396160848,1.249000902703301e-16,2
+2021,all,lit_only,theil_t,nested,0.07907822138309012,0.0,0.07493627471650234,0.0,0.947622156971357,0.004141946666587813,2.7755575615628914e-17,2
+2022,all,lit_only,theil_t,nested,0.08152615867156822,0.0,0.07391113510134192,0.0,0.9065941080223863,0.0076150235702262675,2.7755575615628914e-17,2
+1992,all,zeros_included,theil_t,nested,,,,,,,,0
+1993,all,zeros_included,theil_t,nested,,,,,,,,0
+1994,all,zeros_included,theil_t,nested,,,,,,,,0
+1995,all,zeros_included,theil_t,nested,,,,,,,,0
+1996,all,zeros_included,theil_t,nested,,,,,,,,0
+1997,all,zeros_included,theil_t,nested,,,,,,,,0
+1998,all,zeros_included,theil_t,nested,,,,,,,,0
+1999,all,zeros_included,theil_t,nested,,,,,,,,0
+2000,all,zeros_included,theil_t,nested,,,,,,,,0
+2001,all,zeros_included,theil_t,nested,,,,,,,,0
+2002,all,zeros_included,theil_t,nested,,,,,,,,0
+2003,all,zeros_included,theil_t,nested,,,,,,,,0
+2004,all,zeros_included,theil_t,nested,,,,,,,,0
+2005,all,zeros_included,theil_t,nested,,,,,,,,0
+2006,all,zeros_included,theil_t,nested,,,,,,,,0
+2007,all,zeros_included,theil_t,nested,,,,,,,,0
+2008,all,zeros_included,theil_t,nested,,,,,,,,0
+2009,all,zeros_included,theil_t,nested,,,,,,,,0
+2010,all,zeros_included,theil_t,nested,,,,,,,,0
+2011,all,zeros_included,theil_t,nested,,,,,,,,0
+2012,all,zeros_included,theil_t,nested,,,,,,,,0
+2013,all,zeros_included,theil_t,nested,,,,,,,,0
+2014,all,zeros_included,theil_t,nested,,,,,,,,0
+2015,all,zeros_included,theil_t,nested,,,,,,,,0
+2016,all,zeros_included,theil_t,nested,,,,,,,,0
+2017,all,zeros_included,theil_t,nested,,,,,,,,0
+2018,all,zeros_included,theil_t,nested,4.3848486611960995,0.0,3.421411150896242,0.0,0.7802803278421356,0.9634375102998571,0.0,2
+2019,all,zeros_included,theil_t,nested,4.3848486611960995,0.0,3.421411150896242,0.0,0.7802803278421356,0.9634375102998571,0.0,2
+2020,all,zeros_included,theil_t,nested,3.5281575489758907,0.0,3.055737003793116,0.0,0.8660999293186602,0.4724205451827749,4.440892098500626e-16,2
+2021,all,zeros_included,theil_t,nested,3.5988813454530924,0.0,3.2040264538451377,0.0,0.8902839928004787,0.39485489160795495,4.440892098500626e-16,2
+2022,all,zeros_included,theil_t,nested,3.601329282741571,0.0,3.180835097879799,0.0,0.883239173136186,0.4204941848617717,0.0,2
+1992,all,lit_only,theil_t,union territory,,,,,,,,0
+1993,all,lit_only,theil_t,union territory,,,,,,,,0
+1994,all,lit_only,theil_t,union territory,,,,,,,,0
+1995,all,lit_only,theil_t,union territory,,,,,,,,0
+1996,all,lit_only,theil_t,union territory,,,,,,,,0
+1997,all,lit_only,theil_t,union territory,,,,,,,,0
+1998,all,lit_only,theil_t,union territory,,,,,,,,0
+1999,all,lit_only,theil_t,union territory,,,,,,,,0
+2000,all,lit_only,theil_t,union territory,,,,,,,,0
+2001,all,lit_only,theil_t,union territory,,,,,,,,0
+2002,all,lit_only,theil_t,union territory,,,,,,,,0
+2003,all,lit_only,theil_t,union territory,,,,,,,,0
+2004,all,lit_only,theil_t,union territory,,,,,,,,0
+2005,all,lit_only,theil_t,union territory,,,,,,,,0
+2006,all,lit_only,theil_t,union territory,,,,,,,,0
+2007,all,lit_only,theil_t,union territory,,,,,,,,0
+2008,all,lit_only,theil_t,union territory,,,,,,,,0
+2009,all,lit_only,theil_t,union territory,,,,,,,,0
+2010,all,lit_only,theil_t,union territory,,,,,,,,0
+2011,all,lit_only,theil_t,union territory,,,,,,,,0
+2012,all,lit_only,theil_t,union territory,,,,,,,,0
+2013,all,lit_only,theil_t,union territory,,,,,,,,0
+2014,all,lit_only,theil_t,union territory,,,,,,,,0
+2015,all,lit_only,theil_t,union territory,,,,,,,,0
+2016,all,lit_only,theil_t,union territory,,,,,,,,0
+2017,all,lit_only,theil_t,union territory,,,,,,,,0
+2018,all,lit_only,theil_t,union territory,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,,8.326672684688674e-17,1
+2019,all,lit_only,theil_t,union territory,0.05411532090976842,0.0,0.05411532090976834,0.0,0.9999999999999984,,8.326672684688674e-17,1
+2020,all,lit_only,theil_t,union territory,0.11371494056371491,0.0,0.113714940563715,0.0,1.0000000000000009,,9.71445146547012e-17,1
+2021,all,lit_only,theil_t,union territory,0.07907822138309012,0.0,0.07907822138309006,0.0,0.9999999999999993,,5.551115123125783e-17,1
+2022,all,lit_only,theil_t,union territory,0.08152615867156822,0.0,0.08152615867156832,0.0,1.000000000000001,,9.71445146547012e-17,1
+1992,all,zeros_included,theil_t,union territory,,,,,,,,0
+1993,all,zeros_included,theil_t,union territory,,,,,,,,0
+1994,all,zeros_included,theil_t,union territory,,,,,,,,0
+1995,all,zeros_included,theil_t,union territory,,,,,,,,0
+1996,all,zeros_included,theil_t,union territory,,,,,,,,0
+1997,all,zeros_included,theil_t,union territory,,,,,,,,0
+1998,all,zeros_included,theil_t,union territory,,,,,,,,0
+1999,all,zeros_included,theil_t,union territory,,,,,,,,0
+2000,all,zeros_included,theil_t,union territory,,,,,,,,0
+2001,all,zeros_included,theil_t,union territory,,,,,,,,0
+2002,all,zeros_included,theil_t,union territory,,,,,,,,0
+2003,all,zeros_included,theil_t,union territory,,,,,,,,0
+2004,all,zeros_included,theil_t,union territory,,,,,,,,0
+2005,all,zeros_included,theil_t,union territory,,,,,,,,0
+2006,all,zeros_included,theil_t,union territory,,,,,,,,0
+2007,all,zeros_included,theil_t,union territory,,,,,,,,0
+2008,all,zeros_included,theil_t,union territory,,,,,,,,0
+2009,all,zeros_included,theil_t,union territory,,,,,,,,0
+2010,all,zeros_included,theil_t,union territory,,,,,,,,0
+2011,all,zeros_included,theil_t,union territory,,,,,,,,0
+2012,all,zeros_included,theil_t,union territory,,,,,,,,0
+2013,all,zeros_included,theil_t,union territory,,,,,,,,0
+2014,all,zeros_included,theil_t,union territory,,,,,,,,0
+2015,all,zeros_included,theil_t,union territory,,,,,,,,0
+2016,all,zeros_included,theil_t,union territory,,,,,,,,0
+2017,all,zeros_included,theil_t,union territory,,,,,,,,0
+2018,all,zeros_included,theil_t,union territory,4.3848486611960995,0.0,4.3848486611960995,0.0,1.0,,0.0,1
+2019,all,zeros_included,theil_t,union territory,4.3848486611960995,0.0,4.3848486611960995,0.0,1.0,,0.0,1
+2020,all,zeros_included,theil_t,union territory,3.5281575489758907,0.0,3.528157548975891,0.0,1.0000000000000002,,4.440892098500626e-16,1
+2021,all,zeros_included,theil_t,union territory,3.5988813454530924,0.0,3.5988813454530924,0.0,1.0,,0.0,1
+2022,all,zeros_included,theil_t,union territory,3.601329282741571,0.0,3.6013292827415704,0.0,0.9999999999999999,,4.440892098500626e-16,1

@@ -5,7 +5,7 @@ pool.
 
 | pool | entities | admin-1 | admin-2 | trends | aridity |
 |---|---:|---:|---:|---|---|
-| `asia` | 49 | 1 035 | 14 245 | [`../results/asia_trends_by_country.csv`](../results/asia_trends_by_country.csv) | [`../results/asia_aridity_vs_light.csv`](../results/asia_aridity_vs_light.csv) |
+| `asia` | 58 | 1 047 | 14 263 | [`../results/asia_trends_by_country.csv`](../results/asia_trends_by_country.csv) | [`../results/asia_aridity_vs_light.csv`](../results/asia_aridity_vs_light.csv) |
 
 Fourteen of the 49 were already analysed under other pools — the twelve Arab
 League members of Western Asia, Cyprus from Europe, and Thailand, which had
@@ -14,18 +14,18 @@ the design working, not duplication: each pool cuts `dark_2022` at the median
 of its own members.
 
 ⚠️ **`dark_2022` is incomparable across the seven pools**, and Asia makes the
-point sharply. Its cut is **5.5619**; Europe's is 9.5926 and Oceania's 0.3050.
+point sharply. Its cut is **5.4200**; Europe's is 9.9373 and Oceania's 0.3050.
 A unit called *lit* in Asia would be called dark in Europe and lit eighteen
 times over in Oceania.
 
 | pool | measured units | cut |
 |---|---:|---:|
-| `europe` | 688 | 9.5926 |
-| `north-america` | 379 | 6.3990 |
+| `north-america` | 519 | 10.1136 |
+| `europe` | 728 | 9.9373 |
 | `arab-league` | 317 | 6.2628 |
-| `asia` | 1 035 | 5.5619 |
-| `south-america` | 241 | 1.8081 |
-| `africa` | 854 | 0.4948 |
+| `asia` | 1 047 | 5.4200 |
+| `south-america` | 243 | 1.8032 |
+| `africa` | 878 | 0.5467 |
 | `oceania` | 212 | 0.3050 |
 
 ## Three countries GADM cannot support, and two it supports invisibly
@@ -121,7 +121,7 @@ beyond 75°N.
 
 ## Coverage
 
-**1 035 admin-1 units and 14 245 admin-2** — more than twice Africa's 6 475.
+**1 047 admin-1 units and 14 263 admin-2** — more than twice Africa's 6 475.
 Seven entities have no GADM ADM_2 layer: Singapore, Armenia, Israel, Bahrain,
 Cyprus, Kuwait and Qatar.
 

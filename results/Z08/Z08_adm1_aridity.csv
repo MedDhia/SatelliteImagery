@@ -1,0 +1,2 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+Z08,Z08.29_1,Xizang,1420.3562,1970,1970,0,0.0,0.9292368301428615,0.07076316985713835,0.0,0.0,0.9292368301428615,0.9999999999999999,adm1

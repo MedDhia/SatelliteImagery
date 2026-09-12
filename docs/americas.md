@@ -10,7 +10,7 @@ the United States. The aridity join cuts `dark_2022` at the median of *its own
 pool*, so one pool would set the darkness threshold largely from the giants and
 call much of the Caribbean lit by comparison.
 
-The measured medians settle it: **6.3990** north against **1.8081** south, a
+The measured medians settle it: **10.1136** north against **1.8032** south, a
 3.5-fold gap. A single pooled median would have sat between them and
 misclassified both ends.
 
@@ -229,9 +229,9 @@ or lit:
 | pool | units | | median | on the median |
 |---|---:|---|---:|---|
 | arab-league | 317 | odd | 6.2628 | Iraq's Ninawa |
-| north-america | 379 | odd | 6.3990 | Washington State |
-| south-america | 241 | odd | 1.8081 | Argentina's Mendoza |
-| africa | 854 | even | 0.4948 | *none* |
+| north-america | 519 | odd | 10.1136 | Guatemala's Chimaltenango |
+| south-america | 243 | odd | 1.8032 | Bolivia's Cochabamba |
+| africa | 878 | even | 0.5467 | *none* |
 
 "Washington State" rather than GADM's bare "Washington", because the pool holds
 both that and the District of Columbia.

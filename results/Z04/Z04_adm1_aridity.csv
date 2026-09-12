@@ -1,0 +1,2 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+Z04,Z04.13_1,Himachal Pradesh,303.0731,417,417,0,0.0,0.0,0.8680319180845796,0.13196808191542053,0.0,0.0,1.0,adm1

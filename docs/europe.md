@@ -89,18 +89,21 @@ or conflict, and neither reading transfers to this continent.
 
 ## The brightest pool, and the only one where light is going out
 
-Europe's darkness cut is **9.5926** — the highest of the five by a wide margin:
+Europe's darkness cut is **9.9373** — second only to north-america's, and
+that pool overtook it only when Puerto Rico and the Caribbean joined it:
 
 | pool | units | darkness cut |
 |---|---:|---:|
-| **europe** | 688 | **9.5926** |
-| north-america | 379 | 6.3990 |
+| north-america | 519 | 10.1136 |
+| **europe** | 728 | **9.9373** |
 | arab-league | 317 | 6.2628 |
-| south-america | 241 | 1.8081 |
-| africa | 854 | 0.4948 |
+| asia | 1 047 | 5.4200 |
+| south-america | 243 | 1.8032 |
+| africa | 878 | 0.5467 |
 
 That number moved a long way as the pool filled — 18.0275 at eight countries,
-9.2630 at forty, 9.5926 at forty-three — because the countries analysed first
+9.2630 at forty, 9.5926 at forty-three, 9.9373 at forty-nine once the
+Crown Dependencies and the rest of Cyprus joined — because those analysed first
 were the small bright ones. The early reading was an artefact of *which*
 countries had been analysed, not a finding, and is recorded here so nobody
 mistakes a partial pool for a result.

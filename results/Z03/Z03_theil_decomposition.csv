@@ -1,0 +1,373 @@
+year,scope,zeros,measure,grouping,total,between,within,between_share,within_share,between_deleg_within_gov,residual,n_groups
+1992,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1993,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1994,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1995,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1996,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1997,all,lit_only,theil_l,autonomous region,0.05889151782819174,0.0,0.05889151782819174,0.0,1.0,,0.0,1
+1998,all,lit_only,theil_l,autonomous region,,,,,,,,0
+1999,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2000,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2001,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2002,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2003,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2004,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2005,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2006,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2007,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2008,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2009,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2010,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2011,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2012,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2013,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2014,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2015,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2016,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2017,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2018,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2019,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2020,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2021,all,lit_only,theil_l,autonomous region,,,,,,,,0
+2022,all,lit_only,theil_l,autonomous region,0.0,0.0,0.0,,,,0.0,1
+1992,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1993,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1994,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1995,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1996,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1997,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1998,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1999,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2000,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2001,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2002,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2003,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2004,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2005,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2006,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2007,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2008,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2009,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2010,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2011,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2012,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2013,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2014,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2015,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2016,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2017,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2018,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2019,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2020,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2021,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+2022,all,zeros_included,theil_l,autonomous region,,,,,,,,0
+1992,all,lit_only,theil_l,nested,,,,,,,,0
+1993,all,lit_only,theil_l,nested,,,,,,,,0
+1994,all,lit_only,theil_l,nested,,,,,,,,0
+1995,all,lit_only,theil_l,nested,,,,,,,,0
+1996,all,lit_only,theil_l,nested,,,,,,,,0
+1997,all,lit_only,theil_l,nested,0.05889151782819174,0.0,0.05889151782819174,0.0,1.0,0.0,0.0,1
+1998,all,lit_only,theil_l,nested,,,,,,,,0
+1999,all,lit_only,theil_l,nested,,,,,,,,0
+2000,all,lit_only,theil_l,nested,,,,,,,,0
+2001,all,lit_only,theil_l,nested,,,,,,,,0
+2002,all,lit_only,theil_l,nested,,,,,,,,0
+2003,all,lit_only,theil_l,nested,,,,,,,,0
+2004,all,lit_only,theil_l,nested,,,,,,,,0
+2005,all,lit_only,theil_l,nested,,,,,,,,0
+2006,all,lit_only,theil_l,nested,,,,,,,,0
+2007,all,lit_only,theil_l,nested,,,,,,,,0
+2008,all,lit_only,theil_l,nested,,,,,,,,0
+2009,all,lit_only,theil_l,nested,,,,,,,,0
+2010,all,lit_only,theil_l,nested,,,,,,,,0
+2011,all,lit_only,theil_l,nested,,,,,,,,0
+2012,all,lit_only,theil_l,nested,,,,,,,,0
+2013,all,lit_only,theil_l,nested,,,,,,,,0
+2014,all,lit_only,theil_l,nested,,,,,,,,0
+2015,all,lit_only,theil_l,nested,,,,,,,,0
+2016,all,lit_only,theil_l,nested,,,,,,,,0
+2017,all,lit_only,theil_l,nested,,,,,,,,0
+2018,all,lit_only,theil_l,nested,,,,,,,,0
+2019,all,lit_only,theil_l,nested,,,,,,,,0
+2020,all,lit_only,theil_l,nested,,,,,,,,0
+2021,all,lit_only,theil_l,nested,,,,,,,,0
+2022,all,lit_only,theil_l,nested,0.0,0.0,0.0,,,0.0,0.0,1
+1992,all,zeros_included,theil_l,nested,,,,,,,,0
+1993,all,zeros_included,theil_l,nested,,,,,,,,0
+1994,all,zeros_included,theil_l,nested,,,,,,,,0
+1995,all,zeros_included,theil_l,nested,,,,,,,,0
+1996,all,zeros_included,theil_l,nested,,,,,,,,0
+1997,all,zeros_included,theil_l,nested,,,,,,,,0
+1998,all,zeros_included,theil_l,nested,,,,,,,,0
+1999,all,zeros_included,theil_l,nested,,,,,,,,0
+2000,all,zeros_included,theil_l,nested,,,,,,,,0
+2001,all,zeros_included,theil_l,nested,,,,,,,,0
+2002,all,zeros_included,theil_l,nested,,,,,,,,0
+2003,all,zeros_included,theil_l,nested,,,,,,,,0
+2004,all,zeros_included,theil_l,nested,,,,,,,,0
+2005,all,zeros_included,theil_l,nested,,,,,,,,0
+2006,all,zeros_included,theil_l,nested,,,,,,,,0
+2007,all,zeros_included,theil_l,nested,,,,,,,,0
+2008,all,zeros_included,theil_l,nested,,,,,,,,0
+2009,all,zeros_included,theil_l,nested,,,,,,,,0
+2010,all,zeros_included,theil_l,nested,,,,,,,,0
+2011,all,zeros_included,theil_l,nested,,,,,,,,0
+2012,all,zeros_included,theil_l,nested,,,,,,,,0
+2013,all,zeros_included,theil_l,nested,,,,,,,,0
+2014,all,zeros_included,theil_l,nested,,,,,,,,0
+2015,all,zeros_included,theil_l,nested,,,,,,,,0
+2016,all,zeros_included,theil_l,nested,,,,,,,,0
+2017,all,zeros_included,theil_l,nested,,,,,,,,0
+2018,all,zeros_included,theil_l,nested,,,,,,,,0
+2019,all,zeros_included,theil_l,nested,,,,,,,,0
+2020,all,zeros_included,theil_l,nested,,,,,,,,0
+2021,all,zeros_included,theil_l,nested,,,,,,,,0
+2022,all,zeros_included,theil_l,nested,,,,,,,,0
+1992,all,lit_only,theil_l,prefecture,,,,,,,,0
+1993,all,lit_only,theil_l,prefecture,,,,,,,,0
+1994,all,lit_only,theil_l,prefecture,,,,,,,,0
+1995,all,lit_only,theil_l,prefecture,,,,,,,,0
+1996,all,lit_only,theil_l,prefecture,,,,,,,,0
+1997,all,lit_only,theil_l,prefecture,0.05889151782819174,0.0,0.05889151782819174,0.0,1.0,,0.0,1
+1998,all,lit_only,theil_l,prefecture,,,,,,,,0
+1999,all,lit_only,theil_l,prefecture,,,,,,,,0
+2000,all,lit_only,theil_l,prefecture,,,,,,,,0
+2001,all,lit_only,theil_l,prefecture,,,,,,,,0
+2002,all,lit_only,theil_l,prefecture,,,,,,,,0
+2003,all,lit_only,theil_l,prefecture,,,,,,,,0
+2004,all,lit_only,theil_l,prefecture,,,,,,,,0
+2005,all,lit_only,theil_l,prefecture,,,,,,,,0
+2006,all,lit_only,theil_l,prefecture,,,,,,,,0
+2007,all,lit_only,theil_l,prefecture,,,,,,,,0
+2008,all,lit_only,theil_l,prefecture,,,,,,,,0
+2009,all,lit_only,theil_l,prefecture,,,,,,,,0
+2010,all,lit_only,theil_l,prefecture,,,,,,,,0
+2011,all,lit_only,theil_l,prefecture,,,,,,,,0
+2012,all,lit_only,theil_l,prefecture,,,,,,,,0
+2013,all,lit_only,theil_l,prefecture,,,,,,,,0
+2014,all,lit_only,theil_l,prefecture,,,,,,,,0
+2015,all,lit_only,theil_l,prefecture,,,,,,,,0
+2016,all,lit_only,theil_l,prefecture,,,,,,,,0
+2017,all,lit_only,theil_l,prefecture,,,,,,,,0
+2018,all,lit_only,theil_l,prefecture,,,,,,,,0
+2019,all,lit_only,theil_l,prefecture,,,,,,,,0
+2020,all,lit_only,theil_l,prefecture,,,,,,,,0
+2021,all,lit_only,theil_l,prefecture,,,,,,,,0
+2022,all,lit_only,theil_l,prefecture,0.0,0.0,0.0,,,,0.0,1
+1992,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1993,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1994,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1995,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1996,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1997,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1998,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1999,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2000,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2001,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2002,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2003,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2004,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2005,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2006,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2007,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2008,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2009,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2010,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2011,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2012,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2013,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2014,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2015,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2016,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2017,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2018,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2019,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2020,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2021,all,zeros_included,theil_l,prefecture,,,,,,,,0
+2022,all,zeros_included,theil_l,prefecture,,,,,,,,0
+1992,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1993,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1994,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1995,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1996,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1997,all,lit_only,theil_t,autonomous region,0.056633012265132426,0.0,0.056633012265132454,0.0,1.0000000000000004,,2.7755575615628914e-17,1
+1998,all,lit_only,theil_t,autonomous region,,,,,,,,0
+1999,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2000,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2001,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2002,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2003,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2004,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2005,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2006,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2007,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2008,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2009,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2010,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2011,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2012,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2013,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2014,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2015,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2016,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2017,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2018,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2019,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2020,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2021,all,lit_only,theil_t,autonomous region,,,,,,,,0
+2022,all,lit_only,theil_t,autonomous region,0.0,0.0,0.0,,,,0.0,1
+1992,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1993,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1994,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1995,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1996,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1997,all,zeros_included,theil_t,autonomous region,9.7040017568056,0.15550271198641835,9.548499044819179,0.016024596437996454,0.9839754035620033,,1.7763568394002505e-15,2
+1998,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+1999,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2000,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2001,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2002,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2003,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2004,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2005,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2006,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2007,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2008,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2009,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2010,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2011,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2012,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2013,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2014,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2015,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2016,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2017,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2018,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2019,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2020,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2021,all,zeros_included,theil_t,autonomous region,,,,,,,,0
+2022,all,zeros_included,theil_t,autonomous region,10.34051592510041,0.15550271198641819,10.185013213113992,0.015038196654090855,0.9849618033459091,,0.0,2
+1992,all,lit_only,theil_t,nested,,,,,,,,0
+1993,all,lit_only,theil_t,nested,,,,,,,,0
+1994,all,lit_only,theil_t,nested,,,,,,,,0
+1995,all,lit_only,theil_t,nested,,,,,,,,0
+1996,all,lit_only,theil_t,nested,,,,,,,,0
+1997,all,lit_only,theil_t,nested,0.056633012265132426,0.0,0.056633012265132454,0.0,1.0000000000000004,0.0,2.7755575615628914e-17,1
+1998,all,lit_only,theil_t,nested,,,,,,,,0
+1999,all,lit_only,theil_t,nested,,,,,,,,0
+2000,all,lit_only,theil_t,nested,,,,,,,,0
+2001,all,lit_only,theil_t,nested,,,,,,,,0
+2002,all,lit_only,theil_t,nested,,,,,,,,0
+2003,all,lit_only,theil_t,nested,,,,,,,,0
+2004,all,lit_only,theil_t,nested,,,,,,,,0
+2005,all,lit_only,theil_t,nested,,,,,,,,0
+2006,all,lit_only,theil_t,nested,,,,,,,,0
+2007,all,lit_only,theil_t,nested,,,,,,,,0
+2008,all,lit_only,theil_t,nested,,,,,,,,0
+2009,all,lit_only,theil_t,nested,,,,,,,,0
+2010,all,lit_only,theil_t,nested,,,,,,,,0
+2011,all,lit_only,theil_t,nested,,,,,,,,0
+2012,all,lit_only,theil_t,nested,,,,,,,,0
+2013,all,lit_only,theil_t,nested,,,,,,,,0
+2014,all,lit_only,theil_t,nested,,,,,,,,0
+2015,all,lit_only,theil_t,nested,,,,,,,,0
+2016,all,lit_only,theil_t,nested,,,,,,,,0
+2017,all,lit_only,theil_t,nested,,,,,,,,0
+2018,all,lit_only,theil_t,nested,,,,,,,,0
+2019,all,lit_only,theil_t,nested,,,,,,,,0
+2020,all,lit_only,theil_t,nested,,,,,,,,0
+2021,all,lit_only,theil_t,nested,,,,,,,,0
+2022,all,lit_only,theil_t,nested,0.0,0.0,0.0,,,0.0,0.0,1
+1992,all,zeros_included,theil_t,nested,,,,,,,,0
+1993,all,zeros_included,theil_t,nested,,,,,,,,0
+1994,all,zeros_included,theil_t,nested,,,,,,,,0
+1995,all,zeros_included,theil_t,nested,,,,,,,,0
+1996,all,zeros_included,theil_t,nested,,,,,,,,0
+1997,all,zeros_included,theil_t,nested,9.7040017568056,0.15550271198641835,9.548499044819179,0.016024596437996454,0.9839754035620033,0.0,1.7763568394002505e-15,2
+1998,all,zeros_included,theil_t,nested,,,,,,,,0
+1999,all,zeros_included,theil_t,nested,,,,,,,,0
+2000,all,zeros_included,theil_t,nested,,,,,,,,0
+2001,all,zeros_included,theil_t,nested,,,,,,,,0
+2002,all,zeros_included,theil_t,nested,,,,,,,,0
+2003,all,zeros_included,theil_t,nested,,,,,,,,0
+2004,all,zeros_included,theil_t,nested,,,,,,,,0
+2005,all,zeros_included,theil_t,nested,,,,,,,,0
+2006,all,zeros_included,theil_t,nested,,,,,,,,0
+2007,all,zeros_included,theil_t,nested,,,,,,,,0
+2008,all,zeros_included,theil_t,nested,,,,,,,,0
+2009,all,zeros_included,theil_t,nested,,,,,,,,0
+2010,all,zeros_included,theil_t,nested,,,,,,,,0
+2011,all,zeros_included,theil_t,nested,,,,,,,,0
+2012,all,zeros_included,theil_t,nested,,,,,,,,0
+2013,all,zeros_included,theil_t,nested,,,,,,,,0
+2014,all,zeros_included,theil_t,nested,,,,,,,,0
+2015,all,zeros_included,theil_t,nested,,,,,,,,0
+2016,all,zeros_included,theil_t,nested,,,,,,,,0
+2017,all,zeros_included,theil_t,nested,,,,,,,,0
+2018,all,zeros_included,theil_t,nested,,,,,,,,0
+2019,all,zeros_included,theil_t,nested,,,,,,,,0
+2020,all,zeros_included,theil_t,nested,,,,,,,,0
+2021,all,zeros_included,theil_t,nested,,,,,,,,0
+2022,all,zeros_included,theil_t,nested,10.34051592510041,0.15550271198641819,10.185013213113992,0.015038196654090855,0.9849618033459091,0.0,0.0,2
+1992,all,lit_only,theil_t,prefecture,,,,,,,,0
+1993,all,lit_only,theil_t,prefecture,,,,,,,,0
+1994,all,lit_only,theil_t,prefecture,,,,,,,,0
+1995,all,lit_only,theil_t,prefecture,,,,,,,,0
+1996,all,lit_only,theil_t,prefecture,,,,,,,,0
+1997,all,lit_only,theil_t,prefecture,0.056633012265132426,0.0,0.056633012265132454,0.0,1.0000000000000004,,2.7755575615628914e-17,1
+1998,all,lit_only,theil_t,prefecture,,,,,,,,0
+1999,all,lit_only,theil_t,prefecture,,,,,,,,0
+2000,all,lit_only,theil_t,prefecture,,,,,,,,0
+2001,all,lit_only,theil_t,prefecture,,,,,,,,0
+2002,all,lit_only,theil_t,prefecture,,,,,,,,0
+2003,all,lit_only,theil_t,prefecture,,,,,,,,0
+2004,all,lit_only,theil_t,prefecture,,,,,,,,0
+2005,all,lit_only,theil_t,prefecture,,,,,,,,0
+2006,all,lit_only,theil_t,prefecture,,,,,,,,0
+2007,all,lit_only,theil_t,prefecture,,,,,,,,0
+2008,all,lit_only,theil_t,prefecture,,,,,,,,0
+2009,all,lit_only,theil_t,prefecture,,,,,,,,0
+2010,all,lit_only,theil_t,prefecture,,,,,,,,0
+2011,all,lit_only,theil_t,prefecture,,,,,,,,0
+2012,all,lit_only,theil_t,prefecture,,,,,,,,0
+2013,all,lit_only,theil_t,prefecture,,,,,,,,0
+2014,all,lit_only,theil_t,prefecture,,,,,,,,0
+2015,all,lit_only,theil_t,prefecture,,,,,,,,0
+2016,all,lit_only,theil_t,prefecture,,,,,,,,0
+2017,all,lit_only,theil_t,prefecture,,,,,,,,0
+2018,all,lit_only,theil_t,prefecture,,,,,,,,0
+2019,all,lit_only,theil_t,prefecture,,,,,,,,0
+2020,all,lit_only,theil_t,prefecture,,,,,,,,0
+2021,all,lit_only,theil_t,prefecture,,,,,,,,0
+2022,all,lit_only,theil_t,prefecture,0.0,0.0,0.0,,,,0.0,1
+1992,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1993,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1994,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1995,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1996,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1997,all,zeros_included,theil_t,prefecture,9.7040017568056,0.15550271198641835,9.548499044819179,0.016024596437996454,0.9839754035620033,,1.7763568394002505e-15,2
+1998,all,zeros_included,theil_t,prefecture,,,,,,,,0
+1999,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2000,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2001,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2002,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2003,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2004,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2005,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2006,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2007,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2008,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2009,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2010,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2011,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2012,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2013,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2014,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2015,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2016,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2017,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2018,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2019,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2020,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2021,all,zeros_included,theil_t,prefecture,,,,,,,,0
+2022,all,zeros_included,theil_t,prefecture,10.34051592510041,0.15550271198641819,10.185013213113992,0.015038196654090855,0.9849618033459091,,0.0,2

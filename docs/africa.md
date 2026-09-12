@@ -14,7 +14,7 @@ so the two are separate pools rather than one list. Each owns its own tables:
 
 ⚠️ **`dark_2022` is not comparable between the two aridity files.** Each cuts
 at the median `mean_dn_2022` **of its own pool**, and those medians are far
-apart: **6.2628** for the Arab League against **0.4948** for Africa. A unit in
+apart: **6.2628** for the Arab League against **0.5467** for Africa. A unit in
 one of the ten shared countries can be dark in one file and lit in the other.
 That is not an inconsistency — "dark for this continent" and "dark for the Arab
 world" are different questions — but the two columns must never be pooled.

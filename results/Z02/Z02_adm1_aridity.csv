@@ -1,0 +1,2 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+Z02,Z02.28_1,Xinjiang Uygur,4576.3478,6585,6585,0,0.0,0.7974501864707652,0.19874442474232107,0.0031960582545355627,0.000609330532357185,0.7974501864707652,0.9993906694676218,adm1

@@ -274,12 +274,17 @@ def plot_decomposition(
                 ax.spines[side].set_color(GRID)
             ax.tick_params(colors=INK_MUTED, labelsize=8)
 
-        usable = [r for r in nested if r["total"] == r["total"]]
+        # NaN when a scope has unlit pixels, and exactly zero when there is
+        # only one unit to compare - the disputed Himalayan areas each have a
+        # single admin-1 and admin-2 unit, so their Theil total is 0 and the
+        # between-share below would be 0/0. Both mean the same thing for this
+        # panel: there is no inequality to apportion.
+        usable = [r for r in nested if r["total"] == r["total"] and r["total"] > 0]
         if not usable:
             share_ax.text(
                 0.5,
                 0.5,
-                f"{measure} undefined\nwith unlit pixels",
+                f"no {measure} to apportion\n(zero or undefined)",
                 transform=share_ax.transAxes,
                 ha="center",
                 va="center",

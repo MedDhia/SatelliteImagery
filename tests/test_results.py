@@ -838,3 +838,63 @@ def test_every_published_trends_table_groups_countries():
         assert isos == sorted(isos), f"{path.name} is not grouped by iso3"
         seen += 1
     assert seen, "no trends tables found to check"
+
+
+def test_docs_quote_the_darkness_cuts_the_tables_actually_have():
+    """Five regional docs each carry a cross-pool comparison table.
+
+    Adding the rest of the world moved five pools' medians at once, and every
+    one of those tables silently became wrong - the same class of drift
+    MEDIAN_TIES is guarded against, but in prose. Rows look like
+
+        | `europe` | 728 | 9.9373 |
+        | north-america | 519 | odd | 10.1136 | Guatemala's Chimaltenango |
+
+    so any row whose first cell names a pool is checked against that pool's
+    published cut.
+    """
+    import csv as _csv
+    import re
+    import statistics
+
+    from satimg import aridity as A
+    from satimg import regions as R
+
+    repo = Path(__file__).resolve().parents[1]
+    published = repo / "results"
+    if not published.is_dir():
+        pytest.skip("no published results tree here")
+
+    cuts = {}
+    for pool in R.POOLS:
+        path = published / A.vs_light_table(pool)
+        if not path.exists():
+            continue
+        rows = list(_csv.DictReader(path.open(encoding="utf-8", newline="")))
+        values = [float(r["mean_dn_2022"]) for r in rows if r["mean_dn_2022"].strip()]
+        cuts[pool] = (len(values), statistics.median(values))
+
+    checked = 0
+    for md in sorted((repo / "docs").glob("*.md")):
+        for line in md.read_text(encoding="utf-8").splitlines():
+            if not line.startswith("|"):
+                continue
+            cells = [c.strip().strip("*`") for c in line.strip("|").split("|")]
+            if not cells or cells[0] not in cuts:
+                continue
+            n, cut = cuts[cells[0]]
+            numbers = [
+                c.strip("*") for c in cells[1:] if re.fullmatch(r"[\d. ]+", c or "x")
+            ]
+            floats = [c for c in numbers if "." in c]
+            if not floats:
+                continue  # a link or prose row, not a cut table
+            assert f"{cut:.4f}" in floats, (
+                f"{md.name} says {floats} for {cells[0]}, published cut is {cut:.4f}"
+            )
+            ints = [int(c.replace(" ", "")) for c in numbers if "." not in c]
+            assert n in ints, (
+                f"{md.name} says {ints} units for {cells[0]}, published count is {n}"
+            )
+            checked += 1
+    assert checked >= 15, f"only {checked} pool rows found across the docs"
