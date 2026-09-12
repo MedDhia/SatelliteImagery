@@ -804,6 +804,8 @@ def test_every_published_aridity_join_is_sorted():
     from satimg.analysis import unit_sort_key
 
     published = Path(__file__).resolve().parents[1] / "results"
+    if not published.is_dir():
+        pytest.skip("no published results tree here")
     seen = 0
     for pool in R.POOLS:
         path = published / A.vs_light_table(pool)
@@ -825,6 +827,8 @@ def test_every_published_trends_table_groups_countries():
     from satimg import trends as T
 
     published = Path(__file__).resolve().parents[1] / "results"
+    if not published.is_dir():
+        pytest.skip("no published results tree here")
     seen = 0
     for pool in R.POOLS:
         path = published / T.trends_table(pool)

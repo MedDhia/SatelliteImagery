@@ -168,6 +168,22 @@ def test_countries_without_gadm_admin_2():
         "ARM",
         "ISR",
         "SGP",  # Asia
+        "AIA",
+        "BES",
+        "BMU",
+        "CYM",
+        "GGY",
+        "GRL",
+        "IMN",
+        "JEY",
+        "MSR",
+        "MYT",
+        "PRI",
+        "SPM",
+        "TCA",
+        "VGB",
+        "XAD",
+        "ZNC",  # dependencies and disputed areas
     }
     for iso3 in R.LEVELS_AVAILABLE:
         assert R.available_levels(iso3) == (0, 1), iso3
@@ -347,7 +363,12 @@ def test_each_pool_writes_its_own_table_and_the_default_keeps_its_path():
 
 
 def test_africa_covers_the_continent_and_western_sahara_is_named():
-    assert len(R.AFRICA) == 55
+    # 55 sovereign states plus three M49-African dependencies. The states are
+    # what the count used to assert; naming them keeps the check meaningful
+    # now that the pool is not only states.
+    dependencies = {"MYT", "REU", "SHN"}
+    assert dependencies < set(R.AFRICA)
+    assert len(set(R.AFRICA) - dependencies) == 55
     assert "ESH" in R.AFRICA
     assert R.COUNTRY_NAMES["ESH"] == "Western Sahara"
     # GADM 4.1 still says Swaziland; the current name is used for display.
@@ -398,7 +419,29 @@ def test_the_americas_are_two_pools_not_one():
     Canada and Haiti in one pool would produce a cut describing neither.
     """
     assert "americas" not in R.POOLS
-    assert len(R.NORTH_AMERICA) == 23 and len(R.SOUTH_AMERICA) == 12
+    # 23 and 12 sovereign states, plus the dependencies added with the rest of
+    # the world. Puerto Rico and Greenland are in the northern pool because
+    # M49 puts them there, not because they are states.
+    north_deps = {
+        "PRI",
+        "GRL",
+        "VIR",
+        "BMU",
+        "CYM",
+        "TCA",
+        "VGB",
+        "AIA",
+        "MSR",
+        "BES",
+        "BLM",
+        "GLP",
+        "MTQ",
+        "SPM",
+    }
+    assert north_deps < set(R.NORTH_AMERICA)
+    assert len(set(R.NORTH_AMERICA) - north_deps) == 23
+    assert {"GUF"} < set(R.SOUTH_AMERICA)
+    assert len(set(R.SOUTH_AMERICA) - {"GUF"}) == 12
     assert not set(R.NORTH_AMERICA) & set(R.SOUTH_AMERICA)
     both = set(R.NORTH_AMERICA) | set(R.SOUTH_AMERICA)
     assert both <= set(R.COUNTRIES)
@@ -452,11 +495,15 @@ def test_countries_without_a_skip_entry_analyse_everything_gadm_has():
 # --- Europe ----------------------------------------------------------------
 
 
-def test_europe_is_43_countries_in_countries_and_a_pool():
+def test_europe_is_43_countries_and_seven_dependencies_in_a_pool():
     from satimg import regions as R
 
-    assert len(R.EUROPE) == 43
-    assert len(set(R.EUROPE)) == 43
+    # Northern Cyprus and the Sovereign Base Areas are here rather than in
+    # ASIA because CYP is, and the three together complete one island.
+    dependencies = {"IMN", "JEY", "GGY", "FRO", "ALA", "ZNC", "XAD"}
+    assert dependencies < set(R.EUROPE)
+    assert len(set(R.EUROPE) - dependencies) == 43
+    assert len(set(R.EUROPE)) == len(R.EUROPE)
     assert R.POOLS["europe"] == R.EUROPE
     for iso3 in R.EUROPE:
         assert iso3 in R.COUNTRIES, iso3
@@ -471,6 +518,10 @@ def test_europe_does_not_overlap_the_other_pools():
     for other in ("arab-league", "africa", "north-america", "south-america"):
         shared = set(R.EUROPE) & set(R.pool_countries(other))
         assert not shared, f"europe overlaps {other}: {sorted(shared)}"
+    # Asia is the exception, and only by one member: Cyprus. Northern Cyprus
+    # and the base areas follow it into europe rather than splitting the
+    # island across two pools.
+    assert set(R.EUROPE) & set(R.pool_countries("asia")) == {"CYP"}
 
 
 def test_monaco_and_the_vatican_are_absent_because_gadm_has_no_feature():
