@@ -24,7 +24,7 @@ ARG,ARG.22_1,Santiago del Estero,0.0,0.9978,0.0022,136865.9113,180489,0.1192,0.8
 ARG,ARG.23_1,Tierra del Fuego,0.0,0.3159,0.6841,20911.005,41587,0.4987,1.0617,False,,False,True,anomalously_dark
 ARG,ARG.24_1,Tucumán,0.1424,0.9563,0.0437,22540.4614,29500,1.5806,5.998,False,,False,False,ordinary
 BOL,BOL.1_1,Chuquisaca,0.0,1.0,0.0,50910.5461,63305,0.1326,0.4568,False,,False,True,anomalously_dark
-BOL,BOL.2_1,Cochabamba,0.0,0.4054,0.5946,54429.4238,66595,0.5182,1.8032,False,,False,True,anomalously_dark
+BOL,BOL.2_1,Cochabamba,0.0,0.4054,0.5946,54429.4238,66595,0.5182,1.8032,False,,False,False,ordinary
 BOL,BOL.3_1,Beni,0.0,0.0,1.0,206780.3433,248952,0.0113,0.0861,False,,False,True,anomalously_dark
 BOL,BOL.4_1,La Paz,0.0,0.2674,0.7326,131228.7444,159025,0.1477,0.6577,False,,False,True,anomalously_dark
 BOL,BOL.5_1,Oruro,0.4241,1.0,0.0,52187.8534,64348,0.0859,0.486,False,,False,True,anomalously_dark
@@ -132,6 +132,8 @@ ECU,ECU.21_1,Santo Domingo de los Tsachilas,0.0,0.0,1.0,3768.7376,4409,0.9944,9.
 ECU,ECU.22_1,Sucumbios,0.0,0.0,1.0,17942.8636,20991,2.5451,4.7877,False,,False,False,ordinary
 ECU,ECU.23_1,Tungurahua,0.0,0.1325,0.8675,3385.8572,3962,2.6388,15.2182,False,,False,False,ordinary
 ECU,ECU.24_1,Zamora Chinchipe,0.0,0.0,1.0,10518.1769,12337,0.0313,1.4293,False,,False,True,anomalously_dark
+GUF,GUF.1_1,Cayenne,0.0,0.0,1.0,42605.7216,49966,0.1816,0.413,False,,False,True,anomalously_dark
+GUF,GUF.2_1,Saint-Laurent-du-Maroni,0.0,0.0,1.0,40697.5228,47723,0.0177,0.1017,False,,False,True,anomalously_dark
 GUY,GUY.1_1,Barima-Waini,0.0,0.0,1.0,19496.1189,23006,0.0,0.0173,False,,False,True,anomalously_dark
 GUY,GUY.2_1,Cuyuni-Mazaruni,0.0,0.0,1.0,47221.2927,55556,0.0087,0.0294,False,,False,True,anomalously_dark
 GUY,GUY.3_1,Demerara-Mahaica,0.0,0.0,1.0,2106.6531,2480,1.3404,6.0362,False,,False,False,ordinary

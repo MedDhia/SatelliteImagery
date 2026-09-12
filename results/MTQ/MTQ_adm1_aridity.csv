@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+MTQ,MTQ.1_1,Fort-de-France,186.2414,225,225,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MTQ,MTQ.2_1,Le Marin,389.2397,470,470,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MTQ,MTQ.3_1,Le Trinité,349.1433,422,422,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MTQ,MTQ.4_1,Saint-Pierre,187.8092,227,227,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

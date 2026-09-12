@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+ALA,ALA.1_2,Archipelago,464.4541,1086,1081,5,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ALA,ALA.2_2,Countryside,1026.68,2398,2394,4,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ALA,ALA.3_2,Mariehamn,13.7753,33,32,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+REU,REU.1_1,Saint-Benoît,737.3754,923,923,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+REU,REU.2_1,Saint-Denis,421.4038,527,527,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+REU,REU.3_1,Saint-Paul,467.3081,585,585,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+REU,REU.4_1,Saint-Pierre,885.805,1110,1110,0,0.0,0.0,0.0,0.0009005423599244552,0.9990994576400755,0.0,0.0009005423599244552,adm1

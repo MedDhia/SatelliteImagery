@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+FRO,FRO.1_1,Eysturoyar,207.4746,983,515,468,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FRO,FRO.2_1,Norderøerne,112.506,646,280,366,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FRO,FRO.3_1,Sandoyar,129.2501,318,317,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FRO,FRO.4_1,Streymoyar,184.9864,728,457,271,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FRO,FRO.5_1,Suðuroyar,163.4663,430,397,33,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FRO,FRO.6_1,Vågø,172.2625,468,426,42,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

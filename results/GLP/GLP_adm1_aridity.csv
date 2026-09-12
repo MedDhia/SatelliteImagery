@@ -1,0 +1,3 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+GLP,GLP.1_1,Basse-Terre,864.636,1052,1052,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+GLP,GLP.2_1,Pointe-à-Pitre,782.0911,952,952,0,0.0,0.0,0.0,0.026253400405699158,0.9737465995943007,0.0,0.026253400405699158,adm1

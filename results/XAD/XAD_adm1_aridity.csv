@@ -1,0 +1,3 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+XAD,XAD.1_1,Akrotiri,108.7847,155,154,1,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1
+XAD,XAD.2_1,Dhekelia,123.0495,175,175,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1

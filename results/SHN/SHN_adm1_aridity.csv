@@ -1,0 +1,4 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SHN,SHN.1_1,Ascension,101.6173,120,120,0,0.0,0.583338003974479,0.41666199602552206,0.0,0.0,0.583338003974479,1.000000000000001,adm1
+SHN,SHN.2_1,Saint Helena,0.0,151,0,151,,,,,,,,adm1
+SHN,SHN.3_1,Tristan da Cunha,191.1662,284,284,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

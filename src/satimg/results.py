@@ -326,8 +326,9 @@ CROSS_TRENDS_COLUMNS = (
 #: is what makes adding a country to a pool force this back into agreement.
 MEDIAN_TIES: Dict[str, str] = {
     "arab-league": "Iraq's Ninawa",
-    "africa": "the Gambia's North Bank",
-    "south-america": "Argentina's Mendoza",
+    "south-america": "Bolivia's Cochabamba",
+    # africa is absent again: Reunion and Saint Helena took it from 871
+    # measured units to an even 878, so the cut falls between two.
     # north-america is absent now. Nine Caribbean and North Atlantic
     # territories took it from 379 measured units to 430, an even count, so
     # the cut falls between two units and Washington State - named while the

@@ -1,4 +1,7 @@
 iso3,gid,name,desert_share,dryland_share,humid_share,area_km2,pixels_classified,mean_dn_1992,mean_dn_2022,majority_arid,light_scopes,in_light_scope,dark_2022,cell
+ALA,ALA.1_2,Archipelago,0.0,0.0,1.0,464.4541,1081,0.0,0.4287,False,,False,True,anomalously_dark
+ALA,ALA.2_2,Countryside,0.0,0.0,1.0,1026.68,2394,1.9353,6.1957,False,,False,True,anomalously_dark
+ALA,ALA.3_2,Mariehamn,0.0,0.0,1.0,13.7753,32,42.6923,50.1657,False,,False,False,ordinary
 ALB,ALB.1_1,Berat,0.0,0.0,1.0,1812.4775,2778,0.3123,4.9746,False,,False,True,anomalously_dark
 ALB,ALB.2_1,Dibër,0.0,0.0,1.0,2609.7434,4058,0.0785,2.0618,False,,False,True,anomalously_dark
 ALB,ALB.3_1,Durrës,0.0,0.0,1.0,778.557,1208,0.8465,17.943,False,,False,False,ordinary
@@ -186,6 +189,12 @@ FRA,FRA.10_1,Nouvelle-Aquitaine,0.0,0.0,1.0,84807.6854,139892,5.0114,8.9149,Fals
 FRA,FRA.11_1,Occitanie,0.0,0.154,0.846,73293.407,117856,6.1628,10.3568,False,,False,False,ordinary
 FRA,FRA.12_1,Pays de la Loire,0.0,0.0,1.0,32383.9583,55649,7.6023,13.4912,False,,False,False,ordinary
 FRA,FRA.13_1,Provence-Alpes-Côte d'Azur,0.0,0.3092,0.6908,31931.5707,51561,10.7853,14.9145,False,,False,False,ordinary
+FRO,FRO.1_1,Eysturoyar,0.0,0.0,1.0,207.4746,515,1.4413,13.273,False,,False,False,ordinary
+FRO,FRO.2_1,Norderøerne,0.0,0.0,1.0,112.506,280,0.5214,8.3269,False,,False,True,anomalously_dark
+FRO,FRO.3_1,Sandoyar,0.0,0.0,1.0,129.2501,317,0.0,2.4656,False,,False,True,anomalously_dark
+FRO,FRO.4_1,Streymoyar,0.0,0.0,1.0,184.9864,457,4.8237,14.5984,False,,False,False,ordinary
+FRO,FRO.5_1,Suðuroyar,0.0,0.0,1.0,163.4663,397,0.0,11.4904,False,,False,False,ordinary
+FRO,FRO.6_1,Vågø,0.0,0.0,1.0,172.2625,426,0.1277,7.1151,False,,False,True,anomalously_dark
 GBR,GBR.1_1,NA,0.0,0.0,1.0,130792.8617,249815,22.6031,24.8476,False,,False,False,ordinary
 GBR,GBR.2_1,Northern Ireland,0.0,0.0,1.0,14145.7668,28321,12.8656,15.9399,False,,False,False,ordinary
 GBR,GBR.3_1,Scotland,0.0,0.0,1.0,78084.3168,165380,5.3061,6.5052,False,,False,True,anomalously_dark
@@ -329,7 +338,7 @@ LIE,LIE.9_1,Triesen,0.0,0.0,1.0,24.6237,42,5.6154,13.7692,False,,False,False,ord
 LIE,LIE.10_1,Triesenberg,0.0,0.0,1.0,30.4637,52,10.5312,17.4688,False,,False,False,ordinary
 LIE,LIE.11_1,Valduz,0.0,0.0,1.0,16.9824,29,24.9412,38.8235,False,,False,False,ordinary
 LTU,LTU.1_1,Alytaus,0.0,0.0,1.0,5635.5155,11178,1.0506,3.2144,False,,False,True,anomalously_dark
-LTU,LTU.2_1,Kauno,0.0,0.0,1.0,8176.8288,16561,3.0659,9.9263,False,,False,False,ordinary
+LTU,LTU.2_1,Kauno,0.0,0.0,1.0,8176.8288,16561,3.0659,9.9263,False,,False,True,anomalously_dark
 LTU,LTU.3_1,Klaipedos,0.0,0.0,1.0,5375.4043,11057,1.4425,7.4093,False,,False,True,anomalously_dark
 LTU,LTU.4_1,Marijampoles,0.0,0.0,1.0,4448.8998,8928,1.1337,6.7189,False,,False,True,anomalously_dark
 LTU,LTU.5_1,Panevezio,0.0,0.0,1.0,7840.4721,16219,1.1201,4.0747,False,,False,True,anomalously_dark
@@ -625,7 +634,7 @@ SRB,SRB.12_1,Pirotski,0.0,0.0,1.0,2655.1846,4230,0.8343,4.671,False,,False,True,
 SRB,SRB.13_1,Podunavski,0.0,0.0,1.0,1268.7239,2065,5.2581,18.2759,False,,False,False,ordinary
 SRB,SRB.14_1,Pomoravski,0.0,0.0,1.0,2611.8771,4218,3.1621,13.4196,False,,False,False,ordinary
 SRB,SRB.15_1,Rasinski,0.0,0.0,1.0,2676.6254,4289,2.8802,12.6915,False,,False,False,ordinary
-SRB,SRB.16_1,Raški,0.0,0.0,1.0,3892.5448,6223,1.9132,9.9163,False,,False,False,ordinary
+SRB,SRB.16_1,Raški,0.0,0.0,1.0,3892.5448,6223,1.9132,9.9163,False,,False,True,anomalously_dark
 SRB,SRB.17_1,Severno-Bački,0.0,1.0,0.0,1686.4532,2817,4.513,13.4465,False,,False,False,ordinary
 SRB,SRB.18_1,Severno-Banatski,0.0,1.0,0.0,2369.2066,3956,3.5072,9.8905,False,,False,True,anomalously_dark
 SRB,SRB.19_1,Srednje-Banatski,0.0,0.979,0.021,3461.551,5734,2.8169,9.2249,False,,False,True,anomalously_dark
@@ -704,6 +713,8 @@ UKR,UKR.24_1,Vinnytsya,0.0,0.0006,0.9994,26569.8579,46951,4.8992,2.8342,False,,F
 UKR,UKR.25_1,Volyn,0.0,0.0,1.0,20342.9841,37675,1.1138,1.4094,False,,False,True,anomalously_dark
 UKR,UKR.26_1,Zaporizhia,0.0,1.0,0.0,26728.8749,45736,4.49,2.0533,False,,False,True,anomalously_dark
 UKR,UKR.27_1,Zhytomyr,0.0,0.0,1.0,30069.8454,55031,2.6853,0.997,False,,False,True,anomalously_dark
+XAD,XAD.1_1,Akrotiri,0.0,1.0,0.0,108.7847,154,17.7699,30.7039,False,,False,False,ordinary
+XAD,XAD.2_1,Dhekelia,0.0,1.0,0.0,123.0495,175,20.1016,31.9672,False,,False,False,ordinary
 XKO,XKO.1_1,Đakovica,0.0,0.0,1.0,1107.5139,1745,2.3861,10.6556,False,,False,False,ordinary
 XKO,XKO.2_1,Gnjilane,0.0,0.2316,0.7684,1356.3423,2138,2.3137,11.9155,False,,False,False,ordinary
 XKO,XKO.3_1,Kosovska Mitrovica,0.0,0.0,1.0,2069.3615,3285,1.5827,8.7469,False,,False,True,anomalously_dark
@@ -711,3 +722,8 @@ XKO,XKO.4_1,Pećki,0.0,0.0,1.0,1353.6062,2141,1.7376,10.3733,False,,False,False,
 XKO,XKO.5_1,Pristina,0.0,0.0,1.0,2181.3656,3451,3.9071,16.1915,False,,False,False,ordinary
 XKO,XKO.6_1,Prizren,0.0,0.0,1.0,1718.4091,2699,2.1544,12.7252,False,,False,False,ordinary
 XKO,XKO.7_1,Uroševac,0.0,0.0502,0.9498,1054.7584,1658,3.1572,16.7996,False,,False,False,ordinary
+ZNC,ZNC.1_1,Gazimağusa,0.0,1.0,0.0,924.7167,1318,6.9164,12.1187,False,,False,False,ordinary
+ZNC,ZNC.2_1,Girne,0.0,1.0,0.0,673.3947,961,6.7147,13.972,False,,False,False,ordinary
+ZNC,ZNC.3_1,Güzelyurt,0.0,1.0,0.0,346.6955,494,5.8493,11.8427,False,,False,False,ordinary
+ZNC,ZNC.4_1,Iskele,0.0,1.0,0.0,842.2045,1204,1.5894,6.76,False,,False,True,anomalously_dark
+ZNC,ZNC.5_1,Nicosia,0.0013,1.0,0.0,524.9744,748,16.0229,24.1564,False,,False,False,ordinary
