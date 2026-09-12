@@ -1,0 +1,15 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+NRU,NRU.1_1,Aiwo,0.8548,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.2_1,Anabar,1.7095,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.3_1,Anetan,0.8548,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.4_1,Anibare,3.419,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.5_1,Baiti,1.7095,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.6_1,Boe,0.0,0,0,0,,,,,,,,adm1
+NRU,NRU.7_1,Buada,3.419,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.8_1,Denigomodu,0.8548,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.9_1,Ewa,1.7095,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.10_1,Ijuw,0.8548,1,1,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.11_1,Meneng,2.5643,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.12_1,Nibok,1.7095,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+NRU,NRU.13_1,Uaboe,0.0,0,0,0,,,,,,,,adm1
+NRU,NRU.14_1,Yaren,1.7095,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

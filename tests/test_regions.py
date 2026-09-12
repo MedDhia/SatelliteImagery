@@ -155,6 +155,19 @@ def test_countries_without_gadm_admin_2():
         "MNE",
         "MKD",
         "SMR",  # Europe
+        "COK",
+        "GUM",
+        "MHL",
+        "MNP",
+        "NRU",
+        "PLW",
+        "PYF",
+        "TKL",
+        "TUV",
+        "UMI",  # Oceania
+        "ARM",
+        "ISR",
+        "SGP",  # Asia
     }
     for iso3 in R.LEVELS_AVAILABLE:
         assert R.available_levels(iso3) == (0, 1), iso3
@@ -460,16 +473,30 @@ def test_europe_does_not_overlap_the_other_pools():
         assert not shared, f"europe overlaps {other}: {sorted(shared)}"
 
 
-def test_russia_monaco_and_the_vatican_are_absent_for_stated_reasons():
-    """Three absences, two different kinds, both documented in the module."""
+def test_monaco_and_the_vatican_are_absent_because_gadm_has_no_feature():
+    """An absence the source imposes, not one this repository chose."""
     from satimg import regions as R
 
-    # Monaco and the Vatican have no GADM feature at any level.
-    # Russia is excluded by choice - mostly Asian, and its antimeridian wrap
-    # cannot take the Alaskan crop without losing 114,686 km2 of Chukotka.
-    for iso3 in ("MCO", "VAT", "RUS"):
+    for iso3 in ("MCO", "VAT"):
         assert iso3 not in R.EUROPE
         assert iso3 not in R.COUNTRIES
+
+
+def test_russia_is_out_of_europe_but_analysed_in_asia():
+    """The reason it left EUROPE is not a reason to leave it unmeasured.
+
+    Europe excludes it on two grounds: three quarters of its area is Asian,
+    and an antimeridian crop would have cost 114,686 km2 of Chukotka. The
+    first still holds. The second stopped being a cost when
+    ``analysis.country_windows`` arrived for Fiji and New Zealand, so Russia
+    is analysed whole, in the pool it actually belongs to.
+    """
+    from satimg import regions as R
+
+    assert "RUS" not in R.EUROPE
+    assert "RUS" in R.ASIA
+    assert "RUS" in R.COUNTRIES
+    assert R.available_levels("RUS") == (0, 1, 2)
 
 
 def test_the_six_european_generic_admin_2_titles():
@@ -505,4 +532,70 @@ def test_no_european_country_has_an_exclusion_scope():
     from satimg import regions as R
 
     for iso3 in R.EUROPE:
+        assert list(R.scope_keys(iso3)) == [R.SCOPE_ALL], iso3
+
+
+# --- Oceania -----------------------------------------------------------------
+
+
+def test_oceania_is_22_entities_in_countries_and_a_pool():
+    from satimg import regions as R
+
+    assert len(R.OCEANIA) == 22
+    assert len(set(R.OCEANIA)) == 22
+    assert R.POOLS["oceania"] == R.OCEANIA
+    for iso3 in R.OCEANIA:
+        assert iso3 in R.COUNTRIES, iso3
+        assert iso3 in R.COUNTRY_NAMES, iso3
+        assert iso3 in R.COUNTRY_LEVEL_TITLES, iso3
+
+
+def test_entities_with_no_gadm_subnational_layer_are_absent():
+    """Six M49 members GADM gives no ADM_1 at all, so there is nothing to measure."""
+    from satimg import regions as R
+
+    # Not "no admin-2" - no subnational layer whatsoever. This repository
+    # measures inequality *across units*, so an entity without units cannot
+    # take part. Kiribati is a UN member state and the notable loss.
+    for iso3 in ("KIR", "NIU", "NFK", "CXR", "CCK", "PCN"):
+        assert iso3 not in R.OCEANIA, iso3
+        assert iso3 not in R.COUNTRIES, iso3
+        # and they must not be recorded as merely lacking admin-2 either
+        assert iso3 not in R.LEVELS_AVAILABLE, iso3
+        assert iso3 not in R.LEVELS_NOT_ANALYSED, iso3
+
+
+def test_oceania_overlaps_no_other_pool():
+    from satimg import regions as R
+
+    for other in ("arab-league", "africa", "north-america", "south-america", "europe"):
+        shared = set(R.OCEANIA) & set(R.pool_countries(other))
+        assert not shared, f"oceania overlaps {other}: {sorted(shared)}"
+
+
+def test_the_marshall_islands_typo_is_reconciled_not_counted():
+    """GADM spells it "Atol" 20 times and "Atoll" 3 times; the typo is commoner."""
+    from satimg import regions as R
+
+    assert R.level_title("MHL", 1) == "atoll"
+    assert R.level_title("TKL", 1) == "atoll"
+
+
+def test_australia_and_samoa_take_the_generic_admin_2_title():
+    from satimg import regions as R
+
+    generic = R.GENERIC_LEVEL_TITLES[2]
+    # Australia: "Shire" is 199 of 568, a 35% plurality.
+    # Samoa: ENGTYPE_2 is the literal string "Unknown" for all 43 units.
+    assert R.level_title("AUS", 2) == generic
+    assert R.level_title("WSM", 2) == generic
+    # but their admin-1 names are real words GADM does give
+    assert R.level_title("AUS", 1) == "state"
+    assert R.level_title("WSM", 1) == "district"
+
+
+def test_no_oceanian_entity_has_an_exclusion_scope():
+    from satimg import regions as R
+
+    for iso3 in R.OCEANIA:
         assert list(R.scope_keys(iso3)) == [R.SCOPE_ALL], iso3

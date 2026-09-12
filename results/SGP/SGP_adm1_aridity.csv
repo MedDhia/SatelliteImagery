@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+SGP,SGP.1_1,Central,130.7508,157,153,4,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SGP,SGP.2_1,East,100.8388,118,118,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SGP,SGP.3_1,North,129.0359,151,151,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SGP,SGP.4_1,North-East,106.8188,126,125,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+SGP,SGP.5_1,West,205.0968,264,240,24,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

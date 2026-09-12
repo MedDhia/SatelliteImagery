@@ -13,6 +13,12 @@ second only. Its own numbers below are complete; it simply does not appear in
 [`arab-world.md`](arab-world.md)'s tables or in
 [`aridity.md`](aridity.md)'s pooled join.
 
+**Thailand does now sit in one pool: `asia`.** That does not disturb the
+reasoning above, which is about not moving the Arab League's median. Joining
+a pool it belongs to geographically leaves the Arab cut untouched and gives
+Thailand the neighbours it should be compared against. See
+[`asia.md`](asia.md).
+
 ```bash
 satimg lrcc-dvnl extract    --country THA --levels 0,1,2
 satimg lrcc-dvnl choropleth --country THA --levels 1,2

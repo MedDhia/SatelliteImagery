@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+MNP,MNP.1_1,Northern Islands,181.4034,223,223,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MNP,MNP.2_1,Rota,87.0972,105,105,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MNP,MNP.3_1,Saipan,118.8997,144,144,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+MNP,MNP.4_1,Tinian,110.7381,134,134,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

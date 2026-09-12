@@ -537,6 +537,7 @@ def test_every_published_dryland_share_is_one_minus_humid():
     """A regression guard on the whole published set, not just the arithmetic."""
     import csv as _csv
 
+    from satimg import analysis as A
     from satimg import regions as R
 
     checked = 0
@@ -546,9 +547,21 @@ def test_every_published_dryland_share_is_one_minus_humid():
             continue
         with open(path, encoding="utf-8") as handle:
             for row in _csv.DictReader(handle):
-                assert float(row["dryland_share"]) == pytest.approx(
-                    1.0 - float(row["humid_share"]), abs=1e-9
-                ), (iso3, row["name"])
+                # An unmeasured cell is blank in the file and NaN in memory.
+                # analysis.number is the reader the pipeline itself uses, so
+                # the two cannot drift apart on what "no value" looks like.
+                dry = A.number(row["dryland_share"])
+                humid = A.number(row["humid_share"])
+                # A unit smaller than an aridity cell has no shares at all -
+                # Nauru's Boe is the only one in 168 countries. The identity
+                # cannot hold there, but a stronger thing must: the two are
+                # undefined *together*. One NaN and one number would mean the
+                # shares had been computed off different denominators.
+                if math.isnan(dry) or math.isnan(humid):
+                    assert math.isnan(dry) and math.isnan(humid), (iso3, row["name"])
+                    assert int(row["pixels_classified"]) == 0, (iso3, row["name"])
+                    continue
+                assert dry == pytest.approx(1.0 - humid, abs=1e-9), (iso3, row["name"])
                 checked += 1
     if not checked:
         pytest.skip("results/ not present")
@@ -575,3 +588,71 @@ def test_the_cross_country_table_agrees_with_the_per_country_ones(published):
             assert float(row[column]) == pytest.approx(
                 float(want[column]), abs=tolerance
             ), (row["iso3"], row["gid"], column)
+
+
+# --- units too small to classify ---------------------------------------------
+#
+# An island smaller than a pixel gets aridity cells but no land pixel in the
+# light raster, or the reverse. Oceania is the first pool to contain any:
+# Nauru's Aiwo and Yaren and Tuvalu's Niulakita have no light, Nauru's Boe has
+# light but no aridity cell. Before this was handled the pool's median came out
+# NaN, which made `mean_dn < cut` False for all 77 units and recorded every one
+# of them as lit.
+
+
+def test_dark_cut_ignores_units_with_no_value():
+    from satimg.aridity import dark_cut
+
+    plain = [1.0, 2.0, 3.0, 4.0, 5.0]
+    assert dark_cut(plain) == 3.0
+    # one NaN must not poison the threshold for everybody else
+    assert dark_cut([*plain, float("nan")]) == 3.0
+    assert dark_cut([float("nan"), *plain, float("nan")]) == 3.0
+    # and a pool with nothing measurable has no cut, rather than a wrong one
+    assert math.isnan(dark_cut([float("nan"), float("nan")]))
+    assert math.isnan(dark_cut([]))
+
+
+def test_a_unit_with_no_light_is_neither_dark_nor_lit():
+    """Blank, not False. False would assert an unobserved island is lit."""
+    import csv as _csv
+
+    path = RESULTS / "oceania_aridity_vs_light.csv"
+    if not path.exists():
+        pytest.skip("oceania pool not published yet")
+    rows = list(_csv.DictReader(path.open(encoding="utf-8")))
+    unlit = [r for r in rows if r["mean_dn_2022"] == ""]
+    assert unlit, "expected at least one unit with no light pixel"
+    for r in unlit:
+        assert r["dark_2022"] == "", (r["iso3"], r["name"])
+        assert r["cell"] == "", (r["iso3"], r["name"])
+
+
+def test_a_unit_with_no_aridity_cell_is_neither_arid_nor_not():
+    import csv as _csv
+
+    path = RESULTS / "oceania_aridity_vs_light.csv"
+    if not path.exists():
+        pytest.skip("oceania pool not published yet")
+    rows = list(_csv.DictReader(path.open(encoding="utf-8")))
+    noclass = [r for r in rows if r["desert_share"] == ""]
+    assert noclass, "expected at least one unit with no aridity cell"
+    for r in noclass:
+        assert r["majority_arid"] == "", (r["iso3"], r["name"])
+        assert r["cell"] == "", (r["iso3"], r["name"])
+
+
+def test_every_published_cell_has_both_halves():
+    """A cell claims a unit is arid-or-not AND dark-or-not. Both, or neither."""
+    import csv as _csv
+
+    from satimg import aridity as A
+    from satimg import regions as R
+
+    for pool in R.POOLS:
+        path = RESULTS / A.vs_light_table(pool)
+        if not path.exists():
+            continue
+        for r in _csv.DictReader(path.open(encoding="utf-8")):
+            known = bool(r["majority_arid"]) and bool(r["dark_2022"])
+            assert bool(r["cell"]) == known, (pool, r["iso3"], r["name"])

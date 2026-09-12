@@ -10,8 +10,8 @@ regions rather than only in bright urban cores
 
 ## Figures
 
-**[→ Browse all 73 030 figures in `figures/`](figures/)** — global overlays, and
-for each of the 146 countries analysed the map series in three palettes, the
+**[→ Browse all 101 227 figures in `figures/`](figures/)** — global overlays, and
+for each of the 203 countries analysed the map series in three palettes, the
 choropleths in two, the small-multiple panels and the inequality charts, plus
 the cross-country pace chart.
 
@@ -38,10 +38,10 @@ depict GADM boundaries, which are non-commercial and non-redistributable. See
 
 ## Results
 
-**[→ The numbers behind the figures, in `results/`](results/)** — 856 tables and
-4 526 clipped GeoTIFFs across 146 countries, with a generated data dictionary
+**[→ The numbers behind the figures, in `results/`](results/)** — 1 189 tables and
+6 293 clipped GeoTIFFs across 203 countries, with a generated data dictionary
 for every column: the per-country inequality outputs, the per-unit aridity
-tables, and the ten cross-country tables, two per pool.
+tables, and the fourteen cross-country tables, two per pool.
 
 Per country: the inequality series (Gini, Theil T, Theil L), the Theil
 decomposition, per-unit contributions, zonal tables at each admin level, and
@@ -84,7 +84,7 @@ repository deliberately does not carry:
 | `data/boundaries/gadm` | 4.7 GB | GADM forbids redistribution |
 | `data/overlays/lrcc-dvnl` | 2.3 GB | 62 two-band GeoTIFFs; GADM-encumbered |
 | `data/raw/lrcc-dvnl` | 940 MB | reproducible byte-identically from the manifest |
-| `data/regions/*` | pruned per batch | 146 countries; published instead as [`figures/`](figures/) (5.0 GB) and [`results/`](results/) (1.1 GB, rasters included) |
+| `data/regions/*` | pruned per batch | 203 countries; published instead as [`figures/`](figures/) (6.7 GB) and [`results/`](results/) (1.7 GB, rasters included) |
 
 The commands under [Use](#use) rebuild all of it. What is committed is the
 part you cannot regenerate by yourself: the pinned manifest, the code, the
@@ -336,14 +336,16 @@ correlation is −0.0329: the ordering is right and the effect is negligible.
 **Two countries needed engineering rather than analysis.** GADM's `USA` has
 Alaskan vertices on both sides of the antimeridian, so its bounding box spanned
 the globe — a 159-megapixel frame, an out-of-memory crash rather than a slow
-render, and one that reached the statistics as well as the pictures. The frame
-is cropped to the western hemisphere (52.6 Mpx, all 51 states), which drops
-**2 121.9 km² of western Aleutians, 0.141% of Alaska**; Alaska's `mean_dn`
-therefore rests on a slightly smaller pixel set than GADM's geometry implies.
-**Brazil** stops at the state: its 5 572 municipalities are the largest ADM_2
-set here, and the cost was refused. That is recorded in
-`regions.LEVELS_NOT_ANALYSED`, kept apart from `LEVELS_AVAILABLE` because the
-latter would have claimed GADM has no Brazilian municipalities, which is false.
+render, and one that reached the statistics as well as the pictures. It is
+analysed over **two non-wrapping windows** instead, 52.8 Mpx together, and the
+statistics span both so nothing is dropped. An earlier crop to the western
+hemisphere reached the same cost by discarding 2 121.9 km² of Aleutians;
+restoring them added 2 127 pixels and **338 DN of light** to Alaska, which is
+why "near-unlit" was never treated as "unlit". **Brazil** stops at the state:
+its 5 572 municipalities are the largest ADM_2 set here, and the cost was
+refused. That is recorded in `regions.LEVELS_NOT_ANALYSED`, kept apart from
+`LEVELS_AVAILABLE` because the latter would have claimed GADM has no Brazilian
+municipalities, which is false.
 
 **Canada has no name for its own admin-2 level.** Its most common GADM
 `ENGTYPE_2` is Quebec's "Regional County Municipality" at 93 of 293 units —
@@ -394,6 +396,61 @@ desert; there are no dark ones at all.
 Africa's +4.92 — because Europe had almost no unlit ground left in 1992. Its
 median intensive margin is −0.01 %/yr: across the continent as a whole,
 inequality among lit places neither converges nor diverges.
+
+## Oceania, and the antimeridian
+
+[`docs/oceania.md`](docs/oceania.md) covers **22 entities** — every UN M49
+Oceanian entity GADM can support — as a single `oceania` pool of 216 admin-1
+and 1 175 admin-2 units.
+
+**Four of them have land on both sides of 180°**, and a lon/lat bounding box
+knows nothing of the wrap: New Zealand's naive frame is 80.8 megapixels of
+mostly ocean, the US Minor Outlying Islands' is 117.6. Cropping at the
+antimeridian — the answer used for Alaska — would have deleted the Chatham
+Islands, Fiji's Lau group and Wake. So `analysis.country_windows` splits a
+country into as many non-wrapping windows as its land needs and the statistics
+span all of them, bringing New Zealand to 7.2 megapixels and losing nothing:
+**268 643 pixels against 268 709 km²**, and Fiji exact at 18 963 of each.
+
+Splitting the *space* rather than assigning each unit to a side is what keeps a
+straddling unit whole. New Zealand's Northern Islands spans −178.83..172.17 and
+still reports as one unit.
+
+**Six M49 members are absent because GADM has no ADM_1 layer for them at all** —
+Kiribati, Niue, Norfolk Island, Christmas Island, the Cocos Islands and
+Pitcairn. Not "no admin-2": no subnational layer whatsoever, so there is
+nothing for a measure of inequality *across units* to measure. Kiribati is the
+one that stings, being a UN member state.
+
+Oceania's darkness cut is **0.3050** against Europe's 9.5926 — a unit called
+dark here would be called lit almost anywhere else, which is what the per-pool
+median means.
+
+## Asia, the seventh pool
+
+[`docs/asia.md`](docs/asia.md) covers **49 entities** — every M49 Asian entity
+GADM can support, plus Russia — as a single `asia` pool of 1 035 admin-1 and
+14 245 admin-2 units. Fourteen were already analysed under other pools and
+appear again against different neighbours; 35 are new.
+
+**Russia is analysed whole.** It is excluded from Europe because three quarters
+of its area is Asian and an antimeridian crop at Chukotka would have cost
+114 686 km², larger than Iceland. The two-window stitch built for Fiji and New
+Zealand removes that cost: 80.9 megapixels naive, **37.4 windowed**, nothing
+cropped, and Chukotka reproduces 719 684 pixels against 719 675 km².
+
+**The grid stops at 75°N, and two countries feel it.** Russia is the first of
+203 whose pixel total misses its GADM land area — 0.9871, against 1.000
+everywhere else — because Franz Josef Land, Severnaya Zemlya and the New
+Siberian Islands lie beyond the raster's northern edge. Canada has the same gap
+and has had it since the Americas rollout: 0.9605, with Nunavut 83.3% covered.
+Together 611 270 km² of Arctic land is uncovered. It shifts admin-1 Gini by one
+unit in the fourth decimal for both, because the affected units are among the
+darkest either way.
+
+⚠️ **`dark_2022` is incomparable across the seven pools.** Asia's cut is 5.5619
+against Europe's 9.5926 and Oceania's 0.3050 — a unit called lit in Asia would
+be called dark in Europe.
 
 ## One country outside the pool: Thailand
 

@@ -1,0 +1,6 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+PYF,PYF.1_1,Îles Australes,377.2964,480,479,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PYF,PYF.2_1,Îles du Vent,1215.1399,1490,1490,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PYF,PYF.3_1,Îles Marquises,989.9355,1173,1173,0,0.0,0.0,0.015373564264817119,0.05204228309651414,0.9325841526386686,0.0,0.06741584736133126,adm1
+PYF,PYF.4_1,Îles Sous-le-Vent,414.7425,506,506,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PYF,PYF.5_1,Îles Tuamotu-Gambier,1056.1385,1291,1286,5,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

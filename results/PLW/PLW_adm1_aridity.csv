@@ -1,0 +1,17 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+PLW,PLW.1_1,Aimeliik,44.0851,52,52,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.2_1,Airai,60.201,71,71,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.3_1,Angaur,8.4876,10,10,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.4_1,Hatohobei,0.0,0,0,0,,,,,,,,adm1
+PLW,PLW.5_1,Kayangel,2.5396,3,3,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.6_1,Koror,71.2431,84,84,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.7_1,Melekeok,24.5821,29,29,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.8_1,Ngaraard,34.7458,41,41,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.9_1,Ngarchelong,12.7091,15,15,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.10_1,Ngardmau,34.748,41,41,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.11_1,Ngatpang,32.214,38,38,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.12_1,Ngchesar,44.9313,53,53,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.13_1,Ngeremlengui,66.115,78,78,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.14_1,Ngiwal,16.1039,19,19,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.15_1,Peleliu,20.3651,24,24,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+PLW,PLW.16_1,Sonsorol,3.4072,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

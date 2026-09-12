@@ -89,23 +89,32 @@ a fatal one in the third.
 mainlands stay legible and the offshore territory renders as the faint dot it
 is, so the extent is left honest rather than cropped to flatter the map.
 
-**The United States is cropped, because there the same thing was fatal.** GADM's
-`USA` carries Alaskan vertices at both −179.15° and +179.77°, since the
-Aleutians run past 180° into the eastern hemisphere. A bounding box is a flat
-lon/lat rectangle and knows nothing of the wrap, so `total_bounds` spanned the
-globe: **29 188 km, a 159-megapixel frame** where the largest country otherwise
-analysed here is 21. That is not a slow render but an out-of-memory crash, and
-because `zonal.window_for` derives its window the same way, it would have taken
-the statistics down with the pictures.
+**The United States is analysed over two windows, because there the same thing
+was fatal.** GADM's `USA` carries Alaskan vertices at both −179.15° and
++179.77°, since the Aleutians run past 180° into the eastern hemisphere. A
+bounding box is a flat lon/lat rectangle and knows nothing of the wrap, so
+`total_bounds` spanned the globe: **29 188 km, a 159-megapixel frame** where the
+largest country otherwise analysed here is 21. That is not a slow render but an
+out-of-memory crash, and because `zonal.window_for` derived its window the same
+way, it would have taken the statistics down with the pictures.
 
-The frame is cut to the western hemisphere: **9 664 km and 52.6 Mpx, keeping all
-51 admin-1 units**. What the crop drops is the Aleutian tail east of 180° —
-**2 121.9 km² between 172.44°E and 179.77°E** (Attu, Agattu, Kiska, Amchitka,
-Semisopochnoi), which is **0.141% of Alaska**. Those islands are near-unlit, and
-near-unlit is not unlit: **Alaska's `mean_dn` and the United States totals rest
-on a slightly smaller pixel set than GADM's geometry implies.** Stitching two
-windows would have kept every pixel; the crop was taken instead, and is
-documented here rather than left to be discovered.
+The country is instead split into as many non-wrapping windows as its land
+needs — here two, **9 666 × 5 449 px for the mainland and 729 × 165 for the
+Aleutian tail, 52.8 Mpx together**. `analysis.country_windows` derives them and
+the statistics span all of them, so **nothing is dropped**: a unit's pixels
+accumulate across windows under the same zone id.
+
+This replaced an earlier crop to the western hemisphere, which reached the same
+52.6 Mpx by discarding the Aleutian tail east of 180° — 2 121.9 km² (Attu,
+Agattu, Kiska, Amchitka, Semisopochnoi), 0.141% of Alaska. Restoring it added
+**2 127 pixels, 2 121.86 km² and 338 DN of light** to Alaska, and changed
+exactly one of the 51 units. Those islands were described as near-unlit, and
+that 338 is why the distinction was worth keeping: near-unlit is not unlit.
+
+The *pictures* still show one window, the largest — the mainland at 52.7 Mpx —
+because a figure spanning both would be mostly empty Pacific. `extract` says on
+stderr when a country's land spans more than one window, so a map's omissions
+are stated rather than left to be noticed.
 
 ### No exclusion scopes
 
@@ -235,8 +244,10 @@ ties and that a pool with no entry really has none.
 
 Everything in [`lrcc-dvnl.md`](lrcc-dvnl.md) applies. Four bite harder here.
 
-- **The United States rests on a cropped pixel set.** 2 121.9 km² of western
-  Aleutians are outside the analysed frame. Small, documented, and not zero.
+- **The United States is complete, but its maps are not.** Every pixel is in
+  the statistics, across two windows. The published *figures* show only the
+  larger window, so the Aleutians west of 180° appear in no American map even
+  though they are in every American number.
 - **Brazil has no municipality layer here.** It is the only large country in
   that position, and any comparison of its between/within split against another
   large country is comparing two levels against three.

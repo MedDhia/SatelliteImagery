@@ -10,6 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence
 
+from .analysis import number
 from .datasets.lrcc_dvnl import DTYPE_ERAS
 
 SURFACE = "#ffffff"
@@ -427,7 +428,7 @@ def plot_pace_dumbbell(
         other = intensive.get(iso3)
         if other is None:
             continue
-        a, b = float(row["percent_per_year"]), float(other["percent_per_year"])
+        a, b = number(row["percent_per_year"]), number(other["percent_per_year"])
         if a != a or b != b:  # nan: no usable fit on one end
             continue
         items.append(
@@ -646,8 +647,8 @@ def plot_aridity_bands(
     if not rows:
         raise ValueError("no units to draw; run `satimg aridity vs-light` first")
     for row in rows:
-        row["desert_share"] = float(row["desert_share"])
-        row["mean_dn_2022"] = float(row["mean_dn_2022"])
+        row["desert_share"] = number(row["desert_share"])
+        row["mean_dn_2022"] = number(row["mean_dn_2022"])
         row["majority_arid"] = str(row["majority_arid"]) == "True"
 
     quantiles = cuts if cuts is not None else A.DARK_QUANTILES

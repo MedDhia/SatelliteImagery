@@ -60,6 +60,18 @@ class ZoneGrid:
     window: object  # rasterio Window covering the units' extent
     transform: object
     signature: Tuple
+    #: Every window this grid covers. One for almost every country, so ``ids``
+    #: stays 2-D and identical to what a single-window build produced. More than
+    #: one where a country's land sits on both sides of the antimeridian, in
+    #: which case ``ids`` is the 1-D concatenation of each window's flattened
+    #: ids and ``window``/``transform`` describe the first window only - enough
+    #: to draw the main landmass, not enough to reconstruct the whole set.
+    windows: Tuple = ()
+
+    @property
+    def read_windows(self):
+        """What to hand :func:`read_window` so the values match ``ids``."""
+        return self.windows if len(self.windows) > 1 else self.window
 
     @property
     def count(self) -> int:
@@ -120,19 +132,31 @@ def build_zone_grid(
     if window is None:
         window = window_for(raster_path, frame.total_bounds)
 
-    with rasterio.open(raster_path) as src:
-        transform = src.window_transform(window)
-        shape = (int(window.height), int(window.width))
-        signature = (src.width, src.height, src.transform)
+    # One window keeps the 2-D array this has always produced. Several windows
+    # burn the same units into each and concatenate the flattened results, so a
+    # unit straddling the antimeridian accumulates its pixels across windows
+    # rather than being assigned to one side of it. Ids are per-unit, so the
+    # same unit gets the same id in every window and the accumulation is exact.
+    windows = tuple(window) if isinstance(window, tuple) else (window,)
 
-    ids = rasterize(
-        ((geom, i + 1) for i, geom in enumerate(frame.geometry)),
-        out_shape=shape,
-        transform=transform,
-        fill=0,
-        all_touched=False,
-        dtype="int32",
-    )
+    with rasterio.open(raster_path) as src:
+        signature = (src.width, src.height, src.transform)
+        transforms = [src.window_transform(w) for w in windows]
+
+    geoms = list(enumerate(frame.geometry))
+    burned = []
+    for w, tf in zip(windows, transforms):
+        burned.append(
+            rasterize(
+                ((geom, i + 1) for i, geom in geoms),
+                out_shape=(int(w.height), int(w.width)),
+                transform=tf,
+                fill=0,
+                all_touched=False,
+                dtype="int32",
+            )
+        )
+    ids = burned[0] if len(burned) == 1 else np.concatenate([b.ravel() for b in burned])
 
     names = (
         frame[name_field].astype(str).tolist()
@@ -144,14 +168,29 @@ def build_zone_grid(
         gids=frame[id_field].astype(str).tolist(),
         names=names,
         areas_km2=(frame.geometry.area / 1e6).tolist(),
-        window=window,
-        transform=transform,
+        window=windows[0],
+        transform=transforms[0],
         signature=signature,
+        windows=windows,
     )
+
+
+def _is_window(obj) -> bool:
+    """True for a single rasterio Window, which is itself tuple-like."""
+    return hasattr(obj, "col_off") and hasattr(obj, "row_off")
 
 
 def read_window(raster_path: str | Path, window, *, nodata=_UNSET):
     """Read band 1 over a window as float64, with nodata as NaN.
+
+    ``window`` may be a single window - the array comes back 2-D, as it always
+    has - or a **tuple of windows**, in which case each is read and their
+    flattened contents are concatenated into one 1-D array. That is what lets a
+    country occupying both sides of the antimeridian be analysed without
+    dropping anything: every consumer of these values ravels before use
+    (``zonal_sums``, ``decompose_theil_by_ids``, the scope masks), so a
+    concatenation across windows is exactly equivalent to one contiguous read,
+    while a single lon/lat box spanning the wrap would be a globe-wide frame.
 
     ``nodata`` must be given when the file declares none. This used to fall back
     to the LRCC-DVNL sentinel of 127, which is a trap for any other dataset: in
@@ -163,9 +202,16 @@ def read_window(raster_path: str | Path, window, *, nodata=_UNSET):
     rasterio = _require_rasterio()
     np = _require_numpy()
 
+    multi = isinstance(window, tuple) and not _is_window(window)
     with rasterio.open(raster_path) as src:
         declared = src.nodata
-        data = src.read(1, window=window).astype("float64")
+        if multi:
+            if not window:
+                raise ValueError("read_window got an empty window tuple")
+            parts = [src.read(1, window=w).astype("float64").ravel() for w in window]
+            data = np.concatenate(parts)
+        else:
+            data = src.read(1, window=window).astype("float64")
         signature = (src.width, src.height, src.transform)
 
     if nodata is _UNSET:
@@ -215,7 +261,7 @@ def zonal_table(
     """
     rows: List[dict] = []
     for year, path in rasters:
-        values, signature = read_window(path, grid.window)
+        values, signature = read_window(path, grid.read_windows)
         if not grids_compatible(signature, grid.signature):
             raise ValueError(
                 f"{path} is on a different grid than the zone raster "

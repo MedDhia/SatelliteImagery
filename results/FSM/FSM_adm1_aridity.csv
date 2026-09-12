@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+FSM,FSM.1_1,Chuuk,134.0172,158,158,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FSM,FSM.2_1,Kosrae,116.618,137,137,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FSM,FSM.3_1,Pohnpei,399.7981,471,471,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+FSM,FSM.4_1,Yap,126.5627,150,150,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

@@ -21,6 +21,7 @@ unweighted, so a governorate does not score high merely for being large.
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
@@ -75,7 +76,7 @@ def build_grids(
         layer = R.country_layer(iso3, level, root=root)
         prepared[level] = (layer, R.load_units(layer))
 
-    shared = _union_window(reference_raster, [u for _, u in prepared.values()])
+    shared = country_windows(reference_raster, [u for _, u in prepared.values()])
 
     for level in levels:
         layer, units = prepared[level]
@@ -91,18 +92,147 @@ def build_grids(
     return grids
 
 
-def _union_window(reference_raster, frames):
-    """One raster window covering every level's extent."""
-    bounds = [f.total_bounds for f in frames if len(f)]
-    if not bounds:
-        raise ValueError("no units to build a window from")
-    union = (
-        min(b[0] for b in bounds),
-        min(b[1] for b in bounds),
-        max(b[2] for b in bounds),
-        max(b[3] for b in bounds),
-    )
-    return Z.window_for(reference_raster, union)
+#: Longitude gap, in degrees, that starts a new analysis window.
+#:
+#: Below this a country is one window and nothing changes. Above it the land is
+#: far enough apart that a single lon/lat box would be mostly ocean - or, across
+#: the antimeridian, would span the globe.
+WINDOW_GAP_DEG = 20.0
+
+
+def antimeridian_clusters(frame, gap_deg: float = WINDOW_GAP_DEG):
+    """Boxes covering a frame's land without crossing 180 degrees.
+
+    Returns a sorted list of ``(min_lon, min_lat, max_lon, max_lat)`` in
+    degrees. One entry for almost every country. More where the land is
+    scattered, because a flat lon/lat bounding box has no idea the antimeridian
+    exists: GADM's ``FJI`` reports -180..180 for a country 500 km across, and
+    ``UMI`` reports -178..167 for nine specks, one of which is in the Caribbean.
+
+    The boxes are *measured*, not inferred from a country's own bounds. A unit
+    whose bounds straddle the wrap is clipped into its two hemispheres and each
+    part contributes its real extent - New Zealand's "Northern Islands" spans
+    -178.83..172.17 and Fiji's "Northern" the full -180..180, so their bounds
+    alone say nothing useful. Splitting the space rather than assigning each
+    unit to a side is what keeps a straddling unit whole: its pixels accumulate
+    across windows under the same zone id.
+
+    Each box carries **its own** latitude range, not the country's. Sharing one
+    latitude span across windows is what made a two-window United States 100
+    megapixels against the 52.6 a plain crop achieved: the 7-degree Aleutian
+    sliver inherited the height of a country reaching from Hawaii to the Arctic.
+    """
+    from shapely.geometry import box as _box
+
+    geo = frame
+    if frame.crs is not None and frame.crs.to_epsg() != 4326:
+        geo = frame.to_crs("EPSG:4326")
+
+    parts = []
+    for geom in geo.geometry:
+        if geom is None or geom.is_empty:
+            continue
+        lo, la, hi, ha = geom.bounds
+        if lo < -150 and hi > 150:
+            for clip in (_box(-180.0, -90.0, 0.0, 90.0), _box(0.0, -90.0, 180.0, 90.0)):
+                piece = geom.intersection(clip)
+                if not piece.is_empty:
+                    b = piece.bounds
+                    parts.append((b[0], b[1], b[2], b[3]))
+        else:
+            parts.append((lo, la, hi, ha))
+
+    parts.sort()
+    merged = []
+    for lo, la, hi, ha in parts:
+        if merged and lo - merged[-1][2] <= gap_deg:
+            m = merged[-1]
+            merged[-1] = (m[0], min(m[1], la), max(m[2], hi), max(m[3], ha))
+        else:
+            merged.append((lo, la, hi, ha))
+    return merged
+
+
+def country_windows(reference_raster, frames, gap_deg: float = WINDOW_GAP_DEG):
+    """Analysis windows for a country: one per land cluster, none wrapping.
+
+    Derived from every level's geometry together, so all levels share the same
+    window set and their arrays line up - the property ``build_grids`` needs.
+
+    Each window comes from the **projected bounds of the geometry inside that
+    cluster**, never from a lon/lat box. Equal Earth compresses x toward the
+    poles, so projecting a degree box gives a wider frame than projecting the
+    land within it: Australia measured 35.1 megapixels as a box against 22.7 as
+    geometry. That also makes the single-cluster case exactly what it has
+    always been - clipping to the one cluster is a no-op, so the window equals
+    ``window_for(raster, frame.total_bounds)`` and no existing country moves.
+    """
+    import geopandas as gpd
+    from shapely.geometry import box as _box
+
+    geo = []
+    for f in frames:
+        if not len(f):
+            continue
+        geo.append(f.to_crs("EPSG:4326") if f.crs.to_epsg() != 4326 else f)
+    if not geo:
+        raise ValueError("no geometry to build windows from")
+
+    boxes = []
+    for f in geo:
+        boxes.extend(antimeridian_clusters(f, gap_deg))
+    boxes.sort()
+    merged = []
+    for lo, la, hi, ha in boxes:
+        if merged and lo - merged[-1][2] <= gap_deg:
+            m = merged[-1]
+            merged[-1] = (m[0], min(m[1], la), max(m[2], hi), max(m[3], ha))
+        else:
+            merged.append((lo, la, hi, ha))
+
+    windows = []
+    for lo, la, hi, ha in merged:
+        clip = _box(lo, la, hi, ha)
+        pieces = []
+        for f in geo:
+            hit = f[f.geometry.intersects(clip)]
+            if len(hit):
+                pieces.append(gpd.GeoSeries(hit.geometry.intersection(clip), crs=4326))
+        if not pieces:
+            continue
+        bounds = [p.to_crs("EPSG:8857").total_bounds for p in pieces]
+        union = (
+            min(b[0] for b in bounds),
+            min(b[1] for b in bounds),
+            max(b[2] for b in bounds),
+            max(b[3] for b in bounds),
+        )
+        windows.append(Z.window_for(reference_raster, union))
+    if not windows:
+        raise ValueError("no geometry to build windows from")
+
+    # Overlapping windows would double-count every pixel in the overlap,
+    # inflating a unit's pixel count and sum of lights with no error anywhere.
+    # The clusters are gap_deg apart so this cannot happen by construction, but
+    # `window_for` pads by a pixel and the whole point of this function is that
+    # the arithmetic downstream is a plain concatenation - so it is asserted
+    # rather than assumed.
+    for i, a in enumerate(windows):
+        for b in windows[i + 1 :]:
+            if _windows_overlap(a, b):
+                raise ValueError(
+                    f"derived analysis windows overlap ({a} and {b}); pixels in "
+                    "the overlap would be counted twice"
+                )
+    return tuple(windows)
+
+
+def _windows_overlap(a, b) -> bool:
+    ax0, ay0 = int(a.col_off), int(a.row_off)
+    ax1, ay1 = ax0 + int(a.width), ay0 + int(a.height)
+    bx0, by0 = int(b.col_off), int(b.row_off)
+    bx1, by1 = bx0 + int(b.width), by0 + int(b.height)
+    return ax0 < bx1 and bx0 < ax1 and ay0 < by1 and by0 < ay1
 
 
 def _excluded_zone_indices(units, level: int, iso3: str, scope: str):
@@ -194,7 +324,7 @@ def gini_series(
 
     # --- pixel level --------------------------------------------------------
     for year, path in rasters:
-        values, signature = Z.read_window(path, adm1["grid"].window)
+        values, signature = Z.read_window(path, adm1["grid"].read_windows)
         if not Z.grids_compatible(signature, adm1["grid"].signature):
             raise ValueError(f"{path} is on a different grid than the zone raster")
         for scope in scopes:
@@ -295,7 +425,7 @@ def decomposition_series(
     group_rows: List[dict] = []
 
     for year, path in rasters:
-        values, signature = Z.read_window(path, adm1["grid"].window)
+        values, signature = Z.read_window(path, adm1["grid"].read_windows)
         if not Z.grids_compatible(signature, adm1["grid"].signature):
             raise ValueError(f"{path} is on a different grid than the zone raster")
         clean = np.nan_to_num(values, nan=0.0)
@@ -393,6 +523,88 @@ def decomposition_series(
     return summary, group_rows
 
 
+def cell(value):
+    """What a value looks like in a published CSV.
+
+    A non-finite float has no printable value, and ``csv`` writes the literal
+    ``nan`` - a string ``float()`` accepts without complaint and ``sorted``
+    then mis-orders, so a median over the column comes back *wrong* rather
+    than absent. Oceania's read 63.0, the DN ceiling, for a pool whose units
+    are mostly below 1.0.
+
+    Blank is the encoding this repository already uses for a cell that does
+    not apply, and :func:`number` reads it back as the NaN it was, so nothing
+    computed changes.
+    """
+    try:
+        finite = math.isfinite(value)
+    except TypeError:  # a string, None, anything not a number
+        return value
+    return value if finite else ""
+
+
+def number(value):
+    """The float in a published cell; NaN where there is no measurement.
+
+    The inverse of :func:`cell`. A blank means the quantity does not apply -
+    Theil L where a unit has zero light, a half-life where the trend rises,
+    the nested split where there is no nesting - and NaN is what every caller
+    here read back when that cell still said ``nan``.
+    """
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float("nan")
+
+
+#: Column order of the per-unit contribution table. Named rather than taken
+#: from ``rows[0]`` because a country can legitimately produce no rows at all:
+#: Tokelau's 17 pixels are unlit in all 31 years, so it has no lit unit to
+#: contribute anything, and a zero-byte file cannot be told apart from a
+#: failed write. With the schema stated, the table is written header-only and
+#: says what it would have contained.
+GROUP_ROW_FIELDS: Tuple[str, ...] = (
+    "year",
+    "scope",
+    "zeros",
+    "grouping",
+    "unit",
+    "pixels",
+    "mean_dn",
+    "population_share",
+    "value_share",
+    "theil_t",
+    "within_contribution",
+)
+
+
+def unit_sort_key(iso3, gid):
+    """A stable, readable order for a published cross-country table.
+
+    Row order used to follow the GADM layer's feature order, which depends on
+    upstream cache state rather than on the data: re-running the United States
+    from an unclipped cache instead of a clipped one moved 37 rows of
+    ``north-america_aridity_vs_light.csv`` while only Alaska's numbers changed.
+    That defeats the point of publishing plain text - a re-run that changes no
+    number should produce no diff, and a real change should not be able to hide
+    inside a reordering.
+
+    The digits inside a gid sort numerically, so ``TUN.2_1`` comes before
+    ``TUN.10_1`` rather than after it. Sorting the raw string would be
+    deterministic too, but it would scatter every country's units into
+    lexicographic order and make the published tables harder to read than the
+    layer order they replace.
+    """
+    import re
+
+    parts = tuple(
+        (0, int(chunk)) if chunk.isdigit() else (1, chunk)
+        for chunk in re.split(r"(\d+)", str(gid))
+        if chunk
+    )
+    return (str(iso3), parts)
+
+
 def write_csv(
     rows: Sequence[dict], path: str | Path, fields: Optional[Sequence] = None
 ):
@@ -401,7 +613,7 @@ def write_csv(
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
+    if not rows and not fields:
         path.write_text("", encoding="utf-8")
         return path
     fieldnames = list(fields) if fields else list(rows[0].keys())
@@ -409,5 +621,5 @@ def write_csv(
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
-            writer.writerow(row)
+            writer.writerow({k: cell(v) for k, v in row.items()})
     return path

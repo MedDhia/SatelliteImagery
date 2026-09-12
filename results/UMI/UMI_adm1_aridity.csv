@@ -1,0 +1,10 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+UMI,UMI.1_1,Baker,1.7096,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.2_1,Howland,1.7094,2,2,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.3_1,Jarvis island,4.2739,5,5,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.4_1,Johnston,4.9169,6,6,0,0.0,0.0,0.8333594266026414,0.0,0.16664057339735855,0.0,0.8333594266026414,adm1
+UMI,UMI.5_1,Kingman Reef,3.3984,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.6_1,Midway,9.1438,12,12,0,0.0,0.0,0.0,0.2532051133816597,0.7467948866183401,0.0,0.2532051133816597,adm1
+UMI,UMI.7_1,Navassa,5.6851,7,7,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.8_1,Palmyra,3.4017,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+UMI,UMI.9_1,Wake,8.0798,10,10,0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,adm1

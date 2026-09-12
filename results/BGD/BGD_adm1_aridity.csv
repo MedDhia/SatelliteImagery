@@ -1,0 +1,9 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+BGD,BGD.1_1,Barisal,9747.8994,12410,12313,97,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.2_1,Chittagong,31009.2365,39288,39251,37,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.3_1,Dhaka,20441.563,26088,26088,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.4_1,Khulna,20559.5957,26353,26062,291,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.8_1,Mymensingh,10535.8979,13551,13551,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.5_1,Rajshahi,18207.0258,23370,23370,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.6_1,Rangpur,16205.8988,21001,21001,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+BGD,BGD.7_1,Sylhet,12346.277,15863,15863,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

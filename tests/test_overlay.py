@@ -345,49 +345,53 @@ def test_style_line_width_varies_by_level():
     assert style.line_alpha(0) > style.line_alpha(1)
 
 
-# --- the antimeridian clip -------------------------------------------------
+# --- the antimeridian clip, now unused ---------------------------------------
 #
-# GADM's USA has Alaskan vertices on both sides of 180, so its lon/lat bounding
-# box spans the globe and the derived raster window is 159 Mpx instead of 53.
-# These pin the clip's behaviour without needing the 2.5 GiB GADM download.
+# ANTIMERIDIAN_CLIP once held USA and cut it to the western hemisphere, because
+# GADM's Alaskan vertices at both -179.15 and +179.77 made its bounding box
+# span the globe. That cost 2,121.9 km2 of Aleutian rock, 0.141% of Alaska.
+#
+# analysis.country_windows replaced it: a country is analysed over as many
+# non-wrapping windows as its land needs, which reaches the same 52.8 megapixels
+# the crop did while keeping every pixel. The table is empty and the tests below
+# hold the mechanism to its contract with a synthetic entry, so it still works
+# if a future GADM release ever needs a country cut for some other reason.
 
 
-def test_clip_bounds_for_is_case_insensitive_and_defaults_to_none():
+def test_no_country_is_cropped_any_more():
+    """The crop is gone, and its absence is the thing worth asserting."""
     from satimg import boundaries as B
 
-    assert B.clip_bounds_for("USA") == (-180.0, -90.0, -60.0, 90.0)
-    assert B.clip_bounds_for("usa") == B.clip_bounds_for("USA")
+    assert B.ANTIMERIDIAN_CLIP == {}
+    assert B.clip_bounds_for("USA") is None, (
+        "the United States must no longer be cropped: country_windows keeps "
+        "the Aleutians at the same cost the crop had"
+    )
+
+
+def test_clip_bounds_for_is_case_insensitive_and_defaults_to_none(monkeypatch):
+    from satimg import boundaries as B
+
+    monkeypatch.setitem(B.ANTIMERIDIAN_CLIP, "ZZZ", (-180.0, -90.0, -60.0, 90.0))
+    assert B.clip_bounds_for("ZZZ") == (-180.0, -90.0, -60.0, 90.0)
+    assert B.clip_bounds_for("zzz") == B.clip_bounds_for("ZZZ")
     assert B.clip_bounds_for("CHL") is None
     assert B.clip_bounds_for(None) is None
 
 
-def test_clipped_cache_path_cannot_collide_with_an_unclipped_one():
+def test_a_clipped_cache_path_cannot_collide_with_an_unclipped_one(monkeypatch):
     """An unclipped cache served for a clipped country would be silent."""
     from satimg import boundaries as B
 
-    clipped = B.cache_path(level=1, iso3="USA").name
-    plain = B.cache_path(level=1, iso3="CHL").name
-    assert "_clipped" in clipped
-    assert "_clipped" not in plain
-    # and the world layer, which is unscoped, stays exactly as it was
+    monkeypatch.setitem(B.ANTIMERIDIAN_CLIP, "ZZZ", (-180.0, -90.0, -60.0, 90.0))
+    assert "_clipped" in B.cache_path(level=1, iso3="ZZZ").name
+    assert "_clipped" not in B.cache_path(level=1, iso3="CHL").name
     assert "_clipped" not in B.cache_path(level=1).name
+    # and with the table empty, no real country gets a clipped path
+    assert "_clipped" not in B.cache_path(level=1, iso3="USA").name
 
 
-def test_clip_window_covers_the_western_hemisphere_only():
-    """The window must exclude the eastern-hemisphere Aleutian tail."""
-    from satimg import boundaries as B
-
-    minx, miny, maxx, maxy = B.ANTIMERIDIAN_CLIP["USA"]
-    assert minx == -180.0 and maxx < 0.0
-    # Alaska's mainland reaches -179.15 and Maine -66.95: both must survive.
-    assert minx <= -179.15
-    assert maxx >= -66.95
-    # The dropped tail lies at +172.44..+179.77, which this window excludes.
-    assert maxx < 172.44
-    assert miny <= -90.0 and maxy >= 90.0
-
-
-def test_clip_actually_removes_the_antimeridian_tail():
+def test_the_clip_still_removes_an_antimeridian_tail_when_declared(monkeypatch):
     """A synthetic USA-shaped geometry: mainland plus a tail past 180."""
     gpd = pytest.importorskip("geopandas")
     from shapely.geometry import MultiPolygon
@@ -395,95 +399,17 @@ def test_clip_actually_removes_the_antimeridian_tail():
 
     from satimg import boundaries as B
 
+    monkeypatch.setitem(B.ANTIMERIDIAN_CLIP, "ZZZ", (-180.0, -90.0, -60.0, 90.0))
     mainland = sbox(-179.15, 51.0, -66.95, 72.0)
     tail = sbox(172.44, 51.35, 179.77, 53.01)
     frame = gpd.GeoDataFrame(
-        {"GID_0": ["USA"]},
+        {"GID_0": ["ZZZ"]},
         geometry=[MultiPolygon([mainland, tail])],
         crs="EPSG:4326",
     )
     assert frame.total_bounds[2] > 179.0  # the wrap, before clipping
 
-    clipped = gpd.clip(frame, sbox(*B.ANTIMERIDIAN_CLIP["USA"]))
+    clipped = gpd.clip(frame, sbox(*B.ANTIMERIDIAN_CLIP["ZZZ"]))
     assert len(clipped) == 1
     assert clipped.total_bounds[0] == pytest.approx(-179.15)
     assert clipped.total_bounds[2] == pytest.approx(-66.95)
-
-
-# --- panel thumbnails ------------------------------------------------------
-#
-# A panel holds all 31 years at once for a shared colour scale. At full
-# resolution that is 13 GB of float64 for the United States' 52.6 Mpx frame,
-# on a 16 GB machine - an OOM, not a slow render. imshow subsamples each array
-# to tile width anyway, so the resolution was never used.
-
-
-def test_panel_thumbnail_leaves_small_frames_untouched():
-    """Below the threshold the array is returned as-is, byte for byte."""
-    from satimg.overlay import PANEL_TILE_PX, panel_thumbnail
-
-    # Anything up to 2*tile_px*2 - 1 = 1519 px floors to step 1 and is
-    # returned as-is, so most countries' panels are unchanged by this.
-    for width, height in ((1000, 800), (1519, 900)):
-        small = np.zeros((height, width), dtype="float64")
-        out = panel_thumbnail(small)
-        assert out is small, f"{width}x{height} must not be copied"
-    assert PANEL_TILE_PX * 4 - 1 == 1519
-
-
-def test_panel_thumbnail_caps_large_frames_near_tile_width():
-    """The USA and Brazil frames come down to roughly twice the tile width."""
-    from satimg.overlay import PANEL_TILE_PX, panel_thumbnail
-
-    for width, height in ((9664, 5447), (4911, 4336)):
-        out = panel_thumbnail(np.zeros((height, width), dtype="float64"))
-        # `step` floors, so the result can sit a little above 2x the tile
-        # width rather than exactly at it - 9664 // 760 is 12, and 9664/12 is
-        # 806. That slack is deliberate: flooring is what leaves a frame that
-        # was never a memory problem untouched, instead of decimating a
-        # 1200-pixel map for no gain. A tile is 380px, so 806 is still
-        # discarded down to it by imshow.
-        assert max(out.shape) <= PANEL_TILE_PX * 2.2, out.shape
-        assert max(out.shape) >= PANEL_TILE_PX, out.shape
-        # and the saving is the point: at least an order of magnitude
-        assert out.nbytes * 20 < width * height * 8
-
-
-def test_panel_thumbnail_preserves_aspect_and_nodata():
-    """Decimation must not stretch the map or silently fill holes."""
-    from satimg.overlay import panel_thumbnail
-
-    data = np.zeros((4000, 8000), dtype="float64")
-    data[:] = np.nan
-    data[0, 0] = 5.0
-    out = panel_thumbnail(data)
-    ratio_in = 8000 / 4000
-    ratio_out = out.shape[1] / out.shape[0]
-    assert abs(ratio_in - ratio_out) < 0.15, (ratio_in, ratio_out)
-    assert out[0, 0] == 5.0
-    assert np.isnan(out[1:, 1:]).all(), "nodata must survive as nodata"
-
-
-def test_panel_thumbnail_refuses_non_2d():
-    from satimg.overlay import panel_thumbnail
-
-    with pytest.raises(ValueError, match="2-D"):
-        panel_thumbnail(np.zeros(10, dtype="float64"))
-
-
-def test_render_panel_accepts_thumbnails_and_draws_every_year():
-    """End to end: a decimated panel still renders all 31 tiles."""
-    from satimg.overlay import panel_thumbnail, render_panel
-
-    extent = (0.0, 8000.0, 0.0, 4000.0)
-    frames = []
-    for year in range(1992, 2023):
-        block = np.full((2000, 4000), float(year - 1992), dtype="float64")
-        frames.append((year, panel_thumbnail(block), extent))
-
-    import tempfile
-
-    with tempfile.TemporaryDirectory() as tmp:
-        out = render_panel(frames, f"{tmp}/panel.png", title="thumbnail panel")
-        assert out.exists()
-        assert out.stat().st_size > 1000

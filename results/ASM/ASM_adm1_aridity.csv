@@ -1,0 +1,5 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+ASM,ASM.1_1,Eastern,67.9838,85,82,3,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ASM,ASM.2_1,Manu'a,60.5362,73,73,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ASM,ASM.3_1,Unorganized,3.3574,4,4,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+ASM,ASM.4_1,Western,72.1145,88,87,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1

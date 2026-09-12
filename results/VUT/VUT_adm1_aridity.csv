@@ -1,0 +1,7 @@
+iso3,gid,name,area_km2,pixels_total,pixels_classified,pixels_unclassified,hyper_arid_share,arid_share,semi_arid_share,dry_subhumid_share,humid_share,desert_share,dryland_share,level
+VUT,VUT.1_1,Malampa,2778.11,3382,3382,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VUT,VUT.2_1,Penama,1215.4174,1474,1474,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VUT,VUT.3_1,Sanma,4258.1829,5160,5159,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VUT,VUT.4_1,Shefa,1520.1737,1862,1861,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VUT,VUT.5_1,Tafea,1649.179,2041,2040,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
+VUT,VUT.6_1,Torba,881.0262,1061,1061,0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,adm1
